@@ -1,3 +1,3 @@
 <?php
-return ["id"=>null,"firstname"=>null,"lastname"=>null,"email"=>null,"reg_date"=>null];
+return ["id"=>null,"fname"=>null,"lname"=>null,"mob"=>null,"zip"=>null];
 ?>

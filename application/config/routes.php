@@ -49,30 +49,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'Demo';
-$route['editDetails']='Demo/editDetails';
-// $route['demo3']='Demo/demo3';
-// $route['hi']='Demo/hi';
-// $route['sum']='Demo/sum';
+$route['default_controller'] = 'Welcome';
+
+
+$route['addtion']='Welcome/addtion';
+$route['find']['get']='Product/find_all';
+$route['create'] = 'Product/create';
+$route['findbyid/(:num)'] = 'Product/find/$1';
+$route['update/'] = 'Product/update';
+$route['delete/(:num)'] = 'Product/delete/$1';
+
+
+
+// $route['delete']['delete']='Product/find_all';
+// $route['product/(:any)'] = 'index.php/product';
+// $route['product/(:num)'] = 'product/find/$1';
+// $route['product']['get'] = 'product/find_all';
+//
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
-
-// $route['default_controller'] = 'user';
-// $route['users'] = 'user';
-// $route['edituser'] = 'apicalls/edituser';
-$route['user/(:num)'] = 'apicalls/get/$1';
-$route['user/del/(:num)'] = 'apicalls/deleteDetails/$1';
-// $route["users/login"] = 'user/login';
-// $route["users/register"] = 'user/register';
-// $route["users/valid"] = "user/validation";
-// $route["users/plogin"] = "user/plogin";
-// $route['404_override'] = '';
-// $route['translate_uri_dashes'] = false;
-/*
-| -------------------------------------------------------------------------
-| Sample REST API Routes
-| -------------------------------------------------------------------------
-*/
-$route['api/example/users/(:num)'] = 'api/example/users/id/$1'; // Example 4
-$route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8

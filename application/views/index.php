@@ -1,4 +1,9 @@
+<?php
+// foreach($data as $data1){
+//     echo $data1->id;
+//     echo $data1->price;
+//     echo $data1->quantity;
+// }
 
-<?php   
-defined('BASEPATH') OR exit('No direct script access allowed');?>
-hi codeignitor
+?>
+
