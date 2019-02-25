@@ -47,10 +47,7 @@ class Login extends CI_Controller
 
         //if the error is empty it enters
         if (empty($error)) {
-            //crfeating a query
-            $query = "SELECT * FROM register WHERE email = '$form_data->email'";
-            //passing the query for selecting data
-            $statement = $this->db->conn_id->prepare($query);
+        $statement= $this->LoginModel->execute($form_data->email); 
 
             //if the statement gets executed enters the if loop
             if ($statement->execute($data)) {

@@ -16,6 +16,8 @@ session_start();
 
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 
+  <script src = "login.js"></script>
+  
   <style>
 
   .form_style
@@ -41,7 +43,7 @@ session_start();
   <div ng-app="login_register_app" ng-controller="login_register_controller" class="container form_style">
 
    <?php
-
+  //if the name is set in session
    if(!isset($_SESSION["name"]))
    {
    ?>
@@ -51,26 +53,26 @@ session_start();
    </div>
 
    <div class="panel panel-default" ng-show="login_form">
-    <div class="panel-heading">
-     <h3 class="panel-title" align="center">Login_Page</h3>
-    </div>
-    <div class="panel-body">
-     <form method="post" ng-submit="submitLogin()">
-      <div class="form-group">
-       <label>Enter Your Email</label>
-       <input type="text" name="email" ng-model="loginData.email" class="form-control" />
+      <div class="panel-heading">
+      <h3 class="panel-title" align="center">Login_Page</h3>
       </div>
-      <div class="form-group">
-       <label>Enter Your Password</label>
-       <input type="password" name="password" ng-model="loginData.password" class="form-control" />
+      <div class="panel-body">
+      <form method="post" ng-submit="submitLogin()">
+        <div class="form-group">
+        <label>Enter Your Email</label>
+        <input type="text" name="email" ng-model="loginData.email" class="form-control" />
+        </div>
+        <div class="form-group">
+        <label>Enter Your Password</label>
+        <input type="password" name="password" ng-model="loginData.password" class="form-control" />
+        </div>
+        <div class="form-group" align="center">
+        <input type="submit" name="login" class="btn btn-primary" value="Login" />
+        <br />
+        <input type="button" name="register_link" class="btn btn-primary btn-link" ng-click="showRegister()" value="Register" />
+        </div>
+      </form>
       </div>
-      <div class="form-group" align="center">
-       <input type="submit" name="login" class="btn btn-primary" value="Login" />
-       <br />
-       <input type="button" name="register_link" class="btn btn-primary btn-link" ng-click="showRegister()" value="Register" />
-      </div>
-     </form>
-    </div>
    </div>
 
    <div class="panel panel-default" ng-show="register_form">
@@ -121,80 +123,3 @@ session_start();
  </body>
 </html>
 
-<script>
-var app = angular.module('login_register_app', []);
-app.controller('login_register_controller', function($scope, $http){
- $scope.closeMsg = function(){
-  $scope.alertMsg = false;
- };
-
- $scope.login_form = true;
-
- $scope.showRegister = function(){
-  $scope.login_form = false;
-  $scope.register_form = true;
-  $scope.alertMsg = false;
- };
-
- $scope.showLogin = function(){
-  $scope.register_form = false;
-  $scope.login_form = true;
-  $scope.alertMsg = false;
- };
-
- $scope.submitRegister = function(){
-  $http({
-   method:"POST",
-   url:"http://localhost/codeigniter/signup",
-   data:$scope.registerData
-  }).success(function(data){
-     // debugger;
-   $scope.alertMsg = true;
-   if(data.error != '')
-   {
-    $scope.alertClass = 'alert-danger';
-    $scope.alertMessage = data.error;
-   }
-   else
-   {
-    $scope.alertClass = 'alert-success';
-    $scope.alertMessage = data.message;
-    $scope.registerData = {};
-   }
-  });
- };
-
-  $scope.submitLogin = function(){
-    debugger;
-
-      var GetAll = new Object();  
-        GetAll.email = $scope.loginData.email
-        GetAll.password = $scope.loginData.password
-        $http({  
-              url: "http://localhost/codeigniter/signin",
-            dataType: 'json',  
-            method: 'POST',  
-            data: GetAll,  
-            headers: {  
-                "Content-Type": "application/x-www-form-urlencoded"  
-            }  
-         }).success(function (data) {  
-          console.log(data);
-          if(data.error != '')
-            {
-              $scope.alertMsg = true;
-              $scope.alertClass = 'alert-danger';
-              $scope.alertMessage = data.error;
-            }
-            else
-            {
-              location.reload();
-            }
-         })  
-           .error(function (error) {  
-              debugger;
-           }); 
-  };
-
-});
-</script>

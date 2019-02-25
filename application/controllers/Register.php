@@ -61,10 +61,7 @@ class Register extends CI_Controller
         //if the error array is empty
         if (empty($error)) {
 
-            //the data is added to database using query
-            $query = "INSERT INTO register (name, email, password) VALUES ('$name', '$email', '$password')";
-
-            $statement = $this->db->query($query);
+            $statement= $this->RegisterModel->execute($name, $email, $password); 
 
             if ($statement) {
 
