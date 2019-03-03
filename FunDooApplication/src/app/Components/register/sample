@@ -1,0 +1,37 @@
+
+<!-- <div fxLayout="row">
+<div fxFlex="20">
+</div>
+<div fxFlex="60">
+<mat-card>
+
+
+</mat-card>
+</div>
+<div fxFlex="20">
+</div>
+</div> -->
+<div class="center"fxLayout="row" fxLayoutAlign="center center">
+
+<mat-card>
+<h1 class="header"> signin</h1>
+<mat-form-field class="example-full-width">
+<input matInput placeholder="Email">
+<mat-icon matSuffix>mail</mat-icon>
+</mat-form-field>
+
+
+
+<mat-form-field class="example-full-width">
+<input matInput placeholder="password">
+<!--<mat-icon matSuffix>visibility_of</mat-icon>-->
+</mat-form-field>
+<div fxLayout="row" fxLayoutAlign="center center">
+<button mat-raised-button>Login</button>
+<button mat-button color="Link">Register</button>
+</div>
+
+
+</mat-card>
+
+</div>.

@@ -1,0 +1,24 @@
+.card{
+    margin: 50px;
+    width: 30%;
+   border: 1px solid gray;
+   
+}
+.innerbox{
+    border: 1px solid gray;
+}
+.Loginbutton{
+    border: 1px solid gray;
+    box-align: left;
+}
+.Registerbutton{
+    border: 1px solid gray;
+    box-align: right;
+}
+.validate{
+    font-size: 10px;
+    color: red; 
+    position: relative;
+    margin-top: -10px; 
+    margin-left: 100px;
+    }
