@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,20 +7,20 @@ import {  FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   constructor() { }
-  message ="";
-  selected:"";
-  hide=true;
+  message = "";
+  selected: "";
+  hide = true;
   model: any;
   response: any;
-  message1 ='';
+  message1 = '';
 
 
-  isCollapsed : boolean =true;
+  isCollapsed: boolean = true;
 
-  email =new FormControl('',[Validators.required ,Validators.email] );
-  password =new FormControl('',[Validators.required ] );
-  
-  toggleCollapse(){
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
+
+  toggleCollapse() {
 
     this.isCollapsed = !this.isCollapsed;
   }
@@ -28,20 +28,19 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(){
-    this.model={
-      "email":this.email.value,
-      "password":this.password.value,
-      // "confirm password":this.confirmpassword.value
+  login() {
+    this.model = {
+      "email": this.email.value,
+      "password": this.password.value,
+      
     }
-  if(this.email.value==''|| this.password.value=='')
-  {
-    this.message ="Fields are missing";
+    if (this.email.value == '' || this.password.value == '') {
+      this.message = "Fields are missing";
+    }
+    else {
+      this.message = "logged in successfully"
+
+    }
+
   }
-  else{
-    this.message ="logged in successfully"
-  
-  }
-  
-}
 }

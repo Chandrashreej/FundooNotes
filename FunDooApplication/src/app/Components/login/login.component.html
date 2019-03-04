@@ -1,37 +1,39 @@
-<div class="center" fxLayout="row" fxLayoutAlign="center center">
+<div fxLayout="row" fxLayoutAlign="center center" height="100vh">
 
-  <mat-card class="card">
-
+  <mat-card fxFlex="30" fxFlex.sm="30" fxFlex.xs="100">
     <br>
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <mat-card-title>FUNDOO</mat-card-title>
-      <mat-card-subtitle>Login Page</mat-card-subtitle>
 
-      <mat-form-field appearance="outline">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <mat-card-title font-size="35px" font-family="fantasy" color="primary">F U N D O O</mat-card-title>
+      <mat-card-subtitle font-size="15px" font-family="fantasy">Login Page</mat-card-subtitle>
+
+      <mat-form-field appearance="outline" fxLayout="column" fxLayoutAlign="center center">
         <mat-label>Email-id</mat-label>
-        <input matInput placeholder="enter email id" [(formControl)]="email" required>
+        <input matInput placeholder="enter email id" [formControl]="email" required>
         <mat-icon matSuffix>email</mat-icon>
-        <mat-error *ngIf="email.hasError('required')">mandatory</mat-error>
+        <mat-hint>*use only email format</mat-hint>
+        <mat-error *ngIf="email.hasError('required')">*Email-id is mandatory</mat-error>
+        <mat-error *ngIf="email.hasError('email')">*Email-id format is not correct</mat-error>
       </mat-form-field>
 
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" fxLayout="column" fxLayoutAlign="center center">
         <mat-label>Password</mat-label>
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        <input matInput placeholder="enter Password" [(formControl)]="password" required>
-        <mat-error *ngIf="password.hasError('required')">mandatory</mat-error>
+        <input matInput placeholder="enter Password" [formControl]="password" required [type]="hide ? 'password' : 'text'">
+        <mat-error *ngIf="password.hasError('required')">*Password is mandatory</mat-error>
       </mat-form-field>
 
     </div>
-
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <a  mat-button color="primary" routerLink="../register">Register</a>
-
+    <div>
+      <mat-error fxLayoutAlign="center center">{{message}}</mat-error>
     </div>
-    <div class="button" fxLayout="row" fxLayoutAlign="center center">
-        <button mat-rised-button class="primary" (click) ="login ()">submit</button>
-      </div>
-  <div><mat-error fxLayoutAlign="center center">{{message}}</mat-error></div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+      <button mat-raised-button color="primary" (click)="login ()">Signin</button>
+      <br>
+      <a mat-button color="primary" routerLink="../register">Create new Account</a>
+    </div>
+
   </mat-card>
 
 </div>

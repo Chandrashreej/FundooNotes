@@ -1,64 +1,84 @@
-<div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card class="card">
+<div fxLayout="row" fxLayoutAlign="center center" height="100vh">
+
+  <mat-card class="mcard" fxFlex="40" fxFlex.sm="30" fxFlex.xs="100" height="59%" width="50%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 300%;">
 
     <div fxLayout="column" fxLayoutAlign="center center">
-      <mat-card-title>FUNDOO</mat-card-title>
-      <mat-card-subtitle>Register Page</mat-card-subtitle>
+      <mat-card-title font-size="35px" font-family="fantasy" color="primary">F U N D O O</mat-card-title>
+      <mat-card-subtitle font-size="15px" font-family="fantasy">Create Your Account</mat-card-subtitle>
+      <form [formGroup]="regForm" (ngSubmit)='submitForm(regForm.valure)' novalidate>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field appearance="outline">
+            <mat-label>FirstName</mat-label>
+            <input matInput placeholder="enter first name" [formControl]="firstname" required>
+            <mat-hint>*Use only letters</mat-hint>
+            <mat-error *ngIf="firstname.hasError('required')">*FirstName is mandatory</mat-error>
+            <mat-error *ngIf="firstname.hasError('pattern')">*FirstName should contain only letters</mat-error>
+          </mat-form-field>
+          <br>
+
+          <mat-form-field appearance="outline">
+            <mat-label>LastName</mat-label>
+            <input matInput placeholder="enter last name" [formControl]="lastname" required>
+            <mat-hint>*Use only letters</mat-hint>
+            <mat-error *ngIf="lastname.hasError('required')">*LastName is mandatory</mat-error>
+            <mat-error *ngIf="lastname.hasError('pattern')">*LastName should contain only letters</mat-error>
+          </mat-form-field>
+        </div>
+        <br>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput placeholder="enter Phone Number" [formControl]="phonenum" required>
+          <mat-icon matSuffix>call</mat-icon>
+          <mat-hint>*Use 10 digits only</mat-hint>
+          <mat-error *ngIf="phonenum.hasError('required')">*Phone Number is mandatory</mat-error>
+          <mat-error *ngIf="phonenum.hasError('maxLength')">*Phone Number should cointain only 10 digits</mat-error>
+          <mat-error *ngIf="phonenum.hasError('pattern')">*Phone Number should cointain only numbers</mat-error>
+        </mat-form-field>
 
 
-      <mat-form-field appearance="outline">
-        <mat-label>FirstName</mat-label>
-        <input matInput placeholder="enter first name" [(formControl)]="FirstName" required>
-        <mat-error *ngIf="firstName.hasError('required')">mandatory</mat-error>
-      </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email-id</mat-label>
+          <input matInput placeholder="enter email" [formControl]="email" required>
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-hint>*Use only email format</mat-hint>
+          <mat-error *ngIf="email.hasError('required')">*Email-id is mandatory</mat-error>
+          <mat-error *ngIf="email.hasError('email')">*Email-id format is not correct</mat-error>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput placeholder="enter Password " [formControl]="password" required [type]="hide ? 'password' : 'text'">
+            <mat-hint>*Use 8 or more characters </mat-hint>
+            <mat-error *ngIf="password.hasError('required')">*Password is mandatory</mat-error>
+            <mat-error *ngIf="password.hasError('minLength')">*Password should be of minLength 5</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput placeholder="enter confirmpassword " [formControl]="confirmpassword" required [type]="hide ? 'password' : 'text'">
+            <mat-hint>*Use 8 or more characters </mat-hint>
+
+            <mat-error *ngIf="confirmpassword.hasError('required')">*Confirm Password is mandatory</mat-error>
+            <mat-error *ngIf="confirmpassword.hasError('minLength')">*Confirm Password should be of minLength 5</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-error fxLayoutAlign="center center">{{message}}</mat-error>
+        </div>
+
+    </div>
+    <br>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+      <a mat-button color="primary" routerLink="../login">Signin instead</a>
       <br>
-
-      <mat-form-field appearance="outline">
-        <mat-label>LastName</mat-label>
-        <input matInput placeholder="enter last name" [(formControl)]="LastName" required>
-        <mat-error *ngIf="lastName.hasError('required')">mandatory</mat-error>
-      </mat-form-field>
-
-      <br>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Phone Number</mat-label>
-
-        <input matInput placeholder="enter Phone Number" [(formControl)]="phonenum" required>
-        <mat-icon matSuffix>call</mat-icon>
-        <mat-error *ngIf="phoneNumber.hasError('required')">mandatory</mat-error>
-      </mat-form-field>
-
-
-
-      <mat-form-field appearance="outline">
-        <mat-label>Email-id</mat-label>
-        <input matInput placeholder="enter email" [(formControl)]="email" required>
-        <mat-icon matSuffix>email</mat-icon>
-        <mat-error *ngIf="email.hasError('required')">mandatory</mat-error>
-      </mat-form-field>
-
-
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        <input matInput placeholder="enter Password " [(formControl)]="password" required>
-        <mat-error *ngIf="password.hasError('required')">mandatory</mat-error>
-      </mat-form-field>
-
+      <button mat-raised-button color="primary" (click)="register ()">Register</button>
     </div>
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <a class="refReg" mat-button color="primary" routerLink="../login">Login</a>
-
-    </div>
-
-
-    <div class="button" fxLayout="row" fxLayoutAlign="center center">
-      <button mat-rised-button class="primary" (click)="register ()">Register</button>
-    </div>
-    <div>
-      <mat-error fxLayoutAlign="center center">{{message}}</mat-error>
-    </div>
+    </form>
   </mat-card>
 
 </div>
