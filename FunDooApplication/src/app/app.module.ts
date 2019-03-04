@@ -15,6 +15,7 @@ import {MatCardModule} from '@angular/material/card';
 import {  MatInputModule } from '@angular/material';
 import { RegisterComponent } from './Components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatInputModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
     MatButtonModule,

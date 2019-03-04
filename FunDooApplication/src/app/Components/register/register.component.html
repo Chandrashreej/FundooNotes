@@ -5,7 +5,8 @@
     <div fxLayout="column" fxLayoutAlign="center center">
       <mat-card-title font-size="35px" font-family="fantasy" color="primary">F U N D O O</mat-card-title>
       <mat-card-subtitle font-size="15px" font-family="fantasy">Create Your Account</mat-card-subtitle>
-      <form [formGroup]="regForm" (ngSubmit)='submitForm(regForm.valure)' novalidate>
+      
+
         <div fxLayout="row" fxLayoutGap="10px">
           <mat-form-field appearance="outline">
             <mat-label>FirstName</mat-label>
@@ -16,7 +17,7 @@
           </mat-form-field>
           <br>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" >
             <mat-label>LastName</mat-label>
             <input matInput placeholder="enter last name" [formControl]="lastname" required>
             <mat-hint>*Use only letters</mat-hint>
@@ -25,28 +26,28 @@
           </mat-form-field>
         </div>
         <br>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <mat-form-field appearance="outline" >
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="enter Phone Number" [formControl]="phonenum" required>
+            <mat-icon matSuffix>call</mat-icon>
+            <mat-hint>*Use 10 digits only</mat-hint>
+            <mat-error *ngIf="phonenum.hasError('required')">*Phone Number is mandatory</mat-error>
+            <mat-error *ngIf="phonenum.hasError('maxLength')">*Phone Number should cointain only 10 digits</mat-error>
+            <mat-error *ngIf="phonenum.hasError('pattern')">*Phone Number should cointain only numbers</mat-error>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
-          <input matInput placeholder="enter Phone Number" [formControl]="phonenum" required>
-          <mat-icon matSuffix>call</mat-icon>
-          <mat-hint>*Use 10 digits only</mat-hint>
-          <mat-error *ngIf="phonenum.hasError('required')">*Phone Number is mandatory</mat-error>
-          <mat-error *ngIf="phonenum.hasError('maxLength')">*Phone Number should cointain only 10 digits</mat-error>
-          <mat-error *ngIf="phonenum.hasError('pattern')">*Phone Number should cointain only numbers</mat-error>
-        </mat-form-field>
-
-
-
-        <mat-form-field appearance="outline">
-          <mat-label>Email-id</mat-label>
-          <input matInput placeholder="enter email" [formControl]="email" required>
-          <mat-icon matSuffix>email</mat-icon>
-          <mat-hint>*Use only email format</mat-hint>
-          <mat-error *ngIf="email.hasError('required')">*Email-id is mandatory</mat-error>
-          <mat-error *ngIf="email.hasError('email')">*Email-id format is not correct</mat-error>
-        </mat-form-field>
-
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <mat-form-field appearance="outline">
+            <mat-label>Email-id</mat-label>
+            <input matInput placeholder="enter email" [formControl]="email" required>
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-hint>*Use only email format</mat-hint>
+            <mat-error *ngIf="email.hasError('required')">*Email-id is mandatory</mat-error>
+            <mat-error *ngIf="email.hasError('email')">*Email-id format is not correct</mat-error>
+          </mat-form-field>
+        </div>
         <div fxLayout="row" fxLayoutGap="10px">
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
@@ -67,18 +68,19 @@
             <mat-error *ngIf="confirmpassword.hasError('minLength')">*Confirm Password should be of minLength 5</mat-error>
           </mat-form-field>
         </div>
+
         <div>
           <mat-error fxLayoutAlign="center center">{{message}}</mat-error>
         </div>
-
+     
     </div>
     <br>
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
       <a mat-button color="primary" routerLink="../login">Signin instead</a>
       <br>
-      <button mat-raised-button color="primary" (click)="register ()">Register</button>
+      <button mat-raised-button color="primary" (click)="register (regForm)">Register</button>
     </div>
-    </form>
+
   </mat-card>
 
 </div>

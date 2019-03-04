@@ -6,11 +6,10 @@ import { HttpClient } from 'selenium-webdriver/http';
 })
 export class HttpService {
   baseUrl: string ;
+
   constructor(private Http:HttpClient) { 
-    this.baseUrl ="http://localhost/codeigniter/";
+
   }
 
-  registration(){
-    
-  }
+
 }
