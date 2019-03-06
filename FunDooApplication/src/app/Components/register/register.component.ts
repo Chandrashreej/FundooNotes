@@ -52,24 +52,21 @@ export class RegisterComponent implements OnInit {
       this.message = "password and confirm password should be same ";
     }
     else {
-      this.message = "registered successfully";
 
+      debugger;
+      console.log(this.model);
+      let obj = this.regService.userRegister(this.model);
+      debugger;
+      obj.subscribe((res: any) => {
+        console.log(res.message);
+        if (res.message == "200") {
+          alert("succcfudasflly registered");
+        }
+        else if (res.message == "204") {
+          alert("registration failed");
+        }
+      });
     }
-    alert('Something is about to display');
-    console.log(this.model);
-    let obj = this.regService.userRegister(this.model);
-
-    obj.subscribe((res: any)=>{
-      console.log(res.message);
-      if(res.message == "200"){
-        this.message ="succcfully registered";
-      }
-      else if(res.message == "204"){
-        this.message="registration failed";
-      }
-
-    });
-    
 
   }
 

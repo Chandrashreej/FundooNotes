@@ -1,6 +1,8 @@
 <?php
 
 //helps to get the access the access the files within framework
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, OPTIONS");
 defined('BASEPATH') or exit('No direct script access allowed');
 include ('/var/www/html/codeigniter/application/Service/Userlogin.php');
 
@@ -23,7 +25,7 @@ class Login extends CI_Controller
         $password = $_POST["password"];
 
         
-        return $this->logService->login($email, $password);
+        return $this->logService->userLoginFunction($email, $password);
     }
 
     

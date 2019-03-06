@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { LoginService } from "src/app/Services/loginService/LoginService";
+import { LoginService } from "src/app/Services/loginService/ServiceLogin";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,25 +33,29 @@ export class LoginComponent implements OnInit {
     this.model = {
       "email": this.email.value,
       "password": this.password.value,
-      
+
     }
     if (this.email.value == '' || this.password.value == '') {
       this.message = "Fields are missing";
     }
     else {
-      this.message = "logged in successfully"
 
+      console.log(this.model);
+      let obj = this.logService.userLogin(this.model);
+
+      obj.subscribe((res: any) => {
+        console.log(res.message);
+        if (res.message == "200") {
+          alert("logged is succesfull ");
+        } else if (res.message == "204") {
+          alert("enter valid password");
+        } else if (res.message == "400") {
+          alert("enter valid email");
+        }
+        else if (res.message == "100") {
+          alert("enter valid data");
+        }
+      });
     }
-    console.log(this.model);
-    let obj = this.logService.userLogin(this.model);
-
-    obj.subscribe((res: any) => {
-      console.log(res.message);
-      if (res.message == "200") {
-       alert("logged is succesfull ");
-      } else if (res.message == "204") {
-        alert( "enter valid data");
-      }
-    });
   }
 }

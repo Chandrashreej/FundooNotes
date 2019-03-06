@@ -39,6 +39,8 @@ class Useregister extends CI_Controller
             return "204";
         }
 
+        return $result;
+
     }
      
 }

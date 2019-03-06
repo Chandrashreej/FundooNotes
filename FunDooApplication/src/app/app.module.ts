@@ -15,7 +15,13 @@ import {MatCardModule} from '@angular/material/card';
 import {  MatInputModule } from '@angular/material';
 import { RegisterComponent } from './Components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+
+import { RegisterService } from './Services/registerService/ServiceRegister';
+
+import { LoginService } from './Services/loginService/ServiceLogin';
+import { ServiceUrlService } from './ServiceUrl/service-url.service';
+
 
 
 @NgModule({
@@ -23,6 +29,7 @@ import {HttpClientModule} from '@angular/common/http'
     AppComponent,
     LoginComponent,
     RegisterComponent
+  
     
   ],
   imports: [
@@ -39,12 +46,13 @@ import {HttpClientModule} from '@angular/common/http'
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule
+    
   ],
   exports: [
     MatButtonModule,
     MatCheckboxModule
   ],
-  providers: [],
+  providers: [RegisterService,ServiceUrlService,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
