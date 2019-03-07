@@ -1,7 +1,7 @@
 <?php
 //helps to get the access the access the files within framework
 header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Methods: Authorization");
 defined('BASEPATH') or exit('No direct script access allowed');
 include '/var/www/html/codeigniter/application/Service/Useregister.php';
 /**
@@ -29,6 +29,7 @@ class Register extends CI_Controller
             $email = $_POST['email'];
             $phonenum =$_POST['phonenum'];
             $password = $_POST['password'];
+            $password=password_hash($password, PASSWORD_DEFAULT);
             return  $this->refService->insertDb($fname,$lname,$phonenum,$email,$password);
     
     

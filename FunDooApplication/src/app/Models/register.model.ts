@@ -5,5 +5,5 @@ export class RegisterModel {
     phonenum: string;
     email: string;
     password: string;
-  
-    }
+
+}

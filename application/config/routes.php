@@ -53,6 +53,7 @@ $route['default_controller'] = 'index';
 $route['signup']='Register/signup';
 $route['signin']='Login/signin';
 $route['logoff']='Logout/logoff';
+$route['forgotPassword'] ='ForgotPassword/forgotPasswordFunction';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

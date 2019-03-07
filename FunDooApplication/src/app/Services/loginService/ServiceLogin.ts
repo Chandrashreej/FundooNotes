@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginModel } from '../../Models/login.model';
 
-import { environment } from 'src/environments/environment';
 import { ServiceUrlService } from 'src/app/ServiceUrl/service-url.service';
+import { ForgotPasswordModel } from 'src/app/Models/forgotPassword.model';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +16,12 @@ export class LoginService {
         let userLogindata = new FormData();
         userLogindata.append("email", log.email);
         userLogindata.append("password", log.password);
-        return this.http.post((environment.baseUrl + this.sevriceurl.loginUrl), userLogindata);
+        return this.http.post((this.sevriceurl.host + this.sevriceurl.loginUrl), userLogindata);
     }
+
+    userForgotPasswordData(forgot:ForgotPasswordModel ) {
+		let userData = new FormData();
+		userData.append("email", forgot.email);
+		return this.http.post(this.sevriceurl.host + this.sevriceurl.forgot,userData);
+	}
 }

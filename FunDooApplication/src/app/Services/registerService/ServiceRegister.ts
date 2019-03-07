@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { RegisterModel } from '../../Models/register.model';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from 'src/environments/environment';
 import { ServiceUrlService } from 'src/app/ServiceUrl/service-url.service';
 
 
@@ -29,7 +28,7 @@ export class RegisterService {
     userRegister.append("password", reg.password);
 
 debugger;
-    return this.http.post(environment.baseUrl + this.sevriceurl.registerUrl, userRegister);
+    return this.http.post(this.sevriceurl.host + this.sevriceurl.registerUrl, userRegister);
   }
 
 

@@ -36,41 +36,34 @@ class Uselogin extends CI_Controller
             print json_encode($result);
             return "400";
 
-        } else if ($num == 0) {
-
-            $result = array(
-
-                "message" => "100",
-            );
-            print json_encode($result);
-            return "100";
-
-        }
+        } 
         return $result;
     }
 
     public function isUserPresent($email, $password)
     {
-        $query = "SELECT * FROM createuser ORDER BY id";
+        $data[':email'] = $email;
+        $query = "SELECT * FROM createuser where email = '$email'";
 
         $statement = $this->db->conn_id->prepare($query);
 
-        $statement->execute();
+        if ($statement->execute($data)) {
+            $result = $statement->fetchAll();
 
-        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if ($statement->rowCount() > 0) {
 
-        foreach ($arr as $userData) {
+                foreach ($result as $row) {
 
-            if (($userData['email'] == $email) && ($userData['password'] == $password)) {
-                return 1;
-            } else if (($userData['email'] == $email) && ($userData['password'] != $password)) {
-                return 2;
-            } else if (($userData['email'] != $email) && ($userData['password'] == $password)) {
+                    if (password_verify($password, $row["password"])) {
+                        return 1;
+                    } else {
+                        return 2;
+                    }
+                }
+            } else {
                 return 3;
             }
-
         }
-        return 0;
     }
 
 }

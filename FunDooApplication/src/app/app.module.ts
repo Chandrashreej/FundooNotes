@@ -21,6 +21,10 @@ import { RegisterService } from './Services/registerService/ServiceRegister';
 
 import { LoginService } from './Services/loginService/ServiceLogin';
 import { ServiceUrlService } from './ServiceUrl/service-url.service';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+
 
 
 
@@ -28,7 +32,10 @@ import { ServiceUrlService } from './ServiceUrl/service-url.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
+    DashboardComponent,
+    ResetPasswordComponent
   
     
   ],

@@ -6,17 +6,47 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 class LoginModel extends CI_Model
 {
-    function __construct()
-    {
+    function __construct() {
+        // Call the Model constructor
         parent::__construct();
     }
-    public function execute($email)
+
+    public function execute($email,$data,$password)
     {
-        //crfeating a query
+        $validation_error = '';
+        //query for selecting the row of that particular email
         $query = "SELECT * FROM register WHERE email = '$email'";
-        //passing the query for selecting data
+        //to get the pdo object to call pdo methods
         $statement = $this->db->conn_id->prepare($query);
-        
-        return $statement;
+
+        //calling pdo execute method
+        if($statement->execute($data))
+        {
+            //calling pdo fetchAll method
+            $result = $statement->fetchAll();
+
+            //calling pdo rowCount method
+            if($statement->rowCount() > 0)
+            {
+                //looping over the row and verifying password
+                foreach($result as $row)
+                {
+                    if(password_verify($password, $row["password"]))
+                    {
+                        $_SESSION["name"] = $row["name"];
+                    }
+                    else
+                    {
+                        $validation_error = 'Wrong Password';
+                    }
+                }
+            }
+            else
+            {
+                //if rowCount not greater than zero means wrong email
+                $validation_error = 'Wrong Email';
+            }
+        }
+        return $validation_error;
     }
 }

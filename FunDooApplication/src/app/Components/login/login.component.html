@@ -23,12 +23,13 @@
         <input matInput placeholder="enter Password" [formControl]="password" required [type]="hide ? 'password' : 'text'">
         <mat-error *ngIf="password.hasError('required')">*Password is mandatory</mat-error>
       </mat-form-field>
+    </div>
 
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <a mat-button color="primary" routerLink="../forgotPassword">Forgot Password?</a>
     </div>
-    <div>
-      <mat-error fxLayoutAlign="center center">{{message}}</mat-error>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+    <br>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
       <button mat-raised-button color="primary" (click)="login ()">Signin</button>
       <br>
       <a mat-button color="primary" routerLink="../register">Create new Account</a>
