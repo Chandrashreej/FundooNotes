@@ -30,7 +30,7 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'resetPassword',
+    path: 'reset',
     component: ResetPasswordComponent
   }
   

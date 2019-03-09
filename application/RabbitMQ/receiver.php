@@ -39,7 +39,7 @@ class Receiver
             /**
              * Create the Transport
              */
-            $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+            $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
                 ->setUsername($RabbitMQConstantsObj->senderEmailID)
                 ->setPassword($RabbitMQConstantsObj->senderPassword);
             /**
@@ -63,7 +63,7 @@ class Receiver
 
         $channel->basic_consume($RabbitMQConstantsObj->queuename, '', false, false, false, false, $callback);
 
-        $channel->basic_qos(null, 1, null);
+        // $channel->basic_qos(null, 1, null);
         // while (count($channel->callbacks)) {
         //     $channel->wait();
         // }
