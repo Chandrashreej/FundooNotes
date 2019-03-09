@@ -4,49 +4,50 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit817833bcaa31146f94b22d6cd8a02ffd
+class ComposerStaticInit82af7ef64f807f477e64f1df32b8ab22
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Component\\Debug\\' => 24,
-            'Symfony\\Component\\Console\\' => 26,
-        ),
         'P' => 
         array (
-            'Psr\\Log\\' => 8,
+            'PhpAmqpLib\\' => 11,
+        ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'PhpAmqpLib\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
-        'Symfony\\Component\\Debug\\' => 
+        'Egulias\\EmailValidator\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/debug',
+            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
         ),
-        'Symfony\\Component\\Console\\' => 
+    );
+
+    public static $prefixesPsr0 = array (
+        'D' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/console',
-        ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
+            ),
         ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit817833bcaa31146f94b22d6cd8a02ffd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit817833bcaa31146f94b22d6cd8a02ffd::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit82af7ef64f807f477e64f1df32b8ab22::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit82af7ef64f807f477e64f1df32b8ab22::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit82af7ef64f807f477e64f1df32b8ab22::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

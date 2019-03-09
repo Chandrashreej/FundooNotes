@@ -7,9 +7,6 @@ class Useregister extends CI_Controller
         parent::__construct();
        
     }
-
-
-
     public function insertDb($fname,$lname,$phonenum,$email,$password)
     {
         $result = [];
@@ -38,9 +35,7 @@ class Useregister extends CI_Controller
             print json_encode($result);
             return "204";
         }
-
         return $result;
-
     }
      
 }

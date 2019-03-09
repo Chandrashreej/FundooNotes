@@ -9,7 +9,7 @@ include ('/var/www/html/codeigniter/application/Service/ForgotPasswordService.ph
 /**
  * creation of login class that extends CI_Controller
  */
-class Login extends CI_Controller
+class ForgotPassword extends CI_Controller
 {
     private $logService = "";
     public function __construct()

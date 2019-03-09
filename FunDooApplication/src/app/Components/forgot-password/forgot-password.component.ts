@@ -19,11 +19,15 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   forgotPassword() {
+    this.model = {
+
+      "email": this.email.value
+    }
     let obj = this.serviceLogin.userForgotPasswordData(this.model);
     obj.subscribe((res: any) => {
       if (res.message == "200") {
 
-        this.result;
+        // this.result();
         alert("To reset go to your email for the link");
 
       } else if(res.message == "204"){
