@@ -25,6 +25,19 @@ class ForgotPassword extends CI_Controller
         return $this->forgotService->userForgotPasswordService($email);
     }
 
-    
+    public function resetPasswordFunction()
+    {
+        $token = $_POST["token"];
+        $password = $_POST["password"];
+        $password=password_hash($password, PASSWORD_DEFAULT);
+
+        return $this->forgotService->userResetPasswordService($token, $password);
+    }
+    public function getEmailId()
+    {
+        $token = $_POST["token"];
+        return $this->forgotService->getEmailId($token);
+
+    }
 
 }

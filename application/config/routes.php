@@ -55,5 +55,9 @@ $route['signin']='Login/signin';
 $route['logoff']='Logout/logoff';
 $route['forgotPassword'] ='ForgotPassword/forgotPasswordFunction';
 
+$route['getEmailId'] ='ForgotPassword/getEmailId';
+
+
+$route['resetPassword'] ='ForgotPassword/resetPasswordFunction';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

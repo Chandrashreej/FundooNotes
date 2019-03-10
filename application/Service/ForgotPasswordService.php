@@ -15,28 +15,7 @@ class ForgotPasswordService extends CI_Controller
         $this->constants = new LinkConstants();
 
     }
-    // public function userForgotPasswordService($email){
 
-    //     $num = $this->isUserPresent($email);
-
-    //     if ($num == 1) {
-    //         $result = array(
-    //             "message" => "200",
-    //         );
-    //         print json_encode($result);
-    //         return "200";
-
-    //     } else if ($num == 2) {
-
-    //         $result = array(
-    //             "message" => "204",
-    //         );
-    //         print json_encode($result);
-    //         return "204";
-
-    //     }
-    //     return $result;
-    // }
     public function isUserPresent($email)
     {
         $data[':email'] = $email;
@@ -91,7 +70,60 @@ class ForgotPasswordService extends CI_Controller
             return "404";
         }
     }
+    public function userResetPasswordService($token, $password)
+    {
+        $query = "UPDATE createuser SET reset_key = '$token' where reset_key='$token'";
+        $statement = $this->connect->prepare($query);
+        $statement->execute();
+        $query = "UPDATE createuser SET password = '$password' where reset_key='$token'";
+        $statement = $this->connect->prepare($query);
+        $statement->execute();
+        $query = "SELECT reset_key FROM createuser where  password = '$password'";
+        $statement = $this->connect->prepare($query);
+        $statement->execute();
+        $arr = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($arr['reset_key'] == null) {
+            $data = array(
+                "message" => "304",
+            );
+            print json_encode($data);
+            return "304";
+        } else {
+            $data = array(
+                "message" => "200",
+            );
+            print json_encode($data);
 
+            $query = "UPDATE createuser SET reset_key = null where reset_key='$token'";
+            $statement = $this->connect->prepare($query);
+            $statement->execute();
+            return "200";
+        }
+    }
+
+    public function getEmailId($token)
+    {
+        $query = "SELECT email FROM createuser where reset_key='$token'";
+        $statement = $this->connect->prepare($query);
+        $statement->execute();
+        $arr = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($arr) {
+            $data = array(
+                'key' => $arr['email'],
+                'session' => 'active',
+            );
+            print json_encode($data);
+           
+        } else {
+            $data = array(
+                'key' => "\n",
+                'session' => 'reset link has been expired',
+            );
+            print json_encode($data);
+           // return "reset link has been expired";
+        }
+        return $data;
+    }
     /**
      * @method checkEmail() check email is present
      * @return void

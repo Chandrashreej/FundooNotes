@@ -77,7 +77,10 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
       <a mat-button color="primary" routerLink="../login">Signin instead</a>
       <br>
-      <button mat-raised-button color="primary" (click)="register (regForm)">Register</button>
+      <button mat-raised-button [disabled]='email.required ||email.email || password.required 
+      ||password.minLength ||confirmpassword.required ||confirmpassword.minLength || phonenum.required 
+      || phonenum.maxLength ||phonenum.pattern' 
+      color="primary" (click)="register (regForm)">Register</button>
     </div>
 
   </mat-card>

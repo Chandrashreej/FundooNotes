@@ -11,4 +11,6 @@ export class ServiceUrlService {
   public registerUrl= 'codeigniter/signup';
   public loginUrl='codeigniter/signin';
   public forgot ='codeigniter/forgotPassword';
+  public reset ='codeigniter/resetPassword';
+  public getEmail = 'codeigniter/getEmailId';
 }

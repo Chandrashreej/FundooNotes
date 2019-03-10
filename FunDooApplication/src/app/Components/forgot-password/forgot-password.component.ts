@@ -24,6 +24,7 @@ export class ForgotPasswordComponent implements OnInit {
       "email": this.email.value
     }
     let obj = this.serviceLogin.userForgotPasswordData(this.model);
+    debugger;
     obj.subscribe((res: any) => {
       if (res.message == "200") {
 
@@ -35,7 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
       }
     });
   }
-  result(){
-    this.route.navigate(['/resetPasswordFunction']);
-  }
+  // result(){
+  //   this.route.navigate(['/resetPasswordFunction']);
+  // }
 }
