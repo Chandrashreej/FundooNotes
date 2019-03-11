@@ -14,7 +14,12 @@ export class RegisterService {
 // baseUrl= "http://localhost/codeigniter/signup";
 
 
-
+  /**
+   * @method UserRegistrationData()
+   * @return observable data
+   * @param RegisterModel
+   * @description Function to send register data to server
+   */
   userRegister(reg: RegisterModel) {
     debugger;
     let userRegister = new FormData();

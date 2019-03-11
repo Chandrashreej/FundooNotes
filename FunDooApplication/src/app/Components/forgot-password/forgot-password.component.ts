@@ -17,7 +17,11 @@ export class ForgotPasswordComponent implements OnInit {
   email = new FormControl("", [Validators.required, Validators.email]);
   ngOnInit() {
   }
-
+  /**
+   * @method forgotPassword()
+   * @return void
+   * @description Function to recover the password
+   */
   forgotPassword() {
     this.model = {
 
@@ -31,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
         // this.result();
         alert("To reset go to your email for the link");
 
-      } else if(res.message == "204"){
+      } else if (res.message == "204") {
         alert("Email hasen't registered yet");
       }
     });

@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   lastname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]*')]);
 
   phonenum = new FormControl('', [Validators.required, , Validators.pattern('[0-9]*'), Validators.maxLength(10), Validators.minLength(10)]);
-  
+
   email = new FormControl('', [Validators.required, Validators.email]);
 
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
@@ -35,7 +35,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
   }
-
+	/**
+	 * @method register()
+	 * @return void
+	 * @description Function to error validation
+	 */
   register() {
 
     this.model = {
@@ -43,7 +47,7 @@ export class RegisterComponent implements OnInit {
       "firstname": this.firstname.value,
 
       "lastname": this.lastname.value,
-      
+
       "phonenum": this.phonenum.value,
 
       "email": this.email.value,
@@ -54,7 +58,7 @@ export class RegisterComponent implements OnInit {
     }
 
     if (this.firstname.value == '' || this.lastname.value == '' || this.phonenum.value == '' || this.email.value == '' || this.password.value == '' || this.confirmpassword.value == '') {
-     
+
       alert("Fields are missing");
 
     }
@@ -86,24 +90,20 @@ export class RegisterComponent implements OnInit {
         else if (res.message == "204") {
 
           alert("Registration failed");
-          
+
+        } else if (res.message == "201") {
+
+          alert("email already exist");
+
+        } else if (res.message == "203") {
+
+          alert("mobile number already exist");
+
         }
       });
     }
 
   }
-
-
-  // submitForm(value:any)
-  // {
-  //   this.submitted =true;
-  //   console.log(this.model);
-  //   alert('Success'+JSON.stringify(value))
-  //   if(this.regForm.invalid)
-  //   {
-  //     return;
-  //   }
-  // }
 
 
 }

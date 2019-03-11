@@ -23,7 +23,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-
+	/**
+	 * @method login()
+	 * @return void
+	 * @description Function to error validation
+	 */
   login() {
     this.model = {
 
@@ -62,7 +66,7 @@ export class LoginComponent implements OnInit {
 
           alert("Invalid email");
         }
-        
+
       });
     }
   }

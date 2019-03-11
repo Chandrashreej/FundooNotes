@@ -9,27 +9,48 @@ import { ActivatedRoute } from '@angular/router';
 import { ResetModel } from 'src/app/Models/reset.model';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class LoginService {
-    constructor(private http: HttpClient,
-        private sevriceurl:ServiceUrlService,
-        private route: ActivatedRoute ) { }
-    //apiURL: string = 'http://localhost/codeigniter/signin';
-    
-    userLogin(log: LoginModel) {
-        let userLogindata = new FormData();
-        userLogindata.append("email", log.email);
-        userLogindata.append("password", log.password);
-        return this.http.post((this.sevriceurl.host + this.sevriceurl.loginUrl), userLogindata);
-    }
+	constructor(private http: HttpClient,
+		private sevriceurl: ServiceUrlService,
+		private route: ActivatedRoute) { }
+	//apiURL: string = 'http://localhost/codeigniter/signin';
 
-    userForgotPasswordData(forgot:ForgotPasswordModel ) {
+	/**
+	 * @method userLogin()
+	 * @return observable data
+	 * @param login
+	 * @description Function to send login data to server
+	 */
+	userLogin(log: LoginModel) {
+		let userLogindata = new FormData();
+		userLogindata.append("email", log.email);
+		userLogindata.append("password", log.password);
+		return this.http.post((this.sevriceurl.host + this.sevriceurl.loginUrl), userLogindata);
+	}
+	/**
+	 * @method userForgotPasswordData()
+	 * @return observable data
+	 * @param forgot
+	 * @description Function to send forgot to server
+	 */
+	userForgotPasswordData(forgot: ForgotPasswordModel) {
+		debugger;
 		let userData = new FormData();
 		userData.append("email", forgot.email);
-		return this.http.post(this.sevriceurl.host + this.sevriceurl.forgot,userData);
-    }
-    UserResetData(reset:ResetModel){
+		return this.http.post(this.sevriceurl.host + this.sevriceurl.forgot, userData);
+	}
+
+	/**
+	 * @method UserResetData()
+	 * @return observable data
+	 * @param reset
+	 * @description Function to send reset data to server
+	 */
+
+	UserResetData(reset: ResetModel) {
+		debugger;
 		let userResetData = new FormData();
 		userResetData.append(
 			"token",
@@ -39,10 +60,16 @@ export class LoginService {
 		return this.http.post(
 			this.sevriceurl.host + this.sevriceurl.reset,
 			userResetData
-        );
-        }
-
-    getEmail() {
+		);
+	}
+	/**
+	 * @method getEmail()
+	 * @return observable data
+	 * @param reset
+	 * @description Function to send get email from server
+	 */
+	getEmail() {
+		debugger;
 		let urlTocken = new FormData();
 		urlTocken.append("token", this.route.snapshot.queryParamMap.get("token"));
 		return this.http.post(
@@ -50,5 +77,5 @@ export class LoginService {
 			urlTocken
 		);
 	}
-    
+
 }

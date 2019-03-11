@@ -1,13 +1,37 @@
 <?php
+/********************************************************************************************/
+
+/**
+ *Controller Api
+ *
+ * @author chandrashree j
+ * @since 09-01-2019
+ */
+
+/********************************************************************************************/
+
+/**
+ * creation of Uselogin class that extends CI_Controller
+ */
 class Uselogin extends CI_Controller
 {
+    /**
+     * @var string  $connect  PDO object
+     */
     private $connect;
+
+    /**
+     * constructor establish DB connection
+     */
     public function __construct()
     {
         parent::__construct();
 
     }
-
+    /**
+     * @method userLoginFunction() login in to fundo logic
+     * @return void
+     */
     public function userLoginFunction($email, $password)
     {
 
@@ -36,10 +60,13 @@ class Uselogin extends CI_Controller
             print json_encode($result);
             return "400";
 
-        } 
+        }
         return $result;
     }
-
+    /**
+     * @method isUserPresent() check email and pass match
+     * @return void
+     */
     public function isUserPresent($email, $password)
     {
         $data[':email'] = $email;

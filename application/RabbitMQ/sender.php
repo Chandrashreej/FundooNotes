@@ -1,15 +1,14 @@
 <?php
+
+// below file is required to work on
 require_once '/var/www/html/codeigniter/application/RabbitMQ/vendor/autoload.php';
+include "/var/www/html/codeigniter/application/RabbitMQ/receiver.php";
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-include "/var/www/html/codeigniter/application/RabbitMQ/receiver.php";
-
 class SendMail
 {
-
- 
 
 /**
  * @method sendEmail()
@@ -19,12 +18,12 @@ class SendMail
 
     public function sendEmail($toEmail, $subject, $body)
     {
-        
+
         $RabbitMQConstantsObj = new RabbitMQConstants();
-        
-        $connection = new AMQPStreamConnection($RabbitMQConstantsObj->host,$RabbitMQConstantsObj->port,$RabbitMQConstantsObj->username,$RabbitMQConstantsObj->password);
-       //  $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
-        $channel    = $connection->channel();
+
+        $connection = new AMQPStreamConnection($RabbitMQConstantsObj->host, $RabbitMQConstantsObj->port, $RabbitMQConstantsObj->username, $RabbitMQConstantsObj->password);
+        //  $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $channel = $connection->channel();
         /*
         name: hello
         passive: false
@@ -33,18 +32,18 @@ class SendMail
         auto_delete: false //the queue won't be deleted once the channel is closed.
          */
         $channel->queue_declare($RabbitMQConstantsObj->queuename, false, false, false, false);
-       
+
         $data = json_encode(array(
-            "from"       => $RabbitMQConstantsObj->senderEmailID,
+            "from" => $RabbitMQConstantsObj->senderEmailID,
             "from_email" => $RabbitMQConstantsObj->senderEmailID,
-            "to_email"   => $toEmail,
-            "subject"    => $subject,
-            "message"    => $body,
+            "to_email" => $toEmail,
+            "subject" => $subject,
+            "message" => $body,
         ));
 
         $msg = new AMQPMessage($data, array('delivery_mode' => 2));
 
-        $channel->basic_publish($msg, '',$RabbitMQConstantsObj->queuename );
+        $channel->basic_publish($msg, '', $RabbitMQConstantsObj->queuename);
         /**
          * calling the receiver
          */

@@ -1,11 +1,9 @@
 <?php
 
+// below file is required to work on
 require_once '/var/www/html/codeigniter/application/RabbitMQ/vendor/autoload.php';
 include "/var/www/html/codeigniter/application/static/RabbitMqConstants.php";
-
-//require_once "C:/xampp/htdocs/php_CodeIgniter/CodeIgniter/application/static/RabbitMQConstants.php";
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-
 
 class Receiver
 {
@@ -17,25 +15,23 @@ class Receiver
     auto_delete: false //the exchange won't be deleted once the channel is closed.
      */
     public function receiverMail()
-    {   
+    {
         $RabbitMQConstantsObj = new RabbitMQConstants();
-        
-        $connection = new AMQPStreamConnection($RabbitMQConstantsObj->host,$RabbitMQConstantsObj->port,$RabbitMQConstantsObj->username,$RabbitMQConstantsObj->password);
-        $channel    = $connection->channel();
+
+        $connection = new AMQPStreamConnection($RabbitMQConstantsObj->host, $RabbitMQConstantsObj->port, $RabbitMQConstantsObj->username, $RabbitMQConstantsObj->password);
+        $channel = $connection->channel();
 
         $channel->queue_declare($RabbitMQConstantsObj->queuename, false, false, false, false);
-        $email=$RabbitMQConstantsObj->senderEmailID;
-        $pass=$RabbitMQConstantsObj->senderPassword;
+        $email = $RabbitMQConstantsObj->senderEmailID;
+        $pass = $RabbitMQConstantsObj->senderPassword;
         $callback = function ($msg) {
 
             $RabbitMQConstantsObj = new RabbitMQConstants();
             $data = json_decode($msg->body, true);
 
-            // $from       = $data['from'];
-            // $from_email = $data['from_email'];
-            $to_email   = $data['to_email'];
-            $subject    = $data['subject'];
-            $message    = $data['message'];
+            $to_email = $data['to_email'];
+            $subject = $data['subject'];
+            $message = $data['message'];
             /**
              * Create the Transport
              */
@@ -64,8 +60,8 @@ class Receiver
         $channel->basic_consume($RabbitMQConstantsObj->queuename, '', false, false, false, false, $callback);
 
         $channel->basic_qos(null, 1, null);
-        while (count($channel->callbacks)) {
-            $channel->wait();
-        }
+        // while (count($channel->callbacks)) {
+        //     $channel->wait();
+        // }
     }
 }

@@ -1,12 +1,34 @@
 <?php
+/********************************************************************************************/
+
+/**
+ *Controller Api
+ *
+ * @author chandrashree j
+ * @since 09-01-2019
+ */
+
+/********************************************************************************************/
+
+//helps to get the access the access the files within framework
+
 include '/var/www/html/codeigniter/application/static/LinkConstants.php';
 include '/var/www/html/codeigniter/application/Service/DatabaseConnection.php';
 include '/var/www/html/codeigniter/application/RabbitMQ/sender.php';
-
+/**
+ * creation of ForgotPasswordService class that extends CI_Controller
+ */
 class ForgotPasswordService extends CI_Controller
 {
+    /**
+     * @var string  $connect  PDO object
+     */
     private $connect;
     public $constants = "";
+
+    /**
+     * constructor establish DB connection
+     */
     public function __construct()
     {
         parent::__construct();
@@ -15,7 +37,10 @@ class ForgotPasswordService extends CI_Controller
         $this->constants = new LinkConstants();
 
     }
-
+    /**
+     * @method isUserPresent() check email is present
+     * @return void
+     */
     public function isUserPresent($email)
     {
         $data[':email'] = $email;
@@ -35,6 +60,11 @@ class ForgotPasswordService extends CI_Controller
             }
         }
     }
+
+    /**
+     * @method userForgotPasswordService() sending resetting password ink to registered mail
+     * @return void
+     */
     public function userForgotPasswordService($email)
     {
         if ($this->isUserPresent($email)) {
@@ -70,6 +100,10 @@ class ForgotPasswordService extends CI_Controller
             return "404";
         }
     }
+    /**
+     * @method userResetPasswordService() resets the pass word of corresesponding email
+     * @return void
+     */
     public function userResetPasswordService($token, $password)
     {
         $query = "UPDATE createuser SET reset_key = '$token' where reset_key='$token'";
@@ -94,13 +128,16 @@ class ForgotPasswordService extends CI_Controller
             );
             print json_encode($data);
 
-            $query = "UPDATE createuser SET reset_key = null where reset_key='$token'";
+            $query = "UPDATE createuser SET reset_key = '' where reset_key='$token'";
             $statement = $this->connect->prepare($query);
             $statement->execute();
             return "200";
         }
     }
-
+    /**
+     * @method getEmailId() ge the forgoten email id
+     * @return void
+     */
     public function getEmailId($token)
     {
         $query = "SELECT email FROM createuser where reset_key='$token'";
@@ -113,32 +150,15 @@ class ForgotPasswordService extends CI_Controller
                 'session' => 'active',
             );
             print json_encode($data);
-           
+
         } else {
             $data = array(
                 'key' => "\n",
                 'session' => 'reset link has been expired',
             );
             print json_encode($data);
-           // return "reset link has been expired";
+
         }
         return $data;
     }
-    /**
-     * @method checkEmail() check email is present
-     * @return void
-     */
-    // public function checkEmail($email)
-    // {
-    //     $query     = "SELECT * FROM registration ORDER BY id";
-    //     $statement = $this->connect->prepare($query);
-    //     $statement->execute();
-    //     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-    //     foreach ($arr as $titleData) {
-    //         if ($titleData['email'] == $email && $titleData['active'] == '1') {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
 }

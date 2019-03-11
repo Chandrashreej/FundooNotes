@@ -1,42 +1,110 @@
 <?php
+/********************************************************************************************/
+
+/**
+ *Controller Api
+ *
+ * @author chandrashree j
+ * @since 09-01-2019
+ */
+
+/********************************************************************************************/
+/**
+ * creation of Useregister class that extends CI_Controller
+ */
 class Useregister extends CI_Controller
-{ 
+{
+    /**
+     * @var string  $connect  PDO object
+     */
     private $connect;
+    /**
+     * constructor establish DB connection
+     */
     public function __construct()
     {
         parent::__construct();
-       
+
     }
-    public function insertDb($fname,$lname,$phonenum,$email,$password)
+    /**
+     * @var string $fname
+     * @var string $lname
+     * @var string $email
+     * @var string $phonenum
+     * @var string $password
+     * @method registration() Adds data into the database
+     * @return void
+     */
+    public function insertDb($fname, $lname, $phonenum, $email, $password)
     {
-        $result = [];
-        $data = [
-            'firstname' => $fname,
-            'lastname' => $lname,
-            'phonenum'=>$phonenum,
-            'email' => $email,
-            'password'=>$password
-        ];
-        $query = "INSERT into createuser (firstname,lastname,phonenum,email,password) values ('$fname','$lname','$phonenum','$email','$password')";
-        $stmt = $this->db->conn_id->prepare($query);
-        $res = $stmt->execute($data);
-        
-        
-        if ($res) {
-            $result = array(
-                "message" => "200",
+        $flag = $this->isEmailPresent($email, $phonenum);
+        if ($flag == 0) {
+            $result = [];
+            $data = [
+                'firstname' => $fname,
+                'lastname' => $lname,
+                'phonenum' => $phonenum,
+                'email' => $email,
+                'password' => $password,
+            ];
+            $query = "INSERT into createuser (firstname,lastname,phonenum,email,password) values ('$fname','$lname','$phonenum','$email','$password')";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute($data);
+
+            if ($res) {
+                $result = array(
+                    "message" => "200",
+                );
+                print json_encode($result);
+                return "200";
+            } else {
+                $result = array(
+                    "message" => "204",
+                );
+                print json_encode($result);
+                return "204";
+            }
+            return $result;
+        } else if ($flag == 1) {
+            $data = array(
+                "message" => "201",
             );
-            print json_encode($result);
-            return "200";
+            print json_encode($data);
+            return "201";
+
         } else {
-            $result = array(
-                "message" => "204",
+            $data = array(
+                "message" => "203",
             );
-            print json_encode($result);
-            return "204";
+            print json_encode($data);
+            return "203";
+
         }
-        return $result;
+
     }
-     
+    /**
+     * @method isEmailPresent() check email number duplicate
+     * @return void
+     */
+    public function isEmailPresent($email, $number)
+    {
+        $query = "SELECT * FROM registration ORDER BY id";
+        $statement = $this->connect->prepare($query);
+        $statement->execute();
+        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($arr as $titleData) {
+            if (($titleData['email'] == $email) || ($titleData['mobilenumber'] == $number)) {
+                if ($titleData['email'] == $email) {
+                    //user email found duplicate
+                    return 1;
+                } else if ($titleData['mobilenumber'] == $number) {
+                    // user phone found duplicate
+                    return 2;
+                }
+            }
+        }
+        //no duplicate not found
+        return 0;
+    }
+
 }
-?>

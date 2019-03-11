@@ -1,6 +1,10 @@
 <?php
+
+//helps to get the access the access the files within framework
 header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Headers:Authorazation');
+
+// below file is required to work on
 include "/var/www/html/codeigniter/application/static/Constant.php";
 class DatabaseConnection
 {
@@ -11,9 +15,7 @@ class DatabaseConnection
     public function Connection()
     {
         $data = new Constant();
-        //return new PDO("$obj->database:host=$obj->host;dbname=$obj->databaseName", "$obj->user", "$obj->password");
         return new PDO("$data->database:host=$data->host;dbname=$data->dbname", "$data->user", "$data->password");
-        //  return new PDO('mysql:host=localhost;dbname=test', 'root', 'root');
 
     }
 }

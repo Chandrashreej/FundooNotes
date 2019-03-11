@@ -18,6 +18,12 @@ export class ResetPasswordComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   confirmpassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
+
+  /**
+   * @method ngOnInit()
+   * @return void
+   * @description Function to fetch data
+   */
   ngOnInit() {
     let obs = this.serviceReset.getEmail();
     debugger;
@@ -26,7 +32,11 @@ export class ResetPasswordComponent implements OnInit {
       this.session = res.session;
     });
   }
-
+  /**
+   * @method resetPasswordFunction()
+   * @return void
+   * @description Function to reset the user password
+   */
   resetPasswordFunction() {
     this.model = {
 
@@ -58,7 +68,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
   }
-  result(){
-   this.route.navigate(['/login']);
-   }
+  result() {
+    this.route.navigate(['/login']);
+  }
 }
