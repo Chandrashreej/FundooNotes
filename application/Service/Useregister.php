@@ -88,16 +88,16 @@ class Useregister extends CI_Controller
      */
     public function isEmailPresent($email, $number)
     {
-        $query = "SELECT * FROM registration ORDER BY id";
-        $statement = $this->connect->prepare($query);
+        $query = "SELECT * FROM createuser ORDER BY email";
+        $statement = $this->db->conn_id->prepare($query);
         $statement->execute();
         $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
         foreach ($arr as $titleData) {
-            if (($titleData['email'] == $email) || ($titleData['mobilenumber'] == $number)) {
+            if (($titleData['email'] == $email) || ($titleData['phonenum'] == $number)) {
                 if ($titleData['email'] == $email) {
                     //user email found duplicate
                     return 1;
-                } else if ($titleData['mobilenumber'] == $number) {
+                } else if ($titleData['phonenum'] == $number) {
                     // user phone found duplicate
                     return 2;
                 }
