@@ -24,6 +24,7 @@ import { ServiceUrlService } from './ServiceUrl/service-url.service';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
 
 
 
@@ -35,7 +36,8 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
     RegisterComponent,
     ForgotPasswordComponent,
     DashboardComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    SessionexpiredComponent
   
     
   ],

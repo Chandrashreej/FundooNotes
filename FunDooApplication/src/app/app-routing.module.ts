@@ -7,6 +7,7 @@ import 'hammerjs';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
 const routes: Routes = [
   {
     path: '',
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'reset',
     component: ResetPasswordComponent
+  },
+  {
+    path: 'session',
+    component: SessionexpiredComponent
   }
   
 

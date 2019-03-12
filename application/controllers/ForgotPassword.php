@@ -10,7 +10,7 @@
 
 /********************************************************************************************/
 
-//helps to get the access the access the files within framework
+//helps to get the access the files within framework
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 defined('BASEPATH') or exit('No direct script access allowed');

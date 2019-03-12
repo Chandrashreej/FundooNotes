@@ -51,7 +51,7 @@ class ForgotPasswordService extends CI_Controller
         if ($statement->execute($data)) {
 
             $result = $statement->fetchAll();
-            $c = $statement->rowCount();
+            
             if ($statement->rowCount() > 0) {
 
                 return true;

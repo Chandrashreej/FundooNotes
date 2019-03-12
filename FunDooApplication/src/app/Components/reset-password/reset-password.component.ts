@@ -28,10 +28,18 @@ export class ResetPasswordComponent implements OnInit {
     let obs = this.serviceReset.getEmail();
     debugger;
     obs.subscribe((res: any) => {
+      if(res.session == 'reset link has been expired')
+      {
+        this.route.navigate(['/session']);
+      }
+      else{
       this.value = res.key;
       this.session = res.session;
+      }
+
     });
   }
+
   /**
    * @method resetPasswordFunction()
    * @return void
