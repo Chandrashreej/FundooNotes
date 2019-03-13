@@ -25,6 +25,7 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
+import { MaterialModule } from './Material.Module';
 
 
 
@@ -54,7 +55,8 @@ import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpi
     MatInputModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
     
   ],
   exports: [

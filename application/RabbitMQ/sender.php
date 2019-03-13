@@ -2,7 +2,7 @@
 
 // below file is required to work on
 require_once '/var/www/html/codeigniter/application/RabbitMQ/vendor/autoload.php';
-include "/var/www/html/codeigniter/application/RabbitMQ/receiver.php";
+include "application/RabbitMQ/form.php";
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -47,9 +47,8 @@ class SendMail
         /**
          * calling the receiver
          */
-        $obj = new Receiver();
-
-        $obj->receiverMail();
+        $obj = new Form();
+        $obj->callingReceiver();
         $channel->close();
         $connection->close();
         return "sent";

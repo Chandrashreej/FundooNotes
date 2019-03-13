@@ -1,3 +1,73 @@
-<p>
-  dashboard works!
-</p>
+<div >
+  <mat-toolbar class="outertoolbar" color="white" fxLayout="row" fxLayoutAlign="center center">
+
+
+    <button mat-button class="menubutton" type="button" mat-button (click)="drawer.toggle()" fxLayout="row" fxLayoutAlign="center center">
+      <mat-icon class="example-icon">menu</mat-icon>
+    </button>
+
+
+
+
+    <mat-icon class="keepimage"  fxLayout="row" fxLayoutAlign="center center"><img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" /></mat-icon>
+
+    <span class="title"  fxLayout="row" fxLayoutAlign="center center">Fundoo</span>
+
+    <mat-toolbar type="input" class="toolbarrow" color="black"  fxLayout="row" fxLayoutAlign="center center">
+
+      <mat-icon class="example-icon">search</mat-icon>
+
+      <span class="example-spacer">Search</span>
+
+      <mat-icon class="example-icon">clear</mat-icon>
+
+    </mat-toolbar>
+
+    <mat-icon class="example-icon">refresh</mat-icon>
+
+    <mat-icon class="example-icon">view_agenda</mat-icon>
+    <mat-icon class="example-icon">settings</mat-icon>
+    <br>
+    <span class="example-spacer"></span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">apps</mat-icon>
+
+
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <!-- </header> -->
+  <mat-sidenav-container fxLayout="row" >
+
+    <!-- <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div> -->
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer class="example-sidenav" mode="side">
+        <div>
+          <button mat-flat-button class="notebutton">
+            <mat-icon class="example-icon">lightbulb_outline</mat-icon>
+            Notes
+          </button>
+
+        </div>
+
+        <div>
+          <!-- <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+          <button (click)="showFiller = !showFiller" mat-raised-button>
+            Reminder
+          </button> -->
+          <button mat-flat-button>
+            <mat-icon class="example-icon">notifications_none</mat-icon>
+            Reminder
+          </button>
+        </div>
+      </mat-drawer>
+
+
+
+    </mat-drawer-container>
+
+  </mat-sidenav-container>
+</div>

@@ -5,10 +5,11 @@ import {
 
 MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
 
-MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatFormFieldModule
+ MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatFormFieldModule, MatButtonToggleModule, MatDividerModule
 
 } from '@angular/material';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
 declarations: [],
@@ -23,7 +24,10 @@ MatTableModule,
 MatMenuModule,
 MatIconModule,
 MatProgressSpinnerModule,
-MatFormFieldModule
+MatFormFieldModule,
+MatSidenavModule,
+MatButtonToggleModule,
+MatDividerModule
 ],
 exports: [
 CommonModule,
@@ -36,7 +40,10 @@ MatTableModule,
 MatMenuModule,
 MatIconModule,
 MatProgressSpinnerModule,
-MatFormFieldModule
+MatFormFieldModule,
+MatSidenavModule,
+MatButtonToggleModule,
+MatDividerModule
 ],
 })
 

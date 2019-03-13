@@ -8,6 +8,7 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -45,7 +46,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes),
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+
   ],
   exports: [RouterModule]
 })

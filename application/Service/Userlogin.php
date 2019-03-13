@@ -9,7 +9,7 @@
  */
 
 /********************************************************************************************/
-
+include '/var/www/html/codeigniter/application/jwt/vendor/firebase/php-jwt/src/JWT.php';
 /**
  * creation of Uselogin class that extends CI_Controller
  */
@@ -37,10 +37,12 @@ class Uselogin extends CI_Controller
 
         $num = $this->isUserPresent($email, $password);
         if ($num == 1) {
-            $result = array(
+            //$token = $this->jwtTokenGenerator($email);
+            $data = array(
+                //"token" => $token,
                 "message" => "200",
             );
-            print json_encode($result);
+            print json_encode($data);
             return "200";
 
         } else if ($num == 2) {
@@ -62,6 +64,19 @@ class Uselogin extends CI_Controller
 
         }
         return $result;
+    }
+    /**
+     * @method jwtTokenGenerator() 
+     * @return token
+     */
+    public function jwtTokenGenerator($secretKey)
+    {
+
+        // // $payload   = ['iat' => time(), 'iss' => 'localhost', 'userid' => $email];
+        // $secretKey = "prashant";
+        $token = JWT::encode($email, $secretKey);
+        return $token;
+
     }
     /**
      * @method isUserPresent() check email and pass match
