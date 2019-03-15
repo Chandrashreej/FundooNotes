@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
 import {  MatInputModule } from '@angular/material';
 import { RegisterComponent } from './Components/register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import { RegisterService } from './Services/registerService/ServiceRegister';
@@ -26,6 +26,7 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
 import { MaterialModule } from './Material.Module';
+import { NotesComponent } from './notes/notes.component';
 
 
 
@@ -38,7 +39,8 @@ import { MaterialModule } from './Material.Module';
     ForgotPasswordComponent,
     DashboardComponent,
     ResetPasswordComponent,
-    SessionexpiredComponent
+    SessionexpiredComponent,
+    NotesComponent
   
     
   ],
@@ -56,12 +58,14 @@ import { MaterialModule } from './Material.Module';
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
     
   ],
   exports: [
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FormsModule
   ],
   providers: [RegisterService,ServiceUrlService,LoginService],
   bootstrap: [AppComponent]

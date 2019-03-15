@@ -1,11 +1,11 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
 
 MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
 
- MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatFormFieldModule, MatButtonToggleModule, MatDividerModule
+ MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatFormFieldModule, MatButtonToggleModule, MatDividerModule, MatListModule
 
 } from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -27,7 +27,11 @@ MatProgressSpinnerModule,
 MatFormFieldModule,
 MatSidenavModule,
 MatButtonToggleModule,
-MatDividerModule
+MatDividerModule,
+MatListModule
+],
+schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
 ],
 exports: [
 CommonModule,
@@ -43,7 +47,8 @@ MatProgressSpinnerModule,
 MatFormFieldModule,
 MatSidenavModule,
 MatButtonToggleModule,
-MatDividerModule
+MatDividerModule,
+MatListModule
 ],
 })
 

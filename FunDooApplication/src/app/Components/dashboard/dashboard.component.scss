@@ -17,6 +17,9 @@
   .example-icon {
     padding: 0 14px;
     color: rgb(104, 101, 101);
+    width:"24";
+    height:"24";
+    
   }
   
   .example-spacer {
@@ -32,15 +35,15 @@
     vertical-align: middle;
   }
   .toolbarrow{
-    height: 46px;
+     height: 10px;
     margin-top: 0px;
-    margin-right: 100px;
-    margin-left: 150px;
-    margin-bottom: 10px;
-    width: 780px;
+    margin-right: 50px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    width: 500px;
     border: 0px;
     
-    // background: pink;
+     background: #F5F5F5;
 
 
   }
@@ -75,27 +78,104 @@
     vertical-align: middle;
   }
   .example-container {
-    width: 600px;
+    width: 1340px;
     height: 900px;
-    margin-top: 0px;
-    margin-left: -20px;
-
+    // margin-top: 0px;
+    // margin-left: -20px;
+    background: white;
   }
 .keepimage{
   width: 40px;
   height: 50px;
   margin: 10px;
 }
-.notebutton{
+.selectorbutton{
+  margin: 0px;
+  width: 400px;
+  height: 100px;
+  padding-left: 32px;
+  display: inline-block;
+  line-height: 40px;
+  vertical-align: top;
+  width: 176px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+
+ 
+}
+.sidebutton{
   margin: 0px;
   width: 250px;
   height: 50px;
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
   color:black;
-  background-color:#FFEDC4;
+  background-color:white;
  
 }
 .menubutton{
   width: 5px;
+}
+// mat-nav-list{
+//   border:none;
+// }
+mat-sidenav-container{
+  border:none;
+}
+mat-sidenav{
+  width: 250px;
+  border:none;
+}
+// .searchbox{
+//   width: 550px;
+//   border:none;
+//   height: 50px;
+//   margin-top: 0px;
+//   margin-right: 50px;
+//   margin-left: 10px;
+//   margin-bottom: 5px;
+// }
+.searchbar {
+  background: transparent;
+  border: none;
+  height: 20px;
+  outline-color: opacify($color:grey, $amount: 0);
+  padding: 11px 16px 11px 68px;
+  width: 51%;
+  background-color: white;
+  background: #F5F5F5;
+  font: normal 16px Roboto, sans-serif;
+  font-size: 20px;
+  font-display:padding-left;
+  font-variant-ligatures: none;
+  margin-right: 33px;
+  margin-left: -44px;
+}
+.label{
+  color: #5f6368;
+  cursor: default;
+  letter-spacing: .07272727em;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: .6875rem;
+  font-weight: 500;
+  line-height: 0rem;
+  text-transform: uppercase;
+  padding: 15px 24px 10px;
+}
+.spantext{
+  padding-left: 32px;
+    display: inline-block;
+    line-height: 40px;
+    vertical-align: top;
+    width: 176px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.content{
+  width: 1336px;
+  height: 100%;
 }

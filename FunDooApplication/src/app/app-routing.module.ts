@@ -8,6 +8,8 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
+import { NotesComponent } from './notes/notes.component';
+
 
 const routes: Routes = [
   {
@@ -29,7 +31,14 @@ const routes: Routes = [
   ,
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+     children: [
+     {
+        path: "notes",
+        component: NotesComponent,
+       
+      }
+     ]
   },
   {
     path: 'reset',
@@ -38,7 +47,11 @@ const routes: Routes = [
   {
     path: 'session',
     component: SessionexpiredComponent
-  }
+  },
+  {
+    path: 'notes',
+    component: NotesComponent
+  },
   
 
 ];
