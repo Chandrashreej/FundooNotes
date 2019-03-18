@@ -26,7 +26,10 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
 import { MaterialModule } from './Material.Module';
-import { NotesComponent } from './notes/notes.component';
+import { NotesComponent } from './Components/notes/notes.component';
+import { AddnotesComponent } from './Components/addnotes/addnotes.component';
+import { ReminderComponent } from './Components/reminder/reminder.component';
+
 
 
 
@@ -40,7 +43,9 @@ import { NotesComponent } from './notes/notes.component';
     DashboardComponent,
     ResetPasswordComponent,
     SessionexpiredComponent,
-    NotesComponent
+    NotesComponent,
+    AddnotesComponent,
+    ReminderComponent
   
     
   ],

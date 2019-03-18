@@ -77,5 +77,16 @@ export class LoginService {
 			urlTocken
 		);
 	}
-
+	// getNotes() {
+	// 	debugger;
+	// 	let notes = new FormData();
+	// 	notes.append("token", this.route.snapshot.queryParamMap.get("token"));
+	// 	return this.http.post(
+	// 		this.sevriceurl.host + this.sevriceurl.getNotes,
+	// 		notes
+	// 	);
+	// }
+	userNotes(){
+		
+	}
 }

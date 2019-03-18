@@ -1,0 +1,94 @@
+.notetaker{
+    margin-top: 10px;
+    margin-left: 50px;
+    box-shadow: 10px  ;
+    border-radius: 100px ;
+    width: 400px;
+    height: 10px;
+    border: 1px;
+border-color: black;
+border-width: 100px;
+padding-right: 314px;
+padding-left: 10px;
+font-size: 15px;
+border-radius: 100px ;
+}
+
+.mainmat {
+    margin-top: 38px;
+    margin-left: 140px;
+    padding-right: 400px;
+    padding-left: 23px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    height: 44px;
+    
+    color:#7E858A;
+    
+    display: inline-block;
+    font-family: 'Product Sans',Arial,sans-serif;
+    font-size: 19px;
+     line-height:  24px;
+     padding-left: 8px;
+    position: relative;
+    top: -1.5px;
+    vertical-align: middle;
+    width: 630px;
+  }
+  .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
+}
+.inputtaker{
+    border-top-width: 0px;
+    padding-bottom: 0px;
+}
+.mainmatdiv2{
+    margin-top: 38px;
+    margin-left: 115px;
+    padding-right: 400px;
+    padding-left: 23px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 120px;
+    
+    color:#7E858A;
+    
+    display: inline-block;
+    font-family: 'Product Sans',Arial,sans-serif;
+    font-size: 19px;
+     line-height:  24px;
+     padding-left: 8px;
+    position: relative;
+    top: -1.5px;
+    vertical-align: middle;
+}
+element.style {
+    margin-top: -24px;
+    margin-bottom: 245px;
+}
+.notes {
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    margin-left: 425px;
+    margin-top: 40px;
+
+flex-direction: column;
+box-sizing: border-box;
+display: flex;
+
+align-items: center;
+width: 630px;
+padding-top: 8px;
+height: 165px;
+padding-left: 9px;
+
+padding-bottom: 13px;
+color:#7E858A;
+    
+display: inline-block;
+font-family: 'Product Sans',Arial,sans-serif;
+font-size: 19px;
+}

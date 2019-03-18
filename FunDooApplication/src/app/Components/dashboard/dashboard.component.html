@@ -1,19 +1,14 @@
 <div>
   <mat-toolbar class="outertoolbar" color="white" fxLayout="row" fxLayoutAlign="space-around center">
-    <button mat-button class="menubutton" mat-button (click)="drawer.toggle()">
+    <button mat-button class="menubutton" (click)="drawer.toggle()">
       <mat-icon class="example-icon">menu</mat-icon>
     </button>
-
-
     <mat-icon class="keepimage" fxLayout="row" fxLayoutAlign="center center"><img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" /></mat-icon>
-
     <span class="title" fxLayout="row" fxLayoutAlign="center center">Fundoo</span>
-
-
-    <button mat-icon-button matTooltip="Search" style="margin-left: 120px" (click)="sendSearchData()" class="searchicon">
+    <button mat-icon-button matTooltip="Search" style="margin-left: 120px;" (click)="sendSearchData()" class="searchicon">
       <mat-icon class="example-icon">search</mat-icon>
     </button>
-    <input class="searchbar" type="text" placeholder="Search" />
+    <input class="searchbar" appearance="null" type="text" placeholder="Search" />
 
 
     <div fxLayoutGap="1px" style="margin-left:100px; font-size:30px;">
@@ -24,34 +19,31 @@
     </div>
     <br>
     <span class="example-spacer"></span>
-    <div fxLayoutGap="10px" style="margin-left:50px; font-size:30px; margin-right: 0px;">
-      <mat-icon class="example-icon">apps</mat-icon>
-      <mat-icon class="example-icon">account_circle</mat-icon>
+    <div fxLayoutGap="10px" style="margin-left:50px;" fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-icon style="font-size: 25px;    color: rgb(104, 101, 101);">apps</mat-icon>
+      <button mat-button class="menubutton" (click)="logout()">
+          <mat-icon class="example-iconAccount">account_circle</mat-icon>
+      </button>
+
     </div>
   </mat-toolbar>
+
   <mat-divider></mat-divider>
 
   <mat-sidenav-container class="example-container" autosize fxLayout="row" fxLayoutAlign="start none">
     <mat-sidenav #drawer mode="side">
-
       <mat-nav-list>
-        <a class="selectorbutton" mat-list-item routerLink="/notes" (click)="notes()" routerLinkActive="active-list-active">
+        <a class="selectorbutton" mat-list-item [routerLink]="['notes']">
           <mat-icon class="example-icon">lightbulb_outline</mat-icon>
-
           <span class="spantext">Notes</span>
         </a>
-
-        <a class="selectorbutton" mat-list-item routerLink="/settings" routerLinkActive="active-list-active">
+        <a class="selectorbutton" mat-list-item [routerLink]="['reminder']">
           <mat-icon class="example-icon">notifications_none</mat-icon>
-
           <span class="spantext">Reminder</span>
         </a>
-
         <mat-divider></mat-divider>
         <br>
-
         <label fxLayout="row" class="label">Labels</label>
-
         <a class="selectorbutton" mat-list-item routerLink="/about" class="selectorbutton" routerLinkActive="active-list-active">
           <mat-icon class="example-icon">edit</mat-icon>
           <span class="spantext">Edit Labels</span>
@@ -67,10 +59,11 @@
         </a>
       </mat-nav-list>
     </mat-sidenav>
-      <!-- <router-outlet></router-outlet> -->
+    <mat-sidenav-content div fxLayout="column" fxLayoutAlign="start center">
 
-      <mat-sidenav-content style="    padding-bottom: 40%;">
-        <router-outlet></router-outlet>
-      </mat-sidenav-content>
-      </mat-sidenav-container>
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
+<!-- style="height: 949px;width: 1247px; padding-bottom: 40%;" -->

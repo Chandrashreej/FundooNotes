@@ -9,10 +9,13 @@
  */
 
 /********************************************************************************************/
-include '/var/www/html/codeigniter/application/jwt/vendor/firebase/php-jwt/src/JWT.php';
+include '/var/www/html/codeigniter/application/Service/JWT.php';
+require '/var/www/html/codeigniter/application/jwt/vendor/autoload.php';
+include '/var/www/html/codeigniter/application/libraries/predis-1.1/autoload.php';
 /**
  * creation of Uselogin class that extends CI_Controller
  */
+use \Firebase\JWT\JWT;
 class Uselogin extends CI_Controller
 {
     /**
@@ -26,7 +29,7 @@ class Uselogin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
+        
     }
     /**
      * @method userLoginFunction() login in to fundo logic
@@ -37,9 +40,40 @@ class Uselogin extends CI_Controller
 
         $num = $this->isUserPresent($email, $password);
         if ($num == 1) {
-            //$token = $this->jwtTokenGenerator($email);
+
+            $randomnum = mt_rand(000000000,100000000);
+            $query = "SELECT * FROM createuser ORDER BY email";
+            $statement = $this->db->conn_id->prepare($query);
+            $statement->execute();
+            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+            foreach ($arr as $titleData) {
+                $phonenum = $titleData['phonenum'] ;
+                $lastname =$titleData['lastname'];
+                $sekretkey=$titleData['email'];
+            }
+            $jwt = array(
+                "phonenum" =>$phonenum,
+                "lastname"=> $lastname,
+                "randomnum"=> $randomnum
+            );
+
+                $token = JWT::encode($jwt, $sekretkey);
+                  
+
+            $client = new Predis\Client(array(
+              'host' => '127.0.0.1',
+              'port' => 6379,
+              'password' => 'TheirWasAJungleWithTwoChimpangiz'
+            ));
+
+            $client->set('token', $token);
+            $response = $client->get('token');
+        
+
             $data = array(
-                //"token" => $token,
+                "token" => $token,
                 "message" => "200",
             );
             print json_encode($data);
@@ -65,19 +99,8 @@ class Uselogin extends CI_Controller
         }
         return $result;
     }
-    /**
-     * @method jwtTokenGenerator() 
-     * @return token
-     */
-    public function jwtTokenGenerator($secretKey)
-    {
 
-        // // $payload   = ['iat' => time(), 'iss' => 'localhost', 'userid' => $email];
-        // $secretKey = "prashant";
-        $token = JWT::encode($email, $secretKey);
-        return $token;
-
-    }
+    
     /**
      * @method isUserPresent() check email and pass match
      * @return void

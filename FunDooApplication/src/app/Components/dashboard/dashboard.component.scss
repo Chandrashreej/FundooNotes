@@ -21,7 +21,15 @@
     height:"24";
     
   }
-  
+  .example-iconAccount {
+    padding: 0 14px;
+    color: rgb(104, 101, 101);
+    width:30px;
+    height:30px;
+    font-size: 40px;
+    padding-bottom: 15px;
+    
+  }
   .example-spacer {
     flex: 1 2 auto;
     color: gray;
@@ -142,17 +150,18 @@ mat-sidenav{
   background: transparent;
   border: none;
   height: 20px;
-  outline-color: opacify($color:grey, $amount: 0);
+  outline-color: opacify($color:white, $amount: -0);
   padding: 11px 16px 11px 68px;
-  width: 51%;
+  width: 60%;
   background-color: white;
   background: #F5F5F5;
   font: normal 16px Roboto, sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-display:padding-left;
   font-variant-ligatures: none;
-  margin-right: 33px;
+
   margin-left: -44px;
+  margin-right: 0px;
 }
 .label{
   color: #5f6368;

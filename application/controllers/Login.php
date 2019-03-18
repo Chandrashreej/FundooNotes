@@ -45,6 +45,9 @@ class Login extends CI_Controller
     {
         $email = $_POST["email"];
         $password = $_POST["password"];
+        // $this->load->library('Redis');
+        // $redis = $this->redis->config();
+        // $redis->set($email, $email);
         return $this->logService->userLoginFunction($email, $password);
     }
 

@@ -52,7 +52,10 @@ export class LoginComponent implements OnInit {
         console.log(res.message);
         debugger;
         if (res.message == "200") {
-
+          
+          const tokens =res.token;
+          localStorage.setItem("token",tokens);
+          localStorage.setItem("email",this.email.value);
           localStorage.setItem(this.email.value, this.password.value);
           alert("logged in succesfully!!! ");
 

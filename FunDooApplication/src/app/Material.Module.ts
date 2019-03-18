@@ -10,7 +10,7 @@ MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
 } from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 @NgModule({
 declarations: [],
 imports: [
@@ -28,7 +28,8 @@ MatFormFieldModule,
 MatSidenavModule,
 MatButtonToggleModule,
 MatDividerModule,
-MatListModule
+MatListModule,
+MatGridListModule
 ],
 schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -48,7 +49,8 @@ MatFormFieldModule,
 MatSidenavModule,
 MatButtonToggleModule,
 MatDividerModule,
-MatListModule
+MatListModule,
+MatGridListModule
 ],
 })
 

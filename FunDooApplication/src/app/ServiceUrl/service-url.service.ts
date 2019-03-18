@@ -13,4 +13,6 @@ export class ServiceUrlService {
   public forgot ='codeigniter/forgotPassword';
   public reset ='codeigniter/resetPassword';
   public getEmail = 'codeigniter/getEmailId';
+  public getAllNotes = 'codeigniter/getAllNotes';
+  public setNotes = 'codeigniter/setNotes';
 }

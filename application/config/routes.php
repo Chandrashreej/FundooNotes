@@ -57,6 +57,8 @@ $route['forgotPassword'] ='ForgotPassword/forgotPasswordFunction';
 
 $route['getEmailId'] ='ForgotPassword/getEmailId';
 
+$route['setNotes'] ='DashBoard/setNotes';
+$route['getAllNotes'] ='DashBoard/getAllNotes';
 
 $route['resetPassword'] ='ForgotPassword/resetPasswordFunction';
 $route['404_override'] = '';
