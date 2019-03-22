@@ -86,11 +86,18 @@
     vertical-align: middle;
   }
   .example-container {
-    width: 1340px;
-    height: 900px;
+    width: 1540px;
+    height: 1500px;
     // margin-top: 0px;
     // margin-left: -20px;
     background: white;
+    position: fixed;
+    top: 15%;
+    left: 0%; 
+    bottom: 10%;
+    // -webkit-transform: translate(-50%, -50%);
+    // transform: translate(-50%, -50%); 
+
   }
 .keepimage{
   width: 40px;
@@ -134,7 +141,7 @@ mat-sidenav-container{
   border:none;
 }
 mat-sidenav{
-  width: 250px;
+  width: 200px;
   border:none;
 }
 // .searchbox{

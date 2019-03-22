@@ -15,4 +15,8 @@ export class ServiceUrlService {
   public getEmail = 'codeigniter/getEmailId';
   public getAllNotes = 'codeigniter/getAllNotes';
   public setNotes = 'codeigniter/setNotes';
+  public setReminderNotes = 'codeigniter/setReminderNotes';
+  public getAllReminderNotes = 'codeigniter/getAllReminderNotes';
+  public deleteNote = 'codeigniter/deleteNote';
+  public deleteReminder = 'codeigniter/deleteReminder';
 }

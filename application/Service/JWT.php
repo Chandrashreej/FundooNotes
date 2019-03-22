@@ -214,7 +214,35 @@ class JWT
                 }
         }
     }
+    /**
+     * get the passed token is valid or not.
+     *
+     * @param string
+     *
+     * @return boolean
+     */
+    public function verify($token, $secretkey): bool
+    {
+        list($headerEncoded, $payloadEncoded, $signatureEncoded) = explode('.', $token);
+        $dataEncoded                                             = "$headerEncoded.$payloadEncoded";
+        $signature                                               = JWT::base64UrlDecode($signatureEncoded);
+        $rawSignature                                            = hash_hmac('sha256', $dataEncoded, $secretkey, true);
+        return hash_equals($rawSignature, $signature);
+    }
+    /**
+     * get the passed data in decoded format
+     *
+     * @param string
+     *
+     * @return string
+     */
 
+    public static function base64UrlDecode($data,$dfgdf): string
+    {
+        $urlUnsafeData = strtr($data, '-_', '+/');
+        $paddedData    = str_pad($urlUnsafeData, strlen($data) % 4, '=', STR_PAD_RIGHT);
+        return base64_decode($paddedData);
+    }
     /**
      * Verify a signature with the message, key and method. Not all methods
      * are symmetric, so we must have a separate verify and sign method.
@@ -228,42 +256,42 @@ class JWT
      *
      * @throws DomainException Invalid Algorithm or OpenSSL failure
      */
-    private static function verify($msg, $signature, $key, $alg)
-    {
-        if (empty(static::$supported_algs[$alg])) {
-            throw new DomainException('Algorithm not supported');
-        }
+    // private static function verify($msg, $signature, $key, $alg)
+    // {
+    //     if (empty(static::$supported_algs[$alg])) {
+    //         throw new DomainException('Algorithm not supported');
+    //     }
 
-        list($function, $algorithm) = static::$supported_algs[$alg];
-        switch($function) {
-            case 'openssl':
-                $success = openssl_verify($msg, $signature, $key, $algorithm);
-                if ($success === 1) {
-                    return true;
-                } elseif ($success === 0) {
-                    return false;
-                }
-                // returns 1 on success, 0 on failure, -1 on error.
-                throw new DomainException(
-                    'OpenSSL error: ' . openssl_error_string()
-                );
-            case 'hash_hmac':
-            default:
-                $hash = hash_hmac($algorithm, $msg, $key, true);
-                if (function_exists('hash_equals')) {
-                    return hash_equals($signature, $hash);
-                }
-                $len = min(static::safeStrlen($signature), static::safeStrlen($hash));
+    //     list($function, $algorithm) = static::$supported_algs[$alg];
+    //     switch($function) {
+    //         case 'openssl':
+    //             $success = openssl_verify($msg, $signature, $key, $algorithm);
+    //             if ($success === 1) {
+    //                 return true;
+    //             } elseif ($success === 0) {
+    //                 return false;
+    //             }
+    //             // returns 1 on success, 0 on failure, -1 on error.
+    //             throw new DomainException(
+    //                 'OpenSSL error: ' . openssl_error_string()
+    //             );
+    //         case 'hash_hmac':
+    //         default:
+    //             $hash = hash_hmac($algorithm, $msg, $key, true);
+    //             if (function_exists('hash_equals')) {
+    //                 return hash_equals($signature, $hash);
+    //             }
+    //             $len = min(static::safeStrlen($signature), static::safeStrlen($hash));
 
-                $status = 0;
-                for ($i = 0; $i < $len; $i++) {
-                    $status |= (ord($signature[$i]) ^ ord($hash[$i]));
-                }
-                $status |= (static::safeStrlen($signature) ^ static::safeStrlen($hash));
+    //             $status = 0;
+    //             for ($i = 0; $i < $len; $i++) {
+    //                 $status |= (ord($signature[$i]) ^ ord($hash[$i]));
+    //             }
+    //             $status |= (static::safeStrlen($signature) ^ static::safeStrlen($hash));
 
-                return ($status === 0);
-        }
-    }
+    //             return ($status === 0);
+    //     }
+    // }
 
     /**
      * Decode a JSON string into a PHP object.

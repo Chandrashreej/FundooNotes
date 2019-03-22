@@ -11,6 +11,8 @@ MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 @NgModule({
 declarations: [],
 imports: [
@@ -29,7 +31,8 @@ MatSidenavModule,
 MatButtonToggleModule,
 MatDividerModule,
 MatListModule,
-MatGridListModule
+MatGridListModule,
+MatTooltipModule
 ],
 schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -50,7 +53,8 @@ MatSidenavModule,
 MatButtonToggleModule,
 MatDividerModule,
 MatListModule,
-MatGridListModule
+MatGridListModule,
+MatTooltipModule
 ],
 })
 

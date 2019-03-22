@@ -8,7 +8,7 @@ import { LoginComponent } from './Components/login/login.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatNativeDateModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
@@ -29,7 +29,7 @@ import { MaterialModule } from './Material.Module';
 import { NotesComponent } from './Components/notes/notes.component';
 import { AddnotesComponent } from './Components/addnotes/addnotes.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 
@@ -64,13 +64,18 @@ import { ReminderComponent } from './Components/reminder/reminder.component';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+
+    MatNativeDateModule 
     
   ],
   exports: [
     MatButtonModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
   ],
   providers: [RegisterService,ServiceUrlService,LoginService],
   bootstrap: [AppComponent]

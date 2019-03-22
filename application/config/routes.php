@@ -59,7 +59,10 @@ $route['getEmailId'] ='ForgotPassword/getEmailId';
 
 $route['setNotes'] ='DashBoard/setNotes';
 $route['getAllNotes'] ='DashBoard/getAllNotes';
-
+$route['getAllReminderNotes'] ='DashBoard/getAllReminderNotes';
+$route['setReminderNotes'] ='DashBoard/setReminderNotes';
 $route['resetPassword'] ='ForgotPassword/resetPasswordFunction';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['deleteNote'] ='DashBoard/deleteNote';
+$route['deleteReminder'] ='DashBoard/deleteReminder';

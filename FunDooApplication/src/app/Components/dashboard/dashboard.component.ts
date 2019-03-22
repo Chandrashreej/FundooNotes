@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   showFiller = false;
   getToken: string;
+  refreshFlag: boolean =true;
   constructor( private route: Router) { }
 
   ngOnInit() {
@@ -21,5 +22,9 @@ notes(){
 logout(){
   localStorage.removeItem("token");
   this.route.navigate(['/login']);
+}
+
+refresh(){
+  this.refreshFlag =!this.refreshFlag;
 }
 }

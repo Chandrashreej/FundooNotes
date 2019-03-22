@@ -9,6 +9,7 @@ import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
 import { NotesComponent } from './Components/notes/notes.component';
+import { ReminderComponent } from './Components/reminder/reminder.component';
 
 
 
@@ -31,9 +32,9 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'dashboard',
+    path: 'home',
     component: DashboardComponent,
-     children: [
+    children: [
      {
         path: "",
         component: NotesComponent,      
@@ -44,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: "reminder",
-        component: NotesComponent,      
+        component: ReminderComponent,      
       }
      ]
   },

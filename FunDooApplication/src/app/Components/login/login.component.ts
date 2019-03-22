@@ -52,14 +52,14 @@ export class LoginComponent implements OnInit {
         console.log(res.message);
         debugger;
         if (res.message == "200") {
-          
-          const tokens =res.token;
-          localStorage.setItem("token",tokens);
-          localStorage.setItem("email",this.email.value);
+
+          const tokens = res.token;
+          localStorage.setItem("token", tokens);
+          localStorage.setItem("email", this.email.value);
           localStorage.setItem(this.email.value, this.password.value);
           alert("logged in succesfully!!! ");
 
-          this.route.navigate(['/dashboard']);
+          this.route.navigate(['/home']);
 
         } else if (res.message == "204") {
 

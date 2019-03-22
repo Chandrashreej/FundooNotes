@@ -11,11 +11,14 @@
 /********************************************************************************************/
 include '/var/www/html/codeigniter/application/Service/JWT.php';
 require '/var/www/html/codeigniter/application/jwt/vendor/autoload.php';
-include '/var/www/html/codeigniter/application/libraries/predis-1.1/autoload.php';
+include '/var/www/html/codeigniter/application/Service/ConnectingToRedis.php';
+include '/var/www/html/codeigniter/application/static/LinkConstants.php';
+include '/var/www/html/codeigniter/application/Service/DatabaseConnection.php';
 /**
  * creation of Uselogin class that extends CI_Controller
  */
 use \Firebase\JWT\JWT;
+
 class Uselogin extends CI_Controller
 {
     /**
@@ -29,7 +32,9 @@ class Uselogin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        
+        $ref = new DatabaseConnection();
+        $this->connect = $ref->Connection();
+        $this->constants = new LinkConstants();
     }
     /**
      * @method userLoginFunction() login in to fundo logic
@@ -40,38 +45,8 @@ class Uselogin extends CI_Controller
 
         $num = $this->isUserPresent($email, $password);
         if ($num == 1) {
-
-            $randomnum = mt_rand(000000000,100000000);
-            $query = "SELECT * FROM createuser ORDER BY email";
-            $statement = $this->db->conn_id->prepare($query);
-            $statement->execute();
-            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-
-            foreach ($arr as $titleData) {
-                $phonenum = $titleData['phonenum'] ;
-                $lastname =$titleData['lastname'];
-                $sekretkey=$titleData['email'];
-            }
-            $jwt = array(
-                "phonenum" =>$phonenum,
-                "lastname"=> $lastname,
-                "randomnum"=> $randomnum
-            );
-
-                $token = JWT::encode($jwt, $sekretkey);
-                  
-
-            $client = new Predis\Client(array(
-              'host' => '127.0.0.1',
-              'port' => 6379,
-              'password' => 'TheirWasAJungleWithTwoChimpangiz'
-            ));
-
-            $client->set('token', $token);
-            $response = $client->get('token');
-        
-
+            $login = new Uselogin;
+            $token = $login->generateJWTToke($email);
             $data = array(
                 "token" => $token,
                 "message" => "200",
@@ -99,8 +74,29 @@ class Uselogin extends CI_Controller
         }
         return $result;
     }
+    public function generateJWTToke($email)
+    {
 
-    
+        $query = "SELECT * FROM createuser  where email = '$email'";
+        $statement = $this->db->conn_id->prepare($query);
+        $statement->execute();
+        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $sekretkey = "chandu";
+        foreach ($arr as $titleData) {
+            $phonenum = $titleData['phonenum'];
+
+            $userId = $titleData['id'];
+        }
+        $payload = array(
+            "phonenum" => $phonenum,
+            "userId" => $userId
+        );
+
+        $token = JWT::encode($payload, $sekretkey);
+        $client = ConnectingToRedis::redisConnection();
+        $client->set("token", $token);
+        return $token;
+    }
     /**
      * @method isUserPresent() check email and pass match
      * @return void

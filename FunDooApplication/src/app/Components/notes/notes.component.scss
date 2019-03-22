@@ -17,6 +17,7 @@ border-radius: 100px ;
 .mainmat {
     margin-top: 38px;
     margin-left: 140px;
+    margin-right: 140px;
     padding-right: 0px;
     padding-left: 23px;
     padding-top: 0px;
@@ -29,7 +30,7 @@ border-radius: 100px ;
     font-family: 'Product Sans',Arial,sans-serif;
     font-size: 19px;
      line-height:  24px;
-     padding-left: 8px;
+
     position: relative;
     top: -1.5px;
     vertical-align: middle;
@@ -73,9 +74,10 @@ element.style {
     transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
     display: block;
     position: relative;
-    padding: 16px;
-    border-radius: 4px;
-    margin-left: 425px;
+
+    border-radius: 10px;
+    margin-left: 250px;
+    margin-right: 250px;
     margin-top: 40px;
 
 flex-direction: column;
@@ -84,10 +86,10 @@ display: flex;
 
 align-items: center;
 width: 630px;
-padding-top: 8px;
-height: 165px;
-padding-left: 9px;
-
+padding-top: 10px;
+height: 200px;
+padding-left: 27px;
+padding-right: 2px;
 padding-bottom: 13px;
 color:#7E858A;
     
@@ -97,18 +99,19 @@ font-size: 15px;
 }
 .gridcard{
 
-    margin-top: 95px;
-    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 25px;
     display: inline-block;
 
-    margin-left: 100px;
-    height: 138px;
-    width: 141px;
-    padding-left: 41px;
+    margin-left: 0px;
+    height: 90px;
+    width: 190px;
+    padding-left: 16px;
     padding-top: 9px;
-    color:#7E858A;
-    font-family: 'Product Sans',Arial,sans-serif;
+    color:black;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
     font-size: 15px;
+    
 }
 .noteslist{
     margin-left: 250px;
@@ -130,4 +133,10 @@ font-size: 15px;
 }
 .cardicon{
     color: rgb(87, 86, 86);
+}
+.cardmaticon{
+    color: rgb(87, 86, 86);
+    font-size: 10px;
+    width: 30px;
+    height: 3px;
 }
