@@ -91,10 +91,10 @@
     // margin-top: 0px;
     // margin-left: -20px;
     background: white;
-    position: fixed;
+    
     top: 15%;
     left: 0%; 
-    bottom: 10%;
+    // bottom: 50%;
     // -webkit-transform: translate(-50%, -50%);
     // transform: translate(-50%, -50%); 
 
@@ -141,7 +141,7 @@ mat-sidenav-container{
   border:none;
 }
 mat-sidenav{
-  width: 200px;
+  width: 300px;
   border:none;
 }
 // .searchbox{
@@ -194,4 +194,7 @@ mat-sidenav{
 .content{
   width: 1336px;
   height: 100%;
+}
+.is-active{
+  background-color: #FFEDC4;
 }

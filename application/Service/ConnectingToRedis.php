@@ -1,5 +1,6 @@
 <?php
-include '/var/www/html/codeigniter/application/libraries/predis-1.1/autoload.php';
+
+include_once '/var/www/html/codeigniter/application/libraries/predis-1.1/autoload.php';
 class ConnectingToRedis
 {
 

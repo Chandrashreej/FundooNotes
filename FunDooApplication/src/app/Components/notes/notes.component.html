@@ -35,7 +35,7 @@
       <input style="font-size: 100px;margin-top: 15px;appearance : null;
           font-family: 'Google Sans',Roboto,Arial,sans-serif;
           font-size: 1rem; color: #646161; border: none;width: 550px;height:30px;"
-       [formControl]="title" matInput placeholder="Title" />
+        [formControl]="title" matInput placeholder="Title" />
 
       <button style="padding-top: 5px;" mat-icon-button>
         <mat-icon matTooltip="Pin note" style="margin-left: 0px;margin-top: -43px;" matSuffix class="cardicon"><img src="../../assets/img/fundoAssests/pin.svg"
@@ -49,7 +49,7 @@
       <input style="font-size: 45px;margin-top: 15px;appearance : null;
       font-family: 'Google Sans',Roboto,Arial,sans-serif;
       font-size: 1rem; color: #646161; border: none;width: 500px;;height:30px;margin-bottom: 20px;"
-       [formControl]="takeANote" placeholder="Take a note..." />
+        [formControl]="takeANote" placeholder="Take a note..." />
     </div>
     <div>
       <button mat-icon-button *ngIf="timer">
@@ -62,7 +62,7 @@
         <mat-icon matTooltip=" Remaind me " class="cardicon"><img src="../../assets/img/fundoAssests/remainder.svg "
             style="    fill: rgb(87, 86, 86);" /></mat-icon>
       </button>
-      <mat-menu  #remainder="matMenu">
+      <mat-menu #remainder="matMenu">
         <button mat-menu-item>Remainder:</button>
         <!-- <button mat-menu-item  (click)="timer_button = true && (PresentTime = currentDateAndTime)">
         Later today 8:00PM
@@ -71,23 +71,23 @@
         <button mat-menu-item (click)="tomorrow(01)">Tomorrow 8:00PM</button>
         <button mat-menu-item (click)="nextWeek(01)">Next week Mon,8:00pm</button>
 
-        <button mat-menu-item  [matMenuTriggerFor]="menu6">
+        <button mat-menu-item [matMenuTriggerFor]="menu6">
           <mat-icon><img src="../../assets/img/fundoAssests/timer.svg " /></mat-icon>Pick date & time
         </button>
         <mat-menu #menu6="matMenu">
-     
-            <mat-nav-list>
-                <mat-list role="List">
-          <div class="pickdate">
 
-          <mat-list-item id="pickAdjust">
+          <mat-nav-list>
+            <mat-list role="List">
+              <div class="pickdate">
 
-              <span>Pick date and Time </span>
-             </mat-list-item>
-          
-            </div>
+                <mat-list-item id="pickAdjust">
 
-            <mat-list-item>
+                  <span>Pick date and Time </span>
+                </mat-list-item>
+
+              </div>
+
+              <mat-list-item>
                 <mat-form-field class="example-full-width">
                   <input matInput [matDatepicker]="picker" placeholder="Choose a date">
                   <mat-datepicker-toggle matSuffix [for]="picker">
@@ -95,15 +95,15 @@
                   </mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                  </mat-list-item>
-          
-            <button mat-menu-item [matMenuTriggerFor]="menu9">Pick date and Time </button>
-            <mat-menu #menu9="matMenu">
+              </mat-list-item>
+
+              <button mat-menu-item [matMenuTriggerFor]="menu9">Pick date and Time </button>
+              <mat-menu #menu9="matMenu">
                 <button mat-menu-item>
                   <span>Morning<span class="time8"> 8:00AM</span></span>
                 </button>
-                <button mat-menu-item >
-                  <span>Afternoon    1:00PM</span>
+                <button mat-menu-item>
+                  <span>Afternoon 1:00PM</span>
                 </button>
                 <button mat-menu-item>
                   <span>Evening 6:00PM</span>
@@ -115,40 +115,40 @@
                   <span>Custom</span>
                 </button>
               </mat-menu>
-            <mat-list-item>
-              <button mat-menu-item [matMenuTriggerFor]="menu10">Does not repeat</button>
-               <mat-menu #menu10="matMenu">
-                 <button mat-menu-item>
-                   <span>Does not repeat</span>
-                 </button>
+              <mat-list-item>
+                <button mat-menu-item [matMenuTriggerFor]="menu10">Does not repeat</button>
+                <mat-menu #menu10="matMenu">
+                  <button mat-menu-item>
+                    <span>Does not repeat</span>
+                  </button>
 
-                 <button  mat-menu-item >
+                  <button mat-menu-item>
                     <span>Daily</span>
                   </button>
-                 <button  mat-menu-item >
-                   <span>weekly</span>
-                 </button>
-                 <button  mat-menu-item >
-                   <span>monthly</span>
-                 </button>
-                 <button  mat-menu-item >
-                   <span>yearly</span>
-                 </button>
-                 <button  mat-menu-item >
+                  <button mat-menu-item>
+                    <span>weekly</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span>monthly</span>
+                  </button>
+                  <button mat-menu-item>
+                    <span>yearly</span>
+                  </button>
+                  <button mat-menu-item>
                     <span>Custom</span>
                   </button>
-               </mat-menu>
-             
-            </mat-list-item>
+                </mat-menu>
+
+              </mat-list-item>
 
             </mat-list>
           </mat-nav-list>
-           
-          </mat-menu>
+
+        </mat-menu>
       </mat-menu>
 
 
-      
+
       <span></span>
       <button mat-icon-button>
         <mat-icon matTooltip="Collaborate" class="cardicon"><img src="../../assets/img/fundoAssests/person.svg " style="    fill: rgb(87, 86, 86);" /></mat-icon>
@@ -159,21 +159,21 @@
             style="    fill: rgb(87, 86, 86);" /></mat-icon>
       </button>
       <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
-        <button matTooltip="Yellow" (click)="crud(user.id, '#fcf476', 'color')" mat-mini-fab class="colorlens" style="background-color:#fcf476"></button>
-        <button matTooltip="Orange" (click)="crud(user.id, '#f8bc04', 'color')" mat-mini-fab class="colorlens" style="background-color:#f8bc04 "></button>
-        <button matTooltip="Red" (click)="crud(user.id, '#f28b82', 'color')" mat-mini-fab class="colorlens" style="background-color:#f28b82 "></button>
-        <button matTooltip="White" (click)="crud(user.id, '#ffffff ', 'color')" mat-mini-fab class="colorlens" style="background-color:#ffffff "></button>
+        <button matTooltip="Yellow" (click)="crud(user.id, '#fcf476', 'color')" mat-stroked-button class="colorlens" style="background-color:#fcf476"></button>
+        <button matTooltip="Orange" (click)="crud(user.id, '#f8bc04', 'color')" mat-stroked-button class="colorlens" style="background-color:#f8bc04 "></button>
+        <button matTooltip="Red" (click)="crud(user.id, '#f28b82', 'color')" mat-stroked-button class="colorlens" style="background-color:#f28b82 "></button>
+        <button matTooltip="White" (click)="crud(user.id, '#ffffff ', 'color')" mat-stroked-button class="colorlens" style="background-color:#ffffff "></button>
         <br />
-        <button matTooltip="Dark blue" (click)="crud(user.id, '#aecbfa ', 'color')" mat-mini-fab class="colorlens"
+        <button matTooltip="Dark blue" (click)="crud(user.id, '#aecbfa ', 'color')" mat-stroked-button class="colorlens"
           style="background-color:#aecbfa "></button>
-        <button matTooltip="Blue" (click)="crud(user.id, '#cbf0f8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#cbf0f8 "></button>
-        <button matTooltip="Teal" (click)="crud(user.id, '#a7ffea ', 'color')" mat-mini-fab class="colorlens" style="background-color:#a7ffea "></button>
-        <button matTooltip="Green" (click)="crud(user.id, '#ccff90 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#ccff90 "></button>
+        <button matTooltip="Blue" (click)="crud(user.id, '#cbf0f8 ', 'color')" mat-stroked-button class="colorlens" style="background-color:#cbf0f8 "></button>
+        <button matTooltip="Teal" (click)="crud(user.id, '#a7ffea ', 'color')" mat-stroked-button class="colorlens" style="background-color:#a7ffea "></button>
+        <button matTooltip="Green" (click)="crud(user.id, '#ccff90 ', 'color')" mat-stroked-button class="colorlens" style="background-color:#ccff90 "></button>
         <br />
-        <button matTooltip="Gray" (click)="crud(user.id, '#e8eaed', 'color')" mat-mini-fab class="colorlens" style="background-color:#e8eaed "></button>
-        <button matTooltip="Brown" (click)="crud(user.id, '#e6c9a8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#e6c9a8 "></button>
-        <button matTooltip="Pink" (click)="crud(user.id, '#fccfe8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#fccfe8 "></button>
-        <button matTooltip="Purple" (click)="crud(user.id, '#d7aefb ', 'color')" mat-mini-fab class="colorlens" style="background-color:#d7aefb "></button>
+        <button matTooltip="Gray" (click)="crud(user.id, '#e8eaed', 'color')" mat-stroked-button class="colorlens" style="background-color:#e8eaed "></button>
+        <button matTooltip="Brown" (click)="crud(user.id, '#e6c9a8 ', 'color')" mat-stroked-button class="colorlens" style="background-color:#e6c9a8 "></button>
+        <button matTooltip="Pink" (click)="crud(user.id, '#fccfe8 ', 'color')" mat-stroked-button class="colorlens" style="background-color:#fccfe8 "></button>
+        <button matTooltip="Purple" (click)="crud(user.id, '#d7aefb ', 'color')" mat-stroked-button class="colorlens" style="background-color:#d7aefb "></button>
       </mat-menu>
       <span></span>
       <button mat-icon-button>
@@ -211,8 +211,8 @@
 <div style="max-width:700px; max-height:50px;">
   <mat-grid-list cols="4" rowHeight="100px" class="noteslist" *ngFor="let n of notelist">
     <mat-card class="gridcard">{{ n.title }}
-      <p style="font-size: 17px;">{{ n.takeANote }}</p>
-      <p style="font-size: 17px;">{{ n.time }}</p>
+      <p style="font-size: 15px;">{{ n.takeANote }}</p>
+      <p style="font-size: 15px;">{{ n.time }}</p>
 
       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;">
 
@@ -234,24 +234,31 @@
         <button mat-icon-button class="cardmaticon" [matMenuTriggerFor]="colorMenu">
           <mat-icon matTooltip="Change color"><img src="../../assets/img/fundoAssests/colorlens.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
         </button>
-
-        <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
-          <button matTooltip="Yellow" (click)="crud(user.id, '#fcf476', 'color')" mat-mini-fab class="colorlens" style="background-color:#fcf476"></button>
-          <button matTooltip="Orange" (click)="crud(user.id, '#f8bc04', 'color')" mat-mini-fab class="colorlens" style="background-color:#f8bc04 "></button>
-          <button matTooltip="Red" (click)="crud(user.id, '#f28b82', 'color')" mat-mini-fab class="colorlens" style="background-color:#f28b82 "></button>
-          <button matTooltip="White" (click)="crud(user.id, '#ffffff ', 'color')" mat-mini-fab class="colorlens" style="background-color:#ffffff "></button>
-          <br />
-          <button matTooltip="Dark blue" (click)="crud(user.id, '#aecbfa ', 'color')" mat-mini-fab class="colorlens"
-            style="background-color:#aecbfa "></button>
-          <button matTooltip="Blue" (click)="crud(user.id, '#cbf0f8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#cbf0f8 "></button>
-          <button matTooltip="Teal" (click)="crud(user.id, '#a7ffea ', 'color')" mat-mini-fab class="colorlens" style="background-color:#a7ffea "></button>
-          <button matTooltip="Green" (click)="crud(user.id, '#ccff90 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#ccff90 "></button>
-          <br />
-          <button matTooltip="Gray" (click)="crud(user.id, '#e8eaed', 'color')" mat-mini-fab class="colorlens" style="background-color:#e8eaed "></button>
-          <button matTooltip="Brown" (click)="crud(user.id, '#e6c9a8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#e6c9a8 "></button>
-          <button matTooltip="Pink" (click)="crud(user.id, '#fccfe8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#fccfe8 "></button>
-          <button matTooltip="Purple" (click)="crud(user.id, '#d7aefb ', 'color')" mat-mini-fab class="colorlens" style="background-color:#d7aefb "></button>
-        </mat-menu>
+        <div fxLayoutGap="5px">
+          <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
+            <button matTooltip="Yellow" (click)="crud(user.id, '#fcf476', 'color')" mat-mini-fab class="colorlens"
+              style="background-color:#fcf476"></button>
+            <button matTooltip="Orange" (click)="crud(user.id, '#f8bc04', 'color')" mat-mini-fab class="colorlens"
+              style="background-color:#f8bc04 "></button>
+            <button matTooltip="Red" (click)="crud(user.id, '#f28b82', 'color')" mat-mini-fab class="colorlens" style="background-color:#f28b82 "></button>
+            <button matTooltip="White" (click)="crud(user.id, '#ffffff ', 'color')" mat-mini-fab class="colorlens"
+              style="background-color:#ffffff "></button>
+            <br />
+            <button matTooltip="Dark blue" (click)="crud(user.id, '#aecbfa ', 'color')" mat-mini-fab class="colorlens"
+              style="background-color:#aecbfa "></button>
+            <button matTooltip="Blue" (click)="crud(user.id, '#cbf0f8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#cbf0f8 "></button>
+            <button matTooltip="Teal" (click)="crud(user.id, '#a7ffea ', 'color')" mat-mini-fab class="colorlens" style="background-color:#a7ffea "></button>
+            <button matTooltip="Green" (click)="crud(user.id, '#ccff90 ', 'color')" mat-mini-fab class="colorlens"
+              style="background-color:#ccff90 "></button>
+            <br />
+            <button matTooltip="Gray" (click)="crud(user.id, '#e8eaed', 'color')" mat-mini-fab class="colorlens" style="background-color:#e8eaed "></button>
+            <button matTooltip="Brown" (click)="crud(user.id, '#e6c9a8 ', 'color')" mat-mini-fab class="colorlens"
+              style="background-color:#e6c9a8 "></button>
+            <button matTooltip="Pink" (click)="crud(user.id, '#fccfe8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#fccfe8 "></button>
+            <button matTooltip="Purple" (click)="crud(user.id, '#d7aefb ', 'color')" mat-mini-fab class="colorlens"
+              style="background-color:#d7aefb "></button>
+          </mat-menu>
+        </div>
         <button mat-icon-button class="cardmaticon">
           <mat-icon matTooltip="Add image"><img src="../../assets/img/fundoAssests/photo.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
         </button>
@@ -265,14 +272,14 @@
         </button>
         <mat-menu [overlapTrigger]="false" #more="matMenu">
           <button mat-menu-item (click)="deleteNote(n)">Delete note</button>
-          <button mat-menu-item (click)="tomorrow(01)">Add label</button>
-          <button mat-menu-item (click)="nextWeek(01)">Add drawing
+          <button mat-menu-item (click)="tomor(01)">Add label</button>
+          <button mat-menu-item (click)="nextW(01)">Add drawing
           </button>
-          <button mat-menu-item (click)="nextWeek(01)">Make a copy
+          <button mat-menu-item (click)="next(01)">Make a copy
           </button>
-          <button mat-menu-item (click)="nextWeek(01)">Show tick boxes
+          <button mat-menu-item (click)="nextW(01)">Show tick boxes
           </button>
-          <button mat-menu-item (click)="nextWeek(01)">Copy to Google Docs
+          <button mat-menu-item (click)="ne(01)">Copy to Google Docs
           </button>
         </mat-menu>
       </div>

@@ -31,6 +31,7 @@ constructor(private http: HttpClient,
     }
 
     fetchnotes(email){
+      
       let userNotesdata = new FormData();
       userNotesdata.append("email",email);
       return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllNotes), userNotesdata

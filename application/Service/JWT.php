@@ -172,17 +172,7 @@ class JWT
 
         return implode('.', $segments);
     }
-    // public static function encode($email, $secretkey)
-    // {
-    //     $header             = json_encode(['typ' => 'JWT', 'alg' => 'sha256']);
-    //     $payload            = json_encode(['user_id' => $email]);
-    //     $base64UrlHeader    = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
-    //     $base64UrlPayload   = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
-    //     $signature          = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, $secretkey, true);
-    //     $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
-    //     $jwt                = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-    //     return $jwt;
-    // }
+
     /**
      * Sign a string with a given key and algorithm.
      *
@@ -221,7 +211,7 @@ class JWT
      *
      * @return boolean
      */
-    public function verify($token, $secretkey): bool
+    public function verifyc($token, $secretkey): bool
     {
         list($headerEncoded, $payloadEncoded, $signatureEncoded) = explode('.', $token);
         $dataEncoded                                             = "$headerEncoded.$payloadEncoded";
@@ -237,7 +227,7 @@ class JWT
      * @return string
      */
 
-    public static function base64UrlDecode($data,$dfgdf): string
+    public static function base64UrlDecode($data): string
     {
         $urlUnsafeData = strtr($data, '-_', '+/');
         $paddedData    = str_pad($urlUnsafeData, strlen($data) % 4, '=', STR_PAD_RIGHT);
@@ -256,42 +246,42 @@ class JWT
      *
      * @throws DomainException Invalid Algorithm or OpenSSL failure
      */
-    // private static function verify($msg, $signature, $key, $alg)
-    // {
-    //     if (empty(static::$supported_algs[$alg])) {
-    //         throw new DomainException('Algorithm not supported');
-    //     }
+    private static function verify($msg, $signature, $key, $alg)
+    {
+        if (empty(static::$supported_algs[$alg])) {
+            throw new DomainException('Algorithm not supported');
+        }
 
-    //     list($function, $algorithm) = static::$supported_algs[$alg];
-    //     switch($function) {
-    //         case 'openssl':
-    //             $success = openssl_verify($msg, $signature, $key, $algorithm);
-    //             if ($success === 1) {
-    //                 return true;
-    //             } elseif ($success === 0) {
-    //                 return false;
-    //             }
-    //             // returns 1 on success, 0 on failure, -1 on error.
-    //             throw new DomainException(
-    //                 'OpenSSL error: ' . openssl_error_string()
-    //             );
-    //         case 'hash_hmac':
-    //         default:
-    //             $hash = hash_hmac($algorithm, $msg, $key, true);
-    //             if (function_exists('hash_equals')) {
-    //                 return hash_equals($signature, $hash);
-    //             }
-    //             $len = min(static::safeStrlen($signature), static::safeStrlen($hash));
+        list($function, $algorithm) = static::$supported_algs[$alg];
+        switch($function) {
+            case 'openssl':
+                $success = openssl_verify($msg, $signature, $key, $algorithm);
+                if ($success === 1) {
+                    return true;
+                } elseif ($success === 0) {
+                    return false;
+                }
+                // returns 1 on success, 0 on failure, -1 on error.
+                throw new DomainException(
+                    'OpenSSL error: ' . openssl_error_string()
+                );
+            case 'hash_hmac':
+            default:
+                $hash = hash_hmac($algorithm, $msg, $key, true);
+                if (function_exists('hash_equals')) {
+                    return hash_equals($signature, $hash);
+                }
+                $len = min(static::safeStrlen($signature), static::safeStrlen($hash));
 
-    //             $status = 0;
-    //             for ($i = 0; $i < $len; $i++) {
-    //                 $status |= (ord($signature[$i]) ^ ord($hash[$i]));
-    //             }
-    //             $status |= (static::safeStrlen($signature) ^ static::safeStrlen($hash));
+                $status = 0;
+                for ($i = 0; $i < $len; $i++) {
+                    $status |= (ord($signature[$i]) ^ ord($hash[$i]));
+                }
+                $status |= (static::safeStrlen($signature) ^ static::safeStrlen($hash));
 
-    //             return ($status === 0);
-    //     }
-    // }
+                return ($status === 0);
+        }
+    }
 
     /**
      * Decode a JSON string into a PHP object.
