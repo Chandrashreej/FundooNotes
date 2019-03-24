@@ -170,11 +170,14 @@
         </div> -->
     </mat-card>
   </div>
-  <div style="max-width:700px; max-height:50px;">
-    <mat-grid-list cols="3" rowHeight="3:1" class="noteslist" *ngFor="let n of notelist">
-      <mat-card class="gridcard">{{ n.title }}
-        <p style="font-size: 17px;">{{ n.takeANote }}</p>
-  
+  <div fxLayout="{{layout}}" fxLayoutAlign="center center">
+    <!-- <div style="max-width:700px; max-height:50px;"> -->
+    
+      <!-- <mat-grid-list cols="4" rowHeight="100px" class="noteslist" *ngFor="let n of notelist"> -->
+        <mat-card class="gridcard" *ngFor="let n of notelist">{{ n.title }}
+          <p style="font-size: 15px;">{{ n.takeANote }}</p>
+          <p style="font-size: 15px;">{{ n.dateAndTime }}</p>
+    
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;">
   
           <button mat-icon-button matTooltip=" Remaind me " [matMenuTriggerFor]="remainder" class="cardmaticon">
@@ -225,7 +228,7 @@
             </mat-menu>
         </div>
       </mat-card>
-    </mat-grid-list>
+  
   </div>
   
   

@@ -47,12 +47,12 @@ class DashboardService extends CI_Controller
         $this->constants = new LinkConstants();
 
     }
-    public function isSetNotesService($email, $title, $takeANote)
+    public function isSetNotesService($email, $title, $takeANote,$dateAndTime)
     {
         // $headers = apache_request_headers();
         // print_r($headers);
 
-        $time = "";
+      
 
         $sekretkey = "chandu";
 
@@ -73,7 +73,7 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime) values ('$userId','$title','$takeANote','$time')";
+                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime) values ('$userId','$title','$takeANote','$dateAndTime')";
 
                 $stmt = $this->connect->prepare($query);
                 $res = $stmt->execute();

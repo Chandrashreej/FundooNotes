@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 import * as moment from 'moment';
+import { ListService } from 'src/app/Services/list.service';
 
 @Component({
   selector: 'app-notes',
@@ -12,21 +13,33 @@ export class NotesComponent implements OnInit {
   flag: boolean = true;
   token1: any;
   notelist: any;
-  constructor(private notesService: DashboardService) { }
+  constructor(private notesService: DashboardService, private listview: ListService) { }
   model: any = {};
   timer:any;
   title = new FormControl();
   displayTitle: any;
   displayTakeANote: any;
   takeANote = new FormControl();
+  dateandtime :any;
+
+  wrap: string = "wrap";
+  direction: string = "row";
+
+	layout: string = this.direction + " " + this.wrap;
   /**
  * var to hold present time
  */
-  public currentDateAndTime = "";
-
+  public dateAndTime = "";
+  view;
   ngOnInit() {
     this.notesDisplaying();
     this.timer = false;
+
+    this.listview.getView().subscribe((res=>{
+      this.view = res;
+      this.direction = this.view.data;
+      this.layout = this.direction + " "+this.wrap;
+  }))
   }
   notesDisplaying() {
 
@@ -35,7 +48,9 @@ export class NotesComponent implements OnInit {
     getnotes.subscribe((res: any) => {
 
       this.notelist = res as string[];
-
+      this.displayTitle =this.notelist.title;
+      this.displayTakeANote = this.notelist.takeANote;
+      this.dateAndTime
     });
   }
 
@@ -54,7 +69,7 @@ export class NotesComponent implements OnInit {
     this.timer = true;
     this.fulldate = day.toDateString();
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
-    this.currentDateAndTime = currentDate + " " + " 08:00 PM";
+    this.dateAndTime = currentDate + " " + " 08:00 PM";
 
   }
 
@@ -65,7 +80,7 @@ export class NotesComponent implements OnInit {
     day.setDate(day.getDate() + 1);
     this.fulldate = day.toDateString();
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
-    this.currentDateAndTime = currentDate + " " + " 08:00 AM";
+    this.dateAndTime = currentDate + " " + " 08:00 AM";
     this.timer = true;
   }
 
@@ -75,7 +90,7 @@ export class NotesComponent implements OnInit {
 
     this.fulldate = day.setDate(day.getDate() + ((1 + 7 - day.getDay()) % 7));
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
-    this.currentDateAndTime = currentDate + " " + " 08:00 AM";
+    this.dateAndTime = currentDate + " " + " 08:00 AM";
     this.timer = true;
   }
   addNotes() {
@@ -91,8 +106,8 @@ export class NotesComponent implements OnInit {
 
     // console.log(this.model);
     // debugger;
-    let obs = this.notesService.usereNotes(this.model);
-      //this.currentDateAndTime 
+    let obs = this.notesService.usereNotes(this.model,this.dateAndTime);
+      //this.dateAndTime 
      
     // debugger;
     obs.subscribe((res: any) => {

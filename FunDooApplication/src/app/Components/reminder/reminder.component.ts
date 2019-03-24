@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 
 import { ReminderService } from 'src/app/Services/reminder.service';
 import * as moment from 'moment';
+import { ListService } from 'src/app/Services/list.service';
 @Component({
   selector: 'app-reminder',
   templateUrl: './reminder.component.html',
@@ -12,7 +13,12 @@ export class ReminderComponent implements OnInit {
   flag: boolean = true;
   token1: any;
   notelist: any;
-  constructor(private reminderService: ReminderService) { }
+  constructor(private reminderService: ReminderService, private listview: ListService) {
+
+
+
+    
+   }
   model: any = {};
   public currentDateAndTime = "";
   title = new FormControl();
@@ -21,9 +27,22 @@ export class ReminderComponent implements OnInit {
   takeANote = new FormControl();
   fulldate: any;
   fulltime: any;
+  view;
+
+  wrap: string = "wrap";
+  direction: string = "row";
+
+	layout: string = this.direction + " " + this.wrap;
+
   ngOnInit() {
 
     this.displayReminder();
+
+    this.listview.getView().subscribe((res=>{
+      this.view = res;
+      this.direction = this.view.data;
+      this.layout = this.direction + " "+this.wrap;
+  }))
 
   }
   displayReminder() {

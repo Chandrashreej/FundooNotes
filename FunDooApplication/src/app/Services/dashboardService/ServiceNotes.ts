@@ -11,7 +11,7 @@ constructor(private http: HttpClient,
     private sevriceurl: ServiceUrlService) { }
     tokenPayload:any;
     token:any;
-    usereNotes(note:NotesModel ){
+    usereNotes(note:NotesModel,currentDateAndTime ){
       let userNotesdata = new FormData();
 
       // let headers_object = new HttpHeaders().set("Authorization",localStorage.getItem("token"));
@@ -19,6 +19,7 @@ constructor(private http: HttpClient,
       userNotesdata.append("title", note.title);
       userNotesdata.append("takeANote", note.takeANote);
       userNotesdata.append("email",note.email);
+      userNotesdata.append("dateAndTime",currentDateAndTime );
 
       // headers_object.append("token",localStorage.getItem("token"));
       // debugger;
