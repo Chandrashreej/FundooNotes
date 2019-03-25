@@ -13,19 +13,32 @@ export class NotesComponent implements OnInit {
   flag: boolean = true;
   token1: any;
   notelist: any;
-  constructor(private notesService: DashboardService, private listview: ListService) { }
+  classcard;
+  constructor(private notesService: DashboardService, private listview: ListService) {
+
+    this.listview.getView().subscribe((res => {
+      this.view = res;
+      this.direction = this.view.data;
+      this.classcard = this.view.class;
+      console.log("Direction is :", this.direction);
+
+      this.layout = this.direction + " " + this.wrap;
+      console.log("Layout is ", this.layout);
+      console.log("class is ", this.classcard);
+    }))
+  }
   model: any = {};
-  timer:any;
+  timer: any;
   title = new FormControl();
   displayTitle: any;
   displayTakeANote: any;
   takeANote = new FormControl();
-  dateandtime :any;
+  dateandtime: any;
 
   wrap: string = "wrap";
   direction: string = "row";
 
-	layout: string = this.direction + " " + this.wrap;
+  layout: string = this.direction + " " + this.wrap;
   /**
  * var to hold present time
  */
@@ -35,11 +48,11 @@ export class NotesComponent implements OnInit {
     this.notesDisplaying();
     this.timer = false;
 
-    this.listview.getView().subscribe((res=>{
+    this.listview.getView().subscribe((res => {
       this.view = res;
       this.direction = this.view.data;
-      this.layout = this.direction + " "+this.wrap;
-  }))
+      this.layout = this.direction + " " + this.wrap;
+    }))
   }
   notesDisplaying() {
 
@@ -48,7 +61,7 @@ export class NotesComponent implements OnInit {
     getnotes.subscribe((res: any) => {
 
       this.notelist = res as string[];
-      this.displayTitle =this.notelist.title;
+      this.displayTitle = this.notelist.title;
       this.displayTakeANote = this.notelist.takeANote;
       this.dateAndTime
     });
@@ -68,7 +81,7 @@ export class NotesComponent implements OnInit {
     var day = new Date();
     this.timer = true;
     this.fulldate = day.toDateString();
-    let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+      var currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.dateAndTime = currentDate + " " + " 08:00 PM";
 
   }
@@ -95,7 +108,7 @@ export class NotesComponent implements OnInit {
   }
   addNotes() {
     // debugger;
-  
+
     const email = localStorage.getItem('email');
     this.model = {
       "title": this.title.value,
@@ -106,13 +119,13 @@ export class NotesComponent implements OnInit {
 
     // console.log(this.model);
     // debugger;
-    let obs = this.notesService.usereNotes(this.model,this.dateAndTime);
-      //this.dateAndTime 
-     
+    let obs = this.notesService.usereNotes(this.model, this.dateAndTime);
+    //this.dateAndTime 
+
     // debugger;
     obs.subscribe((res: any) => {
       if (res.message == "200") {
-        
+
         this.notesDisplaying();
         this.flag = true;
       }
@@ -123,7 +136,7 @@ export class NotesComponent implements OnInit {
 
 
     deleteObj.subscribe((res: any) => {
-    
+
       if (res.message == "200") {
         this.notesDisplaying();
       }

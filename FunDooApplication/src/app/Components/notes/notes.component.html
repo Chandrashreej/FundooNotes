@@ -3,8 +3,8 @@
 
     <div fxLayoutAlign="end start" style=" border-top-width: 0px;">
       <input style="font-size: 55px;margin-top: 15px;appearance : null;
-                font-family: 'Google Sans',Roboto,Arial,sans-serif;
-                font-size: 1rem; color: #646161; border: none;"
+                  font-family: 'Google Sans',Roboto,Arial,sans-serif;
+                  font-size: 1rem; color: #646161; border: none;"
         placeholder="Take a note..." />
 
 
@@ -33,8 +33,8 @@
     <!-- <input style="width: 91%;margin-left: 10px;margin-bottom: 10px;appearance : null;margin-top: 15px;height: 30px; border: none; font-size: 16px;"class="cardicon"  placeholder="Title" /> -->
     <div>
       <input style="font-size: 100px;margin-top: 15px;appearance : null;
-                font-family: 'Google Sans',Roboto,Arial,sans-serif;
-                font-size: 1rem; color: #646161; border: none;width: 550px;height:30px;"
+                  font-family: 'Google Sans',Roboto,Arial,sans-serif;
+                  font-size: 1rem; color: #646161; border: none;width: 550px;height:30px;"
         [formControl]="title" matInput placeholder="Title" />
 
       <button style="padding-top: 5px;" mat-icon-button>
@@ -44,15 +44,16 @@
     </div>
     <div>
       <!-- <input style=" width: 91%;margin-left: 10px;margin-bottom: 10px;appearance : null;margin-top: 15px;height: 30px; border: none;font-size: 18px; "
-            matInput class="cardicon"  matTextareaAutosize placeholder="Take a note" /> -->
-      <input style="font-size: 45px;margin-top: 15px;appearance : null;
-            font-family: 'Google Sans',Roboto,Arial,sans-serif;
-            font-size: 1rem; color: #646161; border: none;width: 500px;;height:30px;margin-bottom: 20px;"
+              matInput class="cardicon"  matTextareaAutosize placeholder="Take a note" /> -->
+      <input style="font-size: 45px;margin-top: 15px;appearance : null;font-family: 'Google Sans',Roboto,Arial,sans-serif;font-size: 1rem; color: #646161; border: none;width: 500px;;height:30px;margin-bottom: 20px;"
         [formControl]="takeANote" placeholder="Take a note..." />
     </div>
     <div>
       <button mat-icon-button *ngIf="timer">
-        <mat-icon>timer</mat-icon>{{currentDateAndTime}}
+        <mat-icon>timer</mat-icon>
+
+        {{currentDateAndTime}}
+
       </button>
     </div>
     <div>
@@ -64,8 +65,8 @@
       <mat-menu #remainder="matMenu">
         <button mat-menu-item>Remainder:</button>
         <!-- <button mat-menu-item  (click)="timer_button = true && (PresentTime = currentDateAndTime)">
-              Later today 8:00PM
-            </button> -->
+                Later today 8:00PM
+              </button> -->
         <button mat-menu-item (click)="today(01)">Later today 8:00PM</button>
         <button mat-menu-item (click)="tomorrow(01)">Tomorrow 8:00PM</button>
         <button mat-menu-item (click)="nextWeek(01)">Next week Mon,8:00pm</button>
@@ -88,7 +89,7 @@
 
               <mat-list-item>
                 <mat-form-field class="example-full-width">
-                  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="currentDateAndTime">
+                  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="dateAndTimeCustom">
                   <mat-datepicker-toggle matSuffix [for]="picker">
                     <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                   </mat-datepicker-toggle>
@@ -214,149 +215,79 @@
 
     <!-- <div>
 
-            </div> -->
+              </div> -->
   </mat-card>
 </div>
 <div fxLayout="{{layout}}" fxLayoutAlign="center center">
-<!-- <div style="max-width:700px; max-height:50px;"> -->
+  <!-- <div style="max-width:700px; max-height:50px;"> -->
 
   <!-- <mat-grid-list cols="4" rowHeight="100px" class="noteslist" *ngFor="let n of notelist"> -->
-    <mat-card class="gridcard" *ngFor="let n of notelist">{{ n.title }}
-      <p style="font-size: 15px;">{{ n.takeANote }}</p>
-      <p style="font-size: 15px;">{{ n.dateAndTime }}</p>
+  <mat-card class="gridcard" *ngFor="let n of notelist">{{ n.title }}
+    <p style="font-size: 15px;">{{ n.takeANote }}</p>
+    <p style="font-size: 15px;">{{ n.dateAndTime }}</p>
 
-      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;">
 
-        <button mat-icon-button matTooltip=" Remaind me " [matMenuTriggerFor]="remainder" class="cardmaticon">
-          <mat-icon><img src="../../assets/img/fundoAssests/remainder.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
+      <button mat-icon-button matTooltip=" Remaind me " [matMenuTriggerFor]="remainder" class="cardmaticon">
+        <mat-icon><img src="../../assets/img/fundoAssests/remainder.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
+      </button>
+      <mat-menu [overlapTrigger]="false" #remainder="matMenu">
+        <button mat-menu-item>Remainder:</button>
+        <button mat-menu-item (click)="today(n)">Later today 8:00PM</button>
+        <button mat-menu-item (click)="tomorrow(n)">Tomorrow 8:00PM</button>
+        <button mat-menu-item (click)="nextWeek(n)">
+          Next week Mon,8:00pm
         </button>
-        <mat-menu [overlapTrigger]="false" #remainder="matMenu">
-          <button mat-menu-item>Remainder:</button>
-          <button mat-menu-item (click)="today(n)">Later today 8:00PM</button>
-          <button mat-menu-item (click)="tomorrow(n)">Tomorrow 8:00PM</button>
-          <button mat-menu-item (click)="nextWeek(n)">
-            Next week Mon,8:00pm
-          </button>
-        </mat-menu>
-        <button mat-icon-button class="cardmaticon">
-          <mat-icon matTooltip="Collaborate"><img src="../../assets/img/fundoAssests/person.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
-        </button>
+      </mat-menu>
+      <button mat-icon-button class="cardmaticon">
+        <mat-icon matTooltip="Collaborate"><img src="../../assets/img/fundoAssests/person.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
+      </button>
 
-        <button mat-icon-button class="cardmaticon" [matMenuTriggerFor]="colorMenu">
-          <mat-icon matTooltip="Change color"><img src="../../assets/img/fundoAssests/colorlens.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
-        </button>
-        <div fxLayoutGap="5px">
-          <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
-            <button matTooltip="Yellow" (click)="crud(user.id, '#fcf476', 'color')" mat-mini-fab class="colorlens"
-              style="background-color:#fcf476"></button>
-            <button matTooltip="Orange" (click)="crud(user.id, '#f8bc04', 'color')" mat-mini-fab class="colorlens"
-              style="background-color:#f8bc04 "></button>
-            <button matTooltip="Red" (click)="crud(user.id, '#f28b82', 'color')" mat-mini-fab class="colorlens" style="background-color:#f28b82 "></button>
-            <button matTooltip="White" (click)="crud(user.id, '#ffffff ', 'color')" mat-mini-fab class="colorlens"
-              style="background-color:#ffffff "></button>
-            <br />
-            <button matTooltip="Dark blue" (click)="crud(user.id, '#aecbfa ', 'color')" mat-mini-fab class="colorlens"
-              style="background-color:#aecbfa "></button>
-            <button matTooltip="Blue" (click)="crud(user.id, '#cbf0f8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#cbf0f8 "></button>
-            <button matTooltip="Teal" (click)="crud(user.id, '#a7ffea ', 'color')" mat-mini-fab class="colorlens" style="background-color:#a7ffea "></button>
-            <button matTooltip="Green" (click)="crud(user.id, '#ccff90 ', 'color')" mat-mini-fab class="colorlens"
-              style="background-color:#ccff90 "></button>
-            <br />
-            <button matTooltip="Gray" (click)="crud(user.id, '#e8eaed', 'color')" mat-mini-fab class="colorlens" style="background-color:#e8eaed "></button>
-            <button matTooltip="Brown" (click)="crud(user.id, '#e6c9a8 ', 'color')" mat-mini-fab class="colorlens"
-              style="background-color:#e6c9a8 "></button>
-            <button matTooltip="Pink" (click)="crud(user.id, '#fccfe8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#fccfe8 "></button>
-            <button matTooltip="Purple" (click)="crud(user.id, '#d7aefb ', 'color')" mat-mini-fab class="colorlens"
-              style="background-color:#d7aefb "></button>
-          </mat-menu>
-        </div>
-        <button mat-icon-button class="cardmaticon">
-          <mat-icon matTooltip="Add image"><img src="../../assets/img/fundoAssests/photo.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
-        </button>
-
-        <button mat-icon-button class="cardmaticon">
-          <mat-icon matTooltip="Archive"><img src="../../assets/img/fundoAssests/archive2.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
-        </button>
-        <button mat-icon-button class="cardmaticon">
-          <mat-icon matTooltip="More"><img src="../../assets/img/fundoAssests/more.svg " [matMenuTriggerFor]="more"
-              style="    color: rgb(87, 86, 86);" /></mat-icon>
-        </button>
-        <mat-menu [overlapTrigger]="false" #more="matMenu">
-          <button mat-menu-item (click)="deleteNote(n)">Delete note</button>
-          <button mat-menu-item (click)="tomor(01)">Add label</button>
-          <button mat-menu-item (click)="nextW(01)">Add drawing
-          </button>
-          <button mat-menu-item (click)="next(01)">Make a copy
-          </button>
-          <button mat-menu-item (click)="nextW(01)">Show tick boxes
-          </button>
-          <button mat-menu-item (click)="ne(01)">Copy to Google Docs
-          </button>
+      <button mat-icon-button class="cardmaticon" [matMenuTriggerFor]="colorMenu">
+        <mat-icon matTooltip="Change color"><img src="../../assets/img/fundoAssests/colorlens.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
+      </button>
+      <div fxLayoutGap="5px">
+        <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
+          <button matTooltip="Yellow" (click)="crud(user.id, '#fcf476', 'color')" mat-mini-fab class="colorlens" style="background-color:#fcf476"></button>
+          <button matTooltip="Orange" (click)="crud(user.id, '#f8bc04', 'color')" mat-mini-fab class="colorlens" style="background-color:#f8bc04 "></button>
+          <button matTooltip="Red" (click)="crud(user.id, '#f28b82', 'color')" mat-mini-fab class="colorlens" style="background-color:#f28b82 "></button>
+          <button matTooltip="White" (click)="crud(user.id, '#ffffff ', 'color')" mat-mini-fab class="colorlens" style="background-color:#ffffff "></button>
+          <br />
+          <button matTooltip="Dark blue" (click)="crud(user.id, '#aecbfa ', 'color')" mat-mini-fab class="colorlens"
+            style="background-color:#aecbfa "></button>
+          <button matTooltip="Blue" (click)="crud(user.id, '#cbf0f8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#cbf0f8 "></button>
+          <button matTooltip="Teal" (click)="crud(user.id, '#a7ffea ', 'color')" mat-mini-fab class="colorlens" style="background-color:#a7ffea "></button>
+          <button matTooltip="Green" (click)="crud(user.id, '#ccff90 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#ccff90 "></button>
+          <br />
+          <button matTooltip="Gray" (click)="crud(user.id, '#e8eaed', 'color')" mat-mini-fab class="colorlens" style="background-color:#e8eaed "></button>
+          <button matTooltip="Brown" (click)="crud(user.id, '#e6c9a8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#e6c9a8 "></button>
+          <button matTooltip="Pink" (click)="crud(user.id, '#fccfe8 ', 'color')" mat-mini-fab class="colorlens" style="background-color:#fccfe8 "></button>
+          <button matTooltip="Purple" (click)="crud(user.id, '#d7aefb ', 'color')" mat-mini-fab class="colorlens" style="background-color:#d7aefb "></button>
         </mat-menu>
       </div>
-    </mat-card>
+      <button mat-icon-button class="cardmaticon">
+        <mat-icon matTooltip="Add image"><img src="../../assets/img/fundoAssests/photo.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
+      </button>
+
+      <button mat-icon-button class="cardmaticon">
+        <mat-icon matTooltip="Archive"><img src="../../assets/img/fundoAssests/archive2.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
+      </button>
+      <button mat-icon-button class="cardmaticon">
+        <mat-icon matTooltip="More"><img src="../../assets/img/fundoAssests/more.svg " [matMenuTriggerFor]="more" style="    color: rgb(87, 86, 86);" /></mat-icon>
+      </button>
+      <mat-menu [overlapTrigger]="false" #more="matMenu">
+        <button mat-menu-item (click)="deleteNote(n)">Delete note</button>
+        <button mat-menu-item (click)="tomor(01)">Add label</button>
+        <button mat-menu-item (click)="nextW(01)">Add drawing
+        </button>
+        <button mat-menu-item (click)="next(01)">Make a copy
+        </button>
+        <button mat-menu-item (click)="nextW(01)">Show tick boxes
+        </button>
+        <button mat-menu-item (click)="ne(01)">Copy to Google Docs
+        </button>
+      </mat-menu>
+    </div>
+  </mat-card>
   <!-- </mat-grid-list> -->
 </div>
-
-
-
-<!-- 
-      </div>
-      <div *ngIf="flag===true" (click)="reverseFlag()" fxLayout="row" fxLayoutAlign="space-around start" fxFlex="100">
-          <mat-card fxFlex="45" fxFlex.xs='100' class="matcard" fxLayoutAlign="space-between center"style="padding-bottom:0px;padding-top:0px">
-
-            <div data-text="Take a note.." class="Border" id="noteTitle" fxLayout="column" contenteditable="true" class="maincard">
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="end start" >
-              <button mat-icon-button><mat-icon class="check" matTooltip="New List">check_box</mat-icon></button>
-
-              <button mat-icon-button><mat-icon class="brush" matTooltip="Drawing is not available">brush</mat-icon></button>
-
-              <button mat-icon-button><mat-icon class="insert" matTooltip="New note with image">insert_photo</mat-icon></button>
-
-            </div>
-
-          </mat-card>
-        </div> -->
-
-
-<!-- 
-        <div *ngIf="flag===false" fxLayout="row" fxLayoutAlign="space-around start" fxFlex="100">
-
-          <mat-card fxLayout="column" class="matcard" fxFlex="45" fxFlexOffset.xl="20" fxFlex.xs='97' [style.backgroundColor]="bgcolor">
-            <div fxFlex="55" fxFlexOffset.xl="20" fxFlex.xs='97' fxLayout='row' fxLayoutAlign="space-between center">
-              <div class="Border" fxLayout="column" class="takenote">
-                <textarea class="textArea" matTextareaAutosize placeholder="Title" [formControl]="noteTitle" ></textarea>
-                </div>
-
-              <div fxLayout="row">
-                <button mat-icon-button color="basic" (click)="ispinned()">
-                  <div class="barpin" *ngIf="flag1==true">
-
-                    <img src="../../../assets/images/pin_bar.svg" />
-
-                  </div>
-                  <div class="barpin" *ngIf="flag1==false">
-
-                    <img src="../../../assets/images/unpin_bar.svg" />
-                  </div>
-                </button>
-              </div>
-            </div>
-
-            <div class="Border" fxLayout="column" class="takenote">
-              <textarea class="textArea" matTextareaAutosize placeholder="Take a note.. " [formControl]="noteContent"></textarea>
-            </div><br>
-            <div>
-              <div fxFlex='90'>
-                <app-icon-list (messageEvent)="recievemessage($event)" [type]=note [more]=note> </app-icon-list>
-
-              </div>
-              <div fxFlex='10' fxLayoutAlign="end end">
-                <button fxLayoutAlign='end end' class="addnote" mat-button (click)="addNote()">close</button>
-              </div>
-            </div>
-
-          </mat-card>
-        </div> -->

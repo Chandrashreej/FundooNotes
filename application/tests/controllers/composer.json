@@ -1,0 +1,5 @@
+{
+    "require": {
+        "phake/phake": "^3.1"
+    }
+}

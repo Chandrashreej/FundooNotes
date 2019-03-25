@@ -13,10 +13,20 @@ export class ReminderComponent implements OnInit {
   flag: boolean = true;
   token1: any;
   notelist: any;
+  classcard;
   constructor(private reminderService: ReminderService, private listview: ListService) {
 
 
+    this.listview.getView().subscribe((res=>{
+      this.view =res;
+      this.direction = this.view.data;
+      this.classcard = this.view.class;
+      console.log("Direction is :", this.direction);
 
+			this.layout = this.direction + " " + this.wrap;
+      console.log("Layout is ", this.layout);
+      console.log("class is ",this.classcard);
+    }))
     
    }
   model: any = {};
@@ -33,11 +43,11 @@ export class ReminderComponent implements OnInit {
   direction: string = "row";
 
 	layout: string = this.direction + " " + this.wrap;
-
+  timer:any;
   ngOnInit() {
 
     this.displayReminder();
-
+    this.timer = false;
     this.listview.getView().subscribe((res=>{
       this.view = res;
       this.direction = this.view.data;
@@ -53,13 +63,14 @@ export class ReminderComponent implements OnInit {
     getnotes.subscribe((res: any) => {
       this.notelist = res as string[];
     });
+
   }
   today(id) {
     var day = new Date();
     this.fulldate = day.toDateString();
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.currentDateAndTime = currentDate + " " + " 08:00 PM";
-
+ this.timer = true;
   }
 
 
@@ -70,7 +81,7 @@ export class ReminderComponent implements OnInit {
     this.fulldate = day.toDateString();
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.currentDateAndTime = currentDate + " " + " 08:00 AM";
-
+    this.timer = true;
   }
 
   nextWeek(id) {
@@ -80,7 +91,7 @@ export class ReminderComponent implements OnInit {
     this.fulldate = day.setDate(day.getDate() + ((1 + 7 - day.getDay()) % 7));
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.currentDateAndTime = currentDate + " " + " 08:00 AM";
-
+    this.timer = true;
   }
   reverseFlag() {
     this.flag = !this.flag;

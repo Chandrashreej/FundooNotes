@@ -110,7 +110,7 @@ class DashboardService extends CI_Controller
 
     public function setAllReminderService($email, $title, $takeANote)
     {
-        $time = "";
+        $dateAndTime = "";
 
         $sekretkey = "chandu";
 
@@ -131,7 +131,7 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userReminder (email,title,takeANote) values ('$email','$title','$takeANote')";
+                $query = "INSERT into userReminder (userId,title,takeANote,dateAndTime) values ('$userId','$title','$takeANote','$dateAndTime')";
 
                 $stmt = $this->connect->prepare($query);
                 $res = $stmt->execute();
