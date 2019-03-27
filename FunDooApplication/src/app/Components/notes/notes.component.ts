@@ -3,6 +3,10 @@ import { FormControl } from '@angular/forms';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 import * as moment from 'moment';
 import { ListService } from 'src/app/Services/list.service';
+import { MoreoptionsService } from 'src/app/Services/moreoptions.service';
+import { MatDialog, MatIconRegistry, MatSnackBar } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { EditnotesComponent } from '../editnotes/editnotes.component';
 
 @Component({
   selector: 'app-notes',
@@ -14,7 +18,14 @@ export class NotesComponent implements OnInit {
   token1: any;
   notelist: any;
   classcard;
-  constructor(private notesService: DashboardService, private listview: ListService) {
+  notes: any;
+  backgroundColour: any;
+  constructor(private notesService: DashboardService, private listview: ListService, private moreoptService:MoreoptionsService,
+    public dialog: MatDialog,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
+    private snackBar: MatSnackBar
+    ) {
 
     this.listview.getView().subscribe((res => {
       this.view = res;
@@ -34,7 +45,7 @@ export class NotesComponent implements OnInit {
   displayTakeANote: any;
   takeANote = new FormControl();
   dateandtime: any;
-
+  dateAndTimeCustom = new FormControl;
   wrap: string = "wrap";
   direction: string = "row";
 
@@ -42,7 +53,7 @@ export class NotesComponent implements OnInit {
   /**
  * var to hold present time
  */
-  public dateAndTime = "";
+  public dateAndTime: any;
   view;
   ngOnInit() {
     this.notesDisplaying();
@@ -63,10 +74,24 @@ export class NotesComponent implements OnInit {
       this.notelist = res as string[];
       this.displayTitle = this.notelist.title;
       this.displayTakeANote = this.notelist.takeANote;
-      this.dateAndTime
+
     });
   }
+  colourSetter(color)
+  {
+    this.backgroundColour = color;
+  }
+	coloring(id,value) {
+		debugger;
 
+			let obs = this.moreoptService.coloringBackground(id, value);
+			obs.subscribe((res: any) => {
+				debugger;
+				this.notes = res;
+        this.notesDisplaying();
+			});
+		}
+	
   reverseFlag() {
     this.flag = !this.flag;
   }
@@ -81,7 +106,7 @@ export class NotesComponent implements OnInit {
     var day = new Date();
     this.timer = true;
     this.fulldate = day.toDateString();
-      var currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+    var currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.dateAndTime = currentDate + " " + " 08:00 PM";
 
   }
@@ -106,29 +131,53 @@ export class NotesComponent implements OnInit {
     this.dateAndTime = currentDate + " " + " 08:00 AM";
     this.timer = true;
   }
+  openDialog(n): void {
+		const dialogRef = this.dialog.open(EditnotesComponent, {
+      width: "1000px",
+      
+			panelClass: "custom-dialog-container",
+			data: { n: n }
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result != undefined) {
+				this.notes = result;
+			}
+		});
+	}
   addNotes() {
     // debugger;
+    if (this.title.value == null && this.takeANote.value == null && this.dateAndTime== undefined) {
+      this.flag = true;
+    }
+    else {
+      const email = localStorage.getItem('email');
+ 
+      this.model = {
+        "title": this.title.value,
+        "takeANote": this.takeANote.value,
+        "email": email,
+        "color":this.backgroundColour
+      }
+      // console.log(this.model);
+      // debugger;
+      let obs = this.notesService.usereNotes(this.model, this.dateAndTime);
+      //this.dateAndTime 
 
-    const email = localStorage.getItem('email');
-    this.model = {
-      "title": this.title.value,
-      "takeANote": this.takeANote.value,
-      "email": email
+      // debugger;
+      obs.subscribe((res: any) => {
+        if (res.message == "200") {
+
+          this.notesDisplaying();
+          this.flag = true;
+        }
+      });
     }
 
-
-    // console.log(this.model);
-    // debugger;
-    let obs = this.notesService.usereNotes(this.model, this.dateAndTime);
-    //this.dateAndTime 
-
-    // debugger;
-    obs.subscribe((res: any) => {
-      if (res.message == "200") {
-
-        this.notesDisplaying();
-        this.flag = true;
-      }
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
     });
   }
   deleteNote(n) {

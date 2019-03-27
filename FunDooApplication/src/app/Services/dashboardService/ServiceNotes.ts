@@ -15,7 +15,7 @@ constructor(private http: HttpClient,
       let userNotesdata = new FormData();
 
       // let headers_object = new HttpHeaders().set("Authorization",localStorage.getItem("token"));
-      
+      userNotesdata.append("color",note.color)
       userNotesdata.append("title", note.title);
       userNotesdata.append("takeANote", note.takeANote);
       userNotesdata.append("email",note.email);

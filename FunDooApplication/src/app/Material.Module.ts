@@ -12,6 +12,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
 declarations: [],
@@ -32,7 +34,9 @@ MatButtonToggleModule,
 MatDividerModule,
 MatListModule,
 MatGridListModule,
-MatTooltipModule
+MatTooltipModule,
+MatChipsModule,
+MatSnackBarModule
 ],
 schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -54,7 +58,9 @@ MatButtonToggleModule,
 MatDividerModule,
 MatListModule,
 MatGridListModule,
-MatTooltipModule
+MatTooltipModule,
+MatChipsModule,
+MatSnackBarModule
 ],
 })
 

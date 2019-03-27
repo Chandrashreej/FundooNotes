@@ -30,6 +30,7 @@ import { NotesComponent } from './Components/notes/notes.component';
 import { AddnotesComponent } from './Components/addnotes/addnotes.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { EditnotesComponent } from './Components/editnotes/editnotes.component';
 
 
 
@@ -45,7 +46,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     SessionexpiredComponent,
     NotesComponent,
     AddnotesComponent,
-    ReminderComponent
+    ReminderComponent,
+    EditnotesComponent
   
     
   ],

@@ -1,0 +1,22 @@
+import { Injectable } from '@angular/core';
+import { ServiceUrlService } from '../ServiceUrl/service-url.service';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MoreoptionsService{
+
+
+  constructor(private http: HttpClient,
+    private sevriceurl: ServiceUrlService) { }
+  coloringBackground(n,value){
+    debugger;
+    let id = new FormData();
+    id.append('id',n);
+    id.append('value',value);
+    return this.http.post((this.sevriceurl.host+this.sevriceurl.coloringBackground), id);
+
+
+  }
+}

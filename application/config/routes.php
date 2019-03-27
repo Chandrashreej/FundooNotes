@@ -66,3 +66,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['deleteNote'] ='DashBoard/deleteNote';
 $route['deleteReminder'] ='DashBoard/deleteReminder';
+$route['coloringBackgroundFunction']= 'MoreOptions/coloringBackgroundFunction';

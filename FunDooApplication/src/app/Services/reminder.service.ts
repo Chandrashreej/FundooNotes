@@ -10,11 +10,13 @@ export class ReminderService {
   constructor(private http: HttpClient,
     private sevriceurl: ServiceUrlService) { }
     
-    userReminder(reminder:ReminderModel){
+    userReminder(reminder:ReminderModel,dateAndTime){
       let userReminderdata = new FormData();
       userReminderdata.append("title", reminder.title);
       userReminderdata.append("takeANote", reminder.takeANote);
       userReminderdata.append("email",reminder.email);
+      userReminderdata.append("dateAndTime",dateAndTime);
+      userReminderdata.append("color",reminder.color);
       return this.http.post((this.sevriceurl.host + this.sevriceurl.setReminderNotes), userReminderdata);
     }
 
@@ -24,6 +26,7 @@ export class ReminderService {
       return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllReminderNotes), userReminderdata);
     }
     deleteReminderFunction (n){
+      debugger;
       let id = new FormData();
       id.append('id',n);
       return this.http.post((this.sevriceurl.host+this.sevriceurl.deleteReminder), id);

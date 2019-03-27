@@ -44,21 +44,24 @@ class DashBoard extends CI_Controller
         $takeANote = $_POST["takeANote"];
         $title = $_POST["title"];
          $dateAndTime = $_POST["dateAndTime"];
+         $color = $_POST["color"];
         
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
-        return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime);
+        return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime, $color);
     }
     public function setReminderNotes()
     {
         $email = $_POST["email"];
         $takeANote = $_POST["takeANote"];
         $title = $_POST["title"];
+        $dateAndTime = $_POST["dateAndTime"];
+        $color =$_POST["color"];
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
-        return $this->NoteService->setAllReminderService($email, $title, $takeANote);
+        return $this->NoteService->setAllReminderService($email, $title, $takeANote,$dateAndTime,$color);
     }
     public function getAllNotes()
     {

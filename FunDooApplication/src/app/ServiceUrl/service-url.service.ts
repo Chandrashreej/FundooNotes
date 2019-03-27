@@ -19,4 +19,5 @@ export class ServiceUrlService {
   public getAllReminderNotes = 'codeigniter/getAllReminderNotes';
   public deleteNote = 'codeigniter/deleteNote';
   public deleteReminder = 'codeigniter/deleteReminder';
+  public coloringBackground = 'codeigniter/coloringBackgroundFunction';
 }

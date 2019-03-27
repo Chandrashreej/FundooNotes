@@ -47,12 +47,17 @@ class DashboardService extends CI_Controller
         $this->constants = new LinkConstants();
 
     }
-    public function isSetNotesService($email, $title, $takeANote,$dateAndTime)
+    public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color)
     {
         // $headers = apache_request_headers();
         // print_r($headers);
 
-      
+        if ($title == "null") {
+            $title = "";
+        }
+        if ($takeANote == "null") {
+            $takeANote = "";
+        }
 
         $sekretkey = "chandu";
 
@@ -67,13 +72,13 @@ class DashboardService extends CI_Controller
 
         $userId = $payload->userId;
         // $token = $headers['Authorization'];
-
+        //$color = "white";
         if ($token != null) {
 
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime) values ('$userId','$title','$takeANote','$dateAndTime')";
+                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime,color) values ('$userId','$title','$takeANote','$dateAndTime','$color')";
 
                 $stmt = $this->connect->prepare($query);
                 $res = $stmt->execute();
@@ -108,9 +113,9 @@ class DashboardService extends CI_Controller
 
     }
 
-    public function setAllReminderService($email, $title, $takeANote)
+    public function setAllReminderService($email, $title, $takeANote, $dateAndTime, $color)
     {
-        $dateAndTime = "";
+        // $dateAndTime = "";
 
         $sekretkey = "chandu";
 
@@ -131,7 +136,7 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userReminder (userId,title,takeANote,dateAndTime) values ('$userId','$title','$takeANote','$dateAndTime')";
+                $query = "INSERT into userReminder (userId,title,takeANote,dateAndTime,color) values ('$userId','$title','$takeANote','$dateAndTime','$color')";
 
                 $stmt = $this->connect->prepare($query);
                 $res = $stmt->execute();
