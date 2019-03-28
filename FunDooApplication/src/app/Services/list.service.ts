@@ -14,8 +14,9 @@ export class ListService {
   getView() {
     this.gridview();
     return this.subject.asObservable();
-  }
+  } 
   gridview(){
+
     if(this.result){
       this.subject.next({data:"row"});
       this.result = false;

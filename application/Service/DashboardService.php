@@ -47,6 +47,34 @@ class DashboardService extends CI_Controller
         $this->constants = new LinkConstants();
 
     }
+    public function isSetNotesDialogService($email, $title, $takeANote, $dateAndTime, $color, $id)
+    {
+        if ($title == "null") {
+            $title = "";
+        }
+        if ($takeANote == "null") {
+            $takeANote = "";
+        }
+
+        $query = "UPDATE userNotes SET title  = '$title', takeANote = '$takeANote', dateAndTime = '$dateAndTime', color = '$color' WHERE id = '$id'";
+
+        $stmt = $this->connect->prepare($query);
+        $res = $stmt->execute();
+
+        if ($res) {
+            $result = array(
+                "message" => "200",
+            );
+            print json_encode($result);
+            return "200";
+        } else {
+            $result = array(
+                "message" => "204",
+            );
+            print json_encode($result);
+            return "204";
+        }
+    }
     public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color)
     {
         // $headers = apache_request_headers();
@@ -319,6 +347,31 @@ class DashboardService extends CI_Controller
         }
     }
 
+    public function getNameValueService($email)
+    {
+
+        $query = "SELECT * FROM createuser where email = '$email'";
+
+        $statement = $this->connect->prepare($query);
+
+        if ($statement->execute()) {
+            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            // for($i=0;$i<count($arr);$i++)
+            // {
+                $firstname= ($arr[0]["firstname"]);
+                
+                    // $firstname =$arr[$i];
+                
+            // }
+            print json_encode($firstname);
+        } else {
+            $result = array(
+                "message" => "500",
+            );
+            print json_encode($result);
+            return "500";
+        }
+    }
     public function deleteReminderService($id)
     {
         $time = "";

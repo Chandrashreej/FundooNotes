@@ -38,6 +38,24 @@ class DashBoard extends CI_Controller
         parent::__construct();
         $this->NoteService = new DashboardService();
     }
+
+    
+
+    public function setNotesDialog()
+    {
+        $email = $_POST["email"];
+        $takeANote = $_POST["takeANote"];
+        $title = $_POST["title"];
+         $dateAndTime = $_POST["dateAndTime"];
+         $color = $_POST["color"];
+         $id = $_POST["id"];
+        
+        // $this->load->library('Redis');
+        // $redis = $this->redis->config();
+        // $redis->set($email, $email);
+        return $this->NoteService->isSetNotesDialogService($email, $title, $takeANote, $dateAndTime, $color, $id);
+    }
+
     public function setNotes()
     {
         $email = $_POST["email"];
@@ -51,6 +69,12 @@ class DashBoard extends CI_Controller
         // $redis->set($email, $email);
         return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime, $color);
     }
+    public function getNameValue()
+    {
+        $email = $_POST["email"];
+        return $this->NoteService->getNameValueService($email);
+    }
+    
     public function setReminderNotes()
     {
         $email = $_POST["email"];

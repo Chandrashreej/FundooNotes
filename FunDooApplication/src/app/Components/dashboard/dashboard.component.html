@@ -5,7 +5,7 @@
         <mat-icon class="example-icon">menu</mat-icon>
       </button>
       <mat-icon class="keepimage" fxLayout="row" fxLayoutAlign="center center"><img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" /></mat-icon>
-      <span class="title" fxLayout="row" fxLayoutAlign="center center">Fundoo</span>
+      <span class="title"fxLayout="row" fxLayoutAlign="center center">Fundoo</span>
     </div>
     <button mat-icon-button matTooltip="Search" style="margin-left: 120px;" (click)="sendSearchData()" class="searchicon">
 
@@ -18,13 +18,13 @@
     <mat-icon matTooltip="Refresh" class="example-icon">refresh</mat-icon>
 
     <button mat-icon-button *ngIf="list" (click)="changeView()" style="border:none ; background-color: white;">
-      <mat-icon matTooltip="Grid List" *ngIf="!grid" class="example-icon"><img src="../../assets/img/fundoAssests/menu-grid.svg"
+      <mat-icon matTooltip="Grid View" *ngIf="!grid" class= "example-icon"><img src="../../assets/img/fundoAssests/menu-grid.svg"
           style="color: grey;margin-top: -30px;" /></mat-icon>
     </button>
 
     <button mat-icon-button *ngIf="grid" (click)="changeView()" style="border:none ; background-color: white;">
 
-      <mat-icon matTooltip="View_agenda" *ngIf="grid" class="example-icon"><img src="../../assets/img/fundoAssests/outline-view_agenda-24px.svg"
+      <mat-icon matTooltip="List View" *ngIf="grid" class="example-icon"><img src="../../assets/img/fundoAssests/outline-view_agenda-24px.svg"
           style="color: grey;margin-top: -30px;" /></mat-icon>
     </button>
 
@@ -51,18 +51,19 @@
       <button mat-button class="menubutton" [matMenuTriggerFor]="menu">
         <mat-icon matTooltip="Google Account" class="example-iconAccount">account_circle</mat-icon>
       </button>
-      <mat-menu #menu="matMenu">
-        <div fxLayout="row" fxLayoutGap="10px">
-          <div>
-            <label>chandra1996jh@gmail.com </label>
+      <mat-menu #menu="matMenu"fxLayout="column" fxLayoutGap="10px" style="margin:5px;">
+        <span></span>
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+              <label style="margin:50px; color: black;">{{ name }}</label>
+            <label style="margin:50px; color: rgb(34, 33, 33);">{{ email }}</label>
           </div>
-          
             <mat-divider></mat-divider>
-            <div>
-            <button appearance="null" mat-menu-item (click)="logout()">Add Account</button>
-            <button appearance="null" mat-menu-item (click)="logout()">Sign out</button>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" style="background-color:#F8F8F8;">
+            <button  style="border:thick;color:rgb(34, 33, 33);background-color:#F8F8F8;" (click)="logout()">Add Account</button>
+       
+            <button  style="border:black;color:rgb(34, 33, 33);background-color:#F8F8F8;" (click)="logout()">Sign out</button>
           </div>
-        </div>
+       
       </mat-menu>
 
 

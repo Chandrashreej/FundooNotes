@@ -19,4 +19,13 @@ export class MoreoptionsService{
 
 
   }
+  coloringBackgroundinReminder(n,value){
+    debugger;
+    let id = new FormData();
+    id.append('id',n);
+    id.append('value',value);
+    return this.http.post((this.sevriceurl.host+this.sevriceurl.coloringBackgroundForReminder), id);
+
+
+  }
 }

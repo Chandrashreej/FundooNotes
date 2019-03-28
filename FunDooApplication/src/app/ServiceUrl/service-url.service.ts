@@ -14,10 +14,16 @@ export class ServiceUrlService {
   public reset ='codeigniter/resetPassword';
   public getEmail = 'codeigniter/getEmailId';
   public getAllNotes = 'codeigniter/getAllNotes';
+  public getNameValue = 'codeigniter/getNameValue';
+   
   public setNotes = 'codeigniter/setNotes';
+  public setNotesDialog = 'codeigniter/setNotesDialog';
+
+
   public setReminderNotes = 'codeigniter/setReminderNotes';
   public getAllReminderNotes = 'codeigniter/getAllReminderNotes';
   public deleteNote = 'codeigniter/deleteNote';
   public deleteReminder = 'codeigniter/deleteReminder';
   public coloringBackground = 'codeigniter/coloringBackgroundFunction';
+  public coloringBackgroundForReminder = 'codeigniter/coloringBackgroundForReminder';
 }

@@ -4,7 +4,7 @@ import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes
 import * as moment from 'moment';
 import { ListService } from 'src/app/Services/list.service';
 import { MoreoptionsService } from 'src/app/Services/moreoptions.service';
-import { MatDialog, MatIconRegistry, MatSnackBar } from '@angular/material';
+import { MatDialog, MatIconRegistry, MatSnackBar, MatDialogConfig } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 
@@ -48,7 +48,7 @@ export class NotesComponent implements OnInit {
   dateAndTimeCustom = new FormControl;
   wrap: string = "wrap";
   direction: string = "row";
-
+  dialogbox:boolean = false;
   layout: string = this.direction + " " + this.wrap;
   /**
  * var to hold present time
@@ -83,7 +83,7 @@ export class NotesComponent implements OnInit {
   }
 	coloring(id,value) {
 		debugger;
-
+this.dialogbox =true;
 			let obs = this.moreoptService.coloringBackground(id, value);
 			obs.subscribe((res: any) => {
 				debugger;
@@ -132,18 +132,22 @@ export class NotesComponent implements OnInit {
     this.timer = true;
   }
   openDialog(n): void {
-		const dialogRef = this.dialog.open(EditnotesComponent, {
-      width: "1000px",
-      
-			panelClass: "custom-dialog-container",
-			data: { n: n }
-		});
+    
+    debugger
+    const dialogconfg = new MatDialogConfig();
 
-		dialogRef.afterClosed().subscribe(result => {
-			if (result != undefined) {
-				this.notes = result;
-			}
-		});
+    dialogconfg.autoFocus = true;
+    dialogconfg.width = "600px"
+    dialogconfg.height = "180px"
+    dialogconfg.panelClass = 'custom-dialog-container'
+    debugger; 
+    dialogconfg.data = {
+
+      notesdata: n
+     
+    }
+    const open = this.dialog.open(EditnotesComponent, dialogconfg);
+
 	}
   addNotes() {
     // debugger;

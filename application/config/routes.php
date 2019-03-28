@@ -56,8 +56,12 @@ $route['logoff']='Logout/logoff';
 $route['forgotPassword'] ='ForgotPassword/forgotPasswordFunction';
 
 $route['getEmailId'] ='ForgotPassword/getEmailId';
+$route['getNameValue'] ='DashBoard/getNameValue';
 
 $route['setNotes'] ='DashBoard/setNotes';
+
+$route['setNotesDialog'] ='DashBoard/setNotesDialog';
+
 $route['getAllNotes'] ='DashBoard/getAllNotes';
 $route['getAllReminderNotes'] ='DashBoard/getAllReminderNotes';
 $route['setReminderNotes'] ='DashBoard/setReminderNotes';
@@ -67,3 +71,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['deleteNote'] ='DashBoard/deleteNote';
 $route['deleteReminder'] ='DashBoard/deleteReminder';
 $route['coloringBackgroundFunction']= 'MoreOptions/coloringBackgroundFunction';
+$route['coloringBackgroundForReminder']= 'MoreOptions/coloringBackgroundForReminder';

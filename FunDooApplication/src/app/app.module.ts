@@ -80,6 +80,7 @@ import { EditnotesComponent } from './Components/editnotes/editnotes.component';
     MatNativeDateModule 
   ],
   providers: [RegisterService,ServiceUrlService,LoginService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[EditnotesComponent]
 })
 export class AppModule { }

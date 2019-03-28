@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListService } from 'src/app/Services/list.service';
+import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 
 
 @Component({
@@ -10,16 +11,27 @@ import { ListService } from 'src/app/Services/list.service';
 })
 export class DashboardComponent implements OnInit {
   showFiller = false;
+  
   getToken: string;
   refreshFlag: boolean = true;
   grid: boolean = false;
   list: boolean = true;
-
-  constructor(private route: Router, private listview: ListService) {
+email:string;
+name:string;
+  constructor(private route: Router, private listview: ListService,private dashService: DashboardService,) {
     this.changeView();
   }
 
   ngOnInit() {
+    debugger;
+    this.email = localStorage.getItem("email");
+    let name = this.dashService.getname(this.email);
+    name.subscribe((res: any) => {
+      debugger;
+      this.name = res.message;
+
+      
+    });
   }
   notes() {
     this.getToken = localStorage.getItem("token");

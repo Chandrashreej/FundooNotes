@@ -2,12 +2,12 @@
   <mat-card class="mainmat" fxLayout="column" fxLayoutAlign="center center">
 
     <div fxLayoutAlign="end start" style=" border-top-width: 0px;">
-      <!-- <mat-form-field class="inputtaker" appearance="null"> -->
+  
       <input style="font-size: 55px;margin-top: 15px;appearance : null;
             font-family: 'Google Sans',Roboto,Arial,sans-serif;
             font-size: 1rem; color: #646161; border: none;"
         placeholder="Take a note..." />
-      <!-- </mat-form-field> -->
+
 
       <span></span>
       <div style="margin-left: 250px;">
@@ -35,11 +35,7 @@
         class="cardicon" [formControl]="title" matInput placeholder="Title" />
       <button style="padding-top: 5px;" mat-icon-button>
         <mat-icon style="margin-left: 0px;margin-top: -43px;" matSuffix class="cardicon"><img src="../../assets/img/fundoAssests/pin.svg"
-            style="    color: rgb(87, 86, 86);
-  
-          width: 26px;
-          padding-top: 15px;
-      " /></mat-icon>
+            style=" color: rgb(87, 86, 86);width: 26px;padding-top: 15px;" /></mat-icon>
       </button>
       <input style=" width: 91%;margin-left: 10px;margin-bottom: 10px;appearance : null;margin-top: 15px;height: 30px; border: none;font-size: 18px; "
         matInput class="cardicon" [formControl]="takeANote" matTextareaAutosize placeholder="Take a note" />
@@ -191,7 +187,7 @@
       </mat-menu>
 
       <span></span>
-      <button mat-flat-button (click)=" reminder()" style="margin-left: 290px;background-color: transparent;">Close</button>
+      <button mat-flat-button (click)="reminder()" style="margin-left: 290px;background-color: transparent;">Close</button>
       <span></span>
       <span></span>
     </div>
@@ -205,12 +201,12 @@
   <!-- <div style="max-width:700px; max-height:50px;"> -->
 
   <!-- <mat-grid-list cols="4" rowHeight="100px" class="noteslist" *ngFor="let n of notelist"> -->
-  <mat-card class="gridcard" [ngStyle]="{'background-color': n.color}"*ngFor="let n of notelist" >
-   <p>{{ n.title }}</p> 
+  <mat-card class="gridcard" [ngStyle]="{'background-color': n.color}" *ngFor="let n of notelist">
+    
+    <p>{{ n.title }}</p>
     <p style="font-size: 15px;">{{ n.takeANote }}</p>
-
-    <p style="font-size: 5px;" [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
-      <mat-chip-list>
+    <p style="font-size: 5px;">
+      <mat-chip-list [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
         <mat-chip mat-icon-button class="chips">
           <mat-icon><img src="../../assets/img/fundoAssests/timer.svg " /></mat-icon>
           {{ n.dateAndTime }}

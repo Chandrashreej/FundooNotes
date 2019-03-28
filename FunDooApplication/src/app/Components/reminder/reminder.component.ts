@@ -20,6 +20,7 @@ export class ReminderComponent implements OnInit {
   classcard;
   backgroundColour: any;
   notes: any;
+
   constructor( private moreoptService:MoreoptionsService,
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
@@ -81,11 +82,11 @@ export class ReminderComponent implements OnInit {
   }
   coloring(id,value) {
 		debugger;
-
-			let obs = this.moreoptService.coloringBackground(id, value);
+			let obs = this.moreoptService.coloringBackgroundinReminder(id, value);
 			obs.subscribe((res: any) => {
 				debugger;
-				this.notes = res;
+        this.notes = res;
+        this.displayReminder();
 				// obs.unsubscribe();
 			});
 		}
@@ -125,11 +126,13 @@ export class ReminderComponent implements OnInit {
     if (this.title.value == null && this.takeANote.value == null && this.dateAndTime == undefined) {
       this.flag = true;
     }
-    else  if (this.dateAndTime != undefined ) {
+    else  if (this.dateAndTime == undefined ) {
       this.flag = true;
     }
     else {
-    const email = localStorage.getItem('email');
+      debugger;
+     const email = localStorage.getItem('email');
+    debugger;
     this.model = {
       "title": this.title.value,
       "takeANote": this.takeANote.value,

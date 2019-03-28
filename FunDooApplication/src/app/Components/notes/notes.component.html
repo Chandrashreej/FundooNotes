@@ -217,11 +217,11 @@
   <!-- <div style="max-width:700px; max-height:50px;"> -->
 
   <!-- <mat-grid-list cols="4" rowHeight="100px" class="noteslist" *ngFor="let n of notelist"> -->
-  <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
+  <mat-card  [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
     *ngFor="let n of notelist">
     <!-- {{ n.title }}(click)="openDialog()" -->
-    <p style="font-size: 14px;padding-left: 5px;">{{ n.title }}</p>
-    <p style="font-size: 14px;padding-left: 5px;">{{ n.takeANote }}</p>
+    <p (click)="openDialog(n)"style="font-size: 14px;padding-left: 5px; word-break: break-all;">{{ n.title }}</p>
+    <p  style="font-size: 14px;padding-left: 5px; word-break: break-all;">{{ n.takeANote }}</p>
     <p style="font-size: 5px;" [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
 
       <mat-chip-list>
@@ -232,8 +232,7 @@
       </mat-chip-list>
     </p>
 
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;" [ngClass]="direction == 'row'  ? 'morerow': 'morecolumn'"
-     >
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;" [ngClass]="direction == 'row'  ? 'morerow': 'morecolumn'">
 
       <button  mat-icon-button matTooltip=" Remaind me " [matMenuTriggerFor]="remainder" class="cardmaticon" class="buttonDisplay">
         <mat-icon><img src="../../assets/img/fundoAssests/remainder.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>

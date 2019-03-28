@@ -30,7 +30,33 @@ constructor(private http: HttpClient,
       //  { headers: headers_object }
       );
     }
+    usereNotesDialog(note:NotesModel,currentDateAndTime ,n ){
+      let userNotesdata = new FormData();
 
+      // let headers_object = new HttpHeaders().set("Authorization",localStorage.getItem("token"));
+      userNotesdata.append("color",note.color)
+      userNotesdata.append("title", note.title);
+      userNotesdata.append("takeANote", note.takeANote);
+      userNotesdata.append("email",note.email);
+      userNotesdata.append("dateAndTime",currentDateAndTime );
+      userNotesdata.append("id", n);
+
+      // headers_object.append("token",localStorage.getItem("token"));
+      // debugger;
+      // console.log(headers_object.get("Authorization"));
+      // console.log(headers_object);
+      // userNotesdata.append("time",time);
+      return this.http.post((this.sevriceurl.host + this.sevriceurl.setNotesDialog), userNotesdata,
+      //  { headers: headers_object }
+      );
+    }
+    getname(email)
+    {
+      debugger;
+      let nameValue = new FormData();
+      nameValue.append('email',email);
+      return this.http.post((this.sevriceurl.host+this.sevriceurl.getNameValue), nameValue);
+    }
     fetchnotes(email){
       
       let userNotesdata = new FormData();

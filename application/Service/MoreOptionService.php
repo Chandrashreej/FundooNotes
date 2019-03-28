@@ -104,6 +104,28 @@ class MoreOptionsSevice extends CI_Controller
 //             return "600";
 //         }
  }
+ public function coloringBackgroundFunctionServiceForReminder($id,$color)
+ {
+    $query = "UPDATE userReminder set color = '$color' WHERE  id = '$id'";
+    $statement = $this->connect->prepare($query);
+    $res = $statement->execute();
+    if ($res) {
+        $result = array(
+            "message" => "200",
+        );
+        print json_encode($result);
+        return "200";
+    } else {
+        $result = array(
+            "message" => "204",
+        );
+        print json_encode($result);
+        return "204";
+    }
+}
+
+
+
 }
 
 
