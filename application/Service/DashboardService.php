@@ -358,10 +358,10 @@ class DashboardService extends CI_Controller
             $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
             // for($i=0;$i<count($arr);$i++)
             // {
-                $firstname= ($arr[0]["firstname"]);
-                
-                    // $firstname =$arr[$i];
-                
+            $firstname = ($arr[0]["firstname"]);
+
+            // $firstname =$arr[$i];
+
             // }
             print json_encode($firstname);
         } else {

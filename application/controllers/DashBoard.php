@@ -39,17 +39,15 @@ class DashBoard extends CI_Controller
         $this->NoteService = new DashboardService();
     }
 
-    
-
     public function setNotesDialog()
     {
         $email = $_POST["email"];
         $takeANote = $_POST["takeANote"];
         $title = $_POST["title"];
-         $dateAndTime = $_POST["dateAndTime"];
-         $color = $_POST["color"];
-         $id = $_POST["id"];
-        
+        $dateAndTime = $_POST["dateAndTime"];
+        $color = $_POST["color"];
+        $id = $_POST["id"];
+
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
@@ -61,9 +59,9 @@ class DashBoard extends CI_Controller
         $email = $_POST["email"];
         $takeANote = $_POST["takeANote"];
         $title = $_POST["title"];
-         $dateAndTime = $_POST["dateAndTime"];
-         $color = $_POST["color"];
-        
+        $dateAndTime = $_POST["dateAndTime"];
+        $color = $_POST["color"];
+
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
@@ -74,18 +72,18 @@ class DashBoard extends CI_Controller
         $email = $_POST["email"];
         return $this->NoteService->getNameValueService($email);
     }
-    
+
     public function setReminderNotes()
     {
         $email = $_POST["email"];
         $takeANote = $_POST["takeANote"];
         $title = $_POST["title"];
         $dateAndTime = $_POST["dateAndTime"];
-        $color =$_POST["color"];
+        $color = $_POST["color"];
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
-        return $this->NoteService->setAllReminderService($email, $title, $takeANote,$dateAndTime,$color);
+        return $this->NoteService->setAllReminderService($email, $title, $takeANote, $dateAndTime, $color);
     }
     public function getAllNotes()
     {
@@ -110,5 +108,5 @@ class DashBoard extends CI_Controller
 
         $id = $_POST["id"];
         return $this->NoteService->deleteReminderService($id);
-    } 
+    }
 }

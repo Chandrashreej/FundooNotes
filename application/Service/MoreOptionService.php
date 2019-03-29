@@ -26,7 +26,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * creation of ForgotPasswordService class that extends CI_Controller
  */
 //
-use \Firebase\JWT\JWT;
 
 class MoreOptionsSevice extends CI_Controller
 {
@@ -47,7 +46,7 @@ class MoreOptionsSevice extends CI_Controller
         $this->constants = new LinkConstants();
 
     }
-    public function coloringBackgroundFunctionService($id,$color)
+    public function coloringBackgroundFunctionService($id, $color)
     {
         // $headers = apache_request_headers();
         // print_r($headers);
@@ -55,7 +54,7 @@ class MoreOptionsSevice extends CI_Controller
         // $time = "";
 
         // $sekretkey = "chandu";
-        
+
         // $channel = new ConnectingToRedis();
         // $client = $channel->redisConnection();
         // $token = $client->get('token');
@@ -73,59 +72,55 @@ class MoreOptionsSevice extends CI_Controller
         //     $jwt = new JWT();
         //     if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "UPDATE userNotes set color = '$color' WHERE  id = '$id'";
-                $statement = $this->connect->prepare($query);
-                $res = $statement->execute();
-                if ($res) {
-                    $result = array(
-                        "message" => "200",
-                    );
-                    print json_encode($result);
-                    return "200";
-                } else {
-                    $result = array(
-                        "message" => "204",
-                    );
-                    print json_encode($result);
-                    return "204";
-                }
+        $query = "UPDATE userNotes set color = '$color' WHERE  id = '$id'";
+        $statement = $this->connect->prepare($query);
+        $res = $statement->execute();
+        if ($res) {
+            $result = array(
+                "message" => "200",
+            );
+            print json_encode($result);
+            return "200";
+        } else {
+            $result = array(
+                "message" => "204",
+            );
+            print json_encode($result);
+            return "204";
+        }
 //             } else {
-//                 $result = array(
-//                     "message" => "500",
-//                 );
-//                 print json_encode($result);
-//                 return "500";
-//             }
-//         } else {
-//             $result = array(
-//                 "message" => "600",
-//             );
-//             print json_encode($result);
-//             return "600";
-//         }
- }
- public function coloringBackgroundFunctionServiceForReminder($id,$color)
- {
-    $query = "UPDATE userReminder set color = '$color' WHERE  id = '$id'";
-    $statement = $this->connect->prepare($query);
-    $res = $statement->execute();
-    if ($res) {
-        $result = array(
-            "message" => "200",
-        );
-        print json_encode($result);
-        return "200";
-    } else {
-        $result = array(
-            "message" => "204",
-        );
-        print json_encode($result);
-        return "204";
+        //                 $result = array(
+        //                     "message" => "500",
+        //                 );
+        //                 print json_encode($result);
+        //                 return "500";
+        //             }
+        //         } else {
+        //             $result = array(
+        //                 "message" => "600",
+        //             );
+        //             print json_encode($result);
+        //             return "600";
+        //         }
     }
+    public function coloringBackgroundFunctionServiceForReminder($id, $color)
+    {
+        $query = "UPDATE userReminder set color = '$color' WHERE  id = '$id'";
+        $statement = $this->connect->prepare($query);
+        $res = $statement->execute();
+        if ($res) {
+            $result = array(
+                "message" => "200",
+            );
+            print json_encode($result);
+            return "200";
+        } else {
+            $result = array(
+                "message" => "204",
+            );
+            print json_encode($result);
+            return "204";
+        }
+    }
+
 }
-
-
-
-}
-
-

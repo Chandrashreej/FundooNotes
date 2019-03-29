@@ -42,12 +42,12 @@ class MoreOptions extends CI_Controller
     {
         $id = $_POST["id"];
         $color = $_POST["value"];
-        return $this->moreService->coloringBackgroundFunctionService($id,$color);
+        return $this->moreService->coloringBackgroundFunctionService($id, $color);
     }
     public function coloringBackgroundForReminder()
     {
         $id = $_POST["id"];
         $color = $_POST["value"];
-        return $this->moreService->coloringBackgroundFunctionServiceForReminder($id,$color);
-    } 
+        return $this->moreService->coloringBackgroundFunctionServiceForReminder($id, $color);
+    }
 }
