@@ -50,6 +50,7 @@ export class NotesComponent implements OnInit {
   direction: string = "row";
   dialogbox:boolean = false;
   layout: string = this.direction + " " + this.wrap;
+  dateChooser = new FormControl();
   /**
  * var to hold present time
  */
@@ -64,7 +65,31 @@ export class NotesComponent implements OnInit {
       this.direction = this.view.data;
       this.layout = this.direction + " " + this.wrap;
     }))
+    setInterval(() => {
+      this.notesDisplaying();
+		}, 1000);
   }
+  timeChooser(str) {
+    debugger;
+    var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
+        if (str == "Morning") {
+          this.dateAndTime = chooser+ " " + " 08:00 AM ";
+          this.timer = true;
+        }
+        else if (str == "Afternoon")
+        {
+          this.dateAndTime = chooser + " " + " 1:00 PM ";
+        }
+        else if (str == "Evening")
+        {
+          this.dateAndTime = chooser + " " + " 6:00 PM ";
+        }
+        else if (str == "Night")
+        {
+          this.dateAndTime = chooser+ " " + " 8:00 PM ";
+        }
+        this.timer = true;
+      }
   notesDisplaying() {
 
     const email = localStorage.getItem('email');
@@ -138,7 +163,7 @@ this.dialogbox =true;
 
     dialogconfg.autoFocus = true;
     dialogconfg.width = "600px"
-    dialogconfg.height = "180px"
+    dialogconfg.height = "200px"
     dialogconfg.panelClass = 'custom-dialog-container'
     debugger; 
     dialogconfg.data = {

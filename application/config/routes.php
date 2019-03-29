@@ -62,6 +62,8 @@ $route['setNotes'] ='DashBoard/setNotes';
 
 $route['setNotesDialog'] ='DashBoard/setNotesDialog';
 
+$route['setReminderDialog'] ='DashBoard/setReminderDialog';
+
 $route['getAllNotes'] ='DashBoard/getAllNotes';
 $route['getAllReminderNotes'] ='DashBoard/getAllReminderNotes';
 $route['setReminderNotes'] ='DashBoard/setReminderNotes';

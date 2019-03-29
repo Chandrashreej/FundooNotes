@@ -18,7 +18,7 @@ export class ServiceUrlService {
    
   public setNotes = 'codeigniter/setNotes';
   public setNotesDialog = 'codeigniter/setNotesDialog';
-
+  public setReminderDialog = 'codeigniter/setReminderDialog';
 
   public setReminderNotes = 'codeigniter/setReminderNotes';
   public getAllReminderNotes = 'codeigniter/getAllReminderNotes';
@@ -26,4 +26,5 @@ export class ServiceUrlService {
   public deleteReminder = 'codeigniter/deleteReminder';
   public coloringBackground = 'codeigniter/coloringBackgroundFunction';
   public coloringBackgroundForReminder = 'codeigniter/coloringBackgroundForReminder';
+  
 }

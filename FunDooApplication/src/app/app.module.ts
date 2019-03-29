@@ -27,10 +27,12 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
 import { MaterialModule } from './Material.Module';
 import { NotesComponent } from './Components/notes/notes.component';
-import { AddnotesComponent } from './Components/addnotes/addnotes.component';
+
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { EditnotesComponent } from './Components/editnotes/editnotes.component';
+import { CollaborateComponent } from './Components/collaborate/collaborate.component';
+import { EditreminderComponent } from './Components/editreminder/editreminder.component';
 
 
 
@@ -45,9 +47,11 @@ import { EditnotesComponent } from './Components/editnotes/editnotes.component';
     ResetPasswordComponent,
     SessionexpiredComponent,
     NotesComponent,
-    AddnotesComponent,
+ 
     ReminderComponent,
-    EditnotesComponent
+    EditnotesComponent,
+    CollaborateComponent,
+    EditreminderComponent
   
     
   ],

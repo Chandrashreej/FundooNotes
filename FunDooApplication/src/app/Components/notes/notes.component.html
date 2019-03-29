@@ -64,94 +64,70 @@
 
     <div style="margin-top:10px;">
 
-      <button mat-icon-button [matMenuTriggerFor]="remainder">
-        <mat-icon matTooltip=" Remaind me " class="cardicon"><img src="../../assets/img/fundoAssests/remainder.svg "
-            style="    fill: rgb(87, 86, 86);" /></mat-icon>
-      </button>
-      <mat-menu #remainder="matMenu">
-        <button mat-menu-item>Remainder:</button>
-        <!-- <button mat-menu-item  (click)="timer_button = true && (PresentTime = dateAndTime)">
-                Later today 8:00PM
-              </button> -->
-        <button mat-menu-item (click)="today(01)">Later today 8:00PM</button>
-        <button mat-menu-item (click)="tomorrow(01)">Tomorrow 8:00PM</button>
-        <button mat-menu-item (click)="nextWeek(01)">Next week Mon,8:00pm</button>
+        <button mat-icon-button [matMenuTriggerFor]="remainder">
+            <mat-icon matTooltip=" Remaind me " class="cardicon"><img src="../../assets/img/fundoAssests/remainder.svg "
+                style="    fill: rgb(87, 86, 86);" /></mat-icon>
+          </button>
+          <mat-menu #remainder="matMenu">
+            <button mat-menu-item>Remainder:</button>
+    
+            <button mat-menu-item (click)="today(01)">Later today 8:00PM</button>
+            <button mat-menu-item (click)="tomorrow(01)">Tomorrow 8:00PM</button>
+            <button mat-menu-item (click)="nextWeek(01)">Next week Mon,8:00pm</button>
+    
+            <button mat-menu-item [matMenuTriggerFor]="menu6">
+              <mat-icon>
+                <img src="../../assets/img/fundoAssests/timer.svg " />
+              </mat-icon>
+              Pick date & time
+            </button>
+    
+            <mat-menu #menu6="matMenu">
+    
+              <mat-nav-list>
+                <mat-list role="List">
+                  <div class="pickdate">
+    
+                    <mat-list-item id="pickAdjust">
+    
+                      <span>Pick date and Time </span>
+                    </mat-list-item>
+    
+                  </div>
+    
+                  <mat-list-item>
+                    <mat-form-field class="example-full-width">
+                      <input matInput [matDatepicker]="picker"  [formControl]="dateChooser"  placeholder="Choose a date">
+                      <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </mat-list-item>
+    
+                  <button mat-menu-item [matMenuTriggerFor]="menu9">Pick date and Time </button>
+                  <mat-menu #menu9="matMenu">
+                    <button mat-menu-item (click) = "timeChooser('Morning')">
+                      <span>Morning 8:00 AM</span>
+                    </button>
+                    <button mat-menu-item (click) = "timeChooser('Afternoon')">
+                      <span>Afternoon 1:00 PM</span>
+                    </button>
+                    <button mat-menu-item (click) = "timeChooser('Evening')">
+                      <span>Evening 6:00 PM</span>
+                    </button>
+                    <button mat-menu-item (click) = "timeChooser('Night')">
+                      <span>Night 8:00 PM</span>
+                    </button>
+                  </mat-menu>
+    
+    
+                </mat-list>
+              </mat-nav-list>
+    
+            </mat-menu>
+          </mat-menu>
 
-        <button mat-menu-item [matMenuTriggerFor]="menu6">
-          <mat-icon><img src="../../assets/img/fundoAssests/timer.svg " /></mat-icon>Pick date & time
-        </button>
-        <mat-menu #menu6="matMenu">
-
-          <mat-nav-list>
-            <mat-list role="List">
-              <div class="pickdate">
-
-                <mat-list-item id="pickAdjust">
-
-                  <span>Pick date and Time </span>
-                </mat-list-item>
-
-              </div>
-
-              <mat-list-item>
-                <mat-form-field class="example-full-width">
-                  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="dateAndTimeCustom">
-                  <mat-datepicker-toggle matSuffix [for]="picker">
-                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                  </mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </mat-list-item>
-
-              <button mat-menu-item [matMenuTriggerFor]="menu9">Pick date and Time </button>
-              <mat-menu #menu9="matMenu">
-                <button mat-menu-item>
-                  <span>Morning<span class="time8"> 8:00AM</span></span>
-                </button>
-                <button mat-menu-item>
-                  <span>Afternoon 1:00PM</span>
-                </button>
-                <button mat-menu-item>
-                  <span>Evening 6:00PM</span>
-                </button>
-                <button mat-menu-item>
-                  <span>Night 8:00PM</span>
-                </button>
-                <button mat-menu-item>
-                  <span>Custom</span>
-                </button>
-              </mat-menu>
-              <mat-list-item>
-                <button mat-menu-item [matMenuTriggerFor]="menu10">Does not repeat</button>
-                <mat-menu #menu10="matMenu">
-                  <button mat-menu-item>
-                    <span>Does not repeat</span>
-                  </button>
-
-                  <button mat-menu-item>
-                    <span>Daily</span>
-                  </button>
-                  <button mat-menu-item>
-                    <span>weekly</span>
-                  </button>
-                  <button mat-menu-item>
-                    <span>monthly</span>
-                  </button>
-                  <button mat-menu-item>
-                    <span>yearly</span>
-                  </button>
-                  <button mat-menu-item>
-                    <span>Custom</span>
-                  </button>
-                </mat-menu>
-
-              </mat-list-item>
-
-            </mat-list>
-          </mat-nav-list>
-
-        </mat-menu>
-      </mat-menu>
 
 
 
@@ -214,27 +190,25 @@
   </mat-card>
 </div>
 <div fxLayout="{{layout}}" fxLayoutAlign="center center" style="flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
-  <!-- <div style="max-width:700px; max-height:50px;"> -->
-
-  <!-- <mat-grid-list cols="4" rowHeight="100px" class="noteslist" *ngFor="let n of notelist"> -->
-  <mat-card  [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
+  <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
     *ngFor="let n of notelist">
     <!-- {{ n.title }}(click)="openDialog()" -->
-    <p (click)="openDialog(n)"style="font-size: 14px;padding-left: 5px; word-break: break-all;">{{ n.title }}</p>
-    <p  style="font-size: 14px;padding-left: 5px; word-break: break-all;">{{ n.takeANote }}</p>
-    <p style="font-size: 5px;" [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
+    <div (click)="openDialog(n)">
+      <p style="font-size: 14px;padding-left: 5px; word-break: break-all;">{{ n.title }}</p>
+      <p style="font-size: 14px;padding-left: 5px; word-break: break-all;">{{ n.takeANote }}</p>
+      <p style="font-size: 5px;" [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
 
-      <mat-chip-list>
-        <mat-chip mat-icon-button class="chips">
-          <mat-icon><img src="../../assets/img/fundoAssests/timer.svg " /></mat-icon>
-          {{ n.dateAndTime }}
-        </mat-chip>
-      </mat-chip-list>
-    </p>
-
+        <mat-chip-list>
+          <mat-chip mat-icon-button class="chips">
+            <mat-icon><img src="../../assets/img/fundoAssests/timer.svg " /></mat-icon>
+            {{ n.dateAndTime }}
+          </mat-chip>
+        </mat-chip-list>
+      </p>
+    </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;" [ngClass]="direction == 'row'  ? 'morerow': 'morecolumn'">
 
-      <button  mat-icon-button matTooltip=" Remaind me " [matMenuTriggerFor]="remainder" class="cardmaticon" class="buttonDisplay">
+      <button mat-icon-button matTooltip=" Remaind me " [matMenuTriggerFor]="remainder" class="cardmaticon" class="buttonDisplay">
         <mat-icon><img src="../../assets/img/fundoAssests/remainder.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
       </button>
       <mat-menu [overlapTrigger]="false" #remainder="matMenu">

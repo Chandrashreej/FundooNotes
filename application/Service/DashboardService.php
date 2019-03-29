@@ -75,6 +75,34 @@ class DashboardService extends CI_Controller
             return "204";
         }
     }
+    public function isSetReminderDialogService($email, $title, $takeANote, $dateAndTime, $color, $id)
+    {
+        if ($title == "null") {
+            $title = "";
+        }
+        if ($takeANote == "null") {
+            $takeANote = "";
+        }
+
+        $query = "UPDATE userReminder SET title  = '$title', takeANote = '$takeANote', dateAndTime = '$dateAndTime', color = '$color' WHERE id = '$id'";
+
+        $stmt = $this->connect->prepare($query);
+        $res = $stmt->execute();
+
+        if ($res) {
+            $result = array(
+                "message" => "200",
+            );
+            print json_encode($result);
+            return "200";
+        } else {
+            $result = array(
+                "message" => "204",
+            );
+            print json_encode($result);
+            return "204";
+        }
+    }
     public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color)
     {
         // $headers = apache_request_headers();
@@ -145,6 +173,12 @@ class DashboardService extends CI_Controller
     {
         // $dateAndTime = "";
 
+        if ($title == "null") {
+            $title = "";
+        }
+        if ($takeANote == "null") {
+            $takeANote = "";
+        }
         $sekretkey = "chandu";
 
         $channel = new ConnectingToRedis();

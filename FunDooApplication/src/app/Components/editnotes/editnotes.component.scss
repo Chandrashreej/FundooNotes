@@ -5,3 +5,43 @@
     border: none;
     outline: none;
   }
+  .mat-dialog-container {
+    padding: 0 !important;
+    }
+    .chips{
+      border-radius: 30px;
+      padding: 10px;
+      background-color:  rgba(0,0,0,0.08);
+  }
+  .colorlens{
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+
+}
+.title{
+  width: 385px;
+  padding-left: 10px;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  height: 110px;
+}
+.dialogcontent{
+
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 425px;
+  padding-left: 0px;
+  padding-right: 30px;
+}
+::ng-deep .mat-dialog-container {
+  border-radius: 10px;
+  
+  width: 600px;
+  max-height: 210px;
+  }

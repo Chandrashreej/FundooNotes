@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   list: boolean = true;
 email:string;
 name:string;
+  firstname: any;
   constructor(private route: Router, private listview: ListService,private dashService: DashboardService,) {
     this.changeView();
   }
@@ -28,7 +29,7 @@ name:string;
     let name = this.dashService.getname(this.email);
     name.subscribe((res: any) => {
       debugger;
-      this.name = res.message;
+      this.firstname = res;
 
       
     });

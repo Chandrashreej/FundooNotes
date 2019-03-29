@@ -5,7 +5,7 @@ import {
 
 MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
 
- MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatFormFieldModule, MatButtonToggleModule, MatDividerModule, MatListModule
+ MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatButtonToggleModule, MatDividerModule, MatListModule, MatSelectModule
 
 } from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -14,6 +14,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
 declarations: [],
@@ -36,7 +37,8 @@ MatListModule,
 MatGridListModule,
 MatTooltipModule,
 MatChipsModule,
-MatSnackBarModule
+MatSnackBarModule,
+MatSelectModule
 ],
 schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -60,7 +62,8 @@ MatListModule,
 MatGridListModule,
 MatTooltipModule,
 MatChipsModule,
-MatSnackBarModule
+MatSnackBarModule,
+MatSelectModule
 ],
 })
 
