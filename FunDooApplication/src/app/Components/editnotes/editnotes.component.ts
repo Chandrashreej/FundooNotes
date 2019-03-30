@@ -26,6 +26,8 @@ export class EditnotesComponent implements OnInit {
   notes: any;
   timer: boolean;
   dateshow: any;
+  dateChooser= new FormControl();
+  isDate: boolean;
   constructor(
     public dialogRef: MatDialogRef<EditnotesComponent>,
     public dialog: MatDialog,
@@ -37,13 +39,42 @@ export class EditnotesComponent implements OnInit {
     this.description = this.data.notesdata.takeANote;
     this.id = this.data.notesdata.id;
     this.color = this.data.notesdata.color;
+
     this.dateAndTime = this.data.notesdata.dateAndTime;
   }
   public dateAndTime: any;
 
   ngOnInit() {
+    this.timer = false;
+    this.isDate = true;
+    if(this.data.notesdata.dateAndTime == "undefined")
+    {
+      this.isDate = false;
+    }
   }
-
+  timeChooser(str) {
+    debugger;
+    var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
+        if (str == "Morning") {
+          this.dateAndTime = chooser+ " " + " 08:00 AM ";
+          // this.timer = true;
+          
+        }
+        else if (str == "Afternoon")
+        {
+          this.dateAndTime = chooser + " " + " 1:00 PM ";
+        }
+        else if (str == "Evening")
+        {
+          this.dateAndTime = chooser + " " + " 6:00 PM ";
+        }
+        else if (str == "Night")
+        {
+          this.dateAndTime = chooser+ " " + " 8:00 PM ";
+        }
+        this.timer = true;
+        this.isDate=false;
+      }
   close() {
 
     console.log(this.id);
@@ -71,6 +102,7 @@ export class EditnotesComponent implements OnInit {
       "color": this.color,
 
     }
+    
 
     let obs = this.notesService.usereNotesDialog(this.model, this.dateAndTime, this.id);
 
@@ -108,7 +140,7 @@ export class EditnotesComponent implements OnInit {
     this.fulldate = day.toDateString();
     var currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.dateAndTime = currentDate + " " + " 08:00 PM";
-
+this.isDate=false;
   }
 
 
@@ -120,6 +152,7 @@ export class EditnotesComponent implements OnInit {
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.dateAndTime = currentDate + " " + " 08:00 AM";
     this.timer = true;
+    this.isDate=false;
   }
 
   nextWeek(id) {
@@ -130,6 +163,7 @@ export class EditnotesComponent implements OnInit {
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.dateAndTime = currentDate + " " + " 08:00 AM";
     this.timer = true;
+    this.isDate=false;
   }
 
 }

@@ -2,13 +2,13 @@
 
     <mat-dialog-content fxLayoutAlign="center center" class="dialogcontent" style="place-content: center;">
 
-        <div class="title" fxLayoutGap="15px" fxLayout="column">
+        <div class="title" fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="row wrap">
 
             <input matInput [formControl]="title" value="{{TiTlE}}">
 
             <input matInput [formControl]="takeANote" value="{{description}}">
 
-            <mat-chip-list>
+            <mat-chip-list *ngIf="isDate" *ngIf="timer">
 
                 <mat-chip mat-icon-button class="chips">
 
@@ -25,7 +25,7 @@
 
     </mat-dialog-content>
 
-    <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around end" style="flex-direction: row;box-sizing: border-box;display: flex;place-content: flex-end space-around;align-items: flex-end;width: 547px;height: 66px;">
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around end" style="flex-direction: row;box-sizing: border-box;display: flex;place-content: flex-end space-around;align-items: flex-end;width: 547px;height: 66px;margin-bottom: 0px;">
 
         <div style="margin-top:60px;margin-right: 95px" fxLayoutGap="10px">
 
@@ -33,7 +33,9 @@
 
                 <mat-icon matTooltip=" Remaind me " class="cardicon">
 
-                    <img src="../../assets/img/fundoAssests/remainder.svg " style="fill: rgb(87, 86, 86);" /></mat-icon>
+                    <img src="../../assets/img/fundoAssests/remainder.svg " style="fill: rgb(87, 86, 86);" />
+
+                </mat-icon>
 
             </button>
 
@@ -73,7 +75,7 @@
 
                                 <mat-form-field class="example-full-width">
 
-                                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="dateAndTimeCustom">
+                                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="dateChooser">
 
                                     <mat-datepicker-toggle matSuffix [for]="picker">
 
@@ -91,36 +93,30 @@
 
                             <mat-menu #menu9="matMenu">
 
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)="timeChooser('Morning')">
 
-                                    <span>Morning<span class="time8"> 8:00AM</span></span>
-
-                                </button>
-
-                                <button mat-menu-item>
-
-                                    <span>Afternoon 1:00PM</span>
+                                    <span>Morning 8:00 AM</span>
 
                                 </button>
 
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)="timeChooser('Afternoon')">
 
-                                    <span>Evening 6:00PM</span>
-
-                                </button>
-
-                                <button mat-menu-item>
-
-                                    <span>Night 8:00PM</span>
+                                    <span>Afternoon 1:00 PM</span>
 
                                 </button>
 
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)="timeChooser('Evening')">
 
-                                    <span>Custom</span>
+                                    <span>Evening 6:00 PM</span>
 
                                 </button>
 
+                                <button mat-menu-item (click)="timeChooser('Night')">
+
+                                    <span>Night 8:00 PM</span>
+
+                                </button>
+                                
                             </mat-menu>
 
                             <mat-list-item>
@@ -279,9 +275,9 @@
 
         <button mat-flat-button style="background-color: transparent;margin-top:50px;" [ngStyle]="{'background-color': color}"
             (click)="close()">
-            
+
             Close
-        
+
         </button>
 
     </mat-dialog-actions>

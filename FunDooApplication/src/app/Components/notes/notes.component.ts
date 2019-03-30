@@ -67,7 +67,7 @@ export class NotesComponent implements OnInit {
     }))
     setInterval(() => {
       this.notesDisplaying();
-		}, 1000);
+		}, 2000);
   }
   timeChooser(str) {
     debugger;
@@ -137,7 +137,7 @@ this.dialogbox =true;
   }
 
 
-  tomorrow(id) {
+  tomorrow() {
     debugger;
     var day = new Date();
     day.setDate(day.getDate() + 1);
@@ -149,6 +149,7 @@ this.dialogbox =true;
 
   nextWeek(id) {
     debugger;
+    console.log(id);
     var day = new Date();
 
     this.fulldate = day.setDate(day.getDate() + ((1 + 7 - day.getDay()) % 7));
@@ -163,7 +164,7 @@ this.dialogbox =true;
 
     dialogconfg.autoFocus = true;
     dialogconfg.width = "600px"
-    dialogconfg.height = "200px"
+    // dialogconfg.height = "200px"
     dialogconfg.panelClass = 'custom-dialog-container'
     debugger; 
     dialogconfg.data = {
