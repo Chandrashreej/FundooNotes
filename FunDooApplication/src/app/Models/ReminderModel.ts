@@ -1,8 +1,8 @@
 
-export class ReminderModel{
+export class ReminderModel {
 
     title: string;
     takeANote: string;
-    email:string;
-    color:string;
-    }
+    email: string;
+    color: string;
+}
