@@ -1,8 +1,8 @@
-<div>
+<div style="overflow :hidden;">
 
   <div>
 
-    <div>
+    <div >
 
       <mat-toolbar class="outertoolbar" color="white" fxLayout="row" fxLayoutAlign="space-around center">
 
@@ -153,7 +153,7 @@
 
             <label fxLayout="row" class="label">Labels</label>
 
-            <a class="selectorbutton" mat-list-item routerLink="/about" class="selectorbutton" [routerLinkActive]="['is-active']">
+            <a class="selectorbutton" mat-list-item routerLink="['archive']" class="selectorbutton" [routerLinkActive]="['is-active']">
 
               <mat-icon class="example-icon">edit</mat-icon>
 
@@ -165,7 +165,7 @@
 
             <mat-divider></mat-divider>
 
-            <a class="selectorbutton" mat-list-item routerLink="/about" class="selectorbutton" [routerLinkActive]="['is-active']">
+            <a class="selectorbutton" mat-list-item routerLink='archive' class="selectorbutton" [routerLinkActive]="['is-active']">
 
               <mat-icon class="example-icon">archive</mat-icon>
 
@@ -191,7 +191,7 @@
 
         </mat-sidenav>
 
-        <mat-sidenav-content div fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;">
+        <mat-sidenav-content div fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;overflow-x: hidden">
 
           <router-outlet></router-outlet>
 

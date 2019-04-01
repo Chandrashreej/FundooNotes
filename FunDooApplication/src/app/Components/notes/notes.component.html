@@ -161,7 +161,7 @@
         <mat-icon matTooltip="Add image" class="cardicon"><img src="../../assets/img/fundoAssests/photo.svg " style="    fill: rgb(87, 86, 86);" /></mat-icon>
       </button>
       <span></span>
-      <button mat-icon-button>
+      <button mat-icon-button >
         <mat-icon matTooltip="Archive" class="cardicon"><img src="../../assets/img/fundoAssests/archive2.svg " style="    fill: rgb(87, 86, 86);" /></mat-icon>
       </button>
       <span></span>
@@ -248,7 +248,7 @@
         <mat-icon matTooltip="Add image"><img src="../../assets/img/fundoAssests/photo.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
       </button>
 
-      <button mat-icon-button class="cardmaticon" class="buttonDisplay">
+      <button mat-icon-button class="cardmaticon" class="buttonDisplay"  (click)="notestools(n.id,1,'Archive')">
         <mat-icon matTooltip="Archive"><img src="../../assets/img/fundoAssests/archive2.svg " style="    color: rgb(87, 86, 86);" /></mat-icon>
       </button>
       <button mat-icon-button class="cardmaticon" class="buttonDisplay">
@@ -261,7 +261,7 @@
         </button>
         <button mat-menu-item (click)="next(01)">Make a copy
         </button>
-        <button mat-menu-item (click)="nextW(01)">Show tick boxes
+        <button mat-menu-item (click)="next(01)">Show tick boxes
         </button>
         <button mat-menu-item (click)="ne(01)">Copy to Google Docs
         </button>

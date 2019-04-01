@@ -7,25 +7,27 @@ import { MoreoptionsService } from 'src/app/Services/moreoptions.service';
 import { MatDialog, MatIconRegistry, MatSnackBar, MatDialogConfig } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
-
+import { NotesModel } from 'src/app/Models/Notes.model';
+import * as decode from "jwt-decode";
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
+  notesarray: NotesModel[] = [];
   flag: boolean = true;
   token1: any;
   notelist: any;
   classcard;
   notes: any;
   backgroundColour: any;
-  constructor(private notesService: DashboardService, private listview: ListService, private moreoptService:MoreoptionsService,
+  constructor(private notesService: DashboardService, private listview: ListService,
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private snackBar: MatSnackBar
-    ) {
+  ) {
 
     this.listview.getView().subscribe((res => {
       this.view = res;
@@ -48,7 +50,7 @@ export class NotesComponent implements OnInit {
   dateAndTimeCustom = new FormControl;
   wrap: string = "wrap";
   direction: string = "row";
-  dialogbox:boolean = false;
+  dialogbox: boolean = false;
   layout: string = this.direction + " " + this.wrap;
   dateChooser = new FormControl();
   /**
@@ -65,31 +67,50 @@ export class NotesComponent implements OnInit {
       this.direction = this.view.data;
       this.layout = this.direction + " " + this.wrap;
     }))
-    setInterval(() => {
-      this.notesDisplaying();
-		}, 2000);
-  }
+
+  setInterval(() => {
+    this.remaindme();
+  }, 2000);
+}
   timeChooser(str) {
     debugger;
     var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
-        if (str == "Morning") {
-          this.dateAndTime = chooser+ " " + " 08:00 AM ";
-          this.timer = true;
-        }
-        else if (str == "Afternoon")
-        {
-          this.dateAndTime = chooser + " " + " 1:00 PM ";
-        }
-        else if (str == "Evening")
-        {
-          this.dateAndTime = chooser + " " + " 6:00 PM ";
-        }
-        else if (str == "Night")
-        {
-          this.dateAndTime = chooser+ " " + " 8:00 PM ";
-        }
-        this.timer = true;
+    if (str == "Morning") {
+      this.dateAndTime = chooser + " " + " 08:00 AM ";
+      this.timer = true;
+    }
+    else if (str == "Afternoon") {
+      this.dateAndTime = chooser + " " + " 1:00 PM ";
+    }
+    else if (str == "Evening") {
+      this.dateAndTime = chooser + " " + " 6:00 PM ";
+    }
+    else if (str == "Night") {
+      this.dateAndTime = chooser + " " + " 8:00 PM ";
+    }
+    this.timer = true;
+  }
+
+  remaindme() {
+
+    var day = new Date();
+    var fulldate =
+      day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
+    fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " PM";
+
+    this.notesarray.forEach(reminder => {
+      let DateAndTime = fulldate;
+      this.dateAndTime = DateAndTime;
+
+      if (DateAndTime == reminder.dateAndTime) {
+
+        this.snackBar.open(reminder.title, "", {
+          duration: 2000
+        });
       }
+    });
+    console.log(fulldate);
+  }
   notesDisplaying() {
 
     const email = localStorage.getItem('email');
@@ -102,21 +123,22 @@ export class NotesComponent implements OnInit {
 
     });
   }
-  colourSetter(color)
-  {
+  colourSetter(color) {
     this.backgroundColour = color;
   }
-	coloring(id,value) {
-		debugger;
-this.dialogbox =true;
-			let obs = this.moreoptService.coloringBackground(id, value);
-			obs.subscribe((res: any) => {
-				debugger;
-				this.notes = res;
-        this.notesDisplaying();
-			});
-		}
-	
+  str;
+  coloring(id, value) {
+    debugger;
+    this.str = "color";
+    this.dialogbox = true;
+    let obs = this.notesService.coloringBackground(id, value, this.str);
+    obs.subscribe((res: any) => {
+      debugger;
+      this.notes = res;
+      this.notesDisplaying();
+    });
+  }
+
   reverseFlag() {
     this.flag = !this.flag;
   }
@@ -158,7 +180,7 @@ this.dialogbox =true;
     this.timer = true;
   }
   openDialog(n): void {
-    
+
     debugger
     const dialogconfg = new MatDialogConfig();
 
@@ -166,34 +188,39 @@ this.dialogbox =true;
     dialogconfg.width = "600px"
     // dialogconfg.height = "200px"
     dialogconfg.panelClass = 'custom-dialog-container'
-    debugger; 
+    debugger;
     dialogconfg.data = {
 
       notesdata: n
-     
+
     }
     const open = this.dialog.open(EditnotesComponent, dialogconfg);
 
-	}
+  }
   addNotes() {
     // debugger;
-    if (this.title.value == null && this.takeANote.value == null && this.dateAndTime== undefined) {
+    if (this.title.value == null && this.takeANote.value == null && this.dateAndTime == undefined) {
       this.flag = true;
     }
     else {
+      debugger;
+      // const token = localStorage.getItem('token');
+      // const tokenPayload = decode(token);
+      // const uid = tokenPayload;
+      debugger;
       const email = localStorage.getItem('email');
- 
+      debugger;
       this.model = {
         "title": this.title.value,
         "takeANote": this.takeANote.value,
         "email": email,
-        "color":this.backgroundColour
+        "color": this.backgroundColour
       }
       // console.log(this.model);
       // debugger;
       let obs = this.notesService.usereNotes(this.model, this.dateAndTime);
       //this.dateAndTime 
-
+      debugger;
       // debugger;
       obs.subscribe((res: any) => {
         if (res.message == "200") {
@@ -223,5 +250,20 @@ this.dialogbox =true;
 
       }
     });
+  }
+
+
+  stat;
+  notestools(id, colorid, flag) {
+    debugger;
+
+    let colorObs = this.notesService.coloringBackground(id, colorid, flag);
+    colorObs.subscribe((res: any) => {
+      if (res.status == "200") {
+        // this.stat = "color updated";
+      }
+    })
+
+
   }
 }

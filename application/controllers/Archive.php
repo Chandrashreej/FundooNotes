@@ -18,17 +18,17 @@ header("Access-Control-Allow-Headers: Authorization");
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin,Content-Range, Authorization, Content-Description, Content-Disposition,');
 
 // below file is required to work on
-include '/var/www/html/codeigniter/application/Service/MoreOptionService.php';
+include '/var/www/html/codeigniter/application/Service/ArchieveService.php';
 
 /**
  * creation of login class that extends CI_Controller
  */
-class MoreOptions extends CI_Controller
+class Archive extends CI_Controller
 {
-    /**
+        /**
      * @var string $NoteService
      */
-    private $moreService = "";
+    private $refService = "";
 
     /**
      * constructor establish DB connection
@@ -36,19 +36,21 @@ class MoreOptions extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->moreService = new MoreOptionsSevice();
+        $this->refService = new ArchiveService();
     }
-    public function coloringBackgroundFunction()
-    {
-        $id = $_POST["id"];
-        $color = $_POST["value"];
-        $flag =$_POST["flag"];
-        return $this->moreService->coloringBackgroundFunctionService($id, $color, $flag);
+    public function fetchArchive(){
+        $email =  $_POST['email'];
+        $this->refService->archivednotes($email);
     }
-    public function coloringBackgroundForReminder()
-    {
-        $id = $_POST["id"];
-        $color = $_POST["value"];
-        return $this->moreService->coloringBackgroundFunctionServiceForReminder($id, $color);
+    public function unarchive(){
+        $uid = $_POST['uid'];
+        $this->refService->archive($uid);
+    }
+    public function doctrine(){
+    $items = Doctrine_Query::create()
+       ->from('Example e')
+       ->leftJoin('e.Foobar')
+       ->where('e.id = ?', 20)
+       ->execute();
     }
 }

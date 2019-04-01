@@ -10,6 +10,7 @@ import { ResetPasswordComponent } from './Components/reset-password/reset-passwo
 import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpired.component';
 import { NotesComponent } from './Components/notes/notes.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
+import { ArchiveComponent } from './Components/archive/archive.component';
 
 
 
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: "reminder",
         component: ReminderComponent,      
+      },
+      {
+        path: 'archive',
+        component: ArchiveComponent,      
       }
      ]
   },

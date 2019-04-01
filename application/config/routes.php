@@ -74,3 +74,6 @@ $route['deleteNote'] ='DashBoard/deleteNote';
 $route['deleteReminder'] ='DashBoard/deleteReminder';
 $route['coloringBackgroundFunction']= 'MoreOptions/coloringBackgroundFunction';
 $route['coloringBackgroundForReminder']= 'MoreOptions/coloringBackgroundForReminder';
+
+$route['unarchive'] ='Archive/unarchive';
+$route['fetcharchive'] ='Archive/fetcharchive';

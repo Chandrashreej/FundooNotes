@@ -1,0 +1,67 @@
+<div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="center center" fxLayout="row wrap">
+
+  <mat-card btnhover class="gridcard" *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}">
+
+    <div class="cardtext">
+
+      <p class="para">{{item.title}}</p>
+
+      <p class="para"> {{item.takeANote}}</p>
+
+      <p style="font-size: 5px;" [ngClass]="item.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
+
+        <mat-chip-list>
+
+          <mat-chip mat-icon-button class="chips">
+
+            <mat-icon>
+
+              <img src="../../assets/img/fundoAssests/timer.svg " />
+
+            </mat-icon>
+
+            {{ item.dateAndTime }}
+
+          </mat-chip>
+
+        </mat-chip-list>
+
+      </p>
+
+    </div>
+    <div>
+      <button mat-icon-button>
+
+        <mat-icon class="icon" (click)="value()">notification_important</mat-icon>
+
+      </button>
+
+      <button mat-icon-button>
+
+        <mat-icon class="icon" (click)="value()">color_lens</mat-icon>
+
+      </button>
+
+      <button mat-icon-button>
+
+        <mat-icon class="icon" (click)="unarchive(item.id,'0')">archive</mat-icon>
+
+      </button>
+
+      <button mat-icon-button>
+
+        <mat-icon class="icon" (click)="value()">person_add</mat-icon>
+
+      </button>
+
+      <button mat-icon-button>
+
+        <mat-icon class="icon" (click)="value()">more_vert</mat-icon>
+
+      </button>
+
+    </div>
+    
+  </mat-card>
+
+</div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListService } from 'src/app/Services/list.service';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
+import { MatDialogConfig, MatDialog, MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -19,7 +21,10 @@ export class DashboardComponent implements OnInit {
 email:string;
 name:string;
   firstname: any;
-  constructor(private route: Router, private listview: ListService,private dashService: DashboardService,) {
+  constructor(private route: Router, private listview: ListService,private dashService: DashboardService,
+    public dialog: MatDialog,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,) {
     this.changeView();
   }
 
@@ -33,6 +38,13 @@ name:string;
 
       
     });
+  }
+  openLabel(){
+    const config = new MatDialogConfig();
+    config.width="600px";
+    config.height="250px";
+    // config.data ={data:this.uid};
+    // const label = this.dialog.open(LabelsComponent,config);
   }
   notes() {
     this.getToken = localStorage.getItem("token");

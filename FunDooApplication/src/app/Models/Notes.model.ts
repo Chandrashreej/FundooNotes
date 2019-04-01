@@ -5,4 +5,5 @@ export class NotesModel{
     takeANote: string;
     email:string;
     color:string;
+    dateAndTime:string;
     }

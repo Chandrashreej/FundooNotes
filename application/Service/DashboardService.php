@@ -107,7 +107,7 @@ class DashboardService extends CI_Controller
     {
         // $headers = apache_request_headers();
         // print_r($headers);
-
+        $archive = 0;
         if ($title == "null") {
             $title = "";
         }
@@ -134,8 +134,8 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime,color) values ('$userId','$title','$takeANote','$dateAndTime','$color')";
-
+                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive ,color) values ('$userId','$title','$takeANote','$dateAndTime',$archive,'$color')";
+ 
                 $stmt = $this->connect->prepare($query);
                 $res = $stmt->execute();
 
@@ -256,7 +256,7 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT * FROM userNotes where userId = '$userId'";
+                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0";
 
                 $statement = $this->connect->prepare($query);
 

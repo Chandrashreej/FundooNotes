@@ -70,5 +70,15 @@ constructor(private http: HttpClient,
       id.append('id',n);
       return this.http.post((this.sevriceurl.host+this.sevriceurl.deleteNote), id);
     }
+    coloringBackground(n,value,flag){
+      debugger;
+      let id = new FormData();
+      id.append('id',n);
+      id.append('value',value);
+      id.append('flag',flag);
+      return this.http.post((this.sevriceurl.host+this.sevriceurl.coloringBackground), id);
+  
+  
+    }
 
 }

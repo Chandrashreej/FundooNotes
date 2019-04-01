@@ -33,6 +33,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { EditnotesComponent } from './Components/editnotes/editnotes.component';
 import { CollaborateComponent } from './Components/collaborate/collaborate.component';
 import { EditreminderComponent } from './Components/editreminder/editreminder.component';
+import { ArchiveComponent } from './Components/archive/archive.component';
+import { LabelComponent } from './label/label.component';
 
 
 
@@ -51,7 +53,9 @@ import { EditreminderComponent } from './Components/editreminder/editreminder.co
     ReminderComponent,
     EditnotesComponent,
     CollaborateComponent,
-    EditreminderComponent
+    EditreminderComponent,
+    ArchiveComponent,
+    LabelComponent
   
     
   ],
