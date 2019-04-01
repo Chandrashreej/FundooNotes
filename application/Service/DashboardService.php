@@ -108,6 +108,7 @@ class DashboardService extends CI_Controller
         // $headers = apache_request_headers();
         // print_r($headers);
         $archive = 0;
+        $delete = 0;
         if ($title == "null") {
             $title = "";
         }
@@ -134,7 +135,7 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive ,color) values ('$userId','$title','$takeANote','$dateAndTime',$archive,'$color')";
+                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color')";
  
                 $stmt = $this->connect->prepare($query);
                 $res = $stmt->execute();
@@ -256,13 +257,14 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0";
+                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0";
 
                 $statement = $this->connect->prepare($query);
 
                 if ($statement->execute()) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    print json_encode($arr);
+                    $array= array_reverse($arr);
+                    print json_encode($array);
 
                 }
             } else {

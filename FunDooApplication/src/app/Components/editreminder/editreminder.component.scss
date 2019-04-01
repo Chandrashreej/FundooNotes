@@ -1,0 +1,50 @@
+.ipnote{
+    font-size: 16px;
+    width: 100%;
+    line-height: 34px;
+    border: none;
+    outline: none;
+  }
+  .mat-dialog-container .custom-dialog-container {
+
+    padding: 0px;
+    }
+    .chips{
+      border-radius: 30px;
+      padding: 10px;
+      background-color:  rgba(0,0,0,0.08);
+  }
+  .colorlens{
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+
+}
+.title{
+  width: 385px;
+  padding-left: 10px;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  height: 110px;
+}
+.dialogcontent{
+
+  height: 140px;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 425px;
+  padding-left: 0px;
+  padding-right: 30px;
+
+}
+::ng-deep .mat-dialog-container {
+  border-radius: 10px;
+  
+  width: 600px;
+  max-height: 210px;
+  }

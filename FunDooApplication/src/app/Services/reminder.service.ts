@@ -32,5 +32,15 @@ export class ReminderService {
       return this.http.post((this.sevriceurl.host+this.sevriceurl.deleteReminder), id);
 
     }
+    coloringBackground(n,value,flag){
+      debugger;
+      let id = new FormData();
+      id.append('id',n);
+      id.append('value',value);
+      id.append('flag',flag);
+      return this.http.post((this.sevriceurl.host+this.sevriceurl.coloringBackground), id);
+  
+  
+    }
     
 }

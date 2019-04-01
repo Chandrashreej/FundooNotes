@@ -25,7 +25,7 @@ include '/var/www/html/codeigniter/application/Service/ArchieveService.php';
  */
 class Archive extends CI_Controller
 {
-        /**
+    /**
      * @var string $NoteService
      */
     private $refService = "";
@@ -38,19 +38,25 @@ class Archive extends CI_Controller
         parent::__construct();
         $this->refService = new ArchiveService();
     }
-    public function fetchArchive(){
-        $email =  $_POST['email'];
+    public function fetchArchive()
+    {
+        $email = $_POST['email'];
         $this->refService->archivednotes($email);
     }
-    public function unarchive(){
+
+    
+    public function unarchive()
+    {
         $uid = $_POST['uid'];
         $this->refService->archive($uid);
     }
-    public function doctrine(){
-    $items = Doctrine_Query::create()
-       ->from('Example e')
-       ->leftJoin('e.Foobar')
-       ->where('e.id = ?', 20)
-       ->execute();
+
+    public function doctrine()
+    {
+        $items = Doctrine_Query::create()
+            ->from('Example e')
+            ->leftJoin('e.Foobar')
+            ->where('e.id = ?', 20)
+            ->execute();
     }
 }

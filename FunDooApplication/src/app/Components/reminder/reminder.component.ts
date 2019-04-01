@@ -196,7 +196,18 @@ var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
     }
   }
 
+  remindertools(id, colorid, flag) {
+    debugger;
 
+    let colorObs = this.reminderService.coloringBackground(id, colorid, flag);
+    colorObs.subscribe((res: any) => {
+      if (res.status == "200") {
+        // this.stat = "color updated";
+      }
+    })
+
+
+  }
   deleteReminder(n) {
     debugger;
     let deleteObj = this.reminderService.deleteReminderFunction(n.id);

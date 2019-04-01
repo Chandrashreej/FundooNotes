@@ -242,7 +242,7 @@
         <mat-icon matTooltip="More"><img src="../../assets/img/fundoAssests/more.svg " [matMenuTriggerFor]="more" style="    color: rgb(87, 86, 86);" /></mat-icon>
       </button>
       <mat-menu [overlapTrigger]="false" #more="matMenu">
-        <button mat-menu-item (click)="deleteReminder(n)">Delete note</button>
+        <button mat-menu-item (click)="remindertools(n.id,1,'Delete')">Delete note</button>
         <button mat-menu-item (click)="tomor(01)">Add label</button>
         <button mat-menu-item (click)="nextW(01)">Add drawing
         </button>
