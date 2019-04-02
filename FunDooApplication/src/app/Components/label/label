@@ -1,0 +1,199 @@
+E andhamina kallulo loka lo 
+   <mat-divider></mat-divider>
+
+                <a mat-list-item role="listitem">
+                    <span class="labels">Labels</span>
+                </a>
+                <a mat-list-item role="listitem" *ngFor="let item of labels" >
+                    <mat-icon class="icon">label</mat-icon><span class="lables">{{item.label}}</span>
+                </a>
+                <a mat-list-item role="listitem" (click)="openLabel()">
+                    <mat-icon class="icon">edit</mat-icon><span class="notes">Edit Labels</span>
+                </a>
+                <mat-divider></mat-divider>
+                <a mat-list-item role="listitem">
+                    <mat-icon class="icon">archive</mat-icon><span class="notes" routerLink="archive">Archive</span>
+                </a>
+
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content fxFlexFill>
+            <router-outlet>
+_----------------+++---------------+++++++7+-------
+openLabel(){
+    const config = new MatDialogConfig();
+    config.width="600px";
+    config.height="250px";
+    config.data ={data:this.uid};
+    const label = this.dialog.open(LabelsComponent,config);
+  }
+---------------------------------+-++-+---++---&&-----
+<mat-dialog-content>
+  <form [formGroup]="labelform">
+    <mat-label>Edit Labels</mat-label>
+    <div>
+      <button mat-icon-button class="btnclose">
+        <mat-icon class="remicon">close</mat-icon>
+      </button>
+      <mat-form-field>
+        <input matInput placeholder="create new label" formControlName="labelname">
+      </mat-form-field>
+
+      <button mat-icon-button class="btnclose" (click)="closes(labelform.value)">
+        <mat-icon class="remicon">check</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <mat-nav-list>
+    <a mat-list-item role="listitem" *ngFor="let item of labels">
+      <mat-icon class="icon" routerLinkActive="mat-accent">label</mat-icon><span
+        class="notes">{{item.label}}</span>
+    </a>
+
+  </mat-nav-list>
+</mat-dialog-actions>
+---------+--------------------------------++++++++----
+import { Component, OnInit, Inject } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { LabelService } from 'src/app/services/label.service';
+import { Label } from '../../models/label.model';
+@Component({
+  selector: 'app-labels',
+  templateUrl: './labels.component.html',
+  styleUrls: ['./labels.component.scss']
+})
+export class LabelsComponent implements OnInit {
+  labelform: FormGroup
+  uid;
+  labels: Label[];
+  constructor(
+    public dialogRef: MatDialogRef<LabelsComponent>,
+    public dialog: MatDialog, private fb: FormBuilder, private labelsev: LabelService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    debugger
+    this.uid = this.data.data;
+  }
+
+  ngOnInit() {
+    this.labelform = this.fb.group({
+      labelname: '',
+
+    });
+
+    this.fetchLabel();
+
+  }
+
+  fetchLabel() {
+    debugger
+    let fetchobs = this.labelsev.fetchLabel(this.uid);
+
+    fetchobs.subscribe((res: any) => {
+      debugger
+      this.labels = res;
+    })
+  }
+
+  closes(value: any) {
+    debugger
+    let labelobs = this.labelsev.setLabel(this.uid, value);
+    labelobs.subscribe((res: any) => {
+
+    });
+  }
+
+}
+-------------------------------------------------------------
+
+  constructor(private http :HttpClient,private serviceurl:ServiceUrlService) { }
+
+
+  setLabel(id,labelname){
+    let label = new FormData();
+    label.append("uid",id);
+    label.append("label",labelname.labelname);
+    return this.http.post(this.serviceurl.host+this.serviceurl.setlabel,label);
+  }
+
+  fetchLabel(uid){
+    let label = new FormData();
+    label.append("uid",uid);
+    return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
+  }
+-------_--₹--₹--₹-₹-₹------------₹--₹-₹--₹₹₹₹₹₹₹--
+<?php
+header("Access-Control-Allow-Headers: Authorization");
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
+');
+header("Access-Control-Request-Method: POST");
+defined('BASEPATH') or exit('No direct script access allowed');
+include "/var/www/html/codeigniter/application/service/LabelService.php";
+class Label extends CI_Controller
+{
+    private $refService = "";
+    /**
+     * @description create an instance of service methods
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->refService = new LabelService();
+    }
+    public function addLabel(){
+        $uid = $_POST['uid'];
+        $label = $_POST['label'];
+        $this->refService->labelAdd($uid,$label);
+    }
+    public function fetchLabel()
+    {
+        $uid = $_POST['uid'];
+        $this->refService->labelFetch($uid);
+    }
+}
+--------------_--_₹₹₹₹₹*----₹***---------------___-
+?php
+header("Access-Control-Allow-Headers: Authorization");
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
+');
+include '/var/www/html/codeigniter/application/service/RedisConn.php';
+include 'JWT.php';
+defined('BASEPATH') or exit('No direct script access allowed');
+use \Firebase\JWT\JWT;
+class LabelService extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    public function labelAdd($uid,$label){
+        $query = "INSERT into labels (label,user_id,created_at) values ('$label','$uid',now())";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+            if ($res) {
+            $data = array(
+                "status" => "200",
+            );
+            print json_encode($data);
+        } else {
+            $data = array(
+                "status" => "204",
+            );
+            print json_encode($data);
+            return "204";
+        }
+    }
+    
+    public function labelFetch($uid){
+        $query = "SELECT * from labels Where user_id ='$uid'  ";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        print json_encode($arr);
+    }
+}

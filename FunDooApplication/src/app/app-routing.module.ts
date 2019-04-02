@@ -11,6 +11,7 @@ import { SessionexpiredComponent } from './Components/sessionexpired/sessionexpi
 import { NotesComponent } from './Components/notes/notes.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import { ArchiveComponent } from './Components/archive/archive.component';
+import { TrashComponent } from './Components/trash/trash.component';
 
 
 
@@ -51,6 +52,10 @@ const routes: Routes = [
       {
         path: 'archive',
         component: ArchiveComponent,      
+      },
+      {
+        path: 'bin',
+        component: TrashComponent,      
       }
      ]
   },

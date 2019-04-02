@@ -77,3 +77,6 @@ $route['coloringBackgroundForReminder']= 'MoreOptions/coloringBackgroundForRemin
 
 $route['unarchive'] ='Archive/unarchive';
 $route['fetcharchive'] ='Archive/fetcharchive';
+
+$route['fetchTrash'] ='Trash/fetchTrash';
+$route['unTrash'] ='Trash/unTrash';

@@ -28,5 +28,6 @@ export class ServiceUrlService {
   public coloringBackgroundForReminder = 'codeigniter/coloringBackgroundForReminder';
   public fetchArch = "codeigniter/fetcharchive";
   public unarchived = "codeigniter/unarchive";
-  
+  public fetchTrash = "codeigniter/fetchTrash";
+  public unTrash = "codeigniter/unTrash";
 }

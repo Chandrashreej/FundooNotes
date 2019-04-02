@@ -1,0 +1,65 @@
+<div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="center center" fxLayout="row wrap">
+
+  <mat-card btnhover class="gridcard" *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}">
+
+    <div class="cardtext">
+
+      <p class="para">{{item.title}}</p>
+
+      <p class="para"> {{item.takeANote}}</p>
+
+      <p style="font-size: 5px;" [ngClass]="item.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
+
+        <mat-chip-list>
+
+          <mat-chip mat-icon-button class="chips">
+
+            <mat-icon>
+
+              <img src="../../assets/img/fundoAssests/timer.svg " />
+
+            </mat-icon>
+
+            {{ item.dateAndTime }}
+
+          </mat-chip>
+
+        </mat-chip-list>
+
+      </p>
+
+    </div>
+
+    <div>
+
+      <button mat-icon-button class="cardmaticon" class="buttonDisplay">
+
+        <mat-icon matTooltip="More">
+
+          <img src="../../assets/img/fundoAssests/more.svg " [matMenuTriggerFor]="more" style="color: rgb(87, 86, 86);" />
+
+        </mat-icon>
+
+      </button>
+
+      <mat-menu [overlapTrigger]="false" #more="matMenu">
+
+        <button mat-menu-item (click)="unTrash(item.id,1,'Delete') ;openSnackBar('Moved to bin')">
+
+          Delete note
+
+        </button>
+
+        <button mat-menu-item (click)="unTrash(item.id,0,'Delete');openSnackBar('Moved to bin')">
+
+          Restore
+
+        </button>
+        
+      </mat-menu>
+
+    </div>
+
+  </mat-card>
+
+</div>
