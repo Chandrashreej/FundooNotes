@@ -2,7 +2,7 @@
 
   <div>
 
-    <div >
+    <div>
 
       <mat-toolbar class="outertoolbar" color="white" fxLayout="row" fxLayoutAlign="space-around center">
 
@@ -128,60 +128,65 @@
 
       <mat-sidenav-container class="example-container" autosize fxLayout="row" fxLayoutAlign="start none">
 
-        <mat-sidenav #drawer mode="side">
+        <mat-sidenav #drawer mode="side" style="overflow: hidden;">
 
-          <mat-nav-list>
+          <div class="mat-drawer-inner-container">
 
-            <a class="selectorbutton" mat-list-item [routerLink]="['notes']" [routerLinkActive]="['is-active']">
+            <mat-nav-list>
 
-              <mat-icon class="example-icon">lightbulb_outline</mat-icon>
+              <a class="selectorbutton" mat-list-item [routerLink]="['notes']" [routerLinkActive]="['is-active']">
 
-              <span class="spantext">Notes</span>
-            </a>
+                <mat-icon class="example-icon">lightbulb_outline</mat-icon>
 
-            <a class="selectorbutton" mat-list-item [routerLink]="['reminder']" [routerLinkActive]="['is-active']">
+                <span class="spantext">Notes</span>
+              </a>
 
-              <mat-icon class="example-icon">notifications_none</mat-icon>
+              <a class="selectorbutton" mat-list-item [routerLink]="['reminder']" [routerLinkActive]="['is-active']">
 
-              <span class="spantext">Reminder</span>
+                <mat-icon class="example-icon">notifications_none</mat-icon>
 
-            </a>
+                <span class="spantext">Reminder</span>
 
-            <mat-divider></mat-divider>
+              </a>
 
-            <br>
+              <mat-divider></mat-divider>
 
-            <label fxLayout="row" class="label">Labels</label>
+              <br>
 
-            <a class="selectorbutton" mat-list-item routerLink="['archive']" class="selectorbutton" [routerLinkActive]="['is-active']">
+              <label fxLayout="row" class="label">Labels</label>
 
-              <mat-icon class="example-icon">edit</mat-icon>
+              <a class="selectorbutton" mat-list-item routerLink="['archive']" class="selectorbutton"
+                [routerLinkActive]="['is-active']">
 
-              <span class="spantext">Edit Labels</span>
+                <mat-icon class="example-icon">edit</mat-icon>
 
-            </a>
-            
-            <br>
+                <span class="spantext">Edit Labels</span>
 
-            <mat-divider></mat-divider>
+              </a>
 
-            <a class="selectorbutton" mat-list-item routerLink='archive' class="selectorbutton" [routerLinkActive]="['is-active']">
+              <br>
 
-              <mat-icon class="example-icon">archive</mat-icon>
+              <mat-divider></mat-divider>
 
-              <span class="spantext">Archive</span>
+              <a class="selectorbutton" mat-list-item routerLink='archive' class="selectorbutton" [routerLinkActive]="['is-active']">
 
-            </a>
+                <mat-icon class="example-icon">archive</mat-icon>
 
-            <a class="selectorbutton" mat-list-item routerLink='bin' class="selectorbutton" [routerLinkActive]="['is-active']">
+                <span class="spantext">Archive</span>
 
-              <mat-icon class="example-icon">delete</mat-icon>
+              </a>
 
-              <span class="spantext">Bin</span>
+              <a class="selectorbutton" mat-list-item routerLink='bin' class="selectorbutton" [routerLinkActive]="['is-active']">
 
-            </a>
+                <mat-icon class="example-icon">delete</mat-icon>
 
-          </mat-nav-list>
+                <span class="spantext">Bin</span>
+
+              </a>
+
+            </mat-nav-list>
+
+          </div>
 
         </mat-sidenav>
 

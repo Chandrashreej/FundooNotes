@@ -47,9 +47,9 @@ export class ArchiveComponent implements OnInit {
     }));
 
 
-    setInterval(() => {
-      this.fetchArchive();
-		}, 1000);
+    // setInterval(() => {
+    //   this.fetchArchive();
+		// }, 1000);
   }
 
   openSnackBar(message: string, action: string) {
