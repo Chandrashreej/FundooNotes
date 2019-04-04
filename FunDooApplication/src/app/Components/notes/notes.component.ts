@@ -155,9 +155,12 @@ export class NotesComponent implements OnInit {
     this.fulldate = day.toDateString();
     var currentDate = moment(this.fulldate).format("DD/MM/YYYY");
     this.dateAndTime = currentDate + " " + " 08:00 PM";
+    
 
   }
-
+  closedate(){
+    this.dateAndTime = "undefined";
+  }
 
   tomorrow() {
     debugger;

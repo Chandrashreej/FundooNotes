@@ -47,11 +47,11 @@ class Uselogin extends CI_Controller
         if ($num == 1) {
             $login = new Uselogin;
             $token = $login->generateJWTToke($email);
-            $data = array(
+            $result = array(
                 "token" => $token,
                 "message" => "200",
             );
-            print json_encode($data);
+            print json_encode($result);
             return "200";
 
         } else if ($num == 2) {

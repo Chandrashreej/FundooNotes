@@ -1,0 +1,56 @@
+.labelname{
+    background: transparent;
+    border: none;
+    height: 20px;
+    outline-color: opacify($color:white, $amount: -0);
+    // padding: 11px 16px 11px 18px;
+    width: 60%;
+    font: normal 16px Roboto, sans-serif;
+    font-size: 15px;
+    font-display:padding-left;
+    font-variant-ligatures: none;
+    margin-top: 7px;
+
+    // margin-left: -44px;
+
+    font-family:  'Roboto',Arial,sans-serif;
+
+      display: inline-block;
+
+      vertical-align: top;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+}
+.spantext{
+  margin-top: 15px;
+  margin-left: 15px;
+  font-size: 17px;
+  font-size-adjust: length($list: 5px);
+  font-family:  'Roboto',Arial,sans-serif;
+  // font-weight: bolder;
+  padding-left: 0px;
+    display: inline-block;
+    line-height: 40px;
+    vertical-align: top;
+    width: 176px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black;
+}
+.divider{
+  color: rgb(104, 101, 101);
+  
+}
+.icon{
+  color: rgb(104, 101, 101);
+  margin-right: 10px;
+  width:"20";
+  height:"20";
+}
+.btnclose{
+
+  margin-left: 19px;
+
+}

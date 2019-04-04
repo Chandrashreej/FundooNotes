@@ -4,6 +4,10 @@ import { ListService } from 'src/app/Services/list.service';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 import { MatDialogConfig, MatDialog, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+// import { LabelComponent } from '../label/label.component';
+import { LabelComponent } from 'src/app/Components/label/label.component';
+
+
 
 
 @Component({
@@ -49,6 +53,7 @@ name:string;
   notes() {
     this.getToken = localStorage.getItem("token");
     return this.getToken;
+    
   }
   logout() {
     localStorage.removeItem("token");
@@ -70,5 +75,14 @@ name:string;
     }
 
     this.listview.gridview();
+  }
+  label(){
+    this.email = localStorage.getItem("email");
+    console.log('hi');
+    const config = new MatDialogConfig();
+    config.width="300px";
+    config.panelClass = 'label-dialog-container'
+    config.data ={data:this.email};
+    const label = this.dialog.open(LabelComponent,config);
   }
 }

@@ -9,16 +9,16 @@ export class LabelService {
   constructor(private http :HttpClient,private serviceurl:ServiceUrlService) { }
 
 
-  // setLabel(id,labelname){
-  //   let label = new FormData();
-  //   label.append("uid",id);
-  //   label.append("label",labelname.labelname);
-  //   return this.http.post(this.serviceurl.host+this.serviceurl.setlabel,label);
-  // }
+  setLabel(email,labelmodel){
+    let label = new FormData();
+    label.append("email",email);
+    label.append("labelmodel",labelmodel.labelname);
+    return this.http.post(this.serviceurl.host+this.serviceurl.setlabel,label);
+  }
 
-  // fetchLabel(uid){
-  //   let label = new FormData();
-  //   label.append("uid",uid);
-  //   return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
-  // }
+  fetchLabel(email){
+    let label = new FormData();
+    label.append("email",email);
+    return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
+  }
 }

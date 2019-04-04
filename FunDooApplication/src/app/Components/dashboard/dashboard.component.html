@@ -6,7 +6,7 @@
 
       <mat-toolbar class="outertoolbar" color="white" fxLayout="row" fxLayoutAlign="space-around center">
 
-        <div fxLayoutGap="10px" style="margin-left:20px;" fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayoutGap="10px" style="margin-left:0px;" fxLayout="row" fxLayoutAlign="space-around center">
 
           <button mat-button matTooltip="Min Menu" class="menubutton" (click)="drawer.toggle()">
 
@@ -145,7 +145,7 @@
 
                 <mat-icon class="example-icon">notifications_none</mat-icon>
 
-                <span class="spantext">Reminder</span>
+                <span class="spantext">Reminders</span>
 
               </a>
 
@@ -155,8 +155,13 @@
 
               <label fxLayout="row" class="label">Labels</label>
 
-              <a class="selectorbutton" mat-list-item routerLink="['archive']" class="selectorbutton"
-                [routerLinkActive]="['is-active']">
+              <a mat-list-item role="listitem" *ngFor="let item of labels">
+
+                <mat-icon class="icon">label</mat-icon><span class="lables">{{item.label}}</span>
+
+              </a>
+
+              <a class="selectorbutton" mat-list-item (click)="label()" class="selectorbutton" [routerLinkActive]="['is-active']">
 
                 <mat-icon class="example-icon">edit</mat-icon>
 

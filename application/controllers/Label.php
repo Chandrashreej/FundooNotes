@@ -40,14 +40,14 @@ class Label extends CI_Controller
         $this->refService = new LabelService();
     }
     public function addingLabel(){
-        $uid = $_POST['uid'];
+        $email = $_POST['email'];
         $label = $_POST['label'];
-        $this->refService->labelAddingService($uid,$label);
+        $this->refService->labelAddingService($email,$label);
     }
     public function fetchingLabel()
     {
-        $uid = $_POST['uid'];
-        $this->refService->labelFetchingService($uid);
+        $uid = $_POST['email'];
+        $this->refService->labelFetchingService($email);
     }
 
     public function doctrine()

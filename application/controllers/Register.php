@@ -26,7 +26,7 @@ class Register extends CI_Controller
      * @var string $refService
      */
     private $refService = "";
-
+    public $var;
     /**
      * constructor establish DB connection
      */
@@ -49,8 +49,8 @@ class Register extends CI_Controller
         $phonenum = $_POST['phonenum'];
         $password = $_POST['password'];
         $password = password_hash($password, PASSWORD_DEFAULT);
-        return $this->refService->insertDb($fname, $lname, $phonenum, $email, $password);
-
+        $var = $this->refService->insertDb($fname, $lname, $phonenum, $email, $password);
+        return $var;
     }
 
 }

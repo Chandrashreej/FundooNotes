@@ -12,6 +12,7 @@ import { NotesComponent } from './Components/notes/notes.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import { ArchiveComponent } from './Components/archive/archive.component';
 import { TrashComponent } from './Components/trash/trash.component';
+import { LabelComponent } from './Components/label/label.component';
 
 
 
@@ -56,7 +57,7 @@ const routes: Routes = [
       {
         path: 'bin',
         component: TrashComponent,      
-      }
+      },
      ]
   },
   {

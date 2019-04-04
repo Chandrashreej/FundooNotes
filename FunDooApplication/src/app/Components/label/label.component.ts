@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { LabelService } from 'src/app/Services/label.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-label',
@@ -15,27 +16,36 @@ export class LabelComponent implements OnInit {
     public dialog: MatDialog, private labelsev: LabelService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
-
+email;
+labelname = new FormControl();
+model:any;
   ngOnInit() {
 
 
-  //   this.fetchLabel();
+    this.fetchLabel();
   }
-  // fetchLabel() {
-  //   debugger
-  //   // let fetchobs = this.labelsev.fetchLabel(this.uid);
+  fetchLabel() {
+    this.email = localStorage.getItem("email");
+    debugger
+     let fetchobs = this.labelsev.fetchLabel(this.email);
 
-  //   // fetchobs.subscribe((res: any) => {
-  //     debugger
-  //     this.labels = res;
-  //   })
-  // }
+     fetchobs.subscribe((res: any) => {
+      debugger
+      this.labels = res;
+    })
+  }
 
-  // closes(value: any) {
-  //   debugger
-  //   let labelobs = this.labelsev.setLabel(this.uid, value);
-  //   labelobs.subscribe((res: any) => {
+  closes() {
+    this.model= {
+      "labelname" : this.labelname.value
+    }
+    debugger
+    let labelobs = this.labelsev.setLabel(this.email, this.model);
+    labelobs.subscribe((res: any) => {
 
-  //   });
-  // }
+    });
+  }
+  closeslabel(){
+    this.dialogRef.close();
+  }
 }

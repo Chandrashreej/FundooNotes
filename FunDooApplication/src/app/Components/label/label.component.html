@@ -1,3 +1,35 @@
-<p>
-  label works!
-</p>
+<div>
+  <mat-dialog-content>
+
+    <mat-label class="spantext">Edit Labels</mat-label>
+    <div>
+      <button mat-icon-button class="btnclose" >
+        <mat-icon class="icon">close</mat-icon>
+      </button>
+
+
+        <input class="labelname" appearance="null" type="text" placeholder="Create new label" [formControl]="labelname"/>
+
+
+      <button mat-icon-button class="btnclose" (click)="closes()">
+        <mat-icon class="icon">check</mat-icon>
+      </button>
+    </div>
+
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <mat-nav-list>
+      <a mat-list-item role="listitem" *ngFor="let item of labels">
+        <mat-icon class="icon" routerLinkActive="mat-accent">label</mat-icon><span class="notes">{{item.label}}</span>
+      </a>
+
+    </mat-nav-list>
+  </mat-dialog-actions>
+  <mat-divider class="divider" ></mat-divider>
+  <div>
+    <button mat-flat-button style="background-color: transparent;margin-top:20px;margin-bottom:20px;margin-right:20px;margin-left: 200px;" (click)="closeslabel()">close</button>
+  </div>
+</div>

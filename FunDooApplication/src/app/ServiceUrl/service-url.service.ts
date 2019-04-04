@@ -30,4 +30,7 @@ export class ServiceUrlService {
   public unarchived = "codeigniter/unarchive";
   public fetchTrash = "codeigniter/fetchTrash";
   public unTrash = "codeigniter/unTrash";
+
+  public setlabel = "codeigniter/setlabel";
+  public fetchlabel = "codeigniter/fetchlabel";
 }

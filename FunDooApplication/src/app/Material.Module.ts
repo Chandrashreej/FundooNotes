@@ -5,7 +5,7 @@ import {
 
 MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
 
- MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatButtonToggleModule, MatDividerModule, MatListModule, MatSelectModule
+ MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatButtonToggleModule, MatDividerModule, MatListModule, MatSelectModule, MAT_DIALOG_DATA, MatDialogRef
 
 } from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -65,6 +65,10 @@ MatChipsModule,
 MatSnackBarModule,
 MatSelectModule
 ],
+
+providers:[{ provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+    ]
 })
 
 export class MaterialModule {

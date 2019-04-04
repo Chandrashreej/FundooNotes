@@ -79,4 +79,8 @@ $route['unarchive'] ='Archive/unarchive';
 $route['fetcharchive'] ='Archive/fetcharchive';
 
 $route['fetchTrash'] ='Trash/fetchTrash';
-$route['unTrash'] ='Trash/unTrash';
+$route['unTrash'] ='Trash/unTrash';  
+
+$route['setlabel'] ='Label/addingLabel';
+$route['fetchlabel'] ='Label/fetchingLabel';  
+

@@ -135,6 +135,7 @@
   }
   .menubutton{
     width: 5px;
+    padding-left: 0px;
   }
   // mat-nav-list{
   //   border:none;
@@ -184,6 +185,10 @@
     padding: 15px 24px 10px;
   }
   .spantext{
+    font-size: 15px;
+    font-size-adjust: length($list: 5px);
+    font-family:  'Roboto',Arial,sans-serif;
+    // font-weight: bolder;
     padding-left: 32px;
       display: inline-block;
       line-height: 40px;
@@ -192,6 +197,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      color: black;
   }
   .content{
     width: 1336px;

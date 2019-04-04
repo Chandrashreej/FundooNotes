@@ -37,14 +37,8 @@ class LabelService extends CI_Controller
     {
         parent::__construct();
     }
-    public function archivednotes($email){
-
-
-
-
-
-
-
+    public function labelAdd($email, $label)
+    {
         $sekretkey = "chandu";
 
         $channel = new ConnectingToRedis();
@@ -58,14 +52,7 @@ class LabelService extends CI_Controller
 
         $userId = $payload->userId;
 
-        $query = "SELECT * from userNotes Where userId ='$userId' AND archive = '1' ";
-        $stmt = $this->db->conn_id->prepare($query);
-        $res = $stmt->execute();
-        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        print json_encode($arr);
-    }
-    public function archive($uid){
-        $query = "UPDATE userNotes SET archive = '0'  where id = '$uid'";
+        $query = "INSERT into labels (userId, label, creationTime) values ('$label','$userId',now())";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {
@@ -81,51 +68,25 @@ class LabelService extends CI_Controller
             return "204";
         }
     }
-    public function unarchieve($uid){
-    $time = "";
 
-    $sekretkey = "chandu";
+    public function labelFetch($email)
+    {
+        $sekretkey = "chandu";
 
-    $channel = new ConnectingToRedis();
-    $client = $channel->redisConnection();
-    $token = $client->get('token');
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
 
-    $array = array(
-        'HS256',
-    );
-    $payload = JWT::decode($token, $sekretkey, $array);
-
-    $userId = $payload->userId;
-    // $token = $headers['Authorization'];
-
-    if ($token != null) {
-
-        $jwt = new JWT();
-        if ($jwt->verifyc($token, $sekretkey)) {
-
-            $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0";
-
-            $statement = $this->connect->prepare($query);
-
-            if ($statement->execute()) {
-                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                print json_encode($arr);
-
-            }
-        } else {
-            $result = array(
-                "message" => "500",
-            );
-            print json_encode($result);
-            return "500";
-        }
-    } else {
-        $result = array(
-            "message" => "600",
+        $array = array(
+            'HS256',
         );
-        print json_encode($result);
-        return "600";
-    }
+        $payload = JWT::decode($token, $sekretkey, $array);
 
-}
+        $userId = $payload->userId;
+        $query = "SELECT * from labels Where userId ='$userId'  ";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        print json_encode($arr);
+    }
 }

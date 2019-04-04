@@ -34,8 +34,9 @@ import { EditnotesComponent } from './Components/editnotes/editnotes.component';
 import { CollaborateComponent } from './Components/collaborate/collaborate.component';
 import { EditreminderComponent } from './Components/editreminder/editreminder.component';
 import { ArchiveComponent } from './Components/archive/archive.component';
-import { LabelComponent } from './label/label.component';
+
 import { TrashComponent } from './Components/trash/trash.component';
+import { LabelComponent } from './Components/label/label.component';
 
 
 
@@ -91,6 +92,6 @@ import { TrashComponent } from './Components/trash/trash.component';
   ],
   providers: [RegisterService,ServiceUrlService,LoginService],
   bootstrap: [AppComponent],
-  entryComponents:[EditnotesComponent, EditreminderComponent]
+  entryComponents:[EditnotesComponent, EditreminderComponent, LabelComponent]
 })
 export class AppModule { }

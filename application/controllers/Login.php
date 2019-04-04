@@ -27,7 +27,7 @@ class Login extends CI_Controller
      * @var string $logService
      */
     private $logService = "";
-
+    public $var;
     /**
      * constructor establish DB connection
      */
@@ -48,7 +48,8 @@ class Login extends CI_Controller
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
-        return $this->logService->userLoginFunction($email, $password);
+        $var = $this->logService->userLoginFunction($email, $password);
+        return $var;
     }
 
 }
