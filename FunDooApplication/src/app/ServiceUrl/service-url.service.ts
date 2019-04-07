@@ -33,4 +33,5 @@ export class ServiceUrlService {
 
   public setlabel = "codeigniter/setlabel";
   public fetchlabel = "codeigniter/fetchlabel";
+  public socialLoginData = "codeigniter/socialLoginData";
 }

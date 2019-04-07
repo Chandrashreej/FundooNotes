@@ -52,4 +52,9 @@ class Login extends CI_Controller
         return $var;
     }
 
+    public function socialLogin(){
+        $email = $_POST['email'];
+        $name = $_POST['firstname'];
+        $this->logService->socialSigin($email,$name);
+    }
 }

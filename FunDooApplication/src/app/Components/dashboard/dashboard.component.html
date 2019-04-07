@@ -155,9 +155,11 @@
 
               <label fxLayout="row" class="label">Labels</label>
 
-              <a mat-list-item role="listitem" *ngFor="let item of labels">
+              <a class="selectorbutton"  mat-list-item role="listitem" *ngFor="let item of labels">
 
-                <mat-icon class="icon">label</mat-icon><span class="lables">{{item.label}}</span>
+                <mat-icon class="example-icon">label</mat-icon>
+                
+                <span class="spantext">{{item.label}}</span>
 
               </a>
 
@@ -195,7 +197,7 @@
 
         </mat-sidenav>
 
-        <mat-sidenav-content div fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;overflow-x: hidden">
+        <mat-sidenav-content div fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;height: 1000px; overflow-x: hidden">
 
           <router-outlet></router-outlet>
 

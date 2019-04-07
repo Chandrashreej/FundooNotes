@@ -89,4 +89,19 @@ export class LoginService {
 	userNotes(){
 		
 	}
+		/**
+	 * @method socialLoginData()
+	 * @return observable data
+	 * @param login
+	 * @description Function to send login data to server
+	 */
+	socialLogin(email, name) {
+		let socialLoginData = new FormData();
+		socialLoginData.append("email", email);
+		socialLoginData.append("firstname", name);
+		return this.http.post(
+			this.sevriceurl.host + this.sevriceurl.socialLoginData,
+			socialLoginData
+		);
+	}
 }

@@ -41,12 +41,12 @@ class Label extends CI_Controller
     }
     public function addingLabel(){
         $email = $_POST['email'];
-        $label = $_POST['label'];
+        $label = $_POST['labelmodel'];
         $this->refService->labelAddingService($email,$label);
     }
     public function fetchingLabel()
     {
-        $uid = $_POST['email'];
+        $email = $_POST['email'];
         $this->refService->labelFetchingService($email);
     }
 

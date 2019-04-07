@@ -71,6 +71,7 @@ export class NotesComponent implements OnInit {
   setInterval(() => {
     this.remaindme();
   }, 2000);
+  
 }
   timeChooser(str) {
     debugger;

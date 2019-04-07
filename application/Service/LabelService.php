@@ -37,7 +37,7 @@ class LabelService extends CI_Controller
     {
         parent::__construct();
     }
-    public function labelAdd($email, $label)
+    public function labelAddingService($email, $label)
     {
         $sekretkey = "chandu";
 
@@ -52,7 +52,7 @@ class LabelService extends CI_Controller
 
         $userId = $payload->userId;
 
-        $query = "INSERT into labels (userId, label, creationTime) values ('$label','$userId',now())";
+        $query = "INSERT into labels (userId, label, creationTime) values ('$userId','$label',now())";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {
@@ -69,7 +69,7 @@ class LabelService extends CI_Controller
         }
     }
 
-    public function labelFetch($email)
+    public function labelFetchingService($email)
     {
         $sekretkey = "chandu";
 
@@ -86,6 +86,7 @@ class LabelService extends CI_Controller
         $query = "SELECT * from labels Where userId ='$userId'  ";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
+
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         print json_encode($arr);
     }

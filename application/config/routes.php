@@ -84,3 +84,6 @@ $route['unTrash'] ='Trash/unTrash';
 $route['setlabel'] ='Label/addingLabel';
 $route['fetchlabel'] ='Label/fetchingLabel';  
 
+$route['socialLoginData'] ='Login/socialLogin';  
+
+

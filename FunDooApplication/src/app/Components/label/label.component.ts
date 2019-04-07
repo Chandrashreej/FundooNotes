@@ -2,14 +2,15 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { LabelService } from 'src/app/Services/label.service';
 import { FormControl } from '@angular/forms';
-
+import{ LabelsModel  } from 'src/app/Models/labels.model';
 @Component({
   selector: 'app-label',
   templateUrl: './label.component.html',
   styleUrls: ['./label.component.scss']
 })
 export class LabelComponent implements OnInit {
-  labels: any;
+
+  labels: LabelsModel[]=[];
 
   constructor(
     public dialogRef: MatDialogRef<LabelComponent>,
@@ -22,7 +23,8 @@ model:any;
   ngOnInit() {
 
 
-    this.fetchLabel();
+   this.fetchLabel();
+   
   }
   fetchLabel() {
     this.email = localStorage.getItem("email");

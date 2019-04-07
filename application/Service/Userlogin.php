@@ -89,7 +89,7 @@ class Uselogin extends CI_Controller
         }
         $payload = array(
             "phonenum" => $phonenum,
-            "userId" => $userId
+            "userId" => $userId,
         );
 
         $token = JWT::encode($payload, $sekretkey);
@@ -123,6 +123,59 @@ class Uselogin extends CI_Controller
                 }
             } else {
                 return 3;
+            }
+        }
+    }
+    public function emailpresent($email)
+    {
+        $query = "SELECT * FROM createuser where email = '$email'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+        if ($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    public function socialSigin($email, $name)
+    {
+        $emailExists = $this->emailpresent($email);
+        if ($emailExists) {
+
+            $login = new Uselogin;
+            $token = $login->generateJWTToke($email);
+
+            $data = array(
+                "token" => $token,
+                "message" => "200",
+            );
+            print json_encode($data);
+        } else {
+
+            $uid = uniqid();
+            $client = ConnectingToRedis::redisConnection();
+            
+            $key =$client->get('scretkey');
+            $query = "INSERT into createuser (firstname,email) values ('$name','$email')";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+            if ($res) {
+                $token = JWT::encode($email, $key);
+                $data = array(
+                    "token" => $token,
+                    "message" => "200",
+                );
+                print json_encode($data);
+            } else {
+                $data = array(
+                    "message" => "204",
+                );
+                print json_encode($data);
+
             }
         }
     }

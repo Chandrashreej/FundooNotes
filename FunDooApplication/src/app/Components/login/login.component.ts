@@ -3,6 +3,15 @@ import { FormControl, Validators } from '@angular/forms';
 import { LoginService } from "src/app/Services/loginService/ServiceLogin";
 import { Router } from '@angular/router';
 
+import {
+	AuthServiceConfig,
+	FacebookLoginProvider,
+	GoogleLoginProvider,
+  AuthService,
+  SocialUser
+} from "angular-6-social-login";
+import { CookieService } from 'ngx-cookie-service';
+
 @Component({
 
   selector: 'app-login',
@@ -13,7 +22,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private logService: LoginService, private route: Router) { }
+  constructor(private cookieserv:CookieService 
+    ,private userData:SocialUser,private socialAuthService: AuthService,private logService: LoginService, private route: Router) { }
 
   model: any;
 
@@ -73,4 +83,61 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+  	/**
+	 * @method socialSignIn()
+	 * @return void
+	 * @param socialPlatform
+	 * @description Function to error validation
+	 */
+
+	public socialSignIn(socialPlatform: string) {
+		debugger;
+		let socialPlatformProvider;
+		if (socialPlatform == "facebook") {
+			socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+		} else if (socialPlatform == "google") {
+			socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+		}
+
+		this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        debugger
+        console.log(socialPlatform+" sign in data : " , userData);
+        // Now sign-in with userData   
+        this.saveSocialUser(userData.name,userData.email,userData.image,userData.token)
+
+      }
+		);
+	}
+
+	/**
+	 * @method sendToRestApiMethod()
+	 * @return void
+	 * @param token
+	 * @param email
+	 * @param image
+	 * @param name
+	 * @description Function to error validation
+	 */
+
+  message
+saveSocialUser(name,email,image,token){
+  debugger
+    let socialres = this.logService.socialLogin(email,name);
+    socialres.subscribe((res:any)=>{
+      debugger
+      console.log(res);
+      if(res.message=="200"){ 
+        this.cookieserv.set("email",email);
+
+        this.cookieserv.set("image",image);
+        localStorage.setItem("token",token);
+        localStorage.setItem("email",email);
+        localStorage.setItem("name",name);
+        this.route.navigate(["/home"]);
+      }
+    })
 }
+}
+
+

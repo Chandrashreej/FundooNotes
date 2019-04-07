@@ -6,6 +6,8 @@ import { MatDialogConfig, MatDialog, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 // import { LabelComponent } from '../label/label.component';
 import { LabelComponent } from 'src/app/Components/label/label.component';
+import { LabelService } from 'src/app/Services/label.service';
+import { LabelsModel } from 'src/app/Models/labels.model';
 
 
 
@@ -24,8 +26,11 @@ export class DashboardComponent implements OnInit {
   list: boolean = true;
 email:string;
 name:string;
+labels: LabelsModel[]=[];
   firstname: any;
-  constructor(private route: Router, private listview: ListService,private dashService: DashboardService,
+  constructor(private route: Router, private listview: ListService,
+    private dashService: DashboardService,
+    private labelsev: LabelService,
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,) {
@@ -42,6 +47,7 @@ name:string;
 
       
     });
+    this.fetchLabel();
   }
   openLabel(){
     const config = new MatDialogConfig();
@@ -84,5 +90,15 @@ name:string;
     config.panelClass = 'label-dialog-container'
     config.data ={data:this.email};
     const label = this.dialog.open(LabelComponent,config);
+  }
+  fetchLabel() {
+    this.email = localStorage.getItem("email");
+    debugger
+     let fetchobs = this.labelsev.fetchLabel(this.email);
+
+     fetchobs.subscribe((res: any) => {
+      debugger
+      this.labels = res;
+    })
   }
 }

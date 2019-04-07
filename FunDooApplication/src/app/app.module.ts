@@ -38,9 +38,22 @@ import { ArchiveComponent } from './Components/archive/archive.component';
 import { TrashComponent } from './Components/trash/trash.component';
 import { LabelComponent } from './Components/label/label.component';
 
-
-
-
+// import {
+//   SocialLoginModule,
+//   AuthServiceConfig,
+//   GoogleLoginProvider,
+//   FacebookLoginProvider,
+// } from "angular-6-social-login";
+import {
+	AuthService as social,
+	SocialLoginModule,
+	AuthServiceConfig,
+  AuthService,
+  SocialUser
+} from "angular-6-social-login";
+import { CookieService } from 'ngx-cookie-service';
+import { getAuthServiceConfigs } from './socialLogin';
+import { AuthService as auth } from "./Services/auth.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +103,12 @@ import { LabelComponent } from './Components/label/label.component';
     MatDatepickerModule,
     MatNativeDateModule 
   ],
-  providers: [RegisterService,ServiceUrlService,LoginService],
+  providers: [RegisterService,ServiceUrlService,LoginService,CookieService, AuthService, SocialLoginModule,SocialUser,
+		auth,
+		{
+			provide: AuthServiceConfig,
+			useFactory: getAuthServiceConfigs
+		}],
   bootstrap: [AppComponent],
   entryComponents:[EditnotesComponent, EditreminderComponent, LabelComponent]
 })

@@ -17,6 +17,7 @@ export class LabelService {
   }
 
   fetchLabel(email){
+    debugger;
     let label = new FormData();
     label.append("email",email);
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
