@@ -82,9 +82,15 @@
 
           <mat-icon matTooltip="Google Apps" style="font-size: 25px;color: rgb(104, 101, 101);">apps</mat-icon>
 
-          <button mat-button class="menubutton" [matMenuTriggerFor]="menu">
+          <button *ngIf="present" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
 
-            <mat-icon matTooltip="Google Account &#013; {{firstname}} &#013; {{ email }}" class="example-iconAccount">account_circle</mat-icon>
+            <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount"><img src = "{{image}}" class="profilepic"/></mat-icon>
+
+          </button>
+
+          <button *ngIf="!present" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
+
+            <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount"><img src = "{{image}}" class="profilepic"/></mat-icon>
 
           </button>
 
@@ -92,7 +98,7 @@
 
             <span>
 
-              <mat-icon style="font-size: 73px;margin-top: 15px;" matTooltip="Google Account" class="example-iconAccount">account_circle</mat-icon>
+              <mat-icon style="font-size: 73px;margin-top: 15px;" matTooltip="Google Account" class="example-iconAccount"><img src = "{{image}}" class="insideprofilepic"/></mat-icon>
 
               <p style="margin-left: 100px;margin-top: -66px;margin-right: 10px;">{{ firstname }}</p>
 

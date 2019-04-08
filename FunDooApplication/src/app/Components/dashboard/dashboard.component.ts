@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { LabelComponent } from 'src/app/Components/label/label.component';
 import { LabelService } from 'src/app/Services/label.service';
 import { LabelsModel } from 'src/app/Models/labels.model';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -28,17 +29,20 @@ email:string;
 name:string;
 labels: LabelsModel[]=[];
   firstname: any;
+  image:string;
+  present:boolean = false;
   constructor(private route: Router, private listview: ListService,
     private dashService: DashboardService,
     private labelsev: LabelService,
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,) {
+    sanitizer: DomSanitizer,private cookieserv:CookieService ) {
     this.changeView();
+    this.image = this.cookieserv.get("image");
   }
-
+  value
   ngOnInit() {
-    debugger;
+    //debugger;
     this.email = localStorage.getItem("email");
     let name = this.dashService.getname(this.email);
     name.subscribe((res: any) => {
@@ -48,6 +52,11 @@ labels: LabelsModel[]=[];
       
     });
     this.fetchLabel();
+    debugger;
+   this.image = this.cookieserv.get("image");
+   this.value = this.cookieserv.get("name") + " \n "+ this.cookieserv.get("email");
+   
+
   }
   openLabel(){
     const config = new MatDialogConfig();
@@ -64,6 +73,7 @@ labels: LabelsModel[]=[];
   logout() {
     localStorage.removeItem("token");
     this.route.navigate(['/login']);
+    this.cookieserv.deleteAll();
   }
 
   refresh() {
@@ -100,5 +110,14 @@ labels: LabelsModel[]=[];
       debugger
       this.labels = res;
     })
+  }
+  fetchImage(){
+    this.email = localStorage.getItem("email");
+    let fetchobs = this.dashService.fectImageService(this.email);
+
+    fetchobs.subscribe((res: any) => {
+     debugger
+     this.labels = res;
+   })
   }
 }

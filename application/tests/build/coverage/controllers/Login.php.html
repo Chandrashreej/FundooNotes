@@ -58,7 +58,7 @@
        </div>
 </td>
       <td class="danger small"><div align="right">0.00%</div></td>
-      <td class="danger small"><div align="right">0&nbsp;/&nbsp;2</div></td>
+      <td class="danger small"><div align="right">0&nbsp;/&nbsp;3</div></td>
       <td class="danger small"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></td>
       <td class="danger big">       <div class="progress">
          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0" aria-valuemax="100" style="width: 0.00%">
@@ -67,7 +67,7 @@
        </div>
 </td>
       <td class="danger small"><div align="right">0.00%</div></td>
-      <td class="danger small"><div align="right">0&nbsp;/&nbsp;14</div></td>
+      <td class="danger small"><div align="right">0&nbsp;/&nbsp;18</div></td>
      </tr>
 
      <tr>
@@ -87,8 +87,8 @@
        </div>
 </td>
       <td class="danger small"><div align="right">0.00%</div></td>
-      <td class="danger small"><div align="right">0&nbsp;/&nbsp;2</div></td>
-      <td class="danger small">6</td>
+      <td class="danger small"><div align="right">0&nbsp;/&nbsp;3</div></td>
+      <td class="danger small">12</td>
       <td class="danger big">       <div class="progress">
          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0" aria-valuemax="100" style="width: 0.00%">
            <span class="sr-only">0.00% covered (danger)</span>
@@ -96,7 +96,7 @@
        </div>
 </td>
       <td class="danger small"><div align="right">0.00%</div></td>
-      <td class="danger small"><div align="right">0&nbsp;/&nbsp;10</div></td>
+      <td class="danger small"><div align="right">0&nbsp;/&nbsp;14</div></td>
      </tr>
 
      <tr>
@@ -139,6 +139,27 @@
 </td>
       <td class="danger small"><div align="right">0.00%</div></td>
       <td class="danger small"><div align="right">0&nbsp;/&nbsp;6</div></td>
+     </tr>
+
+     <tr>
+      <td class="danger" colspan="4">&nbsp;<a href="#55"><abbr title="socialLogin()">socialLogin</abbr></a></td>
+      <td class="danger big">       <div class="progress">
+         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0" aria-valuemax="100" style="width: 0.00%">
+           <span class="sr-only">0.00% covered (danger)</span>
+         </div>
+       </div>
+</td>
+      <td class="danger small"><div align="right">0.00%</div></td>
+      <td class="danger small"><div align="right">0&nbsp;/&nbsp;1</div></td>
+      <td class="danger small">2</td>
+      <td class="danger big">       <div class="progress">
+         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0.00" aria-valuemin="0" aria-valuemax="100" style="width: 0.00%">
+           <span class="sr-only">0.00% covered (danger)</span>
+         </div>
+       </div>
+</td>
+      <td class="danger small"><div align="right">0.00%</div></td>
+      <td class="danger small"><div align="right">0&nbsp;/&nbsp;4</div></td>
      </tr>
 
 
@@ -200,7 +221,12 @@
      <tr class="danger"><td><div align="right"><a name="52"></a><a href="#52">52</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">return</span><span class="default">&nbsp;</span><span class="default">$var</span><span class="keyword">;</span></td></tr>
      <tr class="danger"><td><div align="right"><a name="53"></a><a href="#53">53</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
      <tr><td><div align="right"><a name="54"></a><a href="#54">54</a></div></td><td class="codeLine"></td></tr>
-     <tr><td><div align="right"><a name="55"></a><a href="#55">55</a></div></td><td class="codeLine"><span class="keyword">}</span></td></tr>
+     <tr><td><div align="right"><a name="55"></a><a href="#55">55</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">socialLogin</span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">{</span></td></tr>
+     <tr class="danger"><td><div align="right"><a name="56"></a><a href="#56">56</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$email</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">$_POST</span><span class="keyword">[</span><span class="default">'email'</span><span class="keyword">]</span><span class="keyword">;</span></td></tr>
+     <tr class="danger"><td><div align="right"><a name="57"></a><a href="#57">57</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$name</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">$_POST</span><span class="keyword">[</span><span class="default">'firstname'</span><span class="keyword">]</span><span class="keyword">;</span></td></tr>
+     <tr class="danger"><td><div align="right"><a name="58"></a><a href="#58">58</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="default">$this</span><span class="default">-&gt;</span><span class="default">logService</span><span class="default">-&gt;</span><span class="default">socialSigin</span><span class="keyword">(</span><span class="default">$email</span><span class="keyword">,</span><span class="default">$name</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
+     <tr class="danger"><td><div align="right"><a name="59"></a><a href="#59">59</a></div></td><td class="codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">}</span></td></tr>
+     <tr><td><div align="right"><a name="60"></a><a href="#60">60</a></div></td><td class="codeLine"><span class="keyword">}</span></td></tr>
 
     </tbody>
    </table>
@@ -213,7 +239,7 @@
      <span class="warning"><strong>Dead Code</strong></span>
     </p>
     <p>
-     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 5.3.0</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.15-0ubuntu0.18.04.2</a> with <a href="https://xdebug.org/">Xdebug 2.6.1</a> and <a href="https://phpunit.de/">PHPUnit 6.5.5</a> at Thu Apr 4 11:19:35 UTC 2019.</small>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 5.3.0</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.15-0ubuntu0.18.04.2</a> with <a href="https://xdebug.org/">Xdebug 2.6.1</a> and <a href="https://phpunit.de/">PHPUnit 6.5.5</a> at Mon Apr 8 11:00:09 UTC 2019.</small>
     </p>
     <a title="Back to the top" id="toplink" href="#"><span class="glyphicon glyphicon-arrow-up"></span></a>
    </footer>

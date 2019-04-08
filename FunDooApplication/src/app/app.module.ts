@@ -54,6 +54,7 @@ import {
 import { CookieService } from 'ngx-cookie-service';
 import { getAuthServiceConfigs } from './socialLogin';
 import { AuthService as auth } from "./Services/auth.service";
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,7 +104,8 @@ import { AuthService as auth } from "./Services/auth.service";
     MatDatepickerModule,
     MatNativeDateModule 
   ],
-  providers: [RegisterService,ServiceUrlService,LoginService,CookieService, AuthService, SocialLoginModule,SocialUser,
+  providers: [RegisterService,ServiceUrlService,LoginService,CookieService, AuthService, SocialLoginModule,SocialUser, 
+    NgxTwitterTimelineModule,
 		auth,
 		{
 			provide: AuthServiceConfig,

@@ -127,4 +127,10 @@ class DashBoard extends CI_Controller
         $id = $_POST["id"];
         return $this->NoteService->deleteReminderService($id);
     }
+
+    public function imageFetcher()
+    {
+        $email = $_POST["id"];
+        return $this->NoteService->imageFetcherService($email);
+    }
 }

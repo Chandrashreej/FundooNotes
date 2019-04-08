@@ -50,6 +50,14 @@ constructor(private http: HttpClient,
       //  { headers: headers_object }
       );
     }
+
+    fectImageService(email){
+      let userImage = new FormData();
+      userImage.append("email",email);
+      return this.http.post((this.sevriceurl.host + this.sevriceurl.imageFetcher), userImage,
+      );
+    }
+
     getname(email)
     {
       debugger;

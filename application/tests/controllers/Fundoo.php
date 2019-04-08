@@ -66,7 +66,7 @@ class Fundoo extends TestCase
         $request = $this->http->post('signin',[
             'form_params' => [
                 'email'=>'chandra1996jh@gmail.com',
-                'password'=>'chandrashree'
+                'password'=>'123456789'
             ],
         ]);
         $stream = $request->getbody();
@@ -83,6 +83,19 @@ class Fundoo extends TestCase
                 'title'=>'tt',
                 'dateAndTime'=>'',
                 'color'=>'white',
+            ],
+        ]);
+        $stream = $request->getbody();
+        $contents = json_decode($stream);
+        $res = $contents->message;
+        $this->assertEquals("200", $res,'password incorrect');
+    }
+
+    
+    public function testforgotPasswordFunction(){
+        $request = $this->http->post('forgotPassword',[
+            'form_params' => [
+                'email'=>'chandra1996jh@gmail.com',
             ],
         ]);
         $stream = $request->getbody();

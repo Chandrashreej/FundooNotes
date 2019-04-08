@@ -11,7 +11,7 @@ import {
   SocialUser
 } from "angular-6-social-login";
 import { CookieService } from 'ngx-cookie-service';
-
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 @Component({
 
   selector: 'app-login',
@@ -23,7 +23,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent implements OnInit {
 
   constructor(private cookieserv:CookieService 
-    ,private userData:SocialUser,private socialAuthService: AuthService,private logService: LoginService, private route: Router) { }
+    ,private userData:SocialUser,private socAuthService: AuthService,private logService: LoginService, private route: Router) { }
 
   model: any;
 
@@ -83,26 +83,24 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-  	/**
-	 * @method socialSignIn()
-	 * @return void
-	 * @param socialPlatform
-	 * @description Function to error validation
-	 */
 
-	public socialSignIn(socialPlatform: string) {
+
+	 socialSignIn(sociallogin: string) {
 		debugger;
-		let socialPlatformProvider;
-		if (socialPlatform == "facebook") {
-			socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-		} else if (socialPlatform == "google") {
-			socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-		}
+		let socialservice;
+		if (sociallogin == "facebook") {
+			socialservice = FacebookLoginProvider.PROVIDER_ID;
+		} else if (sociallogin == "google") {
+      socialservice = GoogleLoginProvider.PROVIDER_ID;
+    }
+		// }else if (sociallogin == "twitter") {
+		// 	socialservice = twitterConsumerSecretKey.PROVIDER_ID;
+		// }
 
-		this.socialAuthService.signIn(socialPlatformProvider).then(
+		this.socAuthService.signIn(socialservice).then(
       (userData) => {
         debugger
-        console.log(socialPlatform+" sign in data : " , userData);
+        console.log(sociallogin+" sign in data : " , userData);
         // Now sign-in with userData   
         this.saveSocialUser(userData.name,userData.email,userData.image,userData.token)
 
@@ -110,17 +108,8 @@ export class LoginComponent implements OnInit {
 		);
 	}
 
-	/**
-	 * @method sendToRestApiMethod()
-	 * @return void
-	 * @param token
-	 * @param email
-	 * @param image
-	 * @param name
-	 * @description Function to error validation
-	 */
 
-  message
+
 saveSocialUser(name,email,image,token){
   debugger
     let socialres = this.logService.socialLogin(email,name);

@@ -86,4 +86,4 @@ $route['fetchlabel'] ='Label/fetchingLabel';
 
 $route['socialLoginData'] ='Login/socialLogin';  
 
-
+$route['imageFetcher'] ='DashBoard/imageFetcher';

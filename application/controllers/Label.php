@@ -42,7 +42,9 @@ class Label extends CI_Controller
     public function addingLabel(){
         $email = $_POST['email'];
         $label = $_POST['labelmodel'];
-        $this->refService->labelAddingService($email,$label);
+        // $this->refService->labelAddingService($email,$label);
+        $this->load->library('doctrine');
+        $em = $this->doctrine->em;
     }
     public function fetchingLabel()
     {

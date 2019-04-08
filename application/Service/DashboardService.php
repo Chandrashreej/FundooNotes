@@ -136,7 +136,7 @@ class DashboardService extends CI_Controller
             if ($jwt->verifyc($token, $sekretkey)) {
 
                 $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color')";
- 
+
                 $stmt = $this->connect->prepare($query);
                 $res = $stmt->execute();
 
@@ -263,7 +263,7 @@ class DashboardService extends CI_Controller
 
                 if ($statement->execute()) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    $array= array_reverse($arr);
+                    $array = array_reverse($arr);
                     print json_encode($array);
 
                 }
@@ -385,27 +385,58 @@ class DashboardService extends CI_Controller
 
     public function getNameValueService($email)
     {
+        $sekretkey = "chandu";
 
-        $query = "SELECT * FROM createuser where email = '$email'";
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
 
-        $statement = $this->connect->prepare($query);
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
 
-        if ($statement->execute()) {
-            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-            // for($i=0;$i<count($arr);$i++)
-            // {
-            $firstname = ($arr[0]["firstname"]);
+        $userId = $payload->userId;
 
-            // $firstname =$arr[$i];
+        if ($token != null) {
 
-            // }
-            print json_encode($firstname);
+            $jwt = new JWT();
+            if ($jwt->verifyc($token, $sekretkey)) {
+
+                $query = "SELECT * FROM createuser where email = '$email'";
+
+                $statement = $this->connect->prepare($query);
+
+                if ($statement->execute()) {
+                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    // for($i=0;$i<count($arr);$i++)
+                    // {
+                    $firstname = ($arr[0]["firstname"]);
+
+                    // $firstname =$arr[$i];
+
+                    // }
+                    print json_encode($firstname);
+                } else {
+                    $result = array(
+                        "message" => "500",
+                    );
+                    print json_encode($result);
+                    return "500";
+                }
+            } else {
+                $result = array(
+                    "message" => "500",
+                );
+                print json_encode($result);
+                return "500";
+            }
         } else {
             $result = array(
-                "message" => "500",
+                "message" => "600",
             );
             print json_encode($result);
-            return "500";
+            return "600";
         }
     }
     public function deleteReminderService($id)
@@ -448,6 +479,65 @@ class DashboardService extends CI_Controller
                     return "204";
                 }
 
+            } else {
+                $result = array(
+                    "message" => "500",
+                );
+                print json_encode($result);
+                return "500";
+            }
+        } else {
+            $result = array(
+                "message" => "600",
+            );
+            print json_encode($result);
+            return "600";
+        }
+    }
+
+    public function imageFetcherService($email)
+    {
+
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+        // $token = $headers['Authorization'];
+
+        if ($token != null) {
+
+            $jwt = new JWT();
+            if ($jwt->verifyc($token, $sekretkey)) {
+
+                $query = "SELECT * FROM createuser where email = '$email'";
+
+                $statement = $this->connect->prepare($query);
+
+                if ($statement->execute()) {
+                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    // for($i=0;$i<count($arr);$i++)
+                    // {
+                    $firstname = ($arr[0]["firstname"]);
+
+                    // $firstname =$arr[$i];
+
+                    // }
+                    print json_encode($firstname);
+                } else {
+                    $result = array(
+                        "message" => "500",
+                    );
+                    print json_encode($result);
+                    return "500";
+                }
             } else {
                 $result = array(
                     "message" => "500",
