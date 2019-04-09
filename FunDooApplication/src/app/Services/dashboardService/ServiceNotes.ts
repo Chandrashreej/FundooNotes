@@ -69,6 +69,7 @@ constructor(private http: HttpClient,
       
       let userNotesdata = new FormData();
       userNotesdata.append("email",email);
+      debugger;
       return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllNotes), userNotesdata
             // { headers: headers_object }
       );

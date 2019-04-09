@@ -58,9 +58,8 @@ export class LoginComponent implements OnInit {
       let obj = this.logService.userLogin(this.model);
 
       obj.subscribe((res: any) => {
-        debugger;
         console.log(res.message);
-        debugger;
+
         if (res.message == "200") {
 
           const tokens = res.token;
@@ -85,8 +84,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-	 socialSignIn(sociallogin: string) {
-		debugger;
+  usingSocialSignIn(sociallogin: string) {
 		let socialservice;
 		if (sociallogin == "facebook") {
 			socialservice = FacebookLoginProvider.PROVIDER_ID;
@@ -99,7 +97,6 @@ export class LoginComponent implements OnInit {
 
 		this.socAuthService.signIn(socialservice).then(
       (userData) => {
-        debugger
         console.log(sociallogin+" sign in data : " , userData);
         // Now sign-in with userData   
         this.saveSocialUser(userData.name,userData.email,userData.image,userData.token)
@@ -111,10 +108,10 @@ export class LoginComponent implements OnInit {
 
 
 saveSocialUser(name,email,image,token){
-  debugger
+
     let socialres = this.logService.socialLogin(email,name);
     socialres.subscribe((res:any)=>{
-      debugger
+
       console.log(res);
       if(res.message=="200"){ 
         this.cookieserv.set("email",email);
@@ -128,5 +125,3 @@ saveSocialUser(name,email,image,token){
     })
 }
 }
-
-

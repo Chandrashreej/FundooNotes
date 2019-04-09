@@ -264,6 +264,8 @@ class DashboardService extends CI_Controller
                 if ($statement->execute()) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
                     $array = array_reverse($arr);
+
+                    
                     print json_encode($array);
 
                 }

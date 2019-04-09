@@ -70,25 +70,52 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
 
 
-      <button mat-raised-button (click)="socialSignIn('google')">
+      <button mat-raised-button (click)="usingSocialSignIn('google')">
+
         <div fxLayoutGap="15px">
-          <mat-icon><img src="../../assets/img/login/google.svg"></mat-icon>
+
+          <mat-icon>
+            
+            <img src="../../assets/img/login/google.svg">
+          
+          </mat-icon>
+
           <span>Google</span>
+
         </div>
+
       </button>
 
-      <button color="primary" mat-raised-button (click)="socialSignIn('facebook')">
+      <button color="primary" mat-raised-button (click)="usingSocialSignIn('facebook')">
+
         <div fxLayoutGap="15px">
-          <mat-icon><img src="../../assets/img/login/fb.svg" style="width: 25px; height: 25px;"></mat-icon>
+
+          <mat-icon>
+            
+            <img src="../../assets/img/login/fb.svg" style="width: 25px; height: 25px;">
+          
+          </mat-icon>
+          
           <span>facebook</span>
+
         </div>
+
       </button>
 
-      <button mat-raised-button (click)="socialSignIn('twitter')">
+      <button mat-raised-button (click)="usingSocialSignIn('twitter')">
+
         <div fxLayoutGap="15px">
-          <mat-icon><img src="../../assets/img/login/twitter.svg" style="width: 25px; height: 25px;"></mat-icon>
+
+          <mat-icon>
+            
+            <img src="../../assets/img/login/twitter.svg" style="width: 25px; height: 25px;">
+          
+          </mat-icon>
+
           <span>twitter</span>
+
         </div>
+        
       </button>
 
     </div>

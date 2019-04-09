@@ -1,16 +1,8 @@
 <?php
 include '/var/www/html/codeigniter/application/vendor/autoload.php';
-// include '/var/www/html/codeigniter/application/tests/controllers/ConstantFile.php';
+
 class Fundoo extends TestCase
 {
-    protected $client;
-    // public $file=null;
-
-    // public function __construct()
-    // {
-    //     $this->file = new ConstantFile();
-    // }
-
 
     public function setUp()
     {

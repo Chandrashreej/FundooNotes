@@ -115,9 +115,11 @@ export class NotesComponent implements OnInit {
   notesDisplaying() {
 
     const email = localStorage.getItem('email');
+    console.log(email+"dsf");
     let getnotes = this.notesService.fetchnotes(email);
     getnotes.subscribe((res: any) => {
-
+      console.log(res+"fdsg");
+debugger
       this.notelist = res as string[];
       this.displayTitle = this.notelist.title;
       this.displayTakeANote = this.notelist.takeANote;
