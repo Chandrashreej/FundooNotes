@@ -58,7 +58,7 @@ class Fundoo extends TestCase
         $request = $this->http->post('signin',[
             'form_params' => [
                 'email'=>'chandra1996jh@gmail.com',
-                'password'=>'123456789'
+                'password'=>'chandrashree'
             ],
         ]);
         $stream = $request->getbody();
@@ -83,7 +83,21 @@ class Fundoo extends TestCase
         $this->assertEquals("200", $res,'password incorrect');
     }
 
-    
+    public function testReminder(){
+        $request = $this->http->post('setReminderNotes',[
+            'form_params' => [
+                'email'=>'chandra1996jh@gmail.com',
+                'takeANote'=>'ddgfgdf',
+                'title'=>'tt',
+                'dateAndTime'=>'',
+                'color'=>'white',
+            ],
+        ]);
+        $stream = $request->getbody();
+        $contents = json_decode($stream);
+        $res = $contents->message;
+        $this->assertEquals("200", $res,'password incorrect');
+    }
     public function testforgotPasswordFunction(){
         $request = $this->http->post('forgotPassword',[
             'form_params' => [

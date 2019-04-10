@@ -1,3 +1,13 @@
+<div *ngIf="emptytrash == true" fxLayoutAlign="center center">
+
+  <mat-icon class="icon">delete</mat-icon>
+  <br>
+  <span class="spantext">No notes in Recycle Bin</span>
+
+
+</div>
+
+
 <div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="center center" fxLayout="row wrap">
 
   <mat-card btnhover class="gridcard" *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}">
@@ -44,7 +54,7 @@
 
       <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-        <button mat-menu-item (click)="unTrash(item.id,1,'Delete') ;openSnackBar('Moved to bin')">
+        <button mat-menu-item (click)="deleteNote(item.id) ">
 
           Delete note
 
@@ -55,7 +65,7 @@
           Restore
 
         </button>
-        
+
       </mat-menu>
 
     </div>

@@ -111,13 +111,14 @@ saveSocialUser(name,email,image,token){
 
     let socialres = this.logService.socialLogin(email,name);
     socialres.subscribe((res:any)=>{
-
+debugger
       console.log(res);
       if(res.message=="200"){ 
+        
         this.cookieserv.set("email",email);
 
         this.cookieserv.set("image",image);
-        localStorage.setItem("token",token);
+        localStorage.setItem("token",res.token);
         localStorage.setItem("email",email);
         localStorage.setItem("name",name);
         this.route.navigate(["/home"]);

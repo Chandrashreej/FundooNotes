@@ -14,20 +14,13 @@ constructor(private http: HttpClient,
     usereNotes(note:NotesModel,currentDateAndTime ){
       let userNotesdata = new FormData();
 
-      // let headers_object = new HttpHeaders().set("Authorization",localStorage.getItem("token"));
       userNotesdata.append("color",note.color)
       userNotesdata.append("title", note.title);
       userNotesdata.append("takeANote", note.takeANote);
       userNotesdata.append("email",note.email);
       userNotesdata.append("dateAndTime",currentDateAndTime );
 
-      // headers_object.append("token",localStorage.getItem("token"));
-      // debugger;
-      // console.log(headers_object.get("Authorization"));
-      // console.log(headers_object);
-      // userNotesdata.append("time",time);
       return this.http.post((this.sevriceurl.host + this.sevriceurl.setNotes), userNotesdata,
-      //  { headers: headers_object }
       );
     }
     usereNotesDialog(note:NotesModel,currentDateAndTime ,n ){
@@ -52,10 +45,11 @@ constructor(private http: HttpClient,
     }
 
     fectImageService(email){
+
       let userImage = new FormData();
       userImage.append("email",email);
-      return this.http.post((this.sevriceurl.host + this.sevriceurl.imageFetcher), userImage,
-      );
+      return this.http.post((this.sevriceurl.host + this.sevriceurl.imageFetcher), userImage);
+
     }
 
     getname(email)
@@ -64,29 +58,29 @@ constructor(private http: HttpClient,
       let nameValue = new FormData();
       nameValue.append('email',email);
       return this.http.post((this.sevriceurl.host+this.sevriceurl.getNameValue), nameValue);
+
     }
     fetchnotes(email){
       
       let userNotesdata = new FormData();
       userNotesdata.append("email",email);
-      debugger;
-      return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllNotes), userNotesdata
-            // { headers: headers_object }
-      );
+      return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllNotes), userNotesdata);
+
     }
     deleteNotesFunction (n){
+
       let id = new FormData();
       id.append('id',n);
       return this.http.post((this.sevriceurl.host+this.sevriceurl.deleteNote), id);
+
     }
     coloringBackground(n,value,flag){
-      debugger;
+
       let id = new FormData();
       id.append('id',n);
       id.append('value',value);
       id.append('flag',flag);
       return this.http.post((this.sevriceurl.host+this.sevriceurl.coloringBackground), id);
-  
   
     }
 

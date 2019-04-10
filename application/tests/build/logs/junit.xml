@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" tests="4" assertions="4" errors="0" failures="2" skipped="0" time="0.504781">
-    <testcase name="testRegister" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="23" assertions="1" time="0.163616">
-      <failure type="PHPUnit\Framework\ExpectationFailedException">Fundoo::testRegister
-Email already exists
-Failed asserting that two strings are equal.
---- Expected
-+++ Actual
-@@ @@
--'200'
-+'201'
-
-/var/www/html/codeigniter/application/tests/controllers/Fundoo.php:61
-</failure>
-    </testcase>
-    <testcase name="testlogin" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="65" assertions="1" time="0.048666">
-      <failure type="PHPUnit\Framework\ExpectationFailedException">Fundoo::testlogin
-password incorrect
-Failed asserting that two strings are equal.
---- Expected
-+++ Actual
-@@ @@
--'200'
-+'204'
-
-/var/www/html/codeigniter/application/tests/controllers/Fundoo.php:75
-</failure>
-    </testcase>
-    <testcase name="testNotes" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="78" assertions="1" time="0.077688"/>
-    <testcase name="testforgotPasswordFunction" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="95" assertions="1" time="0.214811"/>
+  <testsuite name="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="0.273875">
+    <testcase name="testlogin" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="57" assertions="1" time="0.093345"/>
+    <testcase name="testNotes" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="70" assertions="1" time="0.059011"/>
+    <testcase name="testReminder" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="86" assertions="1" time="0.056905"/>
+    <testcase name="testforgotPasswordFunction" class="Fundoo" classname="Fundoo" file="/var/www/html/codeigniter/application/tests/controllers/Fundoo.php" line="101" assertions="1" time="0.064614"/>
   </testsuite>
 </testsuites>

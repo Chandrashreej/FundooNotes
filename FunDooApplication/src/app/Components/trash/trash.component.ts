@@ -15,7 +15,7 @@ export class TrashComponent implements OnInit {
   direction: string = "row";
   layout: string = this.direction + " " + this.wrap;
   view: {};
-  constructor(private trashserv : TrashService,
+  constructor(private trashserv: TrashService,
     private listview: ListService,
 
     private snackBar: MatSnackBar) {
@@ -31,21 +31,18 @@ export class TrashComponent implements OnInit {
     }));
 
 
-   }
+  }
   notes: NotesModel[] = [];
+
   ngOnInit() {
 
-    this.fetchTrash();
     this.listview.getView().subscribe((res => {
       this.view = res;
 
       this.layout = this.direction + " " + this.wrap;
     }));
 
-
-    // setInterval(() => {
-    //   this.fetchTrash();
-		// }, 1000);
+    this.fetchTrash();
   }
 
   openSnackBar(message: string, action: string) {
@@ -53,35 +50,42 @@ export class TrashComponent implements OnInit {
       duration: 2000,
     });
   }
-  
-  fetchTrash(){
+emptytrash;
+  fetchTrash() {
     debugger;
     const email = localStorage.getItem('email');
 
     let archiveobs = this.trashserv.fetchTrash(email);
-    archiveobs.subscribe((res:any)=>{
+    archiveobs.subscribe((res: any) => {
+      debugger;
       this.notes = res;
-    }) 
-  } 
+      if(res == 0)
+      {
+        this.emptytrash = true;
+      }
+    })
+  }
 
 
-  unTrash(id,flag){
+  unTrash(id, flag) {
     debugger
 
-    let archive = this.trashserv.untrash(id,flag);
-    archive.subscribe((res:any)=>{
+    let archive = this.trashserv.untrash(id, flag);
+    archive.subscribe((res: any) => {
 
     });
 
 
   }
   deleteNote(n) {
-    let deleteObj = this.trashserv.deleteNotesFunction(n.id);
+    debugger;
+    let deleteObj = this.trashserv.deleteNotesFunction(n);
 
 
     deleteObj.subscribe((res: any) => {
 
       if (res.message == "200") {
+        debugger;
         this.fetchTrash();
       }
       else {

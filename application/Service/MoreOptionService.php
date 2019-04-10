@@ -33,7 +33,9 @@ class MoreOptionsSevice extends CI_Controller
      * @var string  $connect  PDO object
      */
     private $connect;
+
     public $constants = "";
+
     public $token = "";
     /**
      * constructor establish DB connection
@@ -41,10 +43,13 @@ class MoreOptionsSevice extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $ref = new DatabaseConnection();
-        $this->connect = $ref->Connection();
-        $this->constants = new LinkConstants();
 
+        $ref = new DatabaseConnection();
+
+        $this->connect = $ref->Connection();
+
+        $this->constants = new LinkConstants();
+        
     }
     public function coloringBackgroundFunctionService($id, $color, $flag)
     {
@@ -75,128 +80,238 @@ class MoreOptionsSevice extends CI_Controller
         if ($flag == "color") {
 
             $query = "UPDATE userNotes set color = '$color' WHERE  id = '$id'";
+
             $statement = $this->connect->prepare($query);
+
             $res = $statement->execute();
+            
             if ($res) {
+
                 $result = array(
+
                     "message" => "200",
+
                 );
+
                 print json_encode($result);
+
                 return "200";
+
             } else {
+
                 $result = array(
+
                     "message" => "204",
+
                 );
+
                 print json_encode($result);
+
                 return "204";
+
             }
         } elseif ($flag == "Archive") {
 
             $query = "UPDATE userNotes set archive = '$color' WHERE  id = '$id'";
+
             $statement = $this->connect->prepare($query);
+
             $res = $statement->execute();
+            
             if ($res) {
+
                 $result = array(
+
                     "message" => "200",
+
                 );
+
                 print json_encode($result);
+
                 return "200";
+
             } else {
+
                 $result = array(
+
                     "message" => "204",
+
                 );
+
                 print json_encode($result);
+
                 return "204";
+                
             }
         } elseif ($flag == "Delete") {
 
             $query = "UPDATE userNotes set deleteNote = '$color' WHERE  id = '$id'";
+
             $statement = $this->connect->prepare($query);
+
             $res = $statement->execute();
+
             if ($res) {
+
                 $result = array(
+
                     "message" => "200",
+
                 );
                 print json_encode($result);
+
                 return "200";
+
             } else {
+
                 $result = array(
+
                     "message" => "204",
+
                 );
                 print json_encode($result);
+
+                return "204";
+
+            }
+        }
+        elseif ($flag == "deleteDate") {
+
+            $query = "UPDATE userNotes set dateAndTime = '$color' WHERE  id = '$id'";
+
+            $statement = $this->connect->prepare($query);
+
+            $res = $statement->execute();
+
+            if ($res) {
+
+                $result = array(
+
+                    "message" => "200",
+
+                );
+
+                print json_encode($result);
+
+                return "200";
+
+            } else {
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+                print json_encode($result);
+
                 return "204";
             }
         }
+        $query = "SELECT * FROM userNotes where userId = '$userId' and id = '$id'";
 
-//             } else {
-        //                 $result = array(
-        //                     "message" => "500",
-        //                 );
-        //                 print json_encode($result);
-        //                 return "500";
-        //             }
-        //         } else {
-        //             $result = array(
-        //                 "message" => "600",
-        //             );
-        //             print json_encode($result);
-        //             return "600";
-        //         }
+        $statement = $this->connect->prepare($query);
+
+        if ($statement->execute()) {
+
+            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            print json_encode($arr);
+
+        }
+
     }
     public function coloringBackgroundFunctionServiceForReminder($id, $color)
     {
         if ($flag == "color") {
+
             $query = "UPDATE userReminder set color = '$color' WHERE  id = '$id'";
+
             $statement = $this->connect->prepare($query);
+
             $res = $statement->execute();
+
             if ($res) {
+
                 $result = array(
+
                     "message" => "200",
+
                 );
                 print json_encode($result);
+
                 return "200";
+
             } else {
+
                 $result = array(
+
                     "message" => "204",
+
                 );
                 print json_encode($result);
+
                 return "204";
             }
 
         } elseif ($flag == "Archive") {
 
             $query = "UPDATE userNotes set archive = '$color' WHERE  id = '$id'";
+
             $statement = $this->connect->prepare($query);
+
             $res = $statement->execute();
+
             if ($res) {
+
                 $result = array(
+
                     "message" => "200",
+
                 );
                 print json_encode($result);
+
                 return "200";
+
             } else {
+
                 $result = array(
+
                     "message" => "204",
+
                 );
                 print json_encode($result);
+
                 return "204";
+
             }
         } elseif ($flag == "Delete") {
 
             $query = "UPDATE userNotes set deleteNote = '$color' WHERE  id = '$id'";
+
             $statement = $this->connect->prepare($query);
+
             $res = $statement->execute();
+
             if ($res) {
+
                 $result = array(
+
                     "message" => "200",
+
                 );
                 print json_encode($result);
+
                 return "200";
+
             } else {
+
                 $result = array(
+
                     "message" => "204",
+
                 );
                 print json_encode($result);
+                
                 return "204";
             }
         }

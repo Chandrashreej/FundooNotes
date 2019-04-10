@@ -41,14 +41,14 @@ class Archive extends CI_Controller
     public function fetchArchive()
     {
         $email = $_POST['email'];
-        $this->refService->archivednotes($email);
+       return $this->refService->archivednotes($email);
     }
 
     
     public function unarchive()
     {
         $uid = $_POST['uid'];
-        $this->refService->archive($uid);
+        return $this->refService->archive($uid);
     }
 
     public function doctrine()
@@ -58,5 +58,13 @@ class Archive extends CI_Controller
             ->leftJoin('e.Foobar')
             ->where('e.id = ?', 20)
             ->execute();
+    }
+
+
+    public function getAllNotes()
+    {
+
+        $email = $_POST["email"];
+        return $this->refService->getAllNotesService($email);
     }
 }

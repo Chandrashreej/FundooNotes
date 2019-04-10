@@ -264,10 +264,9 @@ class DashboardService extends CI_Controller
                 if ($statement->execute()) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
                     $array = array_reverse($arr);
-
-                    
                     print json_encode($array);
 
+                
                 }
             } else {
                 $result = array(
@@ -283,6 +282,7 @@ class DashboardService extends CI_Controller
             print json_encode($result);
             return "600";
         }
+        
 
     }
     public function getAllReminderService($email)

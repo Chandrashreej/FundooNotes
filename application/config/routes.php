@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'index';
+
 $route['signup']='Register/signup';
 $route['signin']='Login/signin';
 $route['logoff']='Logout/logoff';
@@ -64,12 +64,10 @@ $route['setNotesDialog'] ='DashBoard/setNotesDialog';
 
 $route['setReminderDialog'] ='DashBoard/setReminderDialog';
 
-$route['getAllNotes'] ='DashBoard/getAllNotes';
 $route['getAllReminderNotes'] ='DashBoard/getAllReminderNotes';
 $route['setReminderNotes'] ='DashBoard/setReminderNotes';
 $route['resetPassword'] ='ForgotPassword/resetPasswordFunction';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+
 $route['deleteNote'] ='DashBoard/deleteNote';
 $route['deleteReminder'] ='DashBoard/deleteReminder';
 $route['coloringBackgroundFunction']= 'MoreOptions/coloringBackgroundFunction';
@@ -79,6 +77,10 @@ $route['unarchive'] ='Archive/unarchive';
 $route['fetcharchive'] ='Archive/fetcharchive';
 
 $route['fetchTrash'] ='Trash/fetchTrash';
+
+$route['getAllNotes'] ='Archive/getAllNotes';
+
+
 $route['unTrash'] ='Trash/unTrash';  
 
 $route['setlabel'] ='Label/addingLabel';
@@ -87,3 +89,7 @@ $route['fetchlabel'] ='Label/fetchingLabel';
 $route['socialLoginData'] ='Login/socialLogin';  
 
 $route['imageFetcher'] ='DashBoard/imageFetcher';
+
+$route['default_controller'] = 'index';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;
