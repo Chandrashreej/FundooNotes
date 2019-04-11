@@ -17,7 +17,7 @@
     }
 
     .mainmat {
-
+        box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
         margin-top: 38px;
         margin-left: 140px;
         margin-right: 140px;
@@ -37,11 +37,11 @@
         width: 630px;
 
     }
-    .mat-card:not([class*=mat-elevation-z]) {
+    // .mat-card:not([class*=mat-elevation-z]) {
 
-        box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
+    //     // box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
 
-    }
+    // }
     .inputtaker.mat-form-field-infix{
 
         padding-top: 0px;
@@ -76,7 +76,7 @@
     }
 
     .notes {
-
+        box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
         transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
         display: block;
         position: relative;
@@ -110,8 +110,8 @@
         padding-top: 9px;
         font-family: 'Google Sans',Roboto,Arial,sans-serif;
         font-size: 17px;
-
-    }
+        box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
+    } 
     .row{
 
         margin-top: 50px;

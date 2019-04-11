@@ -1,0 +1,35 @@
+
+.gridcard{
+   
+   margin-top: 50px;
+   margin-bottom: 25px;
+   margin-left: 0px;
+   margin-right: 30px;
+   width: 230px;
+   padding-left: 16px;
+   padding-top: 9px;
+   padding-bottom: 5px;
+   color:rgb(37, 37, 37);
+   font-family: 'Google Sans',Roboto,Arial,sans-serif;
+   font-size: 17px;
+   border-color: #7E858A; 
+
+}
+
+.dateVisOn{
+
+   visibility: none;
+
+}
+.dateVisOff{
+
+   visibility: hidden;
+
+}
+.chips{
+
+   border-radius: 30px;
+   padding: 10px;
+   background-color:  rgba(0,0,0,0.08);
+
+}

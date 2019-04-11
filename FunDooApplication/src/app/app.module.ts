@@ -55,6 +55,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { getAuthServiceConfigs } from './socialLogin';
 import { AuthService as auth } from "./Services/auth.service";
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { SearchfilterPipe } from './Services/dashboardService/searchfilter.pipe';
+import { EmptycontentComponent } from './Components/emptycontent/emptycontent.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +74,9 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
     EditreminderComponent,
     ArchiveComponent,
     LabelComponent,
-    TrashComponent
+    TrashComponent,
+    EmptycontentComponent,
+    SearchfilterPipe
   
     
   ],

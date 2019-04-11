@@ -15,7 +15,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 @NgModule({
 declarations: [],
 imports: [
@@ -38,7 +38,8 @@ MatGridListModule,
 MatTooltipModule,
 MatChipsModule,
 MatSnackBarModule,
-MatSelectModule
+MatSelectModule,
+DragDropModule
 ],
 schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -63,7 +64,8 @@ MatGridListModule,
 MatTooltipModule,
 MatChipsModule,
 MatSnackBarModule,
-MatSelectModule
+MatSelectModule,
+DragDropModule
 ],
 
 providers:[{ provide: MatDialogRef, useValue: {} },

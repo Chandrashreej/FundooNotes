@@ -11,6 +11,7 @@ export class ListService {
   subject = new Subject();
 
 
+
   getView() {
     this.gridview();
     return this.subject.asObservable();
@@ -26,4 +27,6 @@ export class ListService {
       this.result = true;
     }
   } 
+  
+
 }

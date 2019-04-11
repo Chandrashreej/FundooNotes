@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { NotesModel } from 'src/app/Models/Notes.model';
 
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -197,20 +198,6 @@ export class NotesComponent implements OnInit {
 
   }
 
-
-
-
-  notesfetch() {
-
-    const email = localStorage.getItem('email');
-
-    let getnotes = this.notesService.fetchnotes(email);
-
-    getnotes.subscribe((res: any) => {
-
-    });
-  }
-
   notesDisplaying() {
 
     const email = localStorage.getItem('email');
@@ -363,6 +350,9 @@ export class NotesComponent implements OnInit {
 
     });
 
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.notelist, event.previousIndex, event.currentIndex);
   }
 
 }

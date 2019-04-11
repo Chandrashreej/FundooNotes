@@ -9,6 +9,7 @@ import { LabelComponent } from 'src/app/Components/label/label.component';
 import { LabelService } from 'src/app/Services/label.service';
 import { LabelsModel } from 'src/app/Models/labels.model';
 import { CookieService } from 'ngx-cookie-service';
+import { SearchService } from 'src/app/Services/search.service';
 
 
 
@@ -20,7 +21,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class DashboardComponent implements OnInit {
   showFiller = false;
-  
+
   getToken: string;
   refreshFlag: boolean = true;
   grid: boolean = false;
@@ -31,7 +32,10 @@ labels: LabelsModel[]=[];
   firstname: any;
   image:string;
   present:boolean = false;
+  notelist: string[];
+  view: {};
   constructor(private route: Router, private listview: ListService,
+    private search:SearchService,
     private dashService: DashboardService,
     private labelsev: LabelService,
     public dialog: MatDialog,
@@ -119,5 +123,21 @@ labels: LabelsModel[]=[];
      debugger
      this.labels = res;
    })
+  }
+  serchingterm
+  sendSearchData(){
+    debugger;
+    if(this.serchingterm == undefined)
+    {
+
+    }
+    else{
+         this.search.setSercher(this.serchingterm);
+    }
+
+
+  }
+  closeSearch(){
+    this.serchingterm="";
   }
 }

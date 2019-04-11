@@ -344,17 +344,19 @@
     </mat-card>
 
   </div>
+  
+  <div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
 
   <div fxLayout="{{layout}}" fxLayoutAlign="center center" style="flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
 
     <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
-      *ngFor="let n of notelist">
+      *ngFor="let n of notelist" cdkDrag>
 
       <div (click)="openDialog(n)">
 
         <p style="font-size: 14px;padding-left: 5px; word-break: break-all;">
 
-          {{ n.title }}
+          {{ n.title  }}
 
         </p>
 
@@ -521,7 +523,7 @@
 
         <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-          <button mat-menu-item (click)="notestools(n.id,1,'Delete') ;openSnackBar('Moved to bin')">
+          <button mat-menu-item (click)="notestools(n.id,1,'Delete') ;openSnackBar('note binned')">
 
             Delete note
 
@@ -564,5 +566,5 @@
     </mat-card>
 
   </div>
-
+</div>
 </div>

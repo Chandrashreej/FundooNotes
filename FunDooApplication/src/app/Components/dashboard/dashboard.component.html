@@ -24,13 +24,19 @@
 
         </div>
 
-        <button mat-icon-button matTooltip="Search" style="margin-left: 120px;" (click)="sendSearchData()" class="searchicon">
+        <button mat-icon-button matTooltip="Search"   style="margin-left: 120px;" class="searchicon">
 
           <mat-icon class="example-icon">search</mat-icon>
 
         </button>
 
-        <input class="searchbar" appearance="null" type="text" placeholder="Search" />
+        <input class="searchbar" appearance="null" (keyup)="sendSearchData()" [routerLink]="['emptycontent']" type="text" placeholder="Search" [(ngModel)]= "serchingterm" value="serchingterm"/>
+        
+        <button mat-icon-button class="btnclose" (click)="closeSearch()">
+
+          <mat-icon style="width:1px; height:1px; margin-bottom: 20px;">close</mat-icon>
+
+        </button>
 
         <mat-icon matTooltip="Refresh" class="example-icon">refresh</mat-icon>
 
@@ -98,25 +104,25 @@
 
             <span>
 
-              <mat-icon style="font-size: 73px;margin-top: 15px;" matTooltip="Google Account" class="example-iconAccount"><img src = "{{image}}" class="insideprofilepic"/></mat-icon>
+              <mat-icon style="font-size: 0px;margin-top: 0px;" matTooltip="Google Account" class="example-iconAccount"><img src = "{{image}}" class="insideprofilepic"/></mat-icon>
 
-              <p style="margin-left: 100px;margin-top: -66px;margin-right: 10px;">{{ firstname }}</p>
+              <p class="firstname">{{ firstname }}</p>
 
-              <p style="margin-left: 100px;margin-right: 10px;">{{ email }}</p>
+              <p class="email">{{ email }}</p>
 
             </span>
 
             <mat-divider></mat-divider>
 
-            <section>
+            <section >
 
-              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" style="background-color:#F8F8F8;">
+              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" style="background-color:#F8F8F8;margin-top: 10px;" >
 
-                <button style="border:thick;color:rgb(34, 33, 33);background-color:#F8F8F8;" (click)="logout()">
+                <button mat-stroked-button style="color:rgb(105, 104, 104);background-color:#F8F8F8;" (click)="logout()">
                   Add Account
                 </button>
 
-                <button style="border:black;color:rgb(34, 33, 33);background-color:#F8F8F8;" (click)="logout()">
+                <button mat-stroked-button style="color:rgb(105, 104, 104);background-color:#F8F8F8;" (click)="logout()">
                   Sign out
                 </button>
 
@@ -203,7 +209,7 @@
 
         </mat-sidenav>
 
-        <mat-sidenav-content div fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;height: 1000px; overflow: hidden">
+        <mat-sidenav-content fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;height: 1000px; overflow: hidden">
 
           <router-outlet></router-outlet>
 
