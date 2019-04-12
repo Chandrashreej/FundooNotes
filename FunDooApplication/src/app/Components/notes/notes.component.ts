@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { NotesModel } from 'src/app/Models/Notes.model';
 
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -57,9 +57,9 @@ export class NotesComponent implements OnInit {
       this.view = res;
 
       this.direction = this.view.data;
-      
+
       this.classcard = this.view.class;
-      
+
       this.layout = this.direction + " " + this.wrap;
 
     }));
@@ -89,7 +89,7 @@ export class NotesComponent implements OnInit {
 
       this.remaindme();
 
-    }, 2000);
+    }, 1000);
 
   }
 
@@ -122,28 +122,38 @@ export class NotesComponent implements OnInit {
     this.timer = true;
   }
 
+  duplicate
+  DateAndTime
   remaindme() {
 
+    debugger;
     var day = new Date();
 
     var fulldate = day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
 
-    fulldate = moment(fulldate).format("DD/MM/YYYY hh:mm") + " PM";
+    fulldate = moment(fulldate).format("DD/MM/YYYY  hh:mm") + " PM";
 
-    this.notesarray.forEach(reminder => {
+    this.notelist.forEach(reminder =>{
+      debugger;
+      console.log("reminder", reminder.dateAndTime);
 
-      let DateAndTime = fulldate;
+       this.duplicate = reminder;
 
-      this.dateAndTime = DateAndTime;
 
-      if (DateAndTime == reminder.dateAndTime) {
+      this.DateAndTime = fulldate;
 
-        this.snackBar.open(reminder.title, "", { duration: 2000 });
+      console.log("rennnder", this.DateAndTime);
 
+      // this.dateAndTime = DateAndTime;
+
+      if (this.DateAndTime == this.duplicate.dateAndTime)
+       {
+          debugger;
+        this.snackBar.open(reminder.title,' ', { duration: 2000 });
+        alert("their is reminder"+reminder.title);
       }
-
     });
-    // console.log(fulldate);
+
   }
 
 
@@ -266,7 +276,24 @@ export class NotesComponent implements OnInit {
     });
   }
 
+  fetchPinned() {
 
+    const email = localStorage.getItem('email');
+
+    let getnotes = this.notesService.fetchPinnedNotes(email);
+
+    getnotes.subscribe((res: any) => {
+
+      console.log("res", res);
+
+      this.notelist = res as string[];
+
+      this.displayTitle = this.notelist.title;
+
+      this.displayTakeANote = this.notelist.takeANote;
+
+    });
+  }
   openDialog(n): void {
 
     const dialogconfg = new MatDialogConfig();
@@ -351,8 +378,22 @@ export class NotesComponent implements OnInit {
     });
 
   }
+  direct;
+  difference;
   drop(event: CdkDragDrop<string[]>) {
+    debugger;
     moveItemInArray(this.notelist, event.previousIndex, event.currentIndex);
+    if (event.previousIndex - event.currentIndex >= 2) {
+      this.difference = event.previousIndex - event.currentIndex;
+      this.direct = "positive";
+    }
+    else {
+      this.difference = (event.previousIndex - event.currentIndex) * -0;
+      this.direct = "negative";
+    }
   }
+
+
+
 
 }

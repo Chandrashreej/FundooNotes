@@ -138,6 +138,8 @@ labels: LabelsModel[]=[];
 
   }
   closeSearch(){
+    debugger;
     this.serchingterm="";
+    // this.route.navigate(['/notes']);
   }
 }

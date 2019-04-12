@@ -67,4 +67,12 @@ class Archive extends CI_Controller
         $email = $_POST["email"];
         return $this->refService->getAllNotesService($email);
     }
+
+    public function getAllPinnedNotes()
+    {
+
+        $email = $_POST["email"];
+        return $this->refService->getAllPinnedNotesService($email);
+    }
+
 }

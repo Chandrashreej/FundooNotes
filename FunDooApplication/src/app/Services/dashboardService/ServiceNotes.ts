@@ -67,6 +67,16 @@ constructor(private http: HttpClient,
       return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllNotes), userNotesdata);
 
     }
+
+    fetchPinnedNotes(email){
+      let userNotesdata = new FormData();
+      userNotesdata.append("email",email);
+      return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllPinnedNotes), userNotesdata);
+
+    }
+
+
+
     deleteNotesFunction (n){
 
       let id = new FormData();

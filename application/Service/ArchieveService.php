@@ -178,4 +178,57 @@ class ArchiveService extends CI_Controller
         
         }
 }
+
+
+public function getAllPinnedNotesService($email)
+{
+    $time = "";
+
+    $sekretkey = "chandu";
+
+    $channel = new ConnectingToRedis();
+    $client = $channel->redisConnection();
+    $token = $client->get('token');
+
+    $array = array(
+        'HS256',
+    );
+    $payload = JWT::decode($token, $sekretkey, $array);
+
+    $userId = $payload->userId;
+    // $token = $headers['Authorization'];
+
+    if ($token != null) {
+
+        $jwt = new JWT();
+        if ($jwt->verifyc($token, $sekretkey)) {
+
+            $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0";
+
+            $statement = $this->db->conn_id->prepare($query);
+
+            if ($statement->execute()) {
+                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                $array = array_reverse($arr);
+                print json_encode($array);
+
+            
+            }
+        } else {
+            $result = array(
+                "message" => "500",
+            );
+            print json_encode($result);
+            return "500";
+        }
+    } else {
+        $result = array(
+            "message" => "600",
+        );
+        print json_encode($result);
+        return "600";
+    
+    }
+}
+
 }

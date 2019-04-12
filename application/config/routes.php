@@ -79,7 +79,7 @@ $route['fetcharchive'] ='Archive/fetcharchive';
 $route['fetchTrash'] ='Trash/fetchTrash';
 
 $route['getAllNotes'] ='Archive/getAllNotes';
-
+$route['getAllPinnedNotes'] ='Archive/getAllPinnedNotes';
 
 $route['unTrash'] ='Trash/unTrash';  
 
@@ -93,3 +93,4 @@ $route['imageFetcher'] ='DashBoard/imageFetcher';
 $route['default_controller'] = 'index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+

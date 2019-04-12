@@ -8,6 +8,7 @@ export class SearchfilterPipe implements PipeTransform {
   num;
   transform(notes: NotesModel[], serchingTerm?: string): NotesModel[] {
     debugger;
+    console.log("hiiiii",notes);
     if (!notes || !serchingTerm) {
       return notes;
     }

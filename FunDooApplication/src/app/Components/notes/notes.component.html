@@ -345,12 +345,12 @@
 
   </div>
   
-  <div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+  <div>
 
-  <div fxLayout="{{layout}}" fxLayoutAlign="center center" style="flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
+  <div  cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
 
     <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
-      *ngFor="let n of notelist" cdkDrag>
+      *ngFor="let n of notelist" cdkDrag >
 
       <div (click)="openDialog(n)">
 
