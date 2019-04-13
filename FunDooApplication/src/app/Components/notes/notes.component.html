@@ -347,7 +347,7 @@
   
   <div>
 
-  <div  cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
+  <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
 
     <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
       *ngFor="let n of notelist" cdkDrag >

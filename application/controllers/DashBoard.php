@@ -130,7 +130,14 @@ class DashBoard extends CI_Controller
 
     public function imageFetcher()
     {
-        $email = $_POST["id"];
+        $email = $_POST["email"];
         return $this->NoteService->imageFetcherService($email);
+    }
+
+    public function imageSetter()
+    {
+        $email = $_POST["email"];
+        $value = $_POST["value"];
+        return $this->NoteService->imageSetterService($email, $value);
     }
 }

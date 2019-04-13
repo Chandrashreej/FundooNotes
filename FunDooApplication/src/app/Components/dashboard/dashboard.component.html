@@ -1,230 +1,249 @@
 <div style="overflow:hidden;">
 
+
+
+
+  <div style="width:fit-content;">
+
+    <mat-toolbar class="outertoolbar" color="white" fxLayout="row" fxLayoutAlign="space-around center">
+
+      <div fxLayoutGap="10px" style="margin-left:0px;" fxLayout="row" fxLayoutAlign="space-around center">
+
+        <button mat-button matTooltip="Min Menu" class="menubutton" (click)="drawer.toggle()">
+
+          <mat-icon class="example-icon">menu</mat-icon>
+
+        </button>
+
+        <mat-icon class="keepimage" fxLayout="row" fxLayoutAlign="center center">
+
+          <img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" />
+
+        </mat-icon>
+
+        <span class="title" fxLayout="row" fxLayoutAlign="center center">Fundoo</span>
+
+      </div>
+
+      <button mat-icon-button matTooltip="Search" style="margin-left: 120px;" class="searchicon">
+
+        <mat-icon class="example-icon">search</mat-icon>
+
+      </button>
+
+      <input class="searchbar" appearance="null" (keyup)="sendSearchData()" [routerLink]="['emptycontent']" type="text"
+        placeholder="Search" [(ngModel)]="serchingterm" />
+
+      <button mat-icon-button style="right: 60px;" [routerLink]="['notes']" (click)="closeSearch()">
+
+        <mat-icon style="width:1px; height:1px; margin-bottom: 20px;color: grey">close</mat-icon>
+
+      </button>
+
+      <mat-icon matTooltip="Refresh" style="margin-left: 200px;" class="example-icon">refresh</mat-icon>
+
+      <button mat-icon-button *ngIf="list" (click)="changeView()" style="border:none ; background-color: white;">
+
+        <mat-icon matTooltip="Grid View" *ngIf="!grid" class="example-icon">
+
+          <img src="../../assets/img/fundoAssests/menu-grid.svg" style="color: grey;margin-top: -30px;width: 20px;height: 20px;" />
+
+        </mat-icon>
+
+      </button>
+
+      <button mat-icon-button *ngIf="grid" (click)="changeView()" style="border:none ; background-color: white;">
+
+        <mat-icon matTooltip="List View" *ngIf="grid" class="example-icon">
+
+          <img src="../../assets/img/fundoAssests/outline-view_agenda-24px.svg" style="color: grey;margin-top: -30px;" />
+
+        </mat-icon>
+
+      </button>
+
+      <button [matMenuTriggerFor]="settings" style="border:none ; background-color: white;">
+
+        <mat-icon matTooltip="Settings" class="example-icon">settings</mat-icon>
+
+      </button>
+
+      <mat-menu [overlapTrigger]="false" #settings="matMenu">
+
+        <button mat-menu-item (click)="tomorrow(01)">Settings</button>
+
+        <button mat-menu-item (click)="nextWeek(01)">Send feedback</button>
+
+        <button mat-menu-item (click)="nextWeek(01)">Help</button>
+
+        <button mat-menu-item (click)="nextWeek(01)">App downloads</button>
+
+        <button mat-menu-item (click)="nextWeek(01)">Keyboard shortcuts</button>
+
+      </mat-menu>
+
+      <br>
+
+      <!-- <span class="example-spacer"></span> -->
+
+      <div fxLayoutGap="10px" style="margin-left:50px;" fxLayout="row" fxLayoutAlign="space-around center">
+
+        <mat-icon matTooltip="Google Apps" style="font-size: 25px;color: rgb(104, 101, 101);">apps</mat-icon>
+
+        <button *ngIf="!imagepre" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
+
+          <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount">
+            
+            <img src="{{image}}" class="profilepic" />
+          
+          </mat-icon>
+
+        </button>
+
+        <button *ngIf="!present" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
+
+          <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount">
+            
+            <img src="{{mainimage}}" class="profilepic" />
+          
+          </mat-icon>
+
+        </button>
+
+
+
+        <mat-menu #menu="matMenu" fxLayout="column" fxLayoutGap="10px" style="margin:5px;">
+
+          <span>
+
+            <mat-icon *ngIf="!imagepre" style="font-size: 0px;margin-top: 0px;" (click)="file.click()" matTooltip="Google Account" class="example-iconAccount">
+
+              <img src="{{image}}" class="insideprofilepic" />
+
+            </mat-icon>
+
+
+            <mat-icon *ngIf="!present" style="font-size: 0px;margin-top: 0px;" (click)="file.click()" matTooltip="Google Account" class="example-iconAccount">
+
+                <img src="{{mainimage}}" class="insideprofilepic" />
   
-   
+              </mat-icon>
 
-    <div style="width:fit-content;">
+            <input style="display:none" type="file" #file (change)="selectedImage($event, '01')" />
 
-      <mat-toolbar class="outertoolbar" color="white" fxLayout="row" fxLayoutAlign="space-around center">
+            <p class="firstname">{{ firstname }}</p>
 
-        <div fxLayoutGap="10px" style="margin-left:0px;" fxLayout="row" fxLayoutAlign="space-around center">
+            <p class="email">{{ email }}</p>
 
-          <button mat-button matTooltip="Min Menu" class="menubutton" (click)="drawer.toggle()">
+          </span>
 
-            <mat-icon class="example-icon">menu</mat-icon>
+          <mat-divider></mat-divider>
 
-          </button>
+          <section>
 
-          <mat-icon class="keepimage" fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" style="background-color:#F8F8F8;margin-top: 10px;">
 
-            <img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" />
+              <button mat-stroked-button style="color:rgb(105, 104, 104);background-color:#F8F8F8;" (click)="logout()">
+                Add Account
+              </button>
 
-          </mat-icon>
+              <button mat-stroked-button style="color:rgb(105, 104, 104);background-color:#F8F8F8;" (click)="logout()">
+                Sign out
+              </button>
 
-          <span class="title" fxLayout="row" fxLayoutAlign="center center">Fundoo</span>
+            </div>
 
-        </div>
-
-        <button mat-icon-button matTooltip="Search" style="margin-left: 120px;" class="searchicon">
-
-          <mat-icon class="example-icon">search</mat-icon>
-
-        </button>
-
-        <input class="searchbar" appearance="null" (keyup)="sendSearchData()" [routerLink]="['emptycontent']" type="text"
-          placeholder="Search" [(ngModel)]="serchingterm"  />
-
-        <button mat-icon-button style="right: 60px;" [routerLink]="['notes']" (click)="closeSearch()">
-
-          <mat-icon style="width:1px; height:1px; margin-bottom: 20px;color: grey">close</mat-icon>
-
-        </button>
-
-        <mat-icon matTooltip="Refresh" style="margin-left: 200px;" class="example-icon">refresh</mat-icon>
-
-        <button mat-icon-button *ngIf="list" (click)="changeView()" style="border:none ; background-color: white;">
-
-          <mat-icon matTooltip="Grid View" *ngIf="!grid" class="example-icon">
-
-            <img src="../../assets/img/fundoAssests/menu-grid.svg" style="color: grey;margin-top: -30px;width: 20px;height: 20px;" />
-
-          </mat-icon>
-
-        </button>
-
-        <button mat-icon-button *ngIf="grid" (click)="changeView()" style="border:none ; background-color: white;">
-
-          <mat-icon matTooltip="List View" *ngIf="grid" class="example-icon">
-
-            <img src="../../assets/img/fundoAssests/outline-view_agenda-24px.svg" style="color: grey;margin-top: -30px;" />
-
-          </mat-icon>
-
-        </button>
-
-        <button [matMenuTriggerFor]="settings" style="border:none ; background-color: white;">
-
-          <mat-icon matTooltip="Settings" class="example-icon">settings</mat-icon>
-
-        </button>
-
-        <mat-menu [overlapTrigger]="false" #settings="matMenu">
-
-          <button mat-menu-item (click)="tomorrow(01)">Settings</button>
-
-          <button mat-menu-item (click)="nextWeek(01)">Send feedback</button>
-
-          <button mat-menu-item (click)="nextWeek(01)">Help</button>
-
-          <button mat-menu-item (click)="nextWeek(01)">App downloads</button>
-
-          <button mat-menu-item (click)="nextWeek(01)">Keyboard shortcuts</button>
+          </section>
 
         </mat-menu>
 
-        <br>
+      </div>
 
-        <span class="example-spacer"></span>
-
-        <div fxLayoutGap="10px" style="margin-left:50px;" fxLayout="row" fxLayoutAlign="space-around center">
-
-          <mat-icon matTooltip="Google Apps" style="font-size: 25px;color: rgb(104, 101, 101);">apps</mat-icon>
-
-          <button *ngIf="present" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
-
-            <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount"><img src="{{image}}" class="profilepic" /></mat-icon>
-
-          </button>
-
-          <button *ngIf="!present" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
-
-            <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount"><img src="{{image}}" class="profilepic" /></mat-icon>
-
-          </button>
-
-          <mat-menu #menu="matMenu" fxLayout="column" fxLayoutGap="10px" style="margin:5px;">
-
-            <span>
-
-              <mat-icon style="font-size: 0px;margin-top: 0px;" matTooltip="Google Account" class="example-iconAccount"><img
-                  src="{{image}}" class="insideprofilepic" /></mat-icon>
-
-              <p class="firstname">{{ firstname }}</p>
-
-              <p class="email">{{ email }}</p>
-
-            </span>
-
-            <mat-divider></mat-divider>
-
-            <section>
-
-              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" style="background-color:#F8F8F8;margin-top: 10px;">
-
-                <button mat-stroked-button style="color:rgb(105, 104, 104);background-color:#F8F8F8;" (click)="logout()">
-                  Add Account
-                </button>
-
-                <button mat-stroked-button style="color:rgb(105, 104, 104);background-color:#F8F8F8;" (click)="logout()">
-                  Sign out
-                </button>
-
-              </div>
-
-            </section>
-
-          </mat-menu>
-
-        </div>
-
-      </mat-toolbar>
-    </div>
-
-    
-
-    <mat-divider></mat-divider>
-
-    <mat-sidenav-container class="example-container" style="top: 73px !important" autosize fxLayout="row" fxLayoutAlign="start none">
-
-      <mat-sidenav #drawer mode="side" style="overflow: hidden;">
-
-        <div class="mat-drawer-inner-container">
-
-          <mat-nav-list>
-
-            <a class="selectorbutton" mat-list-item [routerLink]="['notes']" [routerLinkActive]="['is-active']">
-
-              <mat-icon class="example-icon">lightbulb_outline</mat-icon>
-
-              <span class="spantext">Notes</span>
-            </a>
-
-            <a class="selectorbutton" mat-list-item [routerLink]="['reminder']" [routerLinkActive]="['is-active']">
-
-              <mat-icon class="example-icon">notifications_none</mat-icon>
-
-              <span class="spantext">Reminders</span>
-
-            </a>
-
-            <mat-divider></mat-divider>
-
-            <br>
-
-            <label fxLayout="row" class="label">Labels</label>
-
-            <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels">
-
-              <mat-icon class="example-icon">label</mat-icon>
-
-              <span class="spantext">{{item.label}}</span>
-
-            </a>
-
-            <a class="selectorbutton" mat-list-item (click)="label()" class="selectorbutton" [routerLinkActive]="['is-active']">
-
-              <mat-icon class="example-icon">edit</mat-icon>
-
-              <span class="spantext">Edit Labels</span>
-
-            </a>
-
-            <br>
-
-            <mat-divider></mat-divider>
-
-            <a class="selectorbutton" mat-list-item routerLink='archive' class="selectorbutton" [routerLinkActive]="['is-active']">
-
-              <mat-icon class="example-icon">archive</mat-icon>
-
-              <span class="spantext">Archive</span>
-
-            </a>
-
-            <a class="selectorbutton" mat-list-item routerLink='bin' class="selectorbutton" [routerLinkActive]="['is-active']">
-
-              <mat-icon class="example-icon">delete</mat-icon>
-
-              <span class="spantext">Bin</span>
-
-            </a>
-
-          </mat-nav-list>
-
-        </div>
-
-      </mat-sidenav>
-
-      <mat-sidenav-content fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;">
-
-        <router-outlet></router-outlet>
-
-      </mat-sidenav-content>
-
-    </mat-sidenav-container>
-
-
-
- 
-
+    </mat-toolbar>
   </div>
+
+
+
+  <mat-divider></mat-divider>
+
+  <mat-sidenav-container class="example-container" style="top: 73px !important" autosize fxLayout="row" fxLayoutAlign="start none">
+
+    <mat-sidenav #drawer mode="side" style="overflow: hidden;">
+
+      <div class="mat-drawer-inner-container">
+
+        <mat-nav-list>
+
+          <a class="selectorbutton" mat-list-item [routerLink]="['notes']" [routerLinkActive]="['is-active']">
+
+            <mat-icon class="example-icon">lightbulb_outline</mat-icon>
+
+            <span class="spantext">Notes</span>
+          </a>
+
+          <a class="selectorbutton" mat-list-item [routerLink]="['reminder']" [routerLinkActive]="['is-active']">
+
+            <mat-icon class="example-icon">notifications_none</mat-icon>
+
+            <span class="spantext">Reminders</span>
+
+          </a>
+
+          <mat-divider></mat-divider>
+
+          <br>
+
+          <label fxLayout="row" class="label">Labels</label>
+
+          <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels">
+
+            <mat-icon class="example-icon">label</mat-icon>
+
+            <span class="spantext">{{item.label}}</span>
+
+          </a>
+
+          <a class="selectorbutton" mat-list-item (click)="label()" class="selectorbutton" [routerLinkActive]="['is-active']">
+
+            <mat-icon class="example-icon">edit</mat-icon>
+
+            <span class="spantext">Edit Labels</span>
+
+          </a>
+
+          <br>
+
+          <mat-divider></mat-divider>
+
+          <a class="selectorbutton" mat-list-item routerLink='archive' class="selectorbutton" [routerLinkActive]="['is-active']">
+
+            <mat-icon class="example-icon">archive</mat-icon>
+
+            <span class="spantext">Archive</span>
+
+          </a>
+
+          <a class="selectorbutton" mat-list-item routerLink='bin' class="selectorbutton" [routerLinkActive]="['is-active']">
+
+            <mat-icon class="example-icon">delete</mat-icon>
+
+            <span class="spantext">Bin</span>
+
+          </a>
+
+        </mat-nav-list>
+
+      </div>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;">
+
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+
+</div>

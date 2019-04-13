@@ -527,12 +527,12 @@ class DashboardService extends CI_Controller
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
                     // for($i=0;$i<count($arr);$i++)
                     // {
-                    $firstname = ($arr[0]["firstname"]);
+                    $image = ($arr[0]["image"]);
 
                     // $firstname =$arr[$i];
 
                     // }
-                    print json_encode($firstname);
+                    print json_encode($image);
                 } else {
                     $result = array(
                         "message" => "500",
@@ -553,6 +553,79 @@ class DashboardService extends CI_Controller
             );
             print json_encode($result);
             return "600";
+        }
+    }
+    public function imageSetterService($email, $value)
+    {
+
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+        // // $token = $headers['Authorization'];
+
+        // if ($token != null) {
+
+        //     $jwt = new JWT();
+        //     if ($jwt->verifyc($token, $sekretkey)) {
+
+                $query = "UPDATE createuser set image = '$value' WHERE  userId = '$userId'";
+
+                $statement = $this->connect->prepare($query);
+
+                if ($statement->execute()) {
+                   $result = array(
+                        "message" => "500",
+                    );
+                    print json_encode($result);
+                } else {
+                    $result = array(
+                        "message" => "500",
+                    );
+                    print json_encode($result);
+                    return "500";
+                }
+        //     } else {
+        //         $result = array(
+        //             "message" => "500",
+        //         );
+        //         print json_encode($result);
+        //         return "500";
+        //     }
+        // } else {
+        //     $result = array(
+        //         "message" => "600",
+        //     );
+        //     print json_encode($result);
+        //     return "600";
+        // }
+    }
+
+
+
+    public function imageNote($base64,$uid,$noteid){
+        $query = "UPDATE notes SET image = '$base64'  where user_id = '$uid' AND id='$noteid'";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+        if ($res) {
+            $data = array(
+                "status" => "200",
+            );
+            print json_encode($data);
+        } else {
+            $data = array(
+                "status" => "204",
+            );
+            print json_encode($data);
+            return "204";
         }
     }
 }

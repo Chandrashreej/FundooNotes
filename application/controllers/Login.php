@@ -57,4 +57,35 @@ class Login extends CI_Controller
         $name = $_POST['firstname'];
         $this->logService->socialSigin($email,$name);
     }
+
+    public function adderToDatabase()
+    {
+		$this->load->library('doctrine');
+		$em = $this->doctrine->em;
+
+		// $query = $em->createQuery('SELECT u FROM Entity\Demo u ');
+		// $users = $query->getResult();
+
+
+		$group = new Entity\UserGroup;
+		$group->setName('Users');
+
+		$user = new Entity\User;
+		$user->setUsername('wildlyinaccuratefgf');
+		$user->setPassword('Passw0rdfgfg');
+		$user->setEmail('wildlyinaccurate@gmail.com');
+		$user->setGroup($group);
+
+		// When you have set up your database, you can persist these entities:
+		$em = $this->doctrine->em;
+		$em->persist($group);
+		$em->persist($user);
+		$em->flush();
+
+		$this->load->view('welcome_message', array(
+			'user' => $user,
+			'group' => $group,
+		));
+    }
+
 }

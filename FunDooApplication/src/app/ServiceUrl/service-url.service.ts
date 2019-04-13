@@ -39,6 +39,8 @@ export class ServiceUrlService {
   public socialLoginData = "codeigniter/socialLoginData";
 
   public imageFetcher = "codeigniter/imageFetcher";
+
+  public imageSetter = "codeigniter/imageSetter";
   
   
 }

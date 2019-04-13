@@ -1,9 +1,6 @@
 <?php
 /**
- * Doctrine CLI bootstrap for CodeIgniter
  *
- * @author  Joseph Wynn <joseph@wildlyinaccurate.com>
- * @link    http://wildlyinaccurate.com/integrating-doctrine-2-with-codeigniter-2
  */
 
 define('APPPATH', dirname(__FILE__) . '/');

@@ -51,7 +51,14 @@ constructor(private http: HttpClient,
       return this.http.post((this.sevriceurl.host + this.sevriceurl.imageFetcher), userImage);
 
     }
+    setImageService(email, value){
+      
+      let userImage = new FormData();
+      userImage.append("email",email);
+      userImage.append("value",value)
+      return this.http.post((this.sevriceurl.host + this.sevriceurl.imageSetter), userImage);
 
+    }
     getname(email)
     {
       debugger;

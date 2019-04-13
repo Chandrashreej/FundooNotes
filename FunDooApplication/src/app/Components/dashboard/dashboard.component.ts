@@ -10,6 +10,7 @@ import { LabelService } from 'src/app/Services/label.service';
 import { LabelsModel } from 'src/app/Models/labels.model';
 import { CookieService } from 'ngx-cookie-service';
 import { SearchService } from 'src/app/Services/search.service';
+import { NotesModel } from 'src/app/Models/Notes.model';
 
 
 
@@ -31,8 +32,9 @@ name:string;
 labels: LabelsModel[]=[];
   firstname: any;
   image:string;
-  present:boolean = false;
-  notelist: string[];
+  present:boolean = true;
+  imagepre: boolean = false;
+  notelist: NotesModel[];
   view: {};
   constructor(private route: Router, private listview: ListService,
     private search:SearchService,
@@ -40,7 +42,7 @@ labels: LabelsModel[]=[];
     private labelsev: LabelService,
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,private cookieserv:CookieService ) {
+    sanitizer: DomSanitizer,private cookieserv:CookieService) {
     this.changeView();
     this.image = this.cookieserv.get("image");
   }
@@ -59,9 +61,28 @@ labels: LabelsModel[]=[];
     debugger;
    this.image = this.cookieserv.get("image");
    this.value = this.cookieserv.get("name") + " \n "+ this.cookieserv.get("email");
+  
+   this.notesDisplaying();
+ this.fetchImage();
+  }
+
+  notesDisplaying() {
+
+    const email = localStorage.getItem('email');
+
+    let getnotes = this.dashService.fetchnotes(email);
+
+    getnotes.subscribe((res: any) => {
+
+      console.log("res", res);
+
+      this.notelist = res;
+
    
 
+    });
   }
+
   openLabel(){
     const config = new MatDialogConfig();
     config.width="600px";
@@ -121,7 +142,7 @@ labels: LabelsModel[]=[];
 
     fetchobs.subscribe((res: any) => {
      debugger
-     this.labels = res;
+     this.mainimage = res;
    })
   }
   serchingterm
@@ -137,9 +158,65 @@ labels: LabelsModel[]=[];
 
 
   }
+
+
   closeSearch(){
     debugger;
     this.serchingterm="";
     // this.route.navigate(['/notes']);
   }
+mainimage;
+imageid;
+
+  selectedImage(event, id){
+    debugger;
+    this.imageid = id;
+    var files = event.target.files;
+    var file = files[0];
+    if(files && file)
+    {
+      var reader = new FileReader();
+      reader.onload =this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+
+    }
+  }
+
+  base64textString
+
+  _handleReaderLoaded(readerEvt){
+
+    debugger;
+
+    var binarstring = readerEvt.target.result;
+
+    this.base64textString = btoa(binarstring);
+    this.notelist.forEach(element=>{
+      if(element.id == this.imageid )
+      {
+        debugger
+        element.image = "data:image/jpeg;base64,"+this.base64textString;
+      }
+    });
+
+    if(this.imageid == "01")
+    {
+      this.present = false;
+      this.imagepre =true;
+      this.mainimage = "data:image/jpeg;base64,"+this.base64textString;
+
+      this.email = localStorage.getItem("email");
+    let setchobs = this.dashService.setImageService(this.email, this.mainimage);
+    setchobs.subscribe((res: any) => {
+      debugger
+      // this.labels = res;
+    });
+
+    }
+    else{
+
+    }
+  }
+
+
 }

@@ -85,11 +85,11 @@ export class NotesComponent implements OnInit {
 
     }));
 
-    setInterval(() => {
+    // setInterval(() => {
 
-      this.remaindme();
+    //   this.remaindme();
 
-    }, 1000);
+    // }, 1000);
 
   }
 

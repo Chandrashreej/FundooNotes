@@ -89,8 +89,11 @@ $route['fetchlabel'] ='Label/fetchingLabel';
 $route['socialLoginData'] ='Login/socialLogin';  
 
 $route['imageFetcher'] ='DashBoard/imageFetcher';
+$route['imageSetter'] ='DashBoard/imageSetter';
 
 $route['default_controller'] = 'index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+
+$route['adderToDatabase']='Login/adderToDatabase';
