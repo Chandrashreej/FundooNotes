@@ -8,4 +8,5 @@ export class NotesModel {
     color: string;
     dateAndTime: string;
     image;
+    pinned;
 }

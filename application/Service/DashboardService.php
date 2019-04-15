@@ -103,10 +103,15 @@ class DashboardService extends CI_Controller
             return "204";
         }
     }
-    public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color)
+    public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin)
     {
         // $headers = apache_request_headers();
         // print_r($headers);
+        if($pin != 1)
+        {
+            $pin = 0;
+        }
+        
         $archive = 0;
         $delete = 0;
         if ($title == "null") {
@@ -135,9 +140,9 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color')";
+                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color, image,pin) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color', '$image', '$pin')";
 
-                $stmt = $this->connect->prepare($query);
+                $stmt = $this->db->conn_id->prepare($query);
                 $res = $stmt->execute();
 
                 if ($res) {
@@ -257,7 +262,7 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0";
+                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 0;";
 
                 $statement = $this->connect->prepare($query);
 
@@ -500,24 +505,24 @@ class DashboardService extends CI_Controller
     public function imageFetcherService($email)
     {
 
-        $sekretkey = "chandu";
+        // $sekretkey = "chandu";
 
-        $channel = new ConnectingToRedis();
-        $client = $channel->redisConnection();
-        $token = $client->get('token');
+        // $channel = new ConnectingToRedis();
+        // $client = $channel->redisConnection();
+        // $token = $client->get('token');
 
-        $array = array(
-            'HS256',
-        );
-        $payload = JWT::decode($token, $sekretkey, $array);
+        // $array = array(
+        //     'HS256',
+        // );
+        // $payload = JWT::decode($token, $sekretkey, $array);
 
-        $userId = $payload->userId;
-        // $token = $headers['Authorization'];
+        // $userId = $payload->userId;
+        // // $token = $headers['Authorization'];
 
-        if ($token != null) {
+        // if ($token != null) {
 
-            $jwt = new JWT();
-            if ($jwt->verifyc($token, $sekretkey)) {
+        //     $jwt = new JWT();
+        //     if ($jwt->verifyc($token, $sekretkey)) {
 
                 $query = "SELECT * FROM createuser where email = '$email'";
 
@@ -540,36 +545,36 @@ class DashboardService extends CI_Controller
                     print json_encode($result);
                     return "500";
                 }
-            } else {
-                $result = array(
-                    "message" => "500",
-                );
-                print json_encode($result);
-                return "500";
-            }
-        } else {
-            $result = array(
-                "message" => "600",
-            );
-            print json_encode($result);
-            return "600";
-        }
+        //     } else {
+        //         $result = array(
+        //             "message" => "500",
+        //         );
+        //         print json_encode($result);
+        //         return "500";
+        //     }
+        // } else {
+        //     $result = array(
+        //         "message" => "600",
+        //     );
+        //     print json_encode($result);
+        //     return "600";
+        // }
     }
     public function imageSetterService($email, $value)
     {
 
-        $sekretkey = "chandu";
+        // $sekretkey = "chandu";
 
-        $channel = new ConnectingToRedis();
-        $client = $channel->redisConnection();
-        $token = $client->get('token');
+        // $channel = new ConnectingToRedis();
+        // $client = $channel->redisConnection();
+        // $token = $client->get('token');
 
-        $array = array(
-            'HS256',
-        );
-        $payload = JWT::decode($token, $sekretkey, $array);
+        // $array = array(
+        //     'HS256',
+        // );
+        // $payload = JWT::decode($token, $sekretkey, $array);
 
-        $userId = $payload->userId;
+        // $userId = $payload->userId;
         // // $token = $headers['Authorization'];
 
         // if ($token != null) {
@@ -577,9 +582,9 @@ class DashboardService extends CI_Controller
         //     $jwt = new JWT();
         //     if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "UPDATE createuser set image = '$value' WHERE  userId = '$userId'";
+                $query = "UPDATE createuser set image = '$value' WHERE  email = '$email'";
 
-                $statement = $this->connect->prepare($query);
+                $statement = $this->db->conn_id->prepare($query);
 
                 if ($statement->execute()) {
                    $result = array(
@@ -616,6 +621,7 @@ class DashboardService extends CI_Controller
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {
+
             $data = array(
                 "status" => "200",
             );

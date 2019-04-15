@@ -1,10 +1,5 @@
-.flexcard{
-    margin-left: 10px;
-    margin-top: 30px;
-    padding-bottom: 100px;
-    width: 1000px;
-  
-  }    .notetaker{
+.notetaker{
+
     margin-top: 10px;
     margin-left: 50px;
     box-shadow: 10px  ;
@@ -18,9 +13,11 @@
     padding-left: 10px;
     font-size: 15px;
     border-radius: 100px ;
+
 }
 
 .mainmat {
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
     margin-top: 38px;
     margin-left: 140px;
     margin-right: 140px;
@@ -29,30 +26,31 @@
     padding-top: 0px;
     padding-bottom: 10px;
     height: 44px;
-    
     color:#7E858A;
-    
     display: inline-block;
     font-family: 'Product Sans',Arial,sans-serif;
     font-size: 19px;
     line-height:  24px;
-
     position: relative;
     top: -1.5px;
     vertical-align: middle;
     width: 630px;
+
 }
-.mat-card:not([class*=mat-elevation-z]) {
-    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
-}
+// .mat-card:not([class*=mat-elevation-z]) {
+
+//     // box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
+
+// }
 .inputtaker.mat-form-field-infix{
-    
+
     padding-top: 0px;
     border-top-width: 5px;
     padding-bottom: 0px;
 
 }
 .mainmatdiv2{
+
     margin-top: 38px;
     margin-left: 115px;
     padding-right: 400px;
@@ -60,9 +58,7 @@
     padding-top: 0px;
     padding-bottom: 0px;
     height: 120px;
-    
     color:#7E858A;
-    
     display: inline-block;
     font-family: 'Product Sans',Arial,sans-serif;
     font-size: 19px;
@@ -72,61 +68,57 @@
     top: -1.5px;
     vertical-align: middle;
 }
+
 element.style {
+
     margin-top: -24px;
     margin-bottom: 245px;
 }
+
 .notes {
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
     transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
     display: block;
     position: relative;
-
     border-radius: 10px;
     margin-left: 250px;
     margin-right: 250px;
     margin-top: 40px;
-
     flex-direction: column;
     box-sizing: border-box;
     display: flex;
-
     align-items: center;
     width: 630px;
     padding-top: 10px;
-    //height: 200px;
     padding-left: 27px;
     padding-right: 2px;
     padding-bottom: 13px;
     color:#7E858A;
-        
     display: inline-block;
     font-family: 'Product Sans',Arial,sans-serif;
     font-size: 15px;
+
 }
 .gridcard{
 
-  margin-right: 50px;
-
-  width: 230px;
+    margin-top: 50px;
     margin-bottom: 25px;
-
+    margin-left: 0px;
     padding-bottom: 33px;
     height: auto;
     padding-left: 16px;
     padding-top: 9px;
-    // color:rgb(37, 37, 37);
     font-family: 'Google Sans',Roboto,Arial,sans-serif;
     font-size: 17px;
-    // border-color: #7E858A;
-}
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
+    cursor:  grab;
+} 
 .row{
 
     margin-top: 50px;
     margin-bottom: 25px;
-    // display: inline-block;
     margin-left: 0px;
     margin-right: 30px;
-
     width: 230px;
     padding-left: 16px;
     padding-top: 9px;
@@ -141,7 +133,6 @@ element.style {
     margin-top: 15px;
     margin-bottom: 15px;
     display: inline-block;
-
     margin-left: 0px;
     margin-right: 35px;
     padding-bottom: 5px;
@@ -152,22 +143,29 @@ element.style {
     font-family: 'Google Sans',Roboto,Arial,sans-serif;
     font-size: 17px;
     border-color: #7E858A;
+
 }
 .morerow{
+
     margin-right: 0px;
     margin-bottom: 13px;
+
 }
 .morecolumn{
+
     margin-right: 350px;
     margin-bottom: 13px;
+
 }
 .colorlens{
+
     width: 30px;
     height: 30px;
     margin: 5px;
 
 }
 .noteslist{
+
     margin-left: 250px;
     margin-top: 50px;
     width: 0px;
@@ -186,24 +184,63 @@ element.style {
 
 }
 .cardicon{
+
     color: rgb(87, 86, 86);
+
 }
 .cardmaticon{
+
     color: rgb(87, 86, 86);
     font-size: 10px;
     width: 30px;
     height: 3px;
+
 }
 .chips{
+
+    height: 15px;
+    width:250px;
     border-radius: 30px;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color:  rgba(0,0,0,0.08);
+    font-family: 'Product Sans',Arial,sans-serif;
+    font-size: 13px;
+
+padding-left: 5px;
+padding-right: 5px;
+width: 200px;
+
+
 }
+.icon{
+font-size: 20px;
+ margin-bottom: 0px;
+}
+.btnclose{
+        margin-right: -3px;
+
+}
+.notesImage{
+
+margin-top: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-bottom: 0px;
+width: 230px;
+
+}
+
+
 .dateVisOn{
+
     visibility: none;
+
 }
 .dateVisOff{
+
     visibility: hidden;
+
 }
 //     .buttonDisplay{
 //         display: none;
@@ -211,15 +248,7 @@ element.style {
 //     .gridcard:hover .buttonDisplay, .buttonDisplay:hover{
 // display: inline;
 //     }
-.mat-dialog-container .custom-dialog-container {
+// .mat-dialog-container .custom-dialog-container {
 
-padding: 0px;
-}
-
-.matcardarchive{
-margin-right: 50px;
-margin-bottom: 24px;
-}
-.para{
-  word-break: break-all;
-}
+// padding: 0px;
+// }

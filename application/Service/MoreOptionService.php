@@ -19,7 +19,7 @@ include '/var/www/html/codeigniter/application/Service/ConnectingToRedis.php';
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Authorization");
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin,Content-Range, Authorization, Content-Description, Content-Disposition,');
-include '/var/www/html/codeigniter/application/Service/JWT.php';
+include_once '/var/www/html/codeigniter/application/Service/JWT.php';
 header("Access-Control-Allow-Methods: GET, OPTIONS, POST");
 defined('BASEPATH') or exit('No direct script access allowed');
 /**
@@ -67,15 +67,18 @@ class MoreOptionsSevice extends CI_Controller
         // $array = array(
         //     'HS256',
         // );
+
         // $payload = JWT::decode($token, $sekretkey, $array);
 
         // $userId = $payload->userId;
+        
         // // $token = $headers['Authorization'];
 
         // if ($token != null) {
-
+        // }
         //     $jwt = new JWT();
         //     if ($jwt->verifyc($token, $sekretkey)) {
+        // }
 
         if ($flag == "color") {
 
@@ -87,15 +90,7 @@ class MoreOptionsSevice extends CI_Controller
             
             if ($res) {
 
-                $result = array(
 
-                    "message" => "200",
-
-                );
-
-                print json_encode($result);
-
-                return "200";
 
             } else {
 
@@ -120,15 +115,7 @@ class MoreOptionsSevice extends CI_Controller
             
             if ($res) {
 
-                $result = array(
 
-                    "message" => "200",
-
-                );
-
-                print json_encode($result);
-
-                return "200";
 
             } else {
 
@@ -153,14 +140,6 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $result = array(
-
-                    "message" => "200",
-
-                );
-                print json_encode($result);
-
-                return "200";
 
             } else {
 
@@ -185,16 +164,6 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $result = array(
-
-                    "message" => "200",
-
-                );
-
-                print json_encode($result);
-
-                return "200";
-
             } else {
 
                 $result = array(
@@ -206,18 +175,113 @@ class MoreOptionsSevice extends CI_Controller
 
                 return "204";
             }
+        }elseif ($flag == "Archive") {
+
+            $query = "UPDATE userNotes set archive = '$color' WHERE  id = '$id'";
+
+            $statement = $this->connect->prepare($query);
+
+            $res = $statement->execute();
+            
+            if ($res) {
+
+
+
+            } else {
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+
+                print json_encode($result);
+
+                return "204";
+                
+            }
+        } elseif ($flag == "image") {
+
+            $query = "UPDATE userNotes set image = '$color' WHERE  id = '$id'";
+
+            $statement = $this->connect->prepare($query);
+
+            $res = $statement->execute();
+
+            if ($res) {
+
+
+            } else {
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+                print json_encode($result);
+
+                return "204";
+
+            }
         }
-        $query = "SELECT * FROM userNotes where userId = '$userId' and id = '$id'";
+        elseif ($flag == "reminderValue") {
 
-        $statement = $this->connect->prepare($query);
+            $query = "UPDATE userNotes set dateAndTime = '$color' WHERE  id = '$id'";
 
-        if ($statement->execute()) {
+            $statement = $this->connect->prepare($query);
 
-            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $res = $statement->execute();
 
-            print json_encode($arr);
+            if ($res) {
 
+
+            } else {
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+                print json_encode($result);
+
+                return "204";
+
+            }
+        }elseif ($flag == "pinned") {
+
+            $query = "UPDATE userNotes set pin = '$color' WHERE  id = '$id'";
+
+            $statement = $this->connect->prepare($query);
+
+            $res = $statement->execute();
+
+            if ($res) {
+
+
+            } else {
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+                print json_encode($result);
+
+                return "204";
+
+            }
         }
+        // $query = "SELECT * FROM userNotes where userId = '$userId' and id = '$id'";
+
+        // $statement = $this->connect->prepare($query);
+
+        // if ($statement->execute()) {
+
+        //     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        //     print json_encode($arr);
+
+        // }
 
     }
     public function coloringBackgroundFunctionServiceForReminder($id, $color)

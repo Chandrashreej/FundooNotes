@@ -57,6 +57,7 @@ import { AuthService as auth } from "./Services/auth.service";
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 import { SearchfilterPipe } from './Services/dashboardService/searchfilter.pipe';
 import { EmptycontentComponent } from './Components/emptycontent/emptycontent.component';
+import { LabelednotesComponent } from './Components/labelednotes/labelednotes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +77,8 @@ import { EmptycontentComponent } from './Components/emptycontent/emptycontent.co
     LabelComponent,
     TrashComponent,
     EmptycontentComponent,
-    SearchfilterPipe
+    SearchfilterPipe,
+    LabelednotesComponent
   
     
   ],

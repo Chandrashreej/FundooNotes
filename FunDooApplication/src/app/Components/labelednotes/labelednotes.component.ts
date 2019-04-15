@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
-import * as moment from 'moment';
-import { ListService } from 'src/app/Services/list.service';
-import { MatDialog, MatIconRegistry, MatSnackBar, MatDialogConfig } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
+import { MatDialogConfig, MatSnackBar, MatIconRegistry, MatDialog } from '@angular/material';
+import * as moment from 'moment';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ListService } from 'src/app/Services/list.service';
+import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
+import { FormControl } from '@angular/forms';
 import { NotesModel } from 'src/app/Models/Notes.model';
 
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+  selector: 'app-labelednotes',
+  templateUrl: './labelednotes.component.html',
+  styleUrls: ['./labelednotes.component.scss']
 })
-
-export class NotesComponent implements OnInit {
+export class LabelednotesComponent implements OnInit {
 
   model: any = {};
   notesarray: NotesModel[] = [];
@@ -43,7 +42,7 @@ export class NotesComponent implements OnInit {
   wrap: string = "wrap";
   direction: string = "row";
   layout: string = this.direction + " " + this.wrap;
-  pinnedBool:boolean = false;
+
 
   constructor(private notesService: DashboardService,
     private listview: ListService,
@@ -89,11 +88,10 @@ export class NotesComponent implements OnInit {
   mainimage;
   imageid;
 
-
   selectedImage(event, id) {
 
     debugger;
-    
+
     this.imageid = id;
 
     var files = event.target.files;
@@ -110,12 +108,10 @@ export class NotesComponent implements OnInit {
 
     }
   }
-  imageBoolForMainCrd:boolean = false;
-  imageBoolForNotesCrd:boolean = false;
+
   base64textString
   imagepre
   present
-  mainimagefornotes
   _handleReaderLoaded(readerEvt) {
 
     debugger;
@@ -125,15 +121,15 @@ export class NotesComponent implements OnInit {
     this.base64textString = btoa(binarstring);
 
     if (this.imageid != "01") {
-
-      this.mainimagefornotes = "data:image/jpeg;base64," + this.base64textString;
+      this.present = false;
+      this.imagepre = true;
+      this.mainimage = "data:image/jpeg;base64," + this.base64textString;
 
       var flag = "image";
-      this.notestools(this.imageid, this.mainimagefornotes, flag)
+      this.notestools(this.imageid, this.mainimage, flag)
 
     }
     else {
-     this.imageBoolForMainCrd= true;
       this.mainimage = "data:image/jpeg;base64," + this.base64textString;
     }
 
@@ -154,7 +150,6 @@ export class NotesComponent implements OnInit {
       this.layout = this.direction + " " + this.wrap;
 
     }));
-    this.fetchPinned();
 
     // setInterval(() => {
 
@@ -306,6 +301,15 @@ export class NotesComponent implements OnInit {
       console.log("res", res);
       debugger;
       this.notelist = res as string[];
+      if (this.notelist.image == 'undefined') {
+
+        this.imagerOfNotes = this.notelist.image.replace("data:image/jpeg;base64,", "");
+      }
+      else {
+        this.imagerOfNotes = undefined;
+      }
+
+
 
     });
   }
@@ -358,25 +362,22 @@ export class NotesComponent implements OnInit {
 
     });
   }
-  pinnednotes:boolean= false;
-  pinnedlist:any;
+
   fetchPinned() {
-debugger;
+
     const email = localStorage.getItem('email');
 
     let getnotes = this.notesService.fetchPinnedNotes(email);
 
     getnotes.subscribe((res: any) => {
-debugger;
-      console.log("res", res);
-      if(res != 0){
-        this.pinnednotes = true;
-        this.pinnedlist = res as string[];
-      }
-      
-      
-     
 
+      console.log("res", res);
+
+      this.notelist = res as string[];
+
+      this.displayTitle = this.notelist.title;
+
+      this.displayTakeANote = this.notelist.takeANote;
 
     });
   }
@@ -404,14 +405,10 @@ debugger;
 
     debugger;
 
-    if ((this.title.value == "" && this.takeANote.value == "") || (this.title.value == null && this.takeANote.value == null) && this.dateAndTime == undefined) {
+    if ((this.title.value == "" && this.takeANote.value == "") || (this.title.value == null && this.takeANote.value == null) || this.dateAndTime == undefined) {
 
       this.flag = true;
 
-    }
-    else if(this.dateAndTime == undefined)
-    {
-      this.flag = true;
     }
     else {
 
@@ -427,9 +424,7 @@ debugger;
 
         "color": this.backgroundColour,
 
-        "image": this.mainimage,
-
-        "pinned": this.pinnedvalue
+        "image": this.mainimage
 
       }
 
@@ -442,12 +437,7 @@ debugger;
           this.notesDisplaying();
 
           this.flag = true;
-          this.title.setValue("");
-          this.takeANote.setValue("");
-          this.mainimage = "";
-          this.backgroundColour = "white";
-          this.dateAndTime = "undefined";
-          this.timer = false;
+
         }
 
       });
@@ -455,22 +445,7 @@ debugger;
     }
 
   }
-  pinnedvalue;
-pinnedFunction(id)
-{
- if(id == '01')
- {
-   this.pinnedvalue ='1';
- }
- else{
 
-  var colorid = '1';
-  var flag = "pinned";
-
-
-   this.notestools(id, colorid, flag);
- }
-}
   notestools(id, colorid, flag) {
 
     let colorObs = this.notesService.coloringBackground(id, colorid, flag);
@@ -506,8 +481,5 @@ pinnedFunction(id)
     //   this.direct = "negative";
     // }
   }
-
-
-
 
 }

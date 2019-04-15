@@ -101,13 +101,12 @@
     }
     .gridcard{
 
-        // margin-top: 50px;
-        // margin-bottom: 25px;
-        // margin-left: 0px;
-        // padding-bottom: 33px;
+        margin-top: 50px;
+        margin-bottom: 25px;
+        margin-left: 0px;
+        padding-bottom: 33px;
         height: auto;
-        // padding-left: 16px;
-        // padding-top: 9px;
+
         font-family: 'Google Sans',Roboto,Arial,sans-serif;
         font-size: 17px;
         box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
@@ -115,19 +114,44 @@
     } 
     .row{
 
-        // margin-top: 50px;
-        // margin-bottom: 25px;
-        // margin-left: 0px;
-        // margin-right: 30px;
+        margin-top: 50px;
+        margin-bottom: 25px;
+        margin-left: 0px;
+        margin-right: 30px;
         width: 230px;
-        // padding-left: 16px;
-        // padding-top: 9px;
-        // padding-bottom: 5px;
+        padding-left: 1px;
+        padding-top: 1px;
+        padding-bottom: 3px;
+        padding-right: 1px;
         color:rgb(37, 37, 37);
         font-family: 'Google Sans',Roboto,Arial,sans-serif;
         font-size: 17px;
         border-color: #7E858A;
+        border-radius: 10px;
     }
+
+.commonClass{
+    position: relative;
+	display: inline-block;
+}
+.commonClass :hover .pinned{
+    display: block;
+    position: relative;
+}
+
+.pinned {
+	// padding-top: 7px;	
+	// padding-right: 7px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	// display: none;
+}
+
+.pinned a {
+	color: rgb(94, 93, 93);
+}
+
     .column{
 
         margin-top: 15px;
@@ -137,13 +161,14 @@
         margin-right: 35px;
         padding-bottom: 5px;
         width: 550px;
-        padding-left: 16px;
-        padding-top: 9px;
+        padding-left: 2px;
+        padding-top: 2px;
+        padding-right: 2px;
         color:rgb(37, 37, 37);
         font-family: 'Google Sans',Roboto,Arial,sans-serif;
         font-size: 17px;
         border-color: #7E858A;
-
+        border-radius: 10px;
     }
     .morerow{
 
@@ -198,11 +223,83 @@
     }
     .chips{
 
+        height: 15px;
+        width:250px;
         border-radius: 30px;
-        padding: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         background-color:  rgba(0,0,0,0.08);
+        font-family: 'Product Sans',Arial,sans-serif;
+        font-size: 13px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 200px;
+
 
     }
+.icon{
+    font-size: 20px;
+     margin-bottom: 0px;
+}
+    .btnclose{
+            margin-right: -3px;
+
+    }
+.notesImage{
+    position: relative;
+	display: inline-block;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    width: 230px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+.others{
+    color: #5f6368;
+    cursor: default;
+    letter-spacing: .07272727em;
+    font-family: Roboto,Arial,sans-serif;
+    font-size: .7500rem;
+    font-weight: 500;
+    line-height: 0rem;
+    text-transform: uppercase;
+    padding: 15px 24px 10px;
+}
+.notesImageColumn{
+    position: relative;
+	display: inline-block;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    width: 549px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+.notesImageTitle{
+
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    width: 580px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+.notesImageColumn :hover .pinned{
+    display: block;
+    position: relative;
+}
+.notesImage :hover .pinned{
+    display: block;
+    position: relative;
+}
     .dateVisOn{
 
         visibility: none;

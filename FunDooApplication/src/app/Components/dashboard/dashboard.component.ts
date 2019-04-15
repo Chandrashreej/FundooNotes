@@ -137,12 +137,16 @@ labels: LabelsModel[]=[];
     })
   }
   fetchImage(){
+    debugger;
     this.email = localStorage.getItem("email");
     let fetchobs = this.dashService.fectImageService(this.email);
 
     fetchobs.subscribe((res: any) => {
      debugger
      this.mainimage = res;
+
+    //  this.mainimage = this.mainimage.replace("data:image/jpeg;base64,", "");
+
    })
   }
   serchingterm

@@ -37,12 +37,6 @@ class ArchiveService extends CI_Controller
     }
     public function archivednotes($email){
 
-
-
-
-
-
-
         $sekretkey = "chandu";
 
         $channel = new ConnectingToRedis();
@@ -63,14 +57,35 @@ class ArchiveService extends CI_Controller
         print json_encode($arr);
     }
     public function archive($uid){
+
+
+
+
         $query = "UPDATE userNotes SET archive = '0'  where id = '$uid'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {
-            $data = array(
-                "status" => "200",
+
+            $sekretkey = "chandu";
+
+            $channel = new ConnectingToRedis();
+            $client = $channel->redisConnection();
+            $token = $client->get('token');
+    
+            $array = array(
+                'HS256',
             );
-            print json_encode($data);
+            $payload = JWT::decode($token, $sekretkey, $array);
+    
+            $userId = $payload->userId;
+
+            $query = "SELECT * from userNotes Where userId ='$userId'";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+            $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            print json_encode($arr);
+
+            
         } else {
             $data = array(
                 "status" => "204",
@@ -151,11 +166,12 @@ class ArchiveService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0";
+                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 0";
 
                 $statement = $this->db->conn_id->prepare($query);
 
-                if ($statement->execute()) {
+                $res =$statement->execute();
+                if ($res) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
                     $array = array_reverse($arr);
                     print json_encode($array);
@@ -203,11 +219,12 @@ public function getAllPinnedNotesService($email)
         $jwt = new JWT();
         if ($jwt->verifyc($token, $sekretkey)) {
 
-            $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0";
+            $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 1";
 
             $statement = $this->db->conn_id->prepare($query);
 
-            if ($statement->execute()) {
+            $res= $statement->execute();
+            if ($res) {
                 $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
                 $array = array_reverse($arr);
                 print json_encode($array);

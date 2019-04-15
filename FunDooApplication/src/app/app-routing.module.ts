@@ -14,6 +14,7 @@ import { ArchiveComponent } from './Components/archive/archive.component';
 import { TrashComponent } from './Components/trash/trash.component';
 import { LabelComponent } from './Components/label/label.component';
 import { EmptycontentComponent } from './Components/emptycontent/emptycontent.component';
+import { LabelednotesComponent } from './Components/labelednotes/labelednotes.component';
 
 
 
@@ -62,6 +63,10 @@ const routes: Routes = [
       {
         path: 'emptycontent',
         component: EmptycontentComponent,      
+      },
+      {
+        path: 'labelednotes',
+        component: LabelednotesComponent
       },
       
      ]

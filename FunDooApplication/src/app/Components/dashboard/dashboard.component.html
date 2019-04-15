@@ -93,9 +93,9 @@
         <button *ngIf="!imagepre" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
 
           <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount">
-            
-            <img src="{{image}}" class="profilepic" />
-          
+
+            <img src="{{mainimage}}" class="profilepic" />
+
           </mat-icon>
 
         </button>
@@ -103,9 +103,9 @@
         <button *ngIf="!present" mat-button class="profilebutton" [matMenuTriggerFor]="menu">
 
           <mat-icon matTooltip="Google Account {{value}}" class="example-iconAccount">
-            
+
             <img src="{{mainimage}}" class="profilepic" />
-          
+
           </mat-icon>
 
         </button>
@@ -116,18 +116,20 @@
 
           <span>
 
-            <mat-icon *ngIf="!imagepre" style="font-size: 0px;margin-top: 0px;" (click)="file.click()" matTooltip="Google Account" class="example-iconAccount">
+            <mat-icon *ngIf="!imagepre" style="font-size: 0px;margin-top: 0px;" (click)="file.click()" matTooltip="Google Account"
+              class="example-iconAccount">
 
-              <img src="{{image}}" class="insideprofilepic" />
+              <img src="{{mainimage}}" class="insideprofilepic" />
 
             </mat-icon>
 
 
-            <mat-icon *ngIf="!present" style="font-size: 0px;margin-top: 0px;" (click)="file.click()" matTooltip="Google Account" class="example-iconAccount">
+            <mat-icon *ngIf="!present" style="font-size: 0px;margin-top: 0px;" (click)="file.click()" matTooltip="Google Account"
+              class="example-iconAccount">
 
-                <img src="{{mainimage}}" class="insideprofilepic" />
-  
-              </mat-icon>
+              <img src="{{mainimage}}" class="insideprofilepic" />
+
+            </mat-icon>
 
             <input style="display:none" type="file" #file (change)="selectedImage($event, '01')" />
 
@@ -195,11 +197,11 @@
 
           <label fxLayout="row" class="label">Labels</label>
 
-          <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels">
+          <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels" routerLink='labelednotes'>
 
-            <mat-icon class="example-icon">label</mat-icon>
+              <mat-icon class="example-icon">label</mat-icon>
 
-            <span class="spantext">{{item.label}}</span>
+              <span class="spantext">{{item.label}}</span>
 
           </a>
 

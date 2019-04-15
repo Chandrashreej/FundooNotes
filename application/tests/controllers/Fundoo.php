@@ -109,4 +109,38 @@ class Fundoo extends TestCase
         $res = $contents->message;
         $this->assertEquals("200", $res,'password incorrect');
     }
+    public function testfetchArchive(){
+        $request = $this->http->post('fetchArchive',[
+            'form_params' => [
+                'email'=>'chandra1996jh@gmail.com',
+            ],
+        ]);
+        $stream = $request->getbody();
+        $contents = json_decode($stream);
+        $res = $contents->message;
+        $this->assertEquals("200", $res,'success');
+    }
+    public function testunarchive(){
+        $request = $this->http->post('unarchive',[
+            'form_params' => [
+                'uid'=>'36',
+            ],
+        ]);
+        $stream = $request->getbody();
+        $contents = json_decode($stream);
+        $res = $contents->message;
+        $this->assertEquals("200", $res,'success');
+    }
+    public function testgetAllNotes(){
+        $request = $this->http->post('unarchive',[
+            'form_params' => [
+                'email'=>'chandra1996jh@gmail.com',
+            ],
+        ]);
+        $stream = $request->getbody();
+        $contents = json_decode($stream);
+        $res = $contents->message;
+        $this->assertEquals("200", $res,'success');
+    }
+
 }
