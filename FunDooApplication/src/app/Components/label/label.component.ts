@@ -38,10 +38,11 @@ model:any;
   }
 
   closes() {
+    
     this.model= {
       "labelname" : this.labelname.value
     }
-    debugger
+    debugger;
     let labelobs = this.labelsev.setLabel(this.email, this.model);
     labelobs.subscribe((res: any) => {
 

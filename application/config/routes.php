@@ -86,6 +86,10 @@ $route['unTrash'] ='Trash/unTrash';
 $route['setlabel'] ='Label/addingLabel';
 $route['fetchlabel'] ='Label/fetchingLabel';  
 
+
+$route['setlabeleledNotes'] ='Label/setlabeleledNotes';
+$route['fetchlabeleledNotes'] ='Label/fetchlabeleledNotes';  
+
 $route['socialLoginData'] ='Login/socialLogin';  
 
 $route['imageFetcher'] ='DashBoard/imageFetcher';

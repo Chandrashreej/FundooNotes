@@ -104,7 +104,7 @@ export class NotesComponent implements OnInit {
 
       var reader = new FileReader();
 
-      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.onload = this._handleImageLoader.bind(this);
 
       reader.readAsBinaryString(file);
 
@@ -116,7 +116,7 @@ export class NotesComponent implements OnInit {
   imagepre
   present
   mainimagefornotes
-  _handleReaderLoaded(readerEvt) {
+  _handleImageLoader(readerEvt) {
 
     debugger;
 

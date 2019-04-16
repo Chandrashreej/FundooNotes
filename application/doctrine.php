@@ -10,7 +10,7 @@ define('ENVIRONMENT', 'development');
 
 chdir(APPPATH);
 
-require __DIR__ . '/libraries/doctrine.php';
+require __DIR__ . '/libraries/Doctrine.php';
 
 foreach ($GLOBALS as $helperSetCandidate) {
     if ($helperSetCandidate instanceof \Symfony\Component\Console\Helper\HelperSet) {

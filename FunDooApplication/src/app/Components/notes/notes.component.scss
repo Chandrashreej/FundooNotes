@@ -19,8 +19,8 @@
     .mainmat {
         box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
         margin-top: 38px;
-        margin-left: 140px;
-        margin-right: 140px;
+        margin-left: 232px;
+        margin-right: 300px;
         padding-right: 0px;
         padding-left: 23px;
         padding-top: 0px;
@@ -97,6 +97,7 @@
         display: inline-block;
         font-family: 'Product Sans',Arial,sans-serif;
         font-size: 15px;
+        right: 31px;
 
     }
     .gridcard{
@@ -131,25 +132,26 @@
     }
 
 .commonClass{
-    position: relative;
-	display: inline-block;
+
+        position: relative;
+        display: inline-block;
 }
 .commonClass :hover .pinned{
-    display: block;
-    position: relative;
+        display: block;
+        position: relative;
 }
 
 .pinned {
-	// padding-top: 7px;	
-	// padding-right: 7px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	// display: none;
+        // padding-top: 7px;	
+        // padding-right: 7px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        // display: none;
 }
 
 .pinned a {
-	color: rgb(94, 93, 93);
+	    color: rgb(94, 93, 93);
 }
 
     .column{
@@ -223,18 +225,21 @@
     }
     .chips{
 
-        height: 15px;
-        width:250px;
+        height: 13px;
+ 
         border-radius: 30px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        background-color:  rgba(0,0,0,0.08);
-        font-family: 'Product Sans',Arial,sans-serif;
-        font-size: 13px;
 
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 200px;
+        background-color:  rgba(0,0,0,0.08);
+        font-family: 'Google Sans',Roboto,Arial,sans-serif;
+        font-size: .6900rem;
+
+        padding-left: 5px;
+        padding-right: 5px;
+
+        width: 180px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
 
 
     }

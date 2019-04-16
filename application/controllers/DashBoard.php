@@ -81,7 +81,7 @@ class DashBoard extends CI_Controller
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
-        return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pi);
+        return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin);
     }
 
 
