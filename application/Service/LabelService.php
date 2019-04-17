@@ -90,4 +90,27 @@ class LabelService extends CI_Controller
         $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         print json_encode($arr);
     }
+
+
+    public function deleteLabelService($email)
+    {
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+        $query = "SELECT * from labels Where userId ='$userId'  ";
+        $stmt = $this->db->conn_id->prepare($query);
+        $res = $stmt->execute();
+
+        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        print json_encode($arr);
+    }
 }

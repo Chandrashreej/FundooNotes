@@ -135,22 +135,51 @@ class DashboardService extends CI_Controller
         $userId = $payload->userId;
         // $token = $headers['Authorization'];
         //$color = "white";
+        $index= "";
         if ($token != null) {
 
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color, image,pin) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color', '$image', '$pin')";
+                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color, image,pin, indexId) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color', '$image', '$pin', '$index')";
 
                 $stmt = $this->db->conn_id->prepare($query);
                 $res = $stmt->execute();
 
                 if ($res) {
-                    $result = array(
-                        "message" => "200",
-                    );
-                    print json_encode($result);
-                    return "200";
+
+                    $query = "SELECT * FROM userNotes where userId = '$userId'";
+
+                    $statement = $this->connect->prepare($query);
+
+                    if ($statement->execute()) {
+
+                        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($arr as $notesData) {
+
+                            $phonenum = $notesData['title'];
+                
+                            $index = $notesData['id'];
+                        }
+ 
+                        // $index = ($arr[0]["id"]);
+
+
+                        $query = "UPDATE userNotes set indexId = '$index' WHERE  id = '$index'";
+
+                        $statement = $this->db->conn_id->prepare($query);
+        
+                        if ($statement->execute()) {
+                            $result = array(
+                                "message" => "200",
+                            );
+                            print json_encode($result);
+                            return "200";
+                        }
+
+
+                        }
+
                 } else {
                     $result = array(
                         "message" => "204",

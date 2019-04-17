@@ -194,11 +194,11 @@
 
           <label fxLayout="row" class="label">Labels</label>
 
-          <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels" routerLink='labelednotes'>
+          <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels" routerLink='labelednotes' (click)="sendLabelId(item.labelname)">
 
               <mat-icon class="example-icon">label</mat-icon>
 
-              <span class="spantext">{{item.label}}</span>
+              <span class="spantext">{{item.labelname}}</span>
 
           </a>
 

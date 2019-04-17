@@ -102,4 +102,19 @@ export class DashboardService {
 
   }
 
+
+  labeledNotes(note: NotesModel, currentDateAndTime, labelname) {
+    let userNotesdata = new FormData();
+
+    userNotesdata.append("title", note.title);
+    userNotesdata.append("takeANote", note.takeANote);
+    userNotesdata.append("email", note.email);
+    userNotesdata.append("dateAndTime", currentDateAndTime);
+    userNotesdata.append("labelname", labelname);
+
+    return this.http.post((this.sevriceurl.host + this.sevriceurl.setlabeleledNotes), userNotesdata,
+    );
+  }
+
+
 }

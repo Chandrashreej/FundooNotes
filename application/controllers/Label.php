@@ -18,7 +18,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 header("Access-Control-Allow-Headers: Authorization");
 header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin,Content-Range, Authorization, Content-Description, Content-Disposition,');
 include '/var/www/html/codeigniter/application/Service/ConnectingToRedis.php';
-// use \Firebase\JWT\JWT;
+use \Firebase\JWT\JWT;
 
 
 
@@ -26,7 +26,7 @@ include '/var/www/html/codeigniter/application/Service/ConnectingToRedis.php';
 include '/var/www/html/codeigniter/application/controllers/JWT.php';
 
 // below file is required to work on
-include '/var/www/html/codeigniter/application/Service/LabelService.php';
+// include '/var/www/html/codeigniter/application/Service/LabelService.php';
 
 /**
  * creation of login class that extends CI_Controller
@@ -44,11 +44,11 @@ class Label extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->refService = new LabelService();
+        // $this->refService = new LabelService();
     }
 
 
-    public function addingLabel(){
+    public function addingLafsbel(){
         $email = $_POST['email'];
         $label = $_POST['labelmodel'];
         $this->refService->labelAddingService($email,$label);
@@ -56,7 +56,7 @@ class Label extends CI_Controller
         $em = $this->doctrine->em;
     }
 
-    public function addingLabfgel(){
+    public function addingLabel(){
         $email = $_POST['email'];
         $label = $_POST['labelmodel'];
 
@@ -84,8 +84,6 @@ class Label extends CI_Controller
 		$group->setLabelName($label);
         $group->setUserId($userId);
 
-        $query = $em->find('Entity\DocLabel',1);
-
         $em = $this->doctrine->em;
 		$em->persist($group);
         $em->flush();
@@ -94,8 +92,42 @@ class Label extends CI_Controller
     }
     public function fetchingLabel()
     {
-        $email = $_POST['email'];
-        $this->refService->labelFetchingService($email);
+        // $email = $_POST['email'];
+        // $this->refService->labelFetchingService($email);
+
+
+        // $email = $_POST['email'];
+        // $label = $_POST['labelmodel'];
+
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+
+        $this->load->library('doctrine');
+
+        $em = $this->doctrine->em;
+
+        $query = $em->createQuery("SELECT u.id,u.userId,u.labelname FROM \Entity\DocLabel u WHERE u.userId = '$userId'");
+        $users = $query->getResult();
+
+        // $arr = $users[0];
+
+
+        // $users = $query->getScalarResult();
+        // return $users;
+
+    print json_encode($users);
+        
+
     }
 
     public function doctrine()
@@ -137,7 +169,20 @@ class Label extends CI_Controller
 		));
 	}
 
+    public function setlabeleledNotes(){
+        $email =        $_POST["email"];
+        $takeANote =    $_POST["takeANote"];
+        $title =        $_POST["title"];
+        $dateAndTime =  $_POST["dateAndTime"];
+        $labelname =    $_POST["labelname"];
 
+
+
+        $this->load->library('doctrine');
+		$em = $this->doctrine->em;
+		$group = new Entity\DocLabel;
+		$group->getUserId($labelname);
+    }
 
 
 }

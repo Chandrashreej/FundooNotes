@@ -8,6 +8,7 @@ import { ListService } from 'src/app/Services/list.service';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 import { FormControl } from '@angular/forms';
 import { NotesModel } from 'src/app/Models/Notes.model';
+import { LabelidService } from 'src/app/Services/labelid.service';
 
 @Component({
   selector: 'app-labelednotes',
@@ -49,7 +50,9 @@ export class LabelednotesComponent implements OnInit {
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private name:LabelidService
+    ) {
 
     this.listview.getView().subscribe((res => {
 
@@ -63,8 +66,22 @@ export class LabelednotesComponent implements OnInit {
 
     }));
   }
+labelname
+
+  fetLabelName(){
+    debugger;
+
+    this.name.getsetLabelName().subscribe((res => {
+     
+
+      this.view = res;
+
+      this.labelname = this.view.data;
 
 
+      console.log(this.labelname)
+    }));
+  }
   fetchImage() {
 
     debugger;
@@ -136,6 +153,7 @@ export class LabelednotesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fetLabelName();
 
     this.notesDisplaying();
 
@@ -405,12 +423,7 @@ export class LabelednotesComponent implements OnInit {
 
     debugger;
 
-    if ((this.title.value == "" && this.takeANote.value == "") || (this.title.value == null && this.takeANote.value == null) || this.dateAndTime == undefined) {
 
-      this.flag = true;
-
-    }
-    else {
 
       const email = localStorage.getItem('email');
 
@@ -422,13 +435,17 @@ export class LabelednotesComponent implements OnInit {
 
         "email": email,
 
-        "color": this.backgroundColour,
+        
+        
+        
 
-        "image": this.mainimage
+        // "color": this.backgroundColour,
+
+        // "image": this.mainimage
 
       }
 
-      let obs = this.notesService.usereNotes(this.model, this.dateAndTime);
+      let obs = this.notesService.labeledNotes(this.model, this.dateAndTime, this.labelname);
 
       obs.subscribe((res: any) => {
 
@@ -442,7 +459,7 @@ export class LabelednotesComponent implements OnInit {
 
       });
 
-    }
+    
 
   }
 

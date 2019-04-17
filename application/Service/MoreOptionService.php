@@ -284,6 +284,14 @@ class MoreOptionsSevice extends CI_Controller
         // }
 
     }
+
+    public function dragNDropService(){
+        
+    }
+
+
+
+
     public function coloringBackgroundFunctionServiceForReminder($id, $color)
     {
         if ($flag == "color") {

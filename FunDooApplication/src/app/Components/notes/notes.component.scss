@@ -132,14 +132,11 @@
     }
 
 .commonClass{
+position: fixed;
+        // position: relative;
+        // display: inline-block;
+}
 
-        position: relative;
-        display: inline-block;
-}
-.commonClass :hover .pinned{
-        display: block;
-        position: relative;
-}
 
 .pinned {
         // padding-top: 7px;	
@@ -147,12 +144,10 @@
         position: absolute;
         right: 0;
         top: 0;
+        margin-left: 300px;
         // display: none;
 }
 
-.pinned a {
-	    color: rgb(94, 93, 93);
-}
 
     .column{
 
@@ -273,6 +268,7 @@
     line-height: 0rem;
     text-transform: uppercase;
     padding: 15px 24px 10px;
+    transition: .3s ease;
 }
 .notesImageColumn{
     position: relative;
@@ -288,15 +284,13 @@
 }
 .notesImageTitle{
 
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
+
     width: 580px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 
 }
+
 .notesImageColumn :hover .pinned{
     display: block;
     position: relative;
@@ -315,13 +309,13 @@
         visibility: hidden;
 
     }
-    //     .buttonDisplay{
-    //         display: none;
-    //     }
-    //     .gridcard:hover .buttonDisplay, .buttonDisplay:hover{
-    // display: inline;
-    //     }
-    // .mat-dialog-container .custom-dialog-container {
+.buttonDisplay{
+            visibility: hidden;
+        }
+        .gridcard:hover .buttonDisplay, .buttonDisplay:hover{
+    visibility: visible;;
+        }
+    .mat-dialog-container .custom-dialog-container {
 
-    // padding: 0px;
-    // }
+    padding: 0px;
+    }

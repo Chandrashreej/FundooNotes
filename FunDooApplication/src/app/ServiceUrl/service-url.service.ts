@@ -41,6 +41,11 @@ export class ServiceUrlService {
   public imageFetcher = "codeigniter/imageFetcher";
 
   public imageSetter = "codeigniter/imageSetter";
-  
+  public dragNDrop = "codeigniter/dragNDrop";
+
+
+
+  public setlabeleledNotes = 'codeigniter/setlabeleledNotes';
+
   
 }

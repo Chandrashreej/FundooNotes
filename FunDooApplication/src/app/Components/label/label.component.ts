@@ -34,6 +34,7 @@ model:any;
      fetchobs.subscribe((res: any) => {
       debugger
       this.labels = res;
+      
     })
   }
 

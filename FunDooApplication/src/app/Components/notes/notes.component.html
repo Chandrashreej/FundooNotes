@@ -66,7 +66,7 @@
         <input style="font-size: 100px;margin-top: 15px;appearance : null;font-family: 'Google Sans',Roboto,Arial,sans-serif;font-size: 1rem; color: #646161; border: none;width: 550px;height:30px;"
           [formControl]="title" matInput placeholder="Title" />
 
-        <button style="padding-top: 5px;" mat-icon-button (click)="pinnedFunction(01)">
+        <button style="padding-top: 5px;" mat-icon-button (click)="pinnedFunction(01,'')">
 
           <mat-icon matTooltip="Pin note" style="margin-left: 0px;margin-top: -43px;" matSuffix class="cardicon">
 
@@ -352,39 +352,35 @@
     </mat-card>
 
   </div>
+
   <div *ngIf="pinnednotes">
-    <span class="others" >PINNED</span>
+
+    <span class="others">PINNED</span>
 
     <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
 
-      <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
+      <mat-card [ngStyle]="{'background-color': n.color}" class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
         *ngFor="let n of pinnedlist" cdkDrag>
+
 
         <div>
 
-          <img mat-card-image src="{{n.image}}" class="commonClass" [ngClass]="direction == 'row'  ? 'notesImage': 'notesImageColumn' "
-            style="margin-top: 0px;border-radius: 3%">
+          <button class="buttonDisplay" style=" width: 41px ;padding-top: 3px;margin-left: 173px;" (click)="pinnedFunction(n.id, 'pinned')"
+            mat-icon-button>
 
-          <div>
-            <a>
+            <mat-icon matSuffix>
 
-              <i>
+              <img src="../../assets/img/fundoAssests/pin.svg " />
 
-                <button style="padding-top: 5px;" mat-icon-button (click)="pinnedFunction(n.id)">
+            </mat-icon>
 
-                  <mat-icon class="pinned" matTooltip="Pin note" style="margin-left: 0px;margin-top: -43px;" matSuffix
-                    class="cardicon">
+          </button>
 
-                    <img src="../../assets/img/fundoAssests/download.svg" style="fill: rgb(87, 86, 86); width: 26px;padding-top: 15px;" />
+          <img style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: 230PX;"
+            mat-card-image src="{{n.image}}">
 
-                  </mat-icon>
-
-                </button>
-              </i>
-
-            </a>
-          </div>
         </div>
+
 
         <div (click)="openDialog(n)" style="margin-left: 9px;">
 
@@ -392,9 +388,8 @@
 
             {{ n.title }}
 
-
-
           </p>
+
           <p style="font-size: 14px;padding-left: 5px; word-break: break-all;">
 
             {{ n.takeANote }}
@@ -606,38 +601,31 @@
 
   </div>
   <div>
-      <span class="others">OTHERS</span>
+    <span class="others">OTHERS</span>
 
     <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
-      
-      
+
+
       <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
         *ngFor="let n of notelist" cdkDrag>
 
         <div>
 
-          <img mat-card-image src="{{n.image}}" class="commonClass" [ngClass]="direction == 'row'  ? 'notesImage': 'notesImageColumn' "
-            style="margin-top: 0px;border-radius: 3%">
+          <button class="buttonDisplay" style=" width: 41px ;padding-top: 3px;margin-left: 173px;" (click)="pinnedFunction(n.id, 'others')"
+            mat-icon-button>
 
-          <div>
-            <a>
+            <mat-icon matSuffix>
 
-              <i>
+              <img src="../../assets/img/fundoAssests/download.svg " />
 
-                <button style="padding-top: 5px;" mat-icon-button (click)="pinnedFunction(n.id)">
+            </mat-icon>
 
-                  <mat-icon class="pinned" matTooltip="Pin note" style="margin-left: 0px;margin-top: -43px;" matSuffix
-                    class="cardicon">
+          </button>
 
-                    <img src="../../assets/img/fundoAssests/download.svg" style="fill: rgb(87, 86, 86); width: 26px;padding-top: 15px;" />
+          <img style="margin-left: 0px;margin-top: -40px;border-top-left-radius: 10px;
+            border-top-right-radius: 10px;width: 230px;" mat-card-image src="{{n.image}}">
 
-                  </mat-icon>
 
-                </button>
-              </i>
-
-            </a>
-          </div>
         </div>
 
         <div (click)="openDialog(n)" style="margin-left: 9px;">

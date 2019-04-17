@@ -70,13 +70,13 @@ class DashBoard extends CI_Controller
 
     public function setNotes()
     {
-        $email = $_POST["email"];
-        $takeANote = $_POST["takeANote"];
-        $title = $_POST["title"];
-        $dateAndTime = $_POST["dateAndTime"];
-        $color = $_POST["color"];
-        $image =$_POST["image"];
-        $pin = $_post["pinned"];
+        $email =        $_POST["email"];
+        $takeANote =    $_POST["takeANote"];
+        $title =        $_POST["title"];
+        $dateAndTime =  $_POST["dateAndTime"];
+        $color =        $_POST["color"];
+        $image =        $_POST["image"];
+        $pin =          $_POST["pinned"];
 
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
@@ -95,14 +95,11 @@ class DashBoard extends CI_Controller
 
     public function setReminderNotes()
     {
-        $email = $_POST["email"];
-        $takeANote = $_POST["takeANote"];
-        $title = $_POST["title"];
-        $dateAndTime = $_POST["dateAndTime"];
-        $color = $_POST["color"];
-        // $this->load->library('Redis');
-        // $redis = $this->redis->config();
-        // $redis->set($email, $email);
+        $email =        $_POST["email"];
+        $takeANote =    $_POST["takeANote"];
+        $title =        $_POST["title"];
+        $dateAndTime =  $_POST["dateAndTime"];
+        $color =        $_POST["color"];
         return $this->NoteService->setAllReminderService($email, $title, $takeANote, $dateAndTime, $color);
     }
     public function getAllNotes()

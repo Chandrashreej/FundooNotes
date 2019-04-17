@@ -51,4 +51,13 @@ class MoreOptions extends CI_Controller
         $color = $_POST["value"];
         return $this->moreService->coloringBackgroundFunctionServiceForReminder($id, $color);
     }
+
+    public function dragNDrop()
+    {
+        $id = $_POST["id"];
+        $color = $_POST["value"];
+        return $this->moreService->dragNDropService($id, $color);
+    }
+
+
 }

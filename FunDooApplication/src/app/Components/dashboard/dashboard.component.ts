@@ -11,6 +11,7 @@ import { LabelsModel } from 'src/app/Models/labels.model';
 import { CookieService } from 'ngx-cookie-service';
 import { SearchService } from 'src/app/Services/search.service';
 import { NotesModel } from 'src/app/Models/Notes.model';
+import { LabelidService } from 'src/app/Services/labelid.service';
 
 
 
@@ -42,7 +43,8 @@ labels: LabelsModel[]=[];
     private labelsev: LabelService,
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,private cookieserv:CookieService) {
+    sanitizer: DomSanitizer,private cookieserv:CookieService,
+    private nameservice: LabelidService) {
     this.changeView();
     this.image = this.cookieserv.get("image");
   }
@@ -126,6 +128,9 @@ labels: LabelsModel[]=[];
     config.data ={data:this.email};
     const label = this.dialog.open(LabelComponent,config);
   }
+
+
+
   fetchLabel() {
     this.email = localStorage.getItem("email");
     debugger
@@ -221,6 +226,15 @@ imageid;
 
     }
   }
+
+
+sendLabelId(labelname)
+{
+
+       this.nameservice.setLabelName(labelname);
+
+}
+
 
 
 }
