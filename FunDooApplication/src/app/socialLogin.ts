@@ -7,6 +7,8 @@ import {
 import {constant}from './constants/constants';
 import { from } from "rxjs";
 export function getAuthServiceConfigs() {
+
+	debugger;
 	let config = new AuthServiceConfig([
 		{
 			id: FacebookLoginProvider.PROVIDER_ID,

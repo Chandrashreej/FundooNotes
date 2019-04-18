@@ -8,13 +8,13 @@
 
         <button mat-button matTooltip="Min Menu" class="menubutton" (click)="drawer.toggle()">
 
-          <mat-icon class="example-icon">menu</mat-icon>
+          <mat-icon class="example-icon" style="margin-left: -37px">menu</mat-icon>
 
         </button>
 
         <mat-icon class="keepimage" fxLayout="row" fxLayoutAlign="center center">
 
-          <img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" />
+          <img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" style="margin-left: -112px;height: 40px;"/>
 
         </mat-icon>
 
@@ -22,7 +22,7 @@
 
       </div>
 
-      <button mat-icon-button matTooltip="Search" style="margin-left: 120px;" class="searchicon">
+      <button mat-icon-button matTooltip="Search" style="margin-left: 20px;" class="searchicon">
 
         <mat-icon class="example-icon">search</mat-icon>
 
@@ -33,11 +33,11 @@
 
       <button mat-icon-button style="right: 60px;" [routerLink]="['notes']" (click)="closeSearch()">
 
-        <mat-icon style="width:1px; height:1px; margin-bottom: 20px;color: grey">close</mat-icon>
+        <mat-icon style="width:1px; height:1px; margin-bottom: 20px;color: grey;margin-left: -89px;">close</mat-icon>
 
       </button>
 
-      <mat-icon matTooltip="Refresh" style="margin-left: 200px;" class="example-icon">refresh</mat-icon>
+      <mat-icon matTooltip="Refresh" style="margin-left: 175px;" class="example-icon">refresh</mat-icon>
 
       <button mat-icon-button *ngIf="list" (click)="changeView()" style="border:none ; background-color: white;">
 

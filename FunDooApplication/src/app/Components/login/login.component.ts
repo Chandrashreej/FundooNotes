@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
 
 
   usingSocialSignIn(sociallogin: string) {
+    debugger;
 		let socialservice;
 		if (sociallogin == "facebook") {
 			socialservice = FacebookLoginProvider.PROVIDER_ID;

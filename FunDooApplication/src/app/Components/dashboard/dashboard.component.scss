@@ -16,14 +16,14 @@
     }
     .example-icon {
       padding: 0 14px;
-      color: rgb(104, 101, 101);
+      color: #5f6368;
       width:"24";
       height:"24";
       
     }
     .example-iconAccount {
       padding: 0 14px;
-      color: rgb(104, 101, 101);
+      color: #5f6368;
       width:30px;
       height:30px;
       font-size: 40px;
@@ -63,12 +63,14 @@
       border: gray;
       border-width: 10px;
       direction: ltr;
+      height: 55px;
+
     }
     .header{
         padding: 8px;
     }
     .title{
-      color: gray;
+      color: #5f6368;
       display: inline-block;
       font-family: 'Product Sans',Arial,sans-serif;
       font-size: 22px;
@@ -77,9 +79,11 @@
       position: relative;
       top: -1.5px;
       vertical-align: middle;
+      margin-left: -60px;
+      margin-right: 50px;
     }
     .spacertitle{
-      color: gray;
+      color: #5f6368;
       display: inline-block;
       font-family: 'Product Sans',Arial,sans-serif;
       font-size: 22px;
@@ -177,16 +181,17 @@
     height: 20px;
     outline-color: opacify($color:white, $amount: -0);
     padding: 11px 16px 11px 68px;
-    width: 500px;
+    width: 772px;
+    margin-left: -39px;
     background-color: white;
-    background: #F5F5F5;
+    background: #F0F3F4;
+    
     font: normal 16px Roboto, sans-serif;
     font-size: 15px;
     font-display:padding-left;
     font-variant-ligatures: none;
 
-    margin-left: -44px;
-    margin-right: 0px;
+    margin-right: 54px;
   }
   .label{
     color: #5f6368;
@@ -249,7 +254,7 @@
   .email{
 margin-left: 110px;
 margin-right: 10px;
-color:rgb(105, 104, 104);
+color: #5f6368;
 font-size: 13px;
 margin-top: 0px;
 margin-bottom: 25px;

@@ -177,11 +177,59 @@ class Label extends CI_Controller
         $labelname =    $_POST["labelname"];
 
 
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
 
         $this->load->library('doctrine');
 		$em = $this->doctrine->em;
-		$group = new Entity\DocLabel;
-		$group->getUserId($labelname);
+		// $group = new Entity\DocLabel;
+        // $group->getUserId($labelname);
+        
+        $query = $em->createQuery("SELECT u.id,u.userId,u.labelname FROM \Entity\DocLabel u WHERE u.userId = '$userId' and u.labelname = '$labelname' ");
+        $labelobj = $query->getResult();
+
+
+
+        $this->load->library('doctrine');
+		$em = $this->doctrine->em;
+
+		$user = new Entity\DocLabeledNotes;
+		$user->setTitle($title);
+		$user->setTakeANote($takeANote);
+        $user->setDateAndTime('undefined');
+
+
+
+
+        $group = new Entity\DocLabel;
+
+		$group->setLabelName($labelobj[0]['labelname']);
+        $group->setUserId($labelobj[0]['userId']);
+
+        $em = $this->doctrine->em;
+
+
+
+
+
+
+        $user->setDocLabel($group);
+        
+        $em = $this->doctrine->em;
+		$em->persist($user);
+        $em->flush();
+
+
     }
 
 

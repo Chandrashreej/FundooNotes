@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center center" height="100vh">
+ <div fxLayout="row" fxLayoutAlign="center center" height="100vh">
 
   <mat-card class="mcard" fxFlex="40" fxFlex.sm="30" fxFlex.xs="100" height="59%" width="50%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 300%;">
 
@@ -135,7 +135,7 @@
       <button mat-raised-button [disabled]='email.required ||email.email || password.required 
       ||password.minLength ||confirmpassword.required ||confirmpassword.minLength || phonenum.required 
       || phonenum.maxLength ||phonenum.pattern' 
-      color="primary" (click)="register (regForm)">Register</button>
+      color="primary" (click)="register ()">Register</button>
 
     </div>
 
