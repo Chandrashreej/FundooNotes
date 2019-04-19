@@ -95,10 +95,11 @@ export class LoginService {
 	 * @param login
 	 * @description Function to send login data to server
 	 */
-	socialLogin(email, name) {
+	socialLogin(email, name, pltForm) {
 		let socialLoginData = new FormData();
 		socialLoginData.append("email", email);
 		socialLoginData.append("firstname", name);
+		socialLoginData.append("pltForm", pltForm);
 		return this.http.post(
 			this.sevriceurl.host + this.sevriceurl.socialLoginData,
 			socialLoginData

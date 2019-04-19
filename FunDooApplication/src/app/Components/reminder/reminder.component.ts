@@ -43,7 +43,7 @@ export class ReminderComponent implements OnInit {
   wrap: string = "wrap";
   direction: string = "row";
   layout: string = this.direction + " " + this.wrap;
-  pinnedBool:boolean = false;
+  pinnedBool: boolean = false;
 
   constructor(private notesService: DashboardService,
     private listview: ListService,
@@ -93,7 +93,7 @@ export class ReminderComponent implements OnInit {
   selectedImage(event, id) {
 
     debugger;
-    
+
     this.imageid = id;
 
     var files = event.target.files;
@@ -110,8 +110,8 @@ export class ReminderComponent implements OnInit {
 
     }
   }
-  imageBoolForMainCrd:boolean = false;
-  imageBoolForNotesCrd:boolean = false;
+  imageBoolForMainCrd: boolean = false;
+  imageBoolForNotesCrd: boolean = false;
   base64textString
   imagepre
   present
@@ -133,7 +133,7 @@ export class ReminderComponent implements OnInit {
 
     }
     else {
-     this.imageBoolForMainCrd= true;
+      this.imageBoolForMainCrd = true;
       this.mainimage = "data:image/jpeg;base64," + this.base64textString;
     }
 
@@ -299,7 +299,7 @@ export class ReminderComponent implements OnInit {
 
     const email = localStorage.getItem('email');
 
-    let getnotes = this.notesService.fetchnotes(email);
+    let getnotes = this.notesService.fetchReminder(email);
 
     getnotes.subscribe((res: any) => {
 
@@ -358,24 +358,24 @@ export class ReminderComponent implements OnInit {
 
     });
   }
-  pinnednotes:boolean= false;
-  pinnedlist:any;
+  pinnednotes: boolean = false;
+  pinnedlist: any;
   fetchPinned() {
-debugger;
+    debugger;
     const email = localStorage.getItem('email');
 
     let getnotes = this.notesService.fetchPinnedNotes(email);
 
     getnotes.subscribe((res: any) => {
-debugger;
+      debugger;
       console.log("res", res);
-      if(res != 0){
+      if (res != 0) {
         this.pinnednotes = true;
         this.pinnedlist = res as string[];
       }
-      
-      
-     
+
+
+
 
 
     });
@@ -409,8 +409,7 @@ debugger;
       this.flag = true;
 
     }
-    else if(this.dateAndTime == undefined)
-    {
+    else if (this.dateAndTime == undefined) {
       this.flag = true;
     }
     else {
@@ -456,21 +455,24 @@ debugger;
 
   }
   pinnedvalue;
-pinnedFunction(id)
-{
- if(id == '01')
- {
-   this.pinnedvalue ='1';
- }
- else{
+  pinnedFunction(id, str) {
+    if (id == '01') {
+      this.pinnedvalue = '1';
+    }
+    else {
+      if (str == "pinned") {
+        var colorid = '0';
+      }
+      else if (str == "others") {
+        var colorid = '1';
+      }
 
-  var colorid = '1';
-  var flag = "pinned";
+      var flag = "pinned";
 
 
-   this.notestools(id, colorid, flag);
- }
-}
+      this.notestools(id, colorid, flag);
+    }
+  }
   notestools(id, colorid, flag) {
 
     let colorObs = this.notesService.coloringBackground(id, colorid, flag);
@@ -494,9 +496,12 @@ pinnedFunction(id)
   }
   direct;
   difference;
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<NotesModel[]>) {
     debugger;
     moveItemInArray(this.notelist, event.previousIndex, event.currentIndex);
+    console.log("prev", event.previousIndex);
+    console.log("cure", event.currentIndex);
+    console.log("id")
     // if (event.previousIndex - event.currentIndex >= 2) {
     //   this.difference = event.previousIndex - event.currentIndex;
     //   this.direct = "positive";
@@ -506,6 +511,9 @@ pinnedFunction(id)
     //   this.direct = "negative";
     // }
   }
+
+
+
 
 
 }

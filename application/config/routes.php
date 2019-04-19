@@ -82,9 +82,12 @@ $route['unarchive'] ='Archive/unarchive';
 $route['fetcharchive'] ='Archive/fetcharchive';
 
 $route['fetchTrash'] ='Trash/fetchTrash';
+$route['getAllNotes'] ='DashBoard/getAllNotes';
+// $route['getAllNotes'] ='Archive/getAllNotes';
 
-$route['getAllNotes'] ='Archive/getAllNotes';
-$route['getAllPinnedNotes'] ='Archive/getAllPinnedNotes';
+$route['getAllPinnedNotes'] ='DashBoard/getAllPinnedNotes';
+
+// $route['getAllPinnedNotes'] ='Archive/getAllPinnedNotes';
 
 $route['unTrash'] ='Trash/unTrash';  
 

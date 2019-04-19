@@ -141,7 +141,7 @@ class Uselogin extends CI_Controller
 
 
 
-    public function socialSigin($email, $name)
+    public function socialSigin($email, $name, $pltForm)
     {
         $emailExists = $this->emailpresent($email);
         if ($emailExists) {

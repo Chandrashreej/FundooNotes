@@ -139,4 +139,12 @@ class DashBoard extends CI_Controller
         $value = $_POST["value"];
         return $this->NoteService->imageSetterService($email, $value);
     }
+
+    public function getAllPinnedNotes()
+    {
+
+        $email = $_POST["email"];
+        return $this->NoteService->getAllPinnedNotesService($email);
+    }
+
 }

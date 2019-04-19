@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
       (userData) => {
         console.log(sociallogin+" sign in data : " , userData);
         // Now sign-in with userData   
-        this.saveSocialUser(userData.name,userData.email,userData.image,userData.token)
+        this.saveSocialUser(userData.name,userData.email,userData.image,userData.token,sociallogin )
 
       }
 		);
@@ -108,9 +108,9 @@ export class LoginComponent implements OnInit {
 
 
 
-saveSocialUser(name,email,image,token){
+saveSocialUser(name,email,image,token,pltForm){
 
-    let socialres = this.logService.socialLogin(email,name);
+    let socialres = this.logService.socialLogin(email,name,pltForm);
     socialres.subscribe((res:any)=>{
 debugger
       console.log(res);

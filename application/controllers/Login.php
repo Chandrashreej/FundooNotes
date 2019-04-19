@@ -55,7 +55,8 @@ class Login extends CI_Controller
     public function socialLogin(){
         $email = $_POST['email'];
         $name = $_POST['firstname'];
-        $this->logService->socialSigin($email,$name);
+        $pltForm = $_POST['pltForm'];
+        $this->logService->socialSigin($email,$name, $pltForm);
     }
 
     public function adderToDatabase()

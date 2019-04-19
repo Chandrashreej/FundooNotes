@@ -83,7 +83,11 @@ export class DashboardService {
 
   }
 
-
+  fetchReminder(email){
+    let userReminderdata = new FormData();
+    userReminderdata.append("email",email);
+    return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllReminderNotes), userReminderdata);
+  }
 
   deleteNotesFunction(n) {
 

@@ -365,10 +365,10 @@
 
         <div>
 
-          <button class="buttonDisplay" style=" width: 41px ;padding-top: 3px;margin-left: 173px;" (click)="pinnedFunction(n.id, 'pinned')"
+          <button class="buttonDisplay" [ngClass]="direction == 'row'  ? 'rowpin': 'columnpin' " style=" width: 41px ;padding-top: 3px;margin-left: 173px;" (click)="pinnedFunction(n.id, 'pinned')"
             mat-icon-button>
 
-            <mat-icon matSuffix>
+            <mat-icon matSuffix >
 
               <img src="../../assets/img/fundoAssests/pin.svg " />
 

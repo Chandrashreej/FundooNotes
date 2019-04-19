@@ -341,7 +341,7 @@ class DashboardService extends CI_Controller
 
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
-                $query = "SELECT * FROM userReminder where userId = '$userId'";
+                $query = "SELECT * FROM userNotes where userId = '$userId' and dateAndTime != 'undefined'";
 
                 $statement = $this->connect->prepare($query);
 
@@ -663,4 +663,55 @@ class DashboardService extends CI_Controller
             return "204";
         }
     }
+    public function getAllPinnedNotesService($email)
+{
+    $time = "";
+
+    $sekretkey = "chandu";
+
+    $channel = new ConnectingToRedis();
+    $client = $channel->redisConnection();
+    $token = $client->get('token');
+
+    $array = array(
+        'HS256',
+    );
+    $payload = JWT::decode($token, $sekretkey, $array);
+
+    $userId = $payload->userId;
+    // $token = $headers['Authorization'];
+
+    if ($token != null) {
+
+        $jwt = new JWT();
+        if ($jwt->verifyc($token, $sekretkey)) {
+
+            $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 1";
+
+            $statement = $this->db->conn_id->prepare($query);
+
+            $res= $statement->execute();
+            if ($res) {
+                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                $array = array_reverse($arr);
+                print json_encode($array);
+
+            
+            }
+        } else {
+            $result = array(
+                "message" => "500",
+            );
+            print json_encode($result);
+            return "500";
+        }
+    } else {
+        $result = array(
+            "message" => "600",
+        );
+        print json_encode($result);
+        return "600";
+    
+    }
+}
 }
