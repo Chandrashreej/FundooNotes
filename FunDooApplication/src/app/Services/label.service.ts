@@ -12,8 +12,15 @@ export class LabelService {
   setLabel(email,labelmodel){
     let label = new FormData();
     label.append("email",email);
-    label.append("labelmodel",labelmodel.labelname);
+    label.append("labelname",labelmodel.labelname);
     return this.http.post(this.serviceurl.host+this.serviceurl.setlabel,label);
+  }
+
+  deleteLabel(email,name){
+    let label = new FormData();
+    label.append("email",email);
+    label.append("labelname",name);
+    return this.http.post(this.serviceurl.host+this.serviceurl.deleteLabel,label);
   }
 
   fetchLabel(email){

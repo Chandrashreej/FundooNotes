@@ -376,7 +376,7 @@
 
           </button>
 
-          <img style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: 230PX;"
+          <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: 230PX;"
             mat-card-image src="{{n.image}}">
 
         </div>
@@ -384,7 +384,7 @@
 
         <div (click)="openDialog(n)" style="margin-left: 9px;">
 
-          <p style="font-size: 14px;padding-left: 5px; word-break: break-all;margin-top: -24px;">
+          <p style="font-size: 14px;padding-left: 5px; word-break: break-all;margin-top: 0px;">
 
             {{ n.title }}
 
@@ -561,7 +561,7 @@
 
             </button>
 
-            <button mat-menu-item (click)="tomor(01)">
+            <button [matMenuTriggerFor]="addlabel" mat-menu-item>
 
               Add label
 
@@ -593,6 +593,18 @@
 
           </mat-menu>
 
+          <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
+
+            <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
+
+            <mat-checkbox *ngFor="let list of labels" (click)="labeldetails(list.labelname)">
+
+              {{list.labelname}}
+
+            </mat-checkbox>
+
+            </mat-menu>
+
         </div>
 
       </mat-card>
@@ -622,7 +634,7 @@
 
           </button>
 
-          <img style="margin-left: 0px;margin-top: -40px;border-top-left-radius: 10px;
+          <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;border-top-left-radius: 10px;
             border-top-right-radius: 10px;width: 230px;" mat-card-image src="{{n.image}}">
 
 
@@ -630,7 +642,7 @@
 
         <div (click)="openDialog(n)" style="margin-left: 9px;">
 
-          <p style="font-size: 14px;padding-left: 5px; word-break: break-all;margin-top: -24px;">
+          <p style="font-size: 14px;padding-left: 5px; word-break: break-all;margin-top: 0px;">
 
             {{ n.title }}
 

@@ -35,6 +35,10 @@ export class ServiceUrlService {
   public unTrash = "codeigniter/unTrash";
 
   public setlabel = "codeigniter/setlabel";
+
+  public deleteLabel= "codeigniter/deleteLabel";
+
+
   public fetchlabel = "codeigniter/fetchlabel";
   public socialLoginData = "codeigniter/socialLoginData";
 

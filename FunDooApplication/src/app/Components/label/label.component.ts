@@ -52,4 +52,18 @@ model:any;
   closeslabel(){
     this.dialogRef.close();
   }
+
+  deleteLabel(name){
+
+
+    debugger;
+    let labelobs = this.labelsev.deleteLabel(this.email, name);
+    labelobs.subscribe((res: any) => {
+
+    });
+  }
+
+  editLabel(){
+
+  }
 }

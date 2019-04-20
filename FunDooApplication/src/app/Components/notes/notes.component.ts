@@ -9,6 +9,7 @@ import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { NotesModel } from 'src/app/Models/Notes.model';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { LabelService } from 'src/app/Services/label.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -50,7 +51,8 @@ export class NotesComponent implements OnInit {
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private labelsev: LabelService,) {
 
     this.listview.getView().subscribe((res => {
 
@@ -155,6 +157,7 @@ export class NotesComponent implements OnInit {
 
     }));
     this.fetchPinned();
+    this.fetchLabel();
 
     // setInterval(() => {
 
@@ -511,8 +514,27 @@ export class NotesComponent implements OnInit {
     //   this.direct = "negative";
     // }
   }
+  labels
+  fetchLabel() {
+    debugger;
+    var email = localStorage.getItem("email");
+    debugger
+     let fetchobs = this.labelsev.fetchLabel(email);
 
+     fetchobs.subscribe((res: any) => {
+      debugger
+      this.labels = res;
+    })
+  }
 
+  newLabel = new FormControl();
+  labeldetails(labelname){
 
+if(this.newLabel != null ){
+  
+}
+    
+    console.log(labelname);
+  }
 
 }

@@ -8,7 +8,7 @@
 
       <!-- <button mat-icon-button class="btnclose"> -->
 
-        <mat-icon style="margin-left: 19px;margin-top: 5px;" class="icon">close</mat-icon>
+      <mat-icon style="margin-left: 19px;margin-top: 5px;" class="icon">close</mat-icon>
 
       <!-- </button> -->
 
@@ -16,7 +16,7 @@
 
       <button mat-icon-button class="btnclose" (click)="closes()">
 
-        <mat-icon class="icon" style="margin-bottom: 13px;" >check</mat-icon>
+        <mat-icon class="icon" style="margin-bottom: 13px;">check</mat-icon>
 
       </button>
 
@@ -28,19 +28,31 @@
 
     <mat-nav-list>
 
-      <a mat-list-item role="listitem" *ngFor="let item of labels">
+      <a mat-list-item role="listitem" *ngFor="let item of labels" class="notes">
 
-        <mat-icon class="btnclose" routerLinkActive="mat-accent">
+        <mat-icon class="labelicon" routerLinkActive="mat-accent">
 
           label
 
         </mat-icon>
 
-        <span class="notes">
+        <mat-icon class="delete" (click)="deleteLabel(item.id)" routerLinkActive="mat-accent">
 
-          {{item.labelname}}
+          delete
 
-        </span>
+        </mat-icon>
+
+          <span class="labelname">
+
+            {{item.labelname}}
+
+          </span>
+
+        <mat-icon class="editicon" (click)="editLabel()" routerLinkActive="mat-accent">
+
+          edit
+
+        </mat-icon>
 
       </a>
 

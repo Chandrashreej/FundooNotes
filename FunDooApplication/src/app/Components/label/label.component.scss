@@ -41,6 +41,7 @@
 }
 .divider{
   color: rgb(104, 101, 101);
+  margin-top: 30px;
   
 }
 .icon{
@@ -54,3 +55,47 @@
   margin-left: 19px;
 
 }
+
+.labelicon{
+  margin-left: 19px;
+  visibility: visible;
+  margin-right: 10px;
+  width:"20";
+  height:"20";
+}
+
+.delete{
+  margin-left: -35px;
+  visibility: hidden;
+  color: rgb(104, 101, 101);
+  margin-right: 10px;
+  width:"20";
+  height:"20";
+}
+
+
+  .notes:hover .labelicon, .labelicon:hover{
+  visibility: hidden;
+  color: black;
+  }
+
+  .notes:hover .delete, .delete:hover{
+    visibility: visible;
+    color: black;
+    }
+
+
+    .notes{
+      margin-left: 0px;
+      color: rgb(104, 101, 101);
+    }
+
+
+    .editicon{
+      margin-right: 0px;
+      color: rgb(104, 101, 101);
+    }
+
+    .labelname{
+      color: rgb(104, 101, 101);
+    }

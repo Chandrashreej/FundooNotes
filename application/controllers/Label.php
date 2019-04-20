@@ -58,7 +58,7 @@ class Label extends CI_Controller
 
     public function addingLabel(){
         $email = $_POST['email'];
-        $label = $_POST['labelmodel'];
+        $label = $_POST['labelname'];
 
         $sekretkey = "chandu";
 
@@ -168,7 +168,35 @@ class Label extends CI_Controller
 			'group' => $group,
 		));
 	}
+    public function deleteLabel(){
+        $email = $_POST['email'];
+        $label = $_POST['labelname'];
 
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+
+
+
+        $this->load->library('doctrine');
+
+        $em = $this->doctrine->em;
+        $query = $em->createQuery("DELETE \Entity\DocLabel u WHERE u.id = '$label'");
+        $labelobj = $query->getResult();
+
+
+        
+
+    }
     public function setlabeleledNotes(){
         $email =        $_POST["email"];
         $takeANote =    $_POST["takeANote"];

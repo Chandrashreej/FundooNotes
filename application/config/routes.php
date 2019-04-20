@@ -93,6 +93,8 @@ $route['unTrash'] ='Trash/unTrash';
 
 $route['setlabel'] ='Label/addingLabel';
 $route['fetchlabel'] ='Label/fetchingLabel';  
+$route['deleteLabel'] ='Label/deleteLabel';  
+
 
 
 $route['setlabeleledNotes'] ='Label/setlabeleledNotes';
