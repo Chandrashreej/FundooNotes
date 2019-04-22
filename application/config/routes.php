@@ -111,3 +111,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['adderToDatabase']='Login/adderToDatabase';
+
+
+$route['updateLabel']='Label/updateLabel';
+$route['getAllLabeledNotes']='Label/getAllLabeledNotes';
+

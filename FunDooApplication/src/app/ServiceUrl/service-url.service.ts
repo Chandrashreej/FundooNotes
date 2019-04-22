@@ -14,6 +14,7 @@ export class ServiceUrlService {
   public reset ='codeigniter/resetPassword';
   public getEmail = 'codeigniter/getEmailId';
   public getAllNotes = 'codeigniter/getAllNotes';
+  public getAllLabeledNotes = 'codeigniter/getAllLabeledNotes';
 
   public getAllPinnedNotes = 'codeigniter/getAllPinnedNotes';
 
@@ -37,7 +38,7 @@ export class ServiceUrlService {
   public setlabel = "codeigniter/setlabel";
 
   public deleteLabel= "codeigniter/deleteLabel";
-
+  public updateLabel= "codeigniter/updateLabel";
 
   public fetchlabel = "codeigniter/fetchlabel";
   public socialLoginData = "codeigniter/socialLoginData";

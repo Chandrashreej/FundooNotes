@@ -44,11 +44,13 @@
 
           <span class="labelname">
 
-            {{item.labelname}}
+            <!-- {{item.labelname}}? -->
+
+            <input matInput [formControl]="updateLabel" value="{{item.labelname}}" >
 
           </span>
 
-        <mat-icon class="editicon" (click)="editLabel()" routerLinkActive="mat-accent">
+        <mat-icon class="editicon" (click)="editLabel(item.id)" routerLinkActive="mat-accent">
 
           edit
 

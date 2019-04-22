@@ -28,6 +28,7 @@ export class NotesComponent implements OnInit {
   notes: any;
   backgroundColour: any;
   timer: any;
+  labelb: any;
   displayTitle: any;
   displayTakeANote: any;
   dateandtime: any;
@@ -52,7 +53,7 @@ export class NotesComponent implements OnInit {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private snackBar: MatSnackBar,
-    private labelsev: LabelService,) {
+    private labelsev: LabelService, ) {
 
     this.listview.getView().subscribe((res => {
 
@@ -146,6 +147,8 @@ export class NotesComponent implements OnInit {
     this.notesDisplaying();
 
     this.timer = false;
+
+    this.labelb = false;
 
     this.listview.getView().subscribe((res => {
 
@@ -297,6 +300,32 @@ export class NotesComponent implements OnInit {
     this.dateAndTime = "undefined";
 
   }
+  closelabel() {
+
+    this.labelb = false;
+
+    this.notelabel = null;
+
+  }
+
+
+  labelForNotes(id, labelId){
+
+    this.timer = false;
+
+    this.stringvalue = "label";
+
+    let colorObs = this.notesService.coloringBackground(id, labelId, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+
   imagerOfNotes
   notesDisplaying() {
 
@@ -309,6 +338,7 @@ export class NotesComponent implements OnInit {
       console.log("res", res);
       debugger;
       this.notelist = res as string[];
+      // console.log("taki taki",this.notelist);
 
     });
   }
@@ -361,6 +391,44 @@ export class NotesComponent implements OnInit {
 
     });
   }
+
+
+  closelabelforNotes(id, labelId) {
+
+    this.timer = false;
+
+    this.notelabel = null;
+
+    this.stringvalue = "closelabel";
+
+    let colorObs = this.notesService.coloringBackground(id, labelId, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+  addlabelforNotes(id, labelId) {
+
+
+console.log("-------",id);
+console.log("-------",labelId);
+    this.stringvalue = "addlabel";
+
+    let colorObs = this.notesService.coloringBackground(id, labelId, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+
   pinnednotes: boolean = false;
   pinnedlist: any;
   fetchPinned() {
@@ -371,18 +439,16 @@ export class NotesComponent implements OnInit {
 
     getnotes.subscribe((res: any) => {
       debugger;
-      console.log("res", res);
+      // console.log("res", res);
       if (res != 0) {
         this.pinnednotes = true;
         this.pinnedlist = res as string[];
       }
 
-
-
-
-
     });
   }
+
+
   openDialog(n): void {
 
     const dialogconfg = new MatDialogConfig();
@@ -403,7 +469,7 @@ export class NotesComponent implements OnInit {
 
   }
 
-  addNotes() {
+  addNotes(labelId) {
 
     debugger;
 
@@ -431,7 +497,9 @@ export class NotesComponent implements OnInit {
 
         "image": this.mainimage,
 
-        "pinned": this.pinnedvalue
+        "pinned": this.pinnedvalue,
+
+        "notelabelid": this.notelabelid,
 
       }
 
@@ -457,6 +525,17 @@ export class NotesComponent implements OnInit {
     }
 
   }
+
+
+
+
+
+
+
+
+
+
+
   pinnedvalue;
   pinnedFunction(id, str) {
     if (id == '01') {
@@ -515,26 +594,47 @@ export class NotesComponent implements OnInit {
     // }
   }
   labels
+
   fetchLabel() {
     debugger;
     var email = localStorage.getItem("email");
     debugger
-     let fetchobs = this.labelsev.fetchLabel(email);
+    let fetchobs = this.labelsev.fetchLabel(email);
 
-     fetchobs.subscribe((res: any) => {
+    fetchobs.subscribe((res: any) => {
       debugger
       this.labels = res;
     })
   }
 
+  notelabel: any;
+  notelabelid:any;
   newLabel = new FormControl();
-  labeldetails(labelname){
+  labeldetails(labelname, id) {
 
-if(this.newLabel != null ){
-  
-}
-    
-    console.log(labelname);
+    this.notelabel = labelname;
+    this.notelabelid = id;
+
+    if (this.newLabel != null) {
+
+    }
+    console.log("wowwwwwiiiii", id);
+
+    console.log("wowwwwwiiiii", labelname);
   }
+
+  labelname = new FormControl();
+  closes() {
+    var email = localStorage.getItem("email");
+    this.model = {
+      "labelname": this.labelname.value
+    }
+    debugger;
+    let labelobs = this.labelsev.setLabel(email, this.model);
+    labelobs.subscribe((res: any) => {
+
+    });
+  }
+
 
 }

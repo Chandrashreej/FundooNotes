@@ -48,13 +48,13 @@ class Label extends CI_Controller
     }
 
 
-    public function addingLafsbel(){
-        $email = $_POST['email'];
-        $label = $_POST['labelmodel'];
-        $this->refService->labelAddingService($email,$label);
-        $this->load->library('doctrine');
-        $em = $this->doctrine->em;
-    }
+    // public function addingLafsbel(){
+    //     $email = $_POST['email'];
+    //     $label = $_POST['labelmodel'];
+    //     $this->refService->labelAddingService($email,$label);
+    //     $this->load->library('doctrine');
+    //     $em = $this->doctrine->em;
+    // }
 
     public function addingLabel(){
         $email = $_POST['email'];
@@ -130,44 +130,44 @@ class Label extends CI_Controller
 
     }
 
-    public function doctrine()
-    {
-        $items = Doctrine_Query::create()
-            ->from('Example e')
-            ->leftJoin('e.Foobar')
-            ->where('e.id = ?', 20)
-            ->execute();
-    }
+    // public function doctrine()
+    // {
+    //     $items = Doctrine_Query::create()
+    //         ->from('Example e')
+    //         ->leftJoin('e.Foobar')
+    //         ->where('e.id = ?', 20)
+    //         ->execute();
+    // }
 
-    public function labeler()
-	{
-		$this->load->library('doctrine');
-		$em = $this->doctrine->em;
+    // public function labeler()
+	// {
+	// 	$this->load->library('doctrine');
+	// 	$em = $this->doctrine->em;
 
-		// $query = $em->createQuery('SELECT u FROM Entity\Demo u ');
-		// $users = $query->getResult();
+	// 	// $query = $em->createQuery('SELECT u FROM Entity\Demo u ');
+	// 	// $users = $query->getResult();
 
 
-		$group = new Entity\UserGroup;
-		$group->setName('Users');
+	// 	$group = new Entity\UserGroup;
+	// 	$group->setName('Users');
 
-		$user = new Entity\User;
-		$user->setUsername('wildlyinaccurate');
-		$user->setPassword('Passw0rd');
-		$user->setEmail('wildlyinaccurate@gmail.com');
-		$user->setGroup($group);
+	// 	$user = new Entity\User;
+	// 	$user->setUsername('wildlyinaccurate');
+	// 	$user->setPassword('Passw0rd');
+	// 	$user->setEmail('wildlyinaccurate@gmail.com');
+	// 	$user->setGroup($group);
 
-		// When you have set up your database, you can persist these entities:
-		$em = $this->doctrine->em;
-		$em->persist($group);
-		$em->persist($user);
-		$em->flush();
+	// 	// When you have set up your database, you can persist these entities:
+	// 	$em = $this->doctrine->em;
+	// 	$em->persist($group);
+	// 	$em->persist($user);
+	// 	$em->flush();
 
-		$this->load->view('welcome_message', array(
-			'user' => $user,
-			'group' => $group,
-		));
-	}
+	// 	$this->load->view('welcome_message', array(
+	// 		'user' => $user,
+	// 		'group' => $group,
+	// 	));
+	// }
     public function deleteLabel(){
         $email = $_POST['email'];
         $label = $_POST['labelname'];
@@ -197,6 +197,48 @@ class Label extends CI_Controller
         
 
     }
+    public function updateLabel(){
+
+        $email =        $_POST["email"];
+        $newLabel =  $_POST["newLabel"];
+        $labId =    $_POST["labId"];
+
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+
+        $this->load->library('doctrine');
+        $em = $this->doctrine->em;
+
+        $query = $em->createQuery("UPDATE \Entity\DocLabel u SET u.labelname = '$newLabel' WHERE u.id = '$labId' AND u.userId ='$userId'");
+        $users = $query->getResult();
+
+
+    //     $user = new Entity\DocLabel;
+// UPDATE MyProject\Model\User u SET u.password = 'new' WHERE u.id IN (1, 2, 3)
+
+
+    // $user->update('\Entity\DocLabel', 'u');
+    // $user->setLabelName('u.labelname', $newLabel);
+    // $user->where("u.id = ?'$labId'");
+    // $user->getQuery();
+    // $p = $q->execute();
+
+    }
+public function getAllLabeledNotes(){
+    
+}
+
+
     public function setlabeleledNotes(){
         $email =        $_POST["email"];
         $takeANote =    $_POST["takeANote"];

@@ -62,8 +62,18 @@ model:any;
 
     });
   }
+  updateLabel = new FormControl();
+  editLabel(id){
 
-  editLabel(){
+    this.model= {
+      "updateLabel" : this.updateLabel.value
+    }
 
+    // console.log(id);
+    // console.log(this.updateLabel);
+     let editLab = this.labelsev.updateingLabelName(this.email, this.model,id );
+     editLab.subscribe((re:any)=>{
+
+     });
   }
 }

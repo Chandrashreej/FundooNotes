@@ -9,6 +9,7 @@ import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes
 import { FormControl } from '@angular/forms';
 import { NotesModel } from 'src/app/Models/Notes.model';
 import { LabelidService } from 'src/app/Services/labelid.service';
+import { LabelService } from 'src/app/Services/label.service';
 
 @Component({
   selector: 'app-labelednotes',
@@ -51,7 +52,8 @@ export class LabelednotesComponent implements OnInit {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private snackBar: MatSnackBar,
-    private name:LabelidService
+    private name:LabelidService,
+    private labser:LabelService
     ) {
 
     this.listview.getView().subscribe((res => {
@@ -155,7 +157,7 @@ labelname
   ngOnInit() {
     this.fetLabelName();
 
-    this.notesDisplaying();
+    this.labeledNotesotesDisplaying();
 
     this.timer = false;
 
@@ -304,28 +306,22 @@ labelname
 
     this.timer = false;
 
+
     this.dateAndTime = "undefined";
 
   }
   imagerOfNotes
-  notesDisplaying() {
+  labeledNotesotesDisplaying() {
 
     const email = localStorage.getItem('email');
 
-    let getnotes = this.notesService.fetchnotes(email);
+    let getnotes = this.labser.fetchLabeledNotes(email);
 
     getnotes.subscribe((res: any) => {
 
       console.log("res", res);
       debugger;
       this.notelist = res as string[];
-      if (this.notelist.image == 'undefined') {
-
-        this.imagerOfNotes = this.notelist.image.replace("data:image/jpeg;base64,", "");
-      }
-      else {
-        this.imagerOfNotes = undefined;
-      }
 
 
 
@@ -349,7 +345,7 @@ labelname
 
       this.notes = res;
 
-      this.notesDisplaying();
+      this.labeledNotesotesDisplaying();
 
     });
 
@@ -451,7 +447,7 @@ labelname
 
         if (res.message == "200") {
 
-          this.notesDisplaying();
+          this.labeledNotesotesDisplaying();
 
           this.flag = true;
 

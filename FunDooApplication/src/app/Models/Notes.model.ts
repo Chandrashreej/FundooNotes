@@ -9,4 +9,5 @@ export class NotesModel {
     dateAndTime: string;
     image;
     pinned;
+    notelabelid;
 }

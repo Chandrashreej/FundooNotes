@@ -103,7 +103,7 @@ class DashboardService extends CI_Controller
             return "204";
         }
     }
-    public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin)
+    public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin, $notelabelid)
     {
         // $headers = apache_request_headers();
         // print_r($headers);
@@ -148,7 +148,7 @@ class DashboardService extends CI_Controller
 
                 if ($res) {
 
-                    $query = "SELECT * FROM userNotes where userId = '$userId'";
+                    $query = "SELECT * FROM userNotes where userId = '$userId' and title = '$title' ";
 
                     $statement = $this->connect->prepare($query);
 
@@ -165,7 +165,7 @@ class DashboardService extends CI_Controller
                         // $index = ($arr[0]["id"]);
 
 
-                        $query = "UPDATE userNotes set indexId = '$index' WHERE  id = '$index'";
+                        $query = "INSERT into labelNoteMap (noteId, labelId) values ('$index', '$notelabelid')";
 
                         $statement = $this->db->conn_id->prepare($query);
         
@@ -291,14 +291,19 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 0;";
+                // $query = "SELECT * from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId = '$userId' and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+                $query ="SELECT *  from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
 
+
+                // SELECT * from userNotes n Left JOIn labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on 
+        //         ln.labelId=l.id where n.userId = 36 and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC
+// n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname
                 $statement = $this->connect->prepare($query);
 
                 if ($statement->execute()) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    $array = array_reverse($arr);
-                    print json_encode($array);
+                    // $array = array_reverse($arr);
+                    print json_encode($arr);
 
                 
                 }
@@ -686,7 +691,7 @@ class DashboardService extends CI_Controller
         $jwt = new JWT();
         if ($jwt->verifyc($token, $sekretkey)) {
 
-            $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 1";
+            $query ="SELECT *  from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.id DESC";
 
             $statement = $this->db->conn_id->prepare($query);
 

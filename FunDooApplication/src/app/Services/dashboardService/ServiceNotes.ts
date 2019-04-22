@@ -21,6 +21,7 @@ export class DashboardService {
     userNotesdata.append("dateAndTime", currentDateAndTime);
     userNotesdata.append("image",note.image);
     userNotesdata.append("pinned",note.pinned);
+    userNotesdata.append("notelabelid",note.notelabelid);
 
     return this.http.post((this.sevriceurl.host + this.sevriceurl.setNotes), userNotesdata,
     );
@@ -45,6 +46,7 @@ export class DashboardService {
       //  { headers: headers_object }
     );
   }
+
 
   fectImageService(email) {
     debugger;

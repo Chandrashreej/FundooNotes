@@ -77,11 +77,12 @@ class DashBoard extends CI_Controller
         $color =        $_POST["color"];
         $image =        $_POST["image"];
         $pin =          $_POST["pinned"];
+        $notelabelid =  $_POST["notelabelid"];
 
         // $this->load->library('Redis');
         // $redis = $this->redis->config();
         // $redis->set($email, $email);
-        return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin);
+        return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin, $notelabelid);
     }
 
 

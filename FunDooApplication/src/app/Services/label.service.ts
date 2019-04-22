@@ -22,11 +22,25 @@ export class LabelService {
     label.append("labelname",name);
     return this.http.post(this.serviceurl.host+this.serviceurl.deleteLabel,label);
   }
+  updateingLabelName(email,updateLabelmodel,id ){
+    let updLab= new FormData();
+    updLab.append("email",email);
+    updLab.append("newLabel", updateLabelmodel.updateLabel);
+    updLab.append("labId",id);
+    return this.http.post(this.serviceurl.host+this.serviceurl.updateLabel,updLab);
 
+  }
   fetchLabel(email){
     debugger;
     let label = new FormData();
     label.append("email",email);
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
+  }
+  fetchLabeledNotes(email) {
+
+    let userNotesdata = new FormData();
+    userNotesdata.append("email", email);
+    return this.http.post(this.serviceurl.host + this.serviceurl.getAllLabeledNotes, userNotesdata);
+
   }
 }

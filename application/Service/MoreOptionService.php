@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * creation of ForgotPasswordService class that extends CI_Controller
  */
 //
-
+use \Firebase\JWT\JWT;
 class MoreOptionsSevice extends CI_Controller
 {
     /**
@@ -58,19 +58,19 @@ class MoreOptionsSevice extends CI_Controller
 
         // $time = "";
 
-        // $sekretkey = "chandu";
+        $sekretkey = "chandu";
 
-        // $channel = new ConnectingToRedis();
-        // $client = $channel->redisConnection();
-        // $token = $client->get('token');
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
 
-        // $array = array(
-        //     'HS256',
-        // );
+        $array = array(
+            'HS256',
+        );
 
-        // $payload = JWT::decode($token, $sekretkey, $array);
+        $payload = JWT::decode($token, $sekretkey, $array);
 
-        // $userId = $payload->userId;
+        $userId = $payload->userId;
         
         // // $token = $headers['Authorization'];
 
@@ -250,6 +250,52 @@ class MoreOptionsSevice extends CI_Controller
         }elseif ($flag == "pinned") {
 
             $query = "UPDATE userNotes set pin = '$color' WHERE  id = '$id'";
+
+            $statement = $this->connect->prepare($query);
+
+            $res = $statement->execute();
+
+            if ($res) {
+
+
+            } else {
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+                print json_encode($result);
+
+                return "204";
+
+            }
+        }elseif ($flag == "closelabel") {
+
+            $query = "UPDATE userNotes set pin = '$color' WHERE  id = '$id'";
+
+            $statement = $this->connect->prepare($query);
+
+            $res = $statement->execute();
+
+            if ($res) {
+
+
+            } else {
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+                print json_encode($result);
+
+                return "204";
+
+            }
+        }elseif ($flag == "addlabel") {
+
+            $query = "INSERT into labelNoteMap (noteId, labelId) values ('$id', '$color')";
 
             $statement = $this->connect->prepare($query);
 

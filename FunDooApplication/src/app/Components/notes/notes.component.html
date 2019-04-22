@@ -107,6 +107,23 @@
 
         </mat-chip-list>
 
+
+        <mat-chip-list>
+
+          <mat-chip mat-icon-button *ngIf="labelb" class="chips">
+
+            {{notelabel}}
+
+            <button mat-icon-button class="btnclose" (click)="closelabel()">
+
+              <mat-icon class="icon">close</mat-icon>
+
+            </button>
+
+          </mat-chip>
+
+        </mat-chip-list>
+
       </div>
 
       <div style="margin-top:10px;">
@@ -315,7 +332,7 @@
 
         <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-          <button mat-menu-item (click)="tomorrow(01)">
+          <button [matMenuTriggerFor]="addlabel" mat-menu-item >
 
             Add label
 
@@ -334,6 +351,18 @@
           </button>
 
         </mat-menu>
+
+        <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
+
+          <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
+
+          <mat-checkbox *ngFor="let list of labels" (click)="labeldetails(list.labelname, list.id)">
+
+            {{list.labelname}}
+
+          </mat-checkbox>
+
+          </mat-menu>
 
         <span></span>
 
@@ -409,6 +438,26 @@
                 </mat-icon>
 
                 {{ n.dateAndTime }}
+
+                <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
+
+                  <mat-icon class="icon">close</mat-icon>
+
+                </button>
+
+              </mat-chip>
+
+            </mat-chip-list>
+
+          </p>
+
+          <p style="font-size: 5px;" [ngClass]="n.labelname == null  ? 'dateVisOff': 'dateVisOn' ">
+
+            <mat-chip-list>
+
+              <mat-chip mat-icon-button class="chips">
+
+                {{ n.labelname }}
 
                 <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
 
@@ -597,7 +646,7 @@
 
             <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
 
-            <mat-checkbox *ngFor="let list of labels" (click)="labeldetails(list.labelname)">
+            <mat-checkbox *ngFor="let list of labels" (click)="addlabelforNotes(n.id, list.id)">
 
               {{list.labelname}}
 
@@ -654,7 +703,7 @@
             {{ n.takeANote }}
 
           </p>
-
+<!--  -->
           <p style="font-size: 5px;" [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
 
             <mat-chip-list>
@@ -668,6 +717,26 @@
                 </mat-icon>
 
                 {{ n.dateAndTime }}
+
+                <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
+
+                  <mat-icon class="icon">close</mat-icon>
+
+                </button>
+
+              </mat-chip>
+
+            </mat-chip-list>
+<!--  -->
+          </p>
+
+          <p style="font-size: 5px;" [ngClass]="n.labelname == null  ? 'dateVisOff': 'dateVisOn' ">
+
+            <mat-chip-list>
+
+              <mat-chip mat-icon-button class="chips">
+
+                {{ n.labelname }}
 
                 <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
 
