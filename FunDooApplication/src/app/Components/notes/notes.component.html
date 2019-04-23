@@ -1,4 +1,4 @@
-<div>
+<div fxFlex="100" fxFlex.sm="100" fxFlex.xs="10">
 
   <div *ngIf="flag===true" (click)="reverseFlag()" fxLayout="row wrap" fxLayout="column" fxLayoutAlign="center center">
 
@@ -354,7 +354,10 @@
 
         <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
 
-          <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
+          <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
+
+          <input class="labelname" appearance="null" type="text" placeholder="Enter new label" [formControl]="newLabel" />
+
 
           <mat-checkbox *ngFor="let list of labels" (click)="labeldetails(list.labelname, list.id)">
 
@@ -405,7 +408,7 @@
 
           </button>
 
-          <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: 230PX;"
+          <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: calc(100% + -1px);"
             mat-card-image src="{{n.image}}">
 
         </div>
@@ -684,7 +687,7 @@
           </button>
 
           <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;border-top-left-radius: 10px;
-            border-top-right-radius: 10px;width: 230px;" mat-card-image src="{{n.image}}">
+            border-top-right-radius: 10px;width: calc(100% + -1px);" mat-card-image src="{{n.image}}">
 
 
         </div>

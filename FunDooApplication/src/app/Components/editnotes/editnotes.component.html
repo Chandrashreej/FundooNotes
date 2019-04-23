@@ -2,13 +2,26 @@
 
     <mat-dialog-content fxLayoutAlign="center center" class="dialogcontent" style="place-content: center;">
 
+        <div>
+
+            <mat-icon matSuffix>
+
+                <img src="../../assets/img/fundoAssests/pin.svg " />
+
+            </mat-icon>
+
+            <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: 530PX;"
+                mat-card-image src="{{image}}">
+
+        </div>
+
         <div class="title" fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="row wrap">
 
             <input matInput [formControl]="title" value="{{TiTlE}}">
 
             <input matInput [formControl]="takeANote" value="{{description}}">
 
-            <mat-chip-list *ngIf="isDate" >
+            <mat-chip-list *ngIf="isDate">
 
                 <mat-chip mat-icon-button class="chips">
 
@@ -116,7 +129,7 @@
                                     <span>Night 8:00 PM</span>
 
                                 </button>
-                                
+
                             </mat-menu>
 
                             <mat-list-item>

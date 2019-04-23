@@ -272,7 +272,7 @@ class MoreOptionsSevice extends CI_Controller
             }
         }elseif ($flag == "closelabel") {
 
-            $query = "UPDATE userNotes set pin = '$color' WHERE  id = '$id'";
+            $query = "DELETE FROM labelNoteMap WHERE noteId = '$id'";
 
             $statement = $this->connect->prepare($query);
 
@@ -329,10 +329,6 @@ class MoreOptionsSevice extends CI_Controller
 
         // }
 
-    }
-
-    public function dragNDropService(){
-        
     }
 
 

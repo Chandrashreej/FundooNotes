@@ -52,9 +52,9 @@ export class LabelednotesComponent implements OnInit {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private snackBar: MatSnackBar,
-    private name:LabelidService,
-    private labser:LabelService
-    ) {
+    private name: LabelidService,
+    private labser: LabelService
+  ) {
 
     this.listview.getView().subscribe((res => {
 
@@ -67,26 +67,16 @@ export class LabelednotesComponent implements OnInit {
       this.layout = this.direction + " " + this.wrap;
 
     }));
+
+
+    this.labeledNotesotesDisplaying();
   }
-labelname
-
-  fetLabelName(){
-    debugger;
-
-    this.name.getsetLabelName().subscribe((res => {
-     
-
-      this.view = res;
-
-      this.labelname = this.view.data;
+  labelname: string;
 
 
-      console.log(this.labelname)
-    }));
-  }
   fetchImage() {
 
-    debugger;
+    // debugger;
 
     var email = localStorage.getItem("email");
 
@@ -95,7 +85,7 @@ labelname
 
     fetchobs.subscribe((res: any) => {
 
-      debugger
+      // debugger
 
       this.mainimage = res;
 
@@ -109,7 +99,7 @@ labelname
 
   selectedImage(event, id) {
 
-    debugger;
+    // debugger;
 
     this.imageid = id;
 
@@ -133,7 +123,7 @@ labelname
   present
   _handleReaderLoaded(readerEvt) {
 
-    debugger;
+    // debugger;
 
     var binarstring = readerEvt.target.result;
 
@@ -153,11 +143,24 @@ labelname
     }
 
   }
-
+  lablesss
   ngOnInit() {
-    this.fetLabelName();
-
     this.labeledNotesotesDisplaying();
+    this.fetLabelName();
+    this.name.getsetLabelName().subscribe((res => {
+
+      console.log("----------------============", res);
+      this.lablesss = res;
+
+      this.labelname = this.lablesss.data;
+      console.log("hhhhhhhhhhhhhhhhhh", this.labelname);
+
+
+
+    }));
+
+    this.labeledPinnedNotesDisplaying();
+
 
     this.timer = false;
 
@@ -179,9 +182,15 @@ labelname
 
   }
 
+  fetLabelName() {
+    debugger;
+
+
+  }
+
   timeChooser(str) {
 
-    debugger;
+    // debugger;
     var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
 
     if (str == "Morning") {
@@ -212,7 +221,7 @@ labelname
   DateAndTime
   remaindme() {
 
-    debugger;
+    // debugger;
     var day = new Date();
 
     var fulldate = day.toDateString() + " " + (day.getHours() % 12) + ":" + day.getMinutes();
@@ -233,7 +242,7 @@ labelname
       // this.dateAndTime = DateAndTime;
 
       if (this.DateAndTime == this.duplicate.dateAndTime) {
-        debugger;
+        // debugger;
         this.snackBar.open(reminder.title, ' ', { duration: 2000 });
         alert("their is reminder" + reminder.title);
       }
@@ -312,16 +321,31 @@ labelname
   }
   imagerOfNotes
   labeledNotesotesDisplaying() {
+    debugger;
+    const email = localStorage.getItem('email');
+    // console.log("reyyhgvhgjghjh",this.labelname);
+    let getnotes = this.labser.fetchLabeledNotes(email, this.labelname);
+
+    getnotes.subscribe((res: any) => {
+      debugger
+      // console.log("resabghbv", res);
+      debugger;
+      this.notelist = res as string[];
+
+    });
+  }
+  pinnedlist: string[];
+  labeledPinnedNotesDisplaying() {
 
     const email = localStorage.getItem('email');
 
-    let getnotes = this.labser.fetchLabeledNotes(email);
+    let getnotes = this.labser.fetchLabeledPinnedNotes(email, this.labelname);
 
     getnotes.subscribe((res: any) => {
 
-      console.log("res", res);
-      debugger;
-      this.notelist = res as string[];
+      // console.log("res", res);
+      // debugger;
+      this.pinnedlist = res as string[];
 
 
 
@@ -335,7 +359,7 @@ labelname
   str;
   coloring(id, value) {
 
-    debugger;
+    // debugger;
 
     this.str = "color";
 
@@ -417,45 +441,45 @@ labelname
 
   addNotes() {
 
-    debugger;
+    // debugger;
 
 
 
-      const email = localStorage.getItem('email');
+    const email = localStorage.getItem('email');
 
-      this.model = {
+    this.model = {
 
-        "title": this.title.value,
+      "title": this.title.value,
 
-        "takeANote": this.takeANote.value,
+      "takeANote": this.takeANote.value,
 
-        "email": email,
+      "email": email,
 
-        
-        
-        
 
-        // "color": this.backgroundColour,
 
-        // "image": this.mainimage
+
+
+      // "color": this.backgroundColour,
+
+      // "image": this.mainimage
+
+    }
+
+    let obs = this.notesService.labeledNotes(this.model, this.dateAndTime, this.labelname);
+
+    obs.subscribe((res: any) => {
+
+      if (res.message == "200") {
+
+        this.labeledNotesotesDisplaying();
+
+        this.flag = true;
 
       }
 
-      let obs = this.notesService.labeledNotes(this.model, this.dateAndTime, this.labelname);
+    });
 
-      obs.subscribe((res: any) => {
 
-        if (res.message == "200") {
-
-          this.labeledNotesotesDisplaying();
-
-          this.flag = true;
-
-        }
-
-      });
-
-    
 
   }
 

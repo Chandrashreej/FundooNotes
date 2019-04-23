@@ -292,7 +292,7 @@ class DashboardService extends CI_Controller
             if ($jwt->verifyc($token, $sekretkey)) {
 
                 // $query = "SELECT * from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId = '$userId' and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
-                $query ="SELECT *  from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+                $query ="SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
 
 
                 // SELECT * from userNotes n Left JOIn labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on 

@@ -234,8 +234,66 @@ class Label extends CI_Controller
     // $p = $q->execute();
 
     }
+
+    public function getAllLabeledPinnedNotes(){
+        $labelname = $_POST["labelname"];
+    $email =        $_POST["email"];
+
+    $sekretkey = "chandu";
+
+    $channel = new ConnectingToRedis();
+    $client = $channel->redisConnection();
+    $token = $client->get('token');
+
+    $array = array(
+        'HS256',
+    );
+    $payload = JWT::decode($token, $sekretkey, $array);
+
+    $userId = $payload->userId;
+
+    // SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname from userNotes n right JOIN labelNoteMap ln ON ln.noteId=n.id right JOIN doc_label l on ln.labelId=l.id where n.userId =36 and l.id =3 and archive = 0 and deleteNote = 0 and pin = 0 ORDER by n.id DESC
+    $query ="SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId' and l.labelname ='$labelname'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.id DESC";
+
+
+    $statement = $this->db->conn_id->prepare($query);
+
+    if ($statement->execute()) {
+        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // $array = array_reverse($arr);
+        print json_encode($arr);
+    }
+    }
 public function getAllLabeledNotes(){
-    
+
+    $labelname = $_POST["labelname"];
+    $email = $_POST["email"];
+
+    $sekretkey = "chandu";
+
+    $channel = new ConnectingToRedis();
+    $client = $channel->redisConnection();
+    $token = $client->get('token');
+
+    $array = array(
+        'HS256',
+    );
+    $payload = JWT::decode($token, $sekretkey, $array);
+
+    $userId = $payload->userId;
+
+    // SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname from userNotes n right JOIN labelNoteMap ln ON ln.noteId=n.id right JOIN doc_label l on ln.labelId=l.id where n.userId =36 and l.id =3 and archive = 0 and deleteNote = 0 and pin = 0 ORDER by n.id DESC
+    $query ="SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId' and l.labelname ='$labelname'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+
+
+    $statement = $this->db->conn_id->prepare($query);
+
+    if ($statement->execute()) {
+        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // $array = array_reverse($arr);
+        print json_encode($arr);
+    }
+
 }
 
 

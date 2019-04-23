@@ -253,7 +253,9 @@
     margin-left: 0px;
     margin-right: 0px;
     margin-bottom: 0px;
-    width: 230px;
+    // width: 230px;
+    width: calc(100% + -3px);
+    // margin: 0 -16px 16px -16px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 
@@ -325,6 +327,7 @@
     .rowcolumn{
     margin-left: 500px;
     }
+
 
 
 

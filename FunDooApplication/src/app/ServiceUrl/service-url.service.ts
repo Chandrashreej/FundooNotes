@@ -16,6 +16,8 @@ export class ServiceUrlService {
   public getAllNotes = 'codeigniter/getAllNotes';
   public getAllLabeledNotes = 'codeigniter/getAllLabeledNotes';
 
+  public getAllLabeledPinnedNotes = 'codeigniter/getAllLabeledPinnedNotes';
+
   public getAllPinnedNotes = 'codeigniter/getAllPinnedNotes';
 
   public getNameValue = 'codeigniter/getNameValue';

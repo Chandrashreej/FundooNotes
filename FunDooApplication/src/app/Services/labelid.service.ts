@@ -10,14 +10,16 @@ export class LabelidService {
   labelName =new Subject();
   word:string;
   setLabelName(value:any){
-    debugger;
+    // debugger;
     this.word =value;
       this.labelName.next({data:value});
+    
     
   } 
 
   getsetLabelName(){
-    debugger
+    // debugger
+    console.log("getlabelname",this.word)
     this.setLabelName(this.word);
     return this.labelName.asObservable();
   }

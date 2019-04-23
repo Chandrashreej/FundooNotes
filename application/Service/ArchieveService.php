@@ -219,7 +219,7 @@ public function getAllPinnedNotesService($email)
         $jwt = new JWT();
         if ($jwt->verifyc($token, $sekretkey)) {
 
-            $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 1";
+            $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname FROM userNotes where userId = '$userId' and archive = 0  and deleteNote = 0 and pin = 1";
 
             $statement = $this->db->conn_id->prepare($query);
 

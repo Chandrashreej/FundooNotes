@@ -1,3 +1,5 @@
+<button (click)="labeledNotesotesDisplaying()"></button>
+
 <div>
 
     <div *ngIf="flag===true" (click)="reverseFlag()" fxLayout="row wrap" fxLayout="column" fxLayoutAlign="center center">
@@ -55,12 +57,18 @@
   
       <mat-card [ngStyle]="{'background-color': backgroundColour}" class="notes">
   
+        <div *ngIf="imageBoolForMainCrd == true">
+  
+          <img mat-card-image src="{{mainimage}}" class="notesImageTitle" style="margin-top: 0px;border-radius: 3%">
+  
+        </div>
+  
         <div>
   
           <input style="font-size: 100px;margin-top: 15px;appearance : null;font-family: 'Google Sans',Roboto,Arial,sans-serif;font-size: 1rem; color: #646161; border: none;width: 550px;height:30px;"
             [formControl]="title" matInput placeholder="Title" />
   
-          <button style="padding-top: 5px;" mat-icon-button>
+          <button style="padding-top: 5px;" mat-icon-button (click)="pinnedFunction(01,'')">
   
             <mat-icon matTooltip="Pin note" style="margin-left: 0px;margin-top: -43px;" matSuffix class="cardicon">
   
@@ -86,12 +94,29 @@
             <mat-chip mat-icon-button *ngIf="timer" class="chips">
   
               <mat-icon>
-                <img src="../../assets/img/fundoAssests/timer.svg " style="width:17px; height:17px;margin-bottom: 3px;"/>
+                <img src="../../assets/img/fundoAssests/timer.svg " style="width:17px; height:17px;margin-bottom: 3px;" />
               </mat-icon>
   
               {{dateAndTime}}
   
               <button mat-icon-button class="btnclose" (click)="closedate()">
+  
+                <mat-icon class="icon">close</mat-icon>
+  
+              </button>
+  
+            </mat-chip>
+  
+          </mat-chip-list>
+  
+  
+          <mat-chip-list>
+  
+            <mat-chip mat-icon-button *ngIf="labelb" class="chips">
+  
+              {{notelabel}}
+  
+              <button mat-icon-button class="btnclose" (click)="closelabel()">
   
                 <mat-icon class="icon">close</mat-icon>
   
@@ -309,7 +334,7 @@
   
           <mat-menu [overlapTrigger]="false" #more="matMenu">
   
-            <button mat-menu-item (click)="tomorrow(01)">
+            <button [matMenuTriggerFor]="addlabel" mat-menu-item >
   
               Add label
   
@@ -329,6 +354,18 @@
   
           </mat-menu>
   
+          <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
+  
+            <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
+  
+            <mat-checkbox *ngFor="let list of labels" (click)="labeldetails(list.labelname, list.id)">
+  
+              {{list.labelname}}
+  
+            </mat-checkbox>
+  
+            </mat-menu>
+  
           <span></span>
   
           <button mat-flat-button (click)=" addNotes()" style="margin-left: 290px;background-color: transparent;">
@@ -347,18 +384,38 @@
   
     </div>
   
-    <div>
+    <div *ngIf="pinnednotes">
+  
+      <span class="others">PINNED</span>
   
       <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
   
-        <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
-          *ngFor="let n of notelist" cdkDrag>
+        <mat-card [ngStyle]="{'background-color': n.color}" class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
+          *ngFor="let n of pinnedlist" cdkDrag>
   
-          <div><img mat-card-image src="{{n.image}}"></div>
   
-          <div (click)="openDialog(n)">
+          <div>
   
-            <p style="font-size: 14px;padding-left: 5px; word-break: break-all;">
+            <button class="buttonDisplay" [ngClass]="direction == 'row'  ? 'rowpin': 'columnpin' " style=" width: 41px ;padding-top: 3px;margin-left: 173px;" (click)="pinnedFunction(n.id, 'pinned')"
+              mat-icon-button>
+  
+              <mat-icon matSuffix >
+  
+                <img src="../../assets/img/fundoAssests/pin.svg " />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: calc(100% + -1px);"
+              mat-card-image src="{{n.image}}">
+  
+          </div>
+  
+  
+          <div (click)="openDialog(n)" style="margin-left: 9px;">
+  
+            <p style="font-size: 14px;padding-left: 5px; word-break: break-all;margin-top: 0px;">
   
               {{ n.title }}
   
@@ -383,6 +440,305 @@
                   </mat-icon>
   
                   {{ n.dateAndTime }}
+  
+                  <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
+  
+                    <mat-icon class="icon">close</mat-icon>
+  
+                  </button>
+  
+                </mat-chip>
+  
+              </mat-chip-list>
+  
+            </p>
+  
+            <p style="font-size: 5px;" [ngClass]="n.labelname == null  ? 'dateVisOff': 'dateVisOn' ">
+  
+              <mat-chip-list>
+  
+                <mat-chip mat-icon-button class="chips">
+  
+                  {{ n.labelname }}
+  
+                  <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
+  
+                    <mat-icon class="icon">close</mat-icon>
+  
+                  </button>
+  
+                </mat-chip>
+  
+              </mat-chip-list>
+  
+            </p>
+  
+          </div>
+  
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px;" [ngClass]="direction == 'row'  ? 'morerow': 'morecolumn'">
+  
+            <button mat-icon-button matTooltip=" Remaind me " [matMenuTriggerFor]="remainder" class="cardmaticon" class="buttonDisplay">
+  
+              <mat-icon>
+  
+                <img src="../../assets/img/fundoAssests/remainder.svg " style="color: rgb(87, 86, 86);" />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <mat-menu [overlapTrigger]="false" #remainder="matMenu">
+  
+              <button mat-menu-item>
+  
+                Remainder:
+  
+              </button>
+  
+              <button mat-menu-item (click)="today(n.id)">
+  
+                Later today 8:00PM
+  
+              </button>
+  
+              <button mat-menu-item (click)="tomorrow(n.id)">
+  
+                Tomorrow 8:00PM
+  
+              </button>
+  
+              <button mat-menu-item (click)="nextWeek(n.id)">
+  
+                Next week Mon,8:00pm
+  
+              </button>
+  
+            </mat-menu>
+  
+            <button mat-icon-button class="cardmaticon" class="buttonDisplay">
+  
+              <mat-icon matTooltip="Collaborate">
+  
+                <img src="../../assets/img/fundoAssests/person.svg " style="color: rgb(87, 86, 86);" />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <button mat-icon-button class="cardmaticon" [matMenuTriggerFor]="colorMenu" class="buttonDisplay">
+  
+              <mat-icon matTooltip="Change color">
+  
+                <img src="../../assets/img/fundoAssests/colorlens.svg " style="color: rgb(87, 86, 86);" />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <div fxLayoutGap="5px">
+  
+              <mat-menu [overlapTrigger]="false" #colorMenu="matMenu">
+  
+                <button matTooltip="Yellow" (click)="coloring(n.id, '#fcf476')" mat-mini-fab class="colorlens" style="background-color:#fcf476"></button>
+  
+                <button matTooltip="Orange" (click)="coloring(n.id, '#f8bc04')" mat-mini-fab class="colorlens" style="background-color:#f8bc04 "></button>
+  
+                <button matTooltip="Red" (click)="coloring(n.id, '#f28b82')" mat-mini-fab class="colorlens" style="background-color:#f28b82 "></button>
+  
+                <button matTooltip="White" (click)="coloring(n.id, '#ffffff ')" mat-mini-fab class="colorlens" style="background-color:#ffffff "></button>
+  
+                <br />
+  
+                <button matTooltip="Dark blue" (click)="coloring(n.id, '#aecbfa ')" mat-mini-fab class="colorlens" style="background-color:#aecbfa "></button>
+  
+                <button matTooltip="Blue" (click)="coloring(n.id, '#cbf0f8 ')" mat-mini-fab class="colorlens" style="background-color:#cbf0f8 "></button>
+  
+                <button matTooltip="Teal" (click)="coloring(n.id, '#a7ffea ')" mat-mini-fab class="colorlens" style="background-color:#a7ffea "></button>
+  
+                <button matTooltip="Green" (click)="coloring(n.id, '#ccff90 ')" mat-mini-fab class="colorlens" style="background-color:#ccff90 "></button>
+  
+                <br />
+  
+                <button matTooltip="Gray" (click)="coloring(n.id, '#e8eaed')" mat-mini-fab class="colorlens" style="background-color:#e8eaed "></button>
+  
+                <button matTooltip="Brown" (click)="coloring(n.id, '#e6c9a8 ')" mat-mini-fab class="colorlens" style="background-color:#e6c9a8 "></button>
+  
+                <button matTooltip="Pink" (click)="coloring(n.id, '#fccfe8 ')" mat-mini-fab class="colorlens" style="background-color:#fccfe8 "></button>
+  
+                <button matTooltip="Purple" (click)="coloring(n.id, '#d7aefb ')" mat-mini-fab class="colorlens" style="background-color:#d7aefb "></button>
+  
+              </mat-menu>
+  
+            </div>
+  
+            <button mat-icon-button class="cardmaticon" class="buttonDisplay">
+  
+              <mat-icon matTooltip="Add image" (click)="file.click()">
+  
+                <img src="../../assets/img/fundoAssests/photo.svg " style="color: rgb(87, 86, 86);" />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <input style="display:none" type="file" #file (change)="selectedImage($event, n.id)" />
+  
+            <button mat-icon-button class="cardmaticon" class="buttonDisplay" (click)="notestools(n.id,1,'Archive')">
+  
+  
+              <mat-icon matTooltip="Archive">
+  
+                <img src="../../assets/img/fundoAssests/archive2.svg " style="color: rgb(87, 86, 86);" />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <button mat-icon-button class="cardmaticon" class="buttonDisplay">
+  
+              <mat-icon matTooltip="More">
+  
+                <img src="../../assets/img/fundoAssests/more.svg " [matMenuTriggerFor]="more" style="color: rgb(87, 86, 86);" />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <mat-menu [overlapTrigger]="false" #more="matMenu">
+  
+              <button mat-menu-item (click)="notestools(n.id,1,'Delete') ;openSnackBar('note binned')">
+  
+                Delete note
+  
+              </button>
+  
+              <button [matMenuTriggerFor]="addlabel" mat-menu-item>
+  
+                Add label
+  
+              </button>
+  
+              <button mat-menu-item (click)="nextW(01)">
+  
+                Add drawing
+  
+              </button>
+  
+              <button mat-menu-item (click)="next(01)">
+  
+                Make a copy
+  
+              </button>
+  
+              <button mat-menu-item (click)="next(01)">
+  
+                Show tick boxes
+  
+              </button>
+  
+              <button mat-menu-item (click)="ne(01)">
+  
+                Copy to Google Docs
+  
+              </button>
+  
+            </mat-menu>
+  
+            <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
+  
+              <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
+  
+              <mat-checkbox *ngFor="let list of labels" (click)="addlabelforNotes(n.id, list.id)">
+  
+                {{list.labelname}}
+  
+              </mat-checkbox>
+  
+              </mat-menu>
+  
+          </div>
+  
+        </mat-card>
+  
+      </div>
+  
+    </div>
+    <div>
+      <span class="others">OTHERS</span>
+  
+      <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
+  
+  
+        <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
+          *ngFor="let n of notelist" cdkDrag>
+  
+          <div>
+  
+            <button class="buttonDisplay" style=" width: 41px ;padding-top: 3px;margin-left: 173px;" (click)="pinnedFunction(n.id, 'others')"
+              mat-icon-button>
+  
+              <mat-icon matSuffix>
+  
+                <img src="../../assets/img/fundoAssests/download.svg " />
+  
+              </mat-icon>
+  
+            </button>
+  
+            <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;border-top-left-radius: 10px;
+              border-top-right-radius: 10px;width: 230px;" mat-card-image src="{{n.image}}">
+  
+  
+          </div>
+  
+          <div (click)="openDialog(n)" style="margin-left: 9px;">
+  
+            <p style="font-size: 14px;padding-left: 5px; word-break: break-all;margin-top: 0px;">
+  
+              {{ n.title }}
+  
+  
+  
+            </p>
+            <p style="font-size: 14px;padding-left: 5px; word-break: break-all;">
+  
+              {{ n.takeANote }}
+  
+            </p>
+  <!--  -->
+            <p style="font-size: 5px;" [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
+  
+              <mat-chip-list>
+  
+                <mat-chip mat-icon-button class="chips">
+  
+                  <mat-icon>
+  
+                    <img src="../../assets/img/fundoAssests/timer.svg " style="width:17px; height:17px;margin-bottom: 3px;" />
+  
+                  </mat-icon>
+  
+                  {{ n.dateAndTime }}
+  
+                  <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
+  
+                    <mat-icon class="icon">close</mat-icon>
+  
+                  </button>
+  
+                </mat-chip>
+  
+              </mat-chip-list>
+  <!--  -->
+            </p>
+  
+            <p style="font-size: 5px;" [ngClass]="n.labelname == null  ? 'dateVisOff': 'dateVisOn' ">
+  
+              <mat-chip-list>
+  
+                <mat-chip mat-icon-button class="chips">
+  
+                  {{ n.labelname }}
   
                   <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
   
@@ -572,5 +928,7 @@
         </mat-card>
   
       </div>
+  
     </div>
+  
   </div>

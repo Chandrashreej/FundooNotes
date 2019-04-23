@@ -36,11 +36,20 @@ export class LabelService {
     label.append("email",email);
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
   }
-  fetchLabeledNotes(email) {
+  fetchLabeledNotes(email, labelname) {
 
     let userNotesdata = new FormData();
     userNotesdata.append("email", email);
+    userNotesdata.append("labelname",labelname);
     return this.http.post(this.serviceurl.host + this.serviceurl.getAllLabeledNotes, userNotesdata);
+
+  }
+  fetchLabeledPinnedNotes(email, labelname) {
+
+    let userNotesdata = new FormData();
+    userNotesdata.append("email", email);
+    userNotesdata.append("labelname",labelname);
+    return this.http.post(this.serviceurl.host + this.serviceurl.getAllLabeledPinnedNotes, userNotesdata);
 
   }
 }

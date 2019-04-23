@@ -115,4 +115,4 @@ $route['adderToDatabase']='Login/adderToDatabase';
 
 $route['updateLabel']='Label/updateLabel';
 $route['getAllLabeledNotes']='Label/getAllLabeledNotes';
-
+$route['getAllLabeledPinnedNotes']='Label/getAllLabeledPinnedNotes';
