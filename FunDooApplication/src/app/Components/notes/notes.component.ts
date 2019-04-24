@@ -28,7 +28,7 @@ export class NotesComponent implements OnInit {
   notes: any;
   backgroundColour: any;
   timer: any;
-  labelb: any;
+  labelb: boolean =false;
   displayTitle: any;
   displayTakeANote: any;
   dateandtime: any;
@@ -609,11 +609,12 @@ console.log("-------",labelId);
 
   notelabel: any;
   notelabelid:any;
-  newLabel = new FormControl();
+  newLabel
   labeldetails(labelname, id) {
 
     this.notelabel = labelname;
     this.notelabelid = id;
+    this.labelb = true;
 
     if (this.newLabel != null) {
 
@@ -623,18 +624,30 @@ console.log("-------",labelId);
     console.log("wowwwwwiiiii", labelname);
   }
 
-  labelname = new FormControl();
+  mainlabel
+
   closes() {
+    debugger
+    console.log(this.mainlabel)
+    this.notelabel = this.mainlabel;
+    this.labelb = true;
     var email = localStorage.getItem("email");
     this.model = {
-      "labelname": this.labelname.value
+      "labelname": this.mainlabel
     }
     debugger;
     let labelobs = this.labelsev.setLabel(email, this.model);
     labelobs.subscribe((res: any) => {
 
     });
+    this.mainlabel = null;
   }
 
+  createlab:boolean =false;
+open(){
+
+  this.createlab =true; 
+  
+}
 
 }

@@ -1,4 +1,4 @@
-<div fxFlex="100" fxFlex.sm="100" fxFlex.xs="10">
+<div>
 
   <div *ngIf="flag===true" (click)="reverseFlag()" fxLayout="row wrap" fxLayout="column" fxLayoutAlign="center center">
 
@@ -6,7 +6,7 @@
 
       <div fxLayoutAlign="end start" style=" border-top-width: 0px;">
 
-        <input style="font-size: 55px;margin-top: 15px;appearance : null;font-family: 'Google Sans',Roboto,Arial,sans-serif;font-size: 1rem; color: #646161; border: none;"
+        <input  style="font-size: 55px;margin-top: 15px;appearance : null;font-family: 'Google Sans',Roboto,Arial,sans-serif;font-size: 1rem; color: #646161; border: none;"
           placeholder="Take a note..." />
 
         <span></span>
@@ -332,7 +332,7 @@
 
         <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-          <button [matMenuTriggerFor]="addlabel" mat-menu-item >
+          <button [matMenuTriggerFor]="addlabel" mat-menu-item>
 
             Add label
 
@@ -352,20 +352,49 @@
 
         </mat-menu>
 
-        <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
+        <mat-menu [overlapTrigger]="false" #addlabel="matMenu">
 
           <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
+          <span>Label note</span>
 
-          <input class="labelname" appearance="null" type="text" placeholder="Enter new label" [formControl]="newLabel" />
+          <input matInput (keyup)="open()" class="labelname" appearance="null" type="text" placeholder="Enter new label"
+            [(ngModel)]="mainlabel" />
 
+          <button mat-menu-item *ngIf="createlab" class="btnclose" (click)="closes()">
 
-          <mat-checkbox *ngFor="let list of labels" (click)="labeldetails(list.labelname, list.id)">
+            <div mat-menu-item>
 
-            {{list.labelname}}
+              <mat-icon class="icon" style="margin-bottom: 13px;">plus</mat-icon>
 
-          </mat-checkbox>
+              <span>create</span>
 
-          </mat-menu>
+            </div>
+
+          </button>
+
+          <div *ngIf="!createlab">
+
+            <div *ngFor="let list of labels">
+
+              <button mat-menu-item>
+
+                <mat-checkbox (click)="labeldetails(list.labelname, list.id)">
+
+                </mat-checkbox>
+
+                <span>
+
+                  {{list.labelname}}
+
+                </span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </mat-menu>
 
         <span></span>
 
@@ -397,10 +426,10 @@
 
         <div>
 
-          <button class="buttonDisplay" [ngClass]="direction == 'row'  ? 'rowpin': 'columnpin' " style=" width: 41px ;padding-top: 3px;margin-left: 173px;" (click)="pinnedFunction(n.id, 'pinned')"
-            mat-icon-button>
+          <button class="buttonDisplay" [ngClass]="direction == 'row'  ? 'rowpin': 'columnpin' " style=" width: 41px ;padding-top: 3px;margin-left: 173px;"
+            (click)="pinnedFunction(n.id, 'pinned')" mat-icon-button>
 
-            <mat-icon matSuffix >
+            <mat-icon matSuffix>
 
               <img src="../../assets/img/fundoAssests/pin.svg " />
 
@@ -462,7 +491,7 @@
 
                 {{ n.labelname }}
 
-                <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
+                <button mat-icon-button class="btnclose" (click)="closelabelforNotes(n.id,n.labelname)">
 
                   <mat-icon class="icon">close</mat-icon>
 
@@ -645,7 +674,7 @@
 
           </mat-menu>
 
-          <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
+          <!-- <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
 
             <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
 
@@ -655,6 +684,50 @@
 
             </mat-checkbox>
 
+          </mat-menu> -->
+
+          <mat-menu [overlapTrigger]="false" #addlabel="matMenu">
+
+              <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
+              <span>Label note</span>
+    
+              <input matInput (click)="open()" class="labelname" appearance="null" type="text" placeholder="Enter new label"
+              [(ngModel)]="newLabel" />
+    
+              <button mat-menu-item *ngIf="createlab" class="btnclose"  (click)="close()">
+    
+                <div mat-menu-item>
+    
+                  <mat-icon class="icon" style="margin-bottom: 13px;">add</mat-icon>
+    
+                  <span>create</span>
+    
+                </div>
+    
+              </button>
+    
+              <div *ngIf="!createlab">
+    
+                <div *ngFor="let list of labels">
+    
+                  <button mat-menu-item>
+    
+                    <mat-checkbox (click)="labeldetails(list.labelname, list.id)">
+    
+                    </mat-checkbox>
+    
+                    <span>
+    
+                      {{list.labelname}}
+    
+                    </span>
+    
+                  </button>
+    
+                </div>
+    
+              </div>
+    
             </mat-menu>
 
         </div>
@@ -687,7 +760,8 @@
           </button>
 
           <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;border-top-left-radius: 10px;
-            border-top-right-radius: 10px;width: calc(100% + -1px);" mat-card-image src="{{n.image}}">
+            border-top-right-radius: 10px;width: calc(100% + -1px);"
+            mat-card-image src="{{n.image}}">
 
 
         </div>
@@ -706,7 +780,7 @@
             {{ n.takeANote }}
 
           </p>
-<!--  -->
+          <!--  -->
           <p style="font-size: 5px;" [ngClass]="n.dateAndTime == 'undefined'  ? 'dateVisOff': 'dateVisOn' ">
 
             <mat-chip-list>
@@ -730,7 +804,7 @@
               </mat-chip>
 
             </mat-chip-list>
-<!--  -->
+            <!--  -->
           </p>
 
           <p style="font-size: 5px;" [ngClass]="n.labelname == null  ? 'dateVisOff': 'dateVisOn' ">
@@ -741,7 +815,7 @@
 
                 {{ n.labelname }}
 
-                <button mat-icon-button class="btnclose" (click)="closedateforNotes(n.id)">
+                <button mat-icon-button class="btnclose" (click)="closelabelforNotes(n.id,n.labelname)">
 
                   <mat-icon class="icon">close</mat-icon>
 
@@ -892,7 +966,7 @@
 
             </button>
 
-            <button mat-menu-item (click)="tomor(01)">
+            <button [matMenuTriggerFor]="addlabel" mat-menu-item>
 
               Add label
 
@@ -923,6 +997,52 @@
             </button>
 
           </mat-menu>
+
+
+          <mat-menu [overlapTrigger]="false" #addlabel="matMenu">
+
+              <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
+              <span>Label note</span>
+    
+              <input matInput (click)="open()" class="labelname" appearance="null" type="text" placeholder="Enter new label"
+              [(ngModel)]="newLabel" />
+    
+              <button mat-menu-item *ngIf="createlab" class="btnclose"  (click)="close()">
+    
+                <div mat-menu-item>
+    
+                  <mat-icon class="icon" style="margin-bottom: 13px;">add</mat-icon>
+    
+                  <span>create</span>
+    
+                </div>
+    
+              </button>
+    
+              <div *ngIf="!createlab">
+    
+                <div *ngFor="let list of labels">
+    
+                  <button mat-menu-item>
+    
+                    <mat-checkbox (click)="labeldetails(list.labelname, list.id)">
+    
+                    </mat-checkbox>
+    
+                    <span>
+    
+                      {{list.labelname}}
+    
+                    </span>
+    
+                  </button>
+    
+                </div>
+    
+              </div>
+    
+            </mat-menu>
+
 
         </div>
 

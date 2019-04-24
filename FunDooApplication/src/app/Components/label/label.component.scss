@@ -94,8 +94,26 @@
     .editicon{
       margin-right: 0px;
       color: rgb(104, 101, 101);
+      visibility: visible;
     }
 
     .labelname{
       color: rgb(104, 101, 101);
+    }
+
+    .checkicon{
+      margin-right: 0px;
+      color: rgb(104, 101, 101);
+      visibility: hidden;
+    }
+
+
+  .notes:hover .editicon, .editicon:hover{
+  visibility: hidden;
+  color: black;
+  }
+
+  .notes:hover .checkicon, .checkicon:hover{
+    visibility: visible;
+    color: black;
     }

@@ -165,9 +165,9 @@
 
   <mat-divider></mat-divider>
 
-  <mat-sidenav-container class="example-container" style="top: 73px !important" autosize fxLayout="row" fxLayoutAlign="start none">
+  <mat-sidenav-container class="example-container" style="top: 73px !important" autosize fxLayout="row" fxLayoutAlign="start none" >
 
-    <mat-sidenav #drawer mode="side" style="overflow: hidden;">
+    <mat-sidenav #drawer mode="side" style="overflow: hidden;" fxFlex="100" fxFlex.sm="100" fxFlex.xs="10">
 
       <div class="mat-drawer-inner-container">
 
@@ -194,7 +194,7 @@
 
           <label fxLayout="row" class="label">Labels</label>
 
-          <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels" routerLink='labelednotes' (click)="sendLabelId(item.labelname)">
+          <a class="selectorbutton" mat-list-item role="listitem" *ngFor="let item of labels" routerLink='labelednotes' (click)="sendLabelId(item.labelname)" >
 
               <mat-icon class="example-icon">label</mat-icon>
 
@@ -236,7 +236,7 @@
 
     </mat-sidenav>
 
-    <mat-sidenav-content fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;left:50px;">
+    <mat-sidenav-content fxLayout="column" fxLayoutAlign="start center" style="width: 1300px;left:50px;" fxFlex="100" fxFlex.sm="100" fxFlex.xs="10">
 
       <router-outlet></router-outlet>
 

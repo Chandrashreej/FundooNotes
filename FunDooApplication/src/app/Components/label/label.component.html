@@ -42,17 +42,23 @@
 
         </mat-icon>
 
-          <span class="labelname">
+        <span class="labelname">
 
-            <!-- {{item.labelname}}? -->
+          <!-- {{item.labelname}}? -->
 
-            <input matInput [formControl]="updateLabel" value="{{item.labelname}}" appearence="null" >
+          <input matInput (click)="checkfunction()" [formControl]="updateLabel" value="{{item.labelname}}" appearence="null">
 
-          </span>
+        </span>
 
-        <mat-icon class="editicon" (click)="editLabel(item.id)" routerLinkActive="mat-accent">
+        <mat-icon class="editicon" routerLinkActive="mat-accent">
 
           edit
+
+        </mat-icon>
+
+        <mat-icon class="checkicon" (click)="editLabel(item.id)" routerLinkActive="mat-accent">
+
+          check
 
         </mat-icon>
 

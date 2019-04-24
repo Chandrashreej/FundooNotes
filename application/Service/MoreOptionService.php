@@ -317,17 +317,17 @@ class MoreOptionsSevice extends CI_Controller
 
             }
         }
-        // $query = "SELECT * FROM userNotes where userId = '$userId' and id = '$id'";
+        $query = "SELECT * FROM userNotes where userId = '$userId' and id = '$id'";
 
-        // $statement = $this->connect->prepare($query);
+        $statement = $this->connect->prepare($query);
 
-        // if ($statement->execute()) {
+        if ($statement->execute()) {
 
-        //     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        //     print json_encode($arr);
+            print json_encode($arr);
 
-        // }
+        }
 
     }
 
