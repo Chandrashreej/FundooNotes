@@ -10,12 +10,12 @@ export class MoreoptionsService{
 
   constructor(private http: HttpClient,
     private sevriceurl: ServiceUrlService) { }
-  coloringBackground(n,value){
+    moreoptions(n,value){
     debugger;
     let id = new FormData();
     id.append('id',n);
     id.append('value',value);
-    return this.http.post((this.sevriceurl.host+this.sevriceurl.coloringBackground), id);
+    return this.http.post((this.sevriceurl.host+this.sevriceurl.moreoptions), id);
 
 
   }

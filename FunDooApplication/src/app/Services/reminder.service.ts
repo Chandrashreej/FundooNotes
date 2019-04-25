@@ -38,7 +38,7 @@ export class ReminderService {
       id.append('id',n);
       id.append('value',value);
       id.append('flag',flag);
-      return this.http.post((this.sevriceurl.host+this.sevriceurl.coloringBackground), id);
+      return this.http.post((this.sevriceurl.host+this.sevriceurl.moreoptions), id);
   
   
     }

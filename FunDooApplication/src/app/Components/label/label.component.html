@@ -30,6 +30,7 @@
 
       <a mat-list-item role="listitem" *ngFor="let item of labels" class="notes">
 
+
         <mat-icon class="labelicon" routerLinkActive="mat-accent">
 
           label
@@ -50,17 +51,21 @@
 
         </span>
 
-        <mat-icon class="editicon" routerLinkActive="mat-accent">
+        <div fxLayoutGap="-10px">
 
-          edit
+          <mat-icon class="editicon" routerLinkActive="mat-accent">
 
-        </mat-icon>
+            edit
 
-        <mat-icon class="checkicon" (click)="editLabel(item.id)" routerLinkActive="mat-accent">
+          </mat-icon>
 
-          check
+          <mat-icon class="checkicon" (click)="editLabel(item.id)" routerLinkActive="mat-accent">
 
-        </mat-icon>
+            check
+
+          </mat-icon>
+
+        </div>
 
       </a>
 

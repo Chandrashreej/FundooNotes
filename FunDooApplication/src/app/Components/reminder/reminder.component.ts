@@ -321,7 +321,7 @@ export class ReminderComponent implements OnInit {
 
     this.str = "color";
 
-    let obs = this.notesService.coloringBackground(id, value, this.str);
+    let obs = this.notesService.moreoptions(id, value, this.str);
 
     obs.subscribe((res: any) => {
 
@@ -348,7 +348,7 @@ export class ReminderComponent implements OnInit {
 
     this.stringvalue = "deleteDate";
 
-    let colorObs = this.notesService.coloringBackground(id, this.dateAndTime, this.stringvalue);
+    let colorObs = this.notesService.moreoptions(id, this.dateAndTime, this.stringvalue);
 
     colorObs.subscribe((res: any) => {
 
@@ -475,7 +475,7 @@ export class ReminderComponent implements OnInit {
   }
   notestools(id, colorid, flag) {
 
-    let colorObs = this.notesService.coloringBackground(id, colorid, flag);
+    let colorObs = this.notesService.moreoptions(id, colorid, flag);
 
     colorObs.subscribe((res: any) => {
 

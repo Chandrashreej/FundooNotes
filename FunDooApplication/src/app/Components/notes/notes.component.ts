@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 import * as moment from 'moment';
 import { ListService } from 'src/app/Services/list.service';
-import { MatDialog, MatIconRegistry, MatSnackBar, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatIconRegistry, MatSnackBar, MatDialogConfig, MatSnackBarConfig } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { NotesModel } from 'src/app/Models/Notes.model';
@@ -28,7 +28,7 @@ export class NotesComponent implements OnInit {
   notes: any;
   backgroundColour: any;
   timer: any;
-  labelb: boolean =false;
+  labelb: boolean = false;
   displayTitle: any;
   displayTakeANote: any;
   dateandtime: any;
@@ -67,7 +67,33 @@ export class NotesComponent implements OnInit {
 
     }));
   }
+  ngOnInit() {
 
+    this.notesDisplaying();
+
+    this.timer = false;
+
+    this.labelb = false;
+
+    this.listview.getView().subscribe((res => {
+
+      this.view = res;
+
+      this.direction = this.view.data;
+
+      this.layout = this.direction + " " + this.wrap;
+
+    }));
+    this.fetchPinned();
+    this.fetchLabel();
+
+    // setInterval(() => {
+
+    //   this.remaindme();
+
+    // }, 1000);
+
+  }
 
   fetchImage() {
 
@@ -103,7 +129,7 @@ export class NotesComponent implements OnInit {
 
     var file = files[0];
 
-    if (files && file) {
+    // if (files && file) {
 
       var reader = new FileReader();
 
@@ -111,7 +137,7 @@ export class NotesComponent implements OnInit {
 
       reader.readAsBinaryString(file);
 
-    }
+    // }
   }
   imageBoolForMainCrd: boolean = false;
   imageBoolForNotesCrd: boolean = false;
@@ -142,61 +168,66 @@ export class NotesComponent implements OnInit {
 
   }
 
-  ngOnInit() {
 
-    this.notesDisplaying();
 
-    this.timer = false;
-
-    this.labelb = false;
-
-    this.listview.getView().subscribe((res => {
-
-      this.view = res;
-
-      this.direction = this.view.data;
-
-      this.layout = this.direction + " " + this.wrap;
-
-    }));
-    this.fetchPinned();
-    this.fetchLabel();
-
-    // setInterval(() => {
-
-    //   this.remaindme();
-
-    // }, 1000);
-
-  }
-
-  timeChooser(str) {
+  timeChooser(str, id) {
 
     debugger;
     var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
 
-    if (str == "Morning") {
+    if (id = 1) {
 
-      this.dateAndTime = chooser + " " + " 08:00 AM ";
+      if (str == "Morning") {
+
+        this.dateAndTime = chooser + " " + " 08:00 AM ";
+
+      }
+      else if (str == "Afternoon") {
+
+        this.dateAndTime = chooser + " " + " 1:00 PM ";
+
+      }
+      else if (str == "Evening") {
+
+        this.dateAndTime = chooser + " " + " 6:00 PM ";
+
+      }
+      else if (str == "Night") {
+
+        this.dateAndTime = chooser + " " + " 8:00 PM ";
+
+      }
+
+      this.timer = true;
+    }
+    else{
+
+      if (str == "Morning") {
+
+        this.dateAndTime = chooser + " " + " 08:00 AM ";
+
+      }
+      else if (str == "Afternoon") {
+
+        this.dateAndTime = chooser + " " + " 1:00 PM ";
+
+      }
+      else if (str == "Evening") {
+
+        this.dateAndTime = chooser + " " + " 6:00 PM ";
+
+      }
+      else if (str == "Night") {
+
+        this.dateAndTime = chooser + " " + " 8:00 PM ";
+
+      }
+
+      var flag = "reminderValue";
+      this.notestools(id, this.dateAndTime, flag);
 
     }
-    else if (str == "Afternoon") {
 
-      this.dateAndTime = chooser + " " + " 1:00 PM ";
-
-    }
-    else if (str == "Evening") {
-
-      this.dateAndTime = chooser + " " + " 6:00 PM ";
-
-    }
-    else if (str == "Night") {
-
-      this.dateAndTime = chooser + " " + " 8:00 PM ";
-
-    }
-
-    this.timer = true;
   }
 
   duplicate
@@ -234,6 +265,8 @@ export class NotesComponent implements OnInit {
 
 
   today(id) {
+
+    console.log(id);
 
     var day = new Date();
 
@@ -308,24 +341,6 @@ export class NotesComponent implements OnInit {
 
   }
 
-
-  labelForNotes(id, labelId){
-
-    this.timer = false;
-
-    this.stringvalue = "label";
-
-    let colorObs = this.notesService.coloringBackground(id, labelId, this.stringvalue);
-
-    colorObs.subscribe((res: any) => {
-
-      if (res.status == "200") {
-
-      }
-
-    });
-  }
-
   imagerOfNotes
   notesDisplaying() {
 
@@ -338,7 +353,7 @@ export class NotesComponent implements OnInit {
       console.log("res", res);
       debugger;
       this.notelist = res as string[];
-      // console.log("taki taki",this.notelist);
+      console.log("taki taki", this.notelist);
 
     });
   }
@@ -350,17 +365,18 @@ export class NotesComponent implements OnInit {
   str;
   coloring(id, value) {
 
+
     debugger;
 
     this.str = "color";
 
-    let obs = this.notesService.coloringBackground(id, value, this.str);
+    let obs = this.notesService.moreoptions(id, value, this.str);
 
     obs.subscribe((res: any) => {
 
       this.notes = res;
 
-      this.notesDisplaying();
+      // this.notesDisplaying();
 
     });
 
@@ -369,7 +385,6 @@ export class NotesComponent implements OnInit {
   reverseFlag() {
     this.flag = !this.flag;
   }
-
 
 
   stringvalue;
@@ -381,7 +396,7 @@ export class NotesComponent implements OnInit {
 
     this.stringvalue = "deleteDate";
 
-    let colorObs = this.notesService.coloringBackground(id, this.dateAndTime, this.stringvalue);
+    let colorObs = this.notesService.moreoptions(id, this.dateAndTime, this.stringvalue);
 
     colorObs.subscribe((res: any) => {
 
@@ -395,13 +410,14 @@ export class NotesComponent implements OnInit {
 
   closelabelforNotes(id, labelId) {
 
+    debugger;
     this.timer = false;
 
     this.notelabel = null;
 
     this.stringvalue = "closelabel";
 
-    let colorObs = this.notesService.coloringBackground(id, labelId, this.stringvalue);
+    let colorObs = this.notesService.moreoptions(id, labelId, this.stringvalue);
 
     colorObs.subscribe((res: any) => {
 
@@ -414,11 +430,11 @@ export class NotesComponent implements OnInit {
   addlabelforNotes(id, labelId) {
 
 
-console.log("-------",id);
-console.log("-------",labelId);
+    console.log("-------", id);
+    console.log("-------", labelId);
     this.stringvalue = "addlabel";
 
-    let colorObs = this.notesService.coloringBackground(id, labelId, this.stringvalue);
+    let colorObs = this.notesService.moreoptions(id, labelId, this.stringvalue);
 
     colorObs.subscribe((res: any) => {
 
@@ -447,7 +463,40 @@ console.log("-------",labelId);
 
     });
   }
+  verticalPosition
+  horizontalPosition
+  setAutoHide
+  autoHide
+  actionButtonLabel
+  action
+  stat
+  deleteNotes(id) {
+    
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
 
+    this.snackBar.open(this.stat, this.action ? this.actionButtonLabel : undefined, config);
+    debugger;
+    this.timer = false;
+
+    this.dateAndTime = "1";
+
+    this.stringvalue = "Delete";
+
+    console.log(id);
+
+    let colorObs = this.notesService.moreoptions(id, this.dateAndTime, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
 
   openDialog(n): void {
 
@@ -472,6 +521,7 @@ console.log("-------",labelId);
   addNotes(labelId) {
 
     debugger;
+
 
     if ((this.title.value == "" && this.takeANote.value == "") || (this.title.value == null && this.takeANote.value == null) && this.dateAndTime == undefined) {
 
@@ -557,7 +607,7 @@ console.log("-------",labelId);
   }
   notestools(id, colorid, flag) {
 
-    let colorObs = this.notesService.coloringBackground(id, colorid, flag);
+    let colorObs = this.notesService.moreoptions(id, colorid, flag);
 
     colorObs.subscribe((res: any) => {
 
@@ -608,7 +658,7 @@ console.log("-------",labelId);
   }
 
   notelabel: any;
-  notelabelid:any;
+  notelabelid: any;
   newLabel
   labeldetails(labelname, id) {
 
@@ -643,11 +693,11 @@ console.log("-------",labelId);
     this.mainlabel = null;
   }
 
-  createlab:boolean =false;
-open(){
+  createlab: boolean = false;
+  open() {
 
-  this.createlab =true; 
-  
-}
+    this.createlab = true;
+
+  }
 
 }

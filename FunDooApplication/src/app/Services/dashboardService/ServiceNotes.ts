@@ -98,13 +98,13 @@ export class DashboardService {
     return this.http.post((this.sevriceurl.host + this.sevriceurl.deleteNote), id);
 
   }
-  coloringBackground(n, value, flag) {
+  moreoptions(n, value, flag) {
 
     let id = new FormData();
     id.append('id', n);
     id.append('value', value);
     id.append('flag', flag);
-    return this.http.post((this.sevriceurl.host + this.sevriceurl.coloringBackground), id);
+    return this.http.post((this.sevriceurl.host + this.sevriceurl.moreoptions), id);
 
   }
 

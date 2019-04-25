@@ -38,12 +38,12 @@ class MoreOptions extends CI_Controller
         parent::__construct();
         $this->moreService = new MoreOptionsSevice();
     }
-    public function coloringBackgroundFunction()
+    public function moreoptions()
     {
         $id = $_POST["id"];
         $color = $_POST["value"];
         $flag =$_POST["flag"];
-        return $this->moreService->coloringBackgroundFunctionService($id, $color, $flag);
+        return $this->moreService->moreOptionsService($id, $color, $flag);
     }
     public function coloringBackgroundForReminder()
     {

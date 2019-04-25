@@ -121,7 +121,7 @@ export class EditnotesComponent implements OnInit {
   coloring(id, value) {
     debugger;
 
-    let obs = this.moreoptService.coloringBackground(id, value);
+    let obs = this.moreoptService.moreoptions(id, value);
     obs.subscribe((res: any) => {
       debugger;
       this.notes = res;

@@ -70,7 +70,7 @@ $route['resetPassword'] ='ForgotPassword/resetPasswordFunction';
 
 $route['deleteNote'] ='DashBoard/deleteNote';
 $route['deleteReminder'] ='DashBoard/deleteReminder';
-$route['coloringBackgroundFunction']= 'MoreOptions/coloringBackgroundFunction';
+$route['moreoptions']= 'MoreOptions/moreoptions';
 $route['coloringBackgroundForReminder']= 'MoreOptions/coloringBackgroundForReminder';
 
 $route['dragNDrop']= 'MoreOptions/dragNDrop';

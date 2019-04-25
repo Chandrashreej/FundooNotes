@@ -51,7 +51,7 @@ class MoreOptionsSevice extends CI_Controller
         $this->constants = new LinkConstants();
         
     }
-    public function coloringBackgroundFunctionService($id, $color, $flag)
+    public function moreOptionsService($id, $color, $flag)
     {
         // $headers = apache_request_headers();
         // print_r($headers);
@@ -139,6 +139,17 @@ class MoreOptionsSevice extends CI_Controller
             $res = $statement->execute();
 
             if ($res) {
+
+
+                $query = "UPDATE userNotes set pin = 0 WHERE  id = '$id'";
+
+                $statement = $this->connect->prepare($query);
+    
+                $res = $statement->execute();
+    
+                if ($res) {
+
+                }
 
 
             } else {
@@ -272,7 +283,7 @@ class MoreOptionsSevice extends CI_Controller
             }
         }elseif ($flag == "closelabel") {
 
-            $query = "DELETE FROM labelNoteMap WHERE noteId = '$id'";
+            $query = "DELETE FROM labelNoteMap WHERE noteId = '$id' and labelId = '$color'";
 
             $statement = $this->connect->prepare($query);
 

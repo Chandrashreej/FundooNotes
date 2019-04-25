@@ -66,10 +66,9 @@ export class LabelednotesComponent implements OnInit {
 
       this.layout = this.direction + " " + this.wrap;
 
+    
     }));
 
-
-    this.labeledNotesotesDisplaying();
   }
   labelname: string;
 
@@ -145,34 +144,22 @@ export class LabelednotesComponent implements OnInit {
   }
   lablesss
   ngOnInit() {
-    this.labeledNotesotesDisplaying();
-    this.fetLabelName();
     this.name.getsetLabelName().subscribe((res => {
-
-      console.log("----------------============", res);
-      this.lablesss = res;
-
-      this.labelname = this.lablesss.data;
-      console.log("hhhhhhhhhhhhhhhhhh", this.labelname);
-
-
-
-    }));
-
-    this.labeledPinnedNotesDisplaying();
-
-
+      debugger
+            // console.log("----------------============", res);
+            this.lablesss = res;
+      
+            this.labelname = this.lablesss.data;
+            console.log("hhhhhhhhhhhhhhhhhh", this.labelname);
+            this.labeledNotesotesDisplaying();
+            this.labeledPinnedNotesDisplaying();
+      
+          }));
+      
+   
+        
     this.timer = false;
 
-    this.listview.getView().subscribe((res => {
-
-      this.view = res;
-
-      this.direction = this.view.data;
-
-      this.layout = this.direction + " " + this.wrap;
-
-    }));
 
     // setInterval(() => {
 
@@ -182,10 +169,50 @@ export class LabelednotesComponent implements OnInit {
 
   }
 
-  fetLabelName() {
+  // fetLabelName() {
+  //   debugger;
+
+
+  // }\
+
+
+  imagerOfNotes
+  labeledNotesotesDisplaying() {
+    debugger;
+    const email = localStorage.getItem('email');
+    // console.log("reyyhgvhgjghjh",this.labelname);
+    let getnotes = this.labser.fetchLabeledNotes(email, this.labelname);
+
+    getnotes.subscribe((res: any) => {
+      debugger
+      // console.log("resabghbv", res);
+      debugger;
+      this.notelist = res as string[];
+
+    });
+  }
+  pinnednotes:boolean =false;
+  pinnedlist: string[];
+  labeledPinnedNotesDisplaying() {
     debugger;
 
+    const email = localStorage.getItem('email');
 
+    let getnotes = this.labser.fetchLabeledPinnedNotes(email, this.labelname);
+
+    getnotes.subscribe((res: any) => {
+
+      // console.log("res", res);
+      debugger;
+      this.pinnedlist = res as string[];
+      this.pinnednotes =true;
+
+      if(res ==0){
+       
+      }
+
+
+    });
   }
 
   timeChooser(str) {
@@ -319,38 +346,7 @@ export class LabelednotesComponent implements OnInit {
     this.dateAndTime = "undefined";
 
   }
-  imagerOfNotes
-  labeledNotesotesDisplaying() {
-    debugger;
-    const email = localStorage.getItem('email');
-    // console.log("reyyhgvhgjghjh",this.labelname);
-    let getnotes = this.labser.fetchLabeledNotes(email, this.labelname);
-
-    getnotes.subscribe((res: any) => {
-      debugger
-      // console.log("resabghbv", res);
-      debugger;
-      this.notelist = res as string[];
-
-    });
-  }
-  pinnedlist: string[];
-  labeledPinnedNotesDisplaying() {
-
-    const email = localStorage.getItem('email');
-
-    let getnotes = this.labser.fetchLabeledPinnedNotes(email, this.labelname);
-
-    getnotes.subscribe((res: any) => {
-
-      // console.log("res", res);
-      // debugger;
-      this.pinnedlist = res as string[];
-
-
-
-    });
-  }
+ 
   colourSetter(color) {
 
     this.backgroundColour = color;
@@ -363,7 +359,7 @@ export class LabelednotesComponent implements OnInit {
 
     this.str = "color";
 
-    let obs = this.notesService.coloringBackground(id, value, this.str);
+    let obs = this.notesService.moreoptions(id, value, this.str);
 
     obs.subscribe((res: any) => {
 
@@ -390,7 +386,7 @@ export class LabelednotesComponent implements OnInit {
 
     this.stringvalue = "deleteDate";
 
-    let colorObs = this.notesService.coloringBackground(id, this.dateAndTime, this.stringvalue);
+    let colorObs = this.notesService.moreoptions(id, this.dateAndTime, this.stringvalue);
 
     colorObs.subscribe((res: any) => {
 
@@ -485,7 +481,7 @@ export class LabelednotesComponent implements OnInit {
 
   notestools(id, colorid, flag) {
 
-    let colorObs = this.notesService.coloringBackground(id, colorid, flag);
+    let colorObs = this.notesService.moreoptions(id, colorid, flag);
 
     colorObs.subscribe((res: any) => {
 

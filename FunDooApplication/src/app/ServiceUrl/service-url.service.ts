@@ -30,7 +30,7 @@ export class ServiceUrlService {
   public getAllReminderNotes = 'codeigniter/getAllReminderNotes';
   public deleteNote = 'codeigniter/deleteNote';
   public deleteReminder = 'codeigniter/deleteReminder';
-  public coloringBackground = 'codeigniter/coloringBackgroundFunction';
+  public moreoptions = 'codeigniter/moreoptions';
   public coloringBackgroundForReminder = 'codeigniter/coloringBackgroundForReminder';
   public fetchArch = "codeigniter/fetcharchive";
   public unarchived = "codeigniter/unarchive";

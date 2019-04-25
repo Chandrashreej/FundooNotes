@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { NotesModel } from 'src/app/Models/Notes.model';
 
 @Pipe({
-  name: 'searchfilter'
+  name: 'searchfilter',
+  pure: false
 })
 export class SearchfilterPipe implements PipeTransform {
   num;

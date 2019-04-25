@@ -230,7 +230,7 @@ imageid;
 
 sendLabelId(labelname)
 {
-  debugger;
+
 
        this.nameservice.setLabelName(labelname);
 

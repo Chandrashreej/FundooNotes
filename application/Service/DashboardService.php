@@ -105,168 +105,171 @@ class DashboardService extends CI_Controller
     }
     public function isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin, $notelabelid)
     {
-        // $headers = apache_request_headers();
-        // print_r($headers);
-        if($pin != 1)
-        {
+        if ($pin != 1) {
+
             $pin = 0;
         }
-        
+
         $archive = 0;
+
         $delete = 0;
+
         if ($title == "null") {
+
             $title = "";
+
         }
         if ($takeANote == "null") {
+
             $takeANote = "";
+        }
+
+        if ($image == "undefined") {
+
+            $image = "";
         }
 
         $sekretkey = "chandu";
 
         $channel = new ConnectingToRedis();
+
         $client = $channel->redisConnection();
+        
         $token = $client->get('token');
 
         $array = array(
+
             'HS256',
         );
         $payload = JWT::decode($token, $sekretkey, $array);
 
         $userId = $payload->userId;
-        // $token = $headers['Authorization'];
-        //$color = "white";
-        $index= "";
+
+        $index = "";
+        
         if ($token != null) {
 
             $jwt = new JWT();
+
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color, image,pin, indexId) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color', '$image', '$pin', '$index')";
+                $query = "INSERT into userNotes (userId,title,takeANote,dateAndTime, archive, deleteNote , color, image,pin) values ('$userId','$title','$takeANote','$dateAndTime','$archive', '$delete','$color', '$image', '$pin')";
 
                 $stmt = $this->db->conn_id->prepare($query);
+
                 $res = $stmt->execute();
 
                 if ($res) {
 
-                    $query = "SELECT * FROM userNotes where userId = '$userId' and title = '$title' ";
+                    $query = "INSERT into labelNoteMap (noteId, labelId) values (LAST_INSERT_ID(), '$notelabelid')";
 
-                    $statement = $this->connect->prepare($query);
+                    $statement = $this->db->conn_id->prepare($query);
 
-                    if ($statement->execute()) {
+                    $res = $statement->execute();
 
-                        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($arr as $notesData) {
+                    if ($res) {
+                        
+                        $result = array(
 
-                            $phonenum = $notesData['title'];
-                
-                            $index = $notesData['id'];
-                        }
- 
-                        // $index = ($arr[0]["id"]);
+                            "message" => "200",
 
+                        );
 
-                        $query = "INSERT into labelNoteMap (noteId, labelId) values ('$index', '$notelabelid')";
+                        print json_encode($result);
 
-                        $statement = $this->db->conn_id->prepare($query);
-        
-                        if ($statement->execute()) {
-                            $result = array(
-                                "message" => "200",
-                            );
-                            print json_encode($result);
-                            return "200";
-                        }
+                        return "200";
+                    }
+                    else{
 
-
-                        }
+                        // throw new Exception("Label cant be added to notes.....by chandu");
+                        $result = array(
+                            "message" => "200",
+                        );
+                        print json_encode($result);
+                        return "200";
+                    }
 
                 } else {
                     $result = array(
-                        "message" => "204",
+                        "message" => "500",
                     );
                     print json_encode($result);
-                    return "204";
+                    return "500";
                 }
             } else {
                 $result = array(
-                    "message" => "500",
+                    "message" => "600",
                 );
                 print json_encode($result);
-                return "500";
+                return "600";
             }
-        } else {
-            $result = array(
-                "message" => "600",
-            );
-            print json_encode($result);
-            return "600";
-        }
 
+        }
     }
 
-    public function setAllReminderService($email, $title, $takeANote, $dateAndTime, $color)
-    {
-        // $dateAndTime = "";
+    // public function setAllReminderService($email, $title, $takeANote, $dateAndTime, $color)
+    // {
+    //     // $dateAndTime = "";
 
-        if ($title == "null") {
-            $title = "";
-        }
-        if ($takeANote == "null") {
-            $takeANote = "";
-        }
-        $sekretkey = "chandu";
+    //     if ($title == "null") {
+    //         $title = "";
+    //     }
+    //     if ($takeANote == "null") {
+    //         $takeANote = "";
+    //     }
+    //     $sekretkey = "chandu";
 
-        $channel = new ConnectingToRedis();
-        $client = $channel->redisConnection();
-        $token = $client->get('token');
+    //     $channel = new ConnectingToRedis();
+    //     $client = $channel->redisConnection();
+    //     $token = $client->get('token');
 
-        $array = array(
-            'HS256',
-        );
-        $payload = JWT::decode($token, $sekretkey, $array);
+    //     $array = array(
+    //         'HS256',
+    //     );
+    //     $payload = JWT::decode($token, $sekretkey, $array);
 
-        $userId = $payload->userId;
-        // $token = $headers['Authorization'];
+    //     $userId = $payload->userId;
+    //     // $token = $headers['Authorization'];
 
-        if ($token != null) {
+    //     if ($token != null) {
 
-            $jwt = new JWT();
-            if ($jwt->verifyc($token, $sekretkey)) {
+    //         $jwt = new JWT();
+    //         if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "INSERT into userReminder (userId,title,takeANote,dateAndTime,color) values ('$userId','$title','$takeANote','$dateAndTime','$color')";
+    //             $query = "INSERT into userReminder (userId,title,takeANote,dateAndTime,color) values ('$userId','$title','$takeANote','$dateAndTime','$color')";
 
-                $stmt = $this->connect->prepare($query);
-                $res = $stmt->execute();
+    //             $stmt = $this->connect->prepare($query);
+    //             $res = $stmt->execute();
 
-                if ($res) {
-                    $result = array(
-                        "message" => "200",
-                    );
-                    print json_encode($result);
-                    return "200";
-                } else {
-                    $result = array(
-                        "message" => "204",
-                    );
-                    print json_encode($result);
-                    return "204";
-                }
-            } else {
-                $result = array(
-                    "message" => "500",
-                );
-                print json_encode($result);
-                return "500";
-            }
-        } else {
-            $result = array(
-                "message" => "600",
-            );
-            print json_encode($result);
-            return "600";
-        }
+    //             if ($res) {
+    //                 $result = array(
+    //                     "message" => "200",
+    //                 );
+    //                 print json_encode($result);
+    //                 return "200";
+    //             } else {
+    //                 $result = array(
+    //                     "message" => "204",
+    //                 );
+    //                 print json_encode($result);
+    //                 return "204";
+    //             }
+    //         } else {
+    //             $result = array(
+    //                 "message" => "500",
+    //             );
+    //             print json_encode($result);
+    //             return "500";
+    //         }
+    //     } else {
+    //         $result = array(
+    //             "message" => "600",
+    //         );
+    //         print json_encode($result);
+    //         return "600";
+    //     }
 
-    }
+    // }
 
     public function getAllNotesService($email)
     {
@@ -284,7 +287,6 @@ class DashboardService extends CI_Controller
         $payload = JWT::decode($token, $sekretkey, $array);
 
         $userId = $payload->userId;
-        // $token = $headers['Authorization'];
 
         if ($token != null) {
 
@@ -292,20 +294,18 @@ class DashboardService extends CI_Controller
             if ($jwt->verifyc($token, $sekretkey)) {
 
                 // $query = "SELECT * from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId = '$userId' and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
-                $query ="SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
 
-
-                // SELECT * from userNotes n Left JOIn labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on 
-        //         ln.labelId=l.id where n.userId = 36 and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC
-// n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname
+                // SELECT * from userNotes n Left JOIn labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on
+                //         ln.labelId=l.id where n.userId = 36 and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC
+                // n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname
                 $statement = $this->connect->prepare($query);
 
                 if ($statement->execute()) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    // $array = array_reverse($arr);
+
                     print json_encode($arr);
 
-                
                 }
             } else {
                 $result = array(
@@ -321,7 +321,6 @@ class DashboardService extends CI_Controller
             print json_encode($result);
             return "600";
         }
-        
 
     }
     public function getAllReminderService($email)
@@ -331,7 +330,9 @@ class DashboardService extends CI_Controller
         $sekretkey = "chandu";
 
         $channel = new ConnectingToRedis();
+
         $client = $channel->redisConnection();
+
         $token = $client->get('token');
 
         $array = array(
@@ -340,32 +341,47 @@ class DashboardService extends CI_Controller
         $payload = JWT::decode($token, $sekretkey, $array);
 
         $userId = $payload->userId;
-        // $token = $headers['Authorization'];
 
         if ($token != null) {
 
             $jwt = new JWT();
+
             if ($jwt->verifyc($token, $sekretkey)) {
+
                 $query = "SELECT * FROM userNotes where userId = '$userId' and dateAndTime != 'undefined'";
 
                 $statement = $this->connect->prepare($query);
 
                 if ($statement->execute()) {
+                    
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+
                     print json_encode($arr);
+
                 }
             } else {
+
                 $result = array(
+
                     "message" => "500",
+
                 );
+
                 print json_encode($result);
+
                 return "500";
+
             }
         } else {
+
             $result = array(
+
                 "message" => "600",
+
             );
+
             print json_encode($result);
+
             return "600";
         }
     }
@@ -429,11 +445,15 @@ class DashboardService extends CI_Controller
         $sekretkey = "chandu";
 
         $channel = new ConnectingToRedis();
+
         $client = $channel->redisConnection();
+
         $token = $client->get('token');
 
         $array = array(
+
             'HS256',
+
         );
         $payload = JWT::decode($token, $sekretkey, $array);
 
@@ -442,6 +462,7 @@ class DashboardService extends CI_Controller
         if ($token != null) {
 
             $jwt = new JWT();
+
             if ($jwt->verifyc($token, $sekretkey)) {
 
                 $query = "SELECT * FROM createuser where email = '$email'";
@@ -449,35 +470,51 @@ class DashboardService extends CI_Controller
                 $statement = $this->connect->prepare($query);
 
                 if ($statement->execute()) {
+
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    // for($i=0;$i<count($arr);$i++)
-                    // {
+
                     $firstname = ($arr[0]["firstname"]);
 
-                    // $firstname =$arr[$i];
-
-                    // }
                     print json_encode($firstname);
+
                 } else {
+                    
+
                     $result = array(
+                        
                         "message" => "500",
                     );
+
                     print json_encode($result);
+
                     return "500";
+
                 }
+
             } else {
+
                 $result = array(
+
                     "message" => "500",
+
                 );
+
                 print json_encode($result);
+
                 return "500";
             }
+
         } else {
             $result = array(
+
                 "message" => "600",
+
             );
+
             print json_encode($result);
+
             return "600";
+
         }
     }
     public function deleteReminderService($id)
@@ -558,27 +595,27 @@ class DashboardService extends CI_Controller
         //     $jwt = new JWT();
         //     if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT * FROM createuser where email = '$email'";
+        $query = "SELECT * FROM createuser where email = '$email'";
 
-                $statement = $this->connect->prepare($query);
+        $statement = $this->connect->prepare($query);
 
-                if ($statement->execute()) {
-                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    // for($i=0;$i<count($arr);$i++)
-                    // {
-                    $image = ($arr[0]["image"]);
+        if ($statement->execute()) {
+            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+            // for($i=0;$i<count($arr);$i++)
+            // {
+            $image = ($arr[0]["image"]);
 
-                    // $firstname =$arr[$i];
+            // $firstname =$arr[$i];
 
-                    // }
-                    print json_encode($image);
-                } else {
-                    $result = array(
-                        "message" => "500",
-                    );
-                    print json_encode($result);
-                    return "500";
-                }
+            // }
+            print json_encode($image);
+        } else {
+            $result = array(
+                "message" => "500",
+            );
+            print json_encode($result);
+            return "500";
+        }
         //     } else {
         //         $result = array(
         //             "message" => "500",
@@ -616,22 +653,22 @@ class DashboardService extends CI_Controller
         //     $jwt = new JWT();
         //     if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "UPDATE createuser set image = '$value' WHERE  email = '$email'";
+        $query = "UPDATE createuser set image = '$value' WHERE  email = '$email'";
 
-                $statement = $this->db->conn_id->prepare($query);
+        $statement = $this->db->conn_id->prepare($query);
 
-                if ($statement->execute()) {
-                   $result = array(
-                        "message" => "500",
-                    );
-                    print json_encode($result);
-                } else {
-                    $result = array(
-                        "message" => "500",
-                    );
-                    print json_encode($result);
-                    return "500";
-                }
+        if ($statement->execute()) {
+            $result = array(
+                "message" => "500",
+            );
+            print json_encode($result);
+        } else {
+            $result = array(
+                "message" => "500",
+            );
+            print json_encode($result);
+            return "500";
+        }
         //     } else {
         //         $result = array(
         //             "message" => "500",
@@ -648,9 +685,8 @@ class DashboardService extends CI_Controller
         // }
     }
 
-
-
-    public function imageNote($base64,$uid,$noteid){
+    public function imageNote($base64, $uid, $noteid)
+    {
         $query = "UPDATE notes SET image = '$base64'  where user_id = '$uid' AND id='$noteid'";
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
@@ -669,54 +705,53 @@ class DashboardService extends CI_Controller
         }
     }
     public function getAllPinnedNotesService($email)
-{
-    $time = "";
+    {
+        $time = "";
 
-    $sekretkey = "chandu";
+        $sekretkey = "chandu";
 
-    $channel = new ConnectingToRedis();
-    $client = $channel->redisConnection();
-    $token = $client->get('token');
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
 
-    $array = array(
-        'HS256',
-    );
-    $payload = JWT::decode($token, $sekretkey, $array);
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
 
-    $userId = $payload->userId;
-    // $token = $headers['Authorization'];
+        $userId = $payload->userId;
+        // $token = $headers['Authorization'];
 
-    if ($token != null) {
+        if ($token != null) {
 
-        $jwt = new JWT();
-        if ($jwt->verifyc($token, $sekretkey)) {
+            $jwt = new JWT();
+            if ($jwt->verifyc($token, $sekretkey)) {
 
-            $query ="SELECT *  from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.id DESC";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.id DESC";
 
-            $statement = $this->db->conn_id->prepare($query);
+                $statement = $this->db->conn_id->prepare($query);
 
-            $res= $statement->execute();
-            if ($res) {
-                $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                $array = array_reverse($arr);
-                print json_encode($array);
+                $res = $statement->execute();
+                if ($res) {
+                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    $array = array_reverse($arr);
+                    print json_encode($array);
 
-            
+                }
+            } else {
+                $result = array(
+                    "message" => "500",
+                );
+                print json_encode($result);
+                return "500";
             }
         } else {
             $result = array(
-                "message" => "500",
+                "message" => "600",
             );
             print json_encode($result);
-            return "500";
+            return "600";
+
         }
-    } else {
-        $result = array(
-            "message" => "600",
-        );
-        print json_encode($result);
-        return "600";
-    
     }
-}
 }

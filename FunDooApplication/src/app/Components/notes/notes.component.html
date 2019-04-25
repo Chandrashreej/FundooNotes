@@ -1,12 +1,12 @@
 <div>
 
-  <div *ngIf="flag===true" (click)="reverseFlag()" fxLayout="row wrap" fxLayout="column" fxLayoutAlign="center center">
+  <div *ngIf="flag===true" (click)="reverseFlag()" fxLayoutAlign="center center">
 
     <mat-card class="mainmat" fxLayout="column" fxLayoutAlign="center center">
 
       <div fxLayoutAlign="end start" style=" border-top-width: 0px;">
 
-        <input  style="font-size: 55px;margin-top: 15px;appearance : null;font-family: 'Google Sans',Roboto,Arial,sans-serif;font-size: 1rem; color: #646161; border: none;"
+        <input style="font-size: 55px;margin-top: 15px;appearance : null;font-family: 'Google Sans',Roboto,Arial,sans-serif;font-size: 1rem; color: #646161; border: none;"
           placeholder="Take a note..." />
 
         <span></span>
@@ -51,7 +51,7 @@
 
   </div>
 
-  <div *ngIf="flag===false">
+  <div *ngIf="flag===false" fxLayoutAlign="center center">
 
     <mat-card [ngStyle]="{'background-color': backgroundColour}" class="notes">
 
@@ -202,25 +202,25 @@
 
                 <mat-menu #menu9="matMenu">
 
-                  <button mat-menu-item (click)="timeChooser('Morning')">
+                  <button mat-menu-item (click)="timeChooser('Morning',1)">
 
                     <span>Morning 8:00 AM</span>
 
                   </button>
 
-                  <button mat-menu-item (click)="timeChooser('Afternoon')">
+                  <button mat-menu-item (click)="timeChooser('Afternoon',1)">
 
                     <span>Afternoon 1:00 PM</span>
 
                   </button>
 
-                  <button mat-menu-item (click)="timeChooser('Evening')">
+                  <button mat-menu-item (click)="timeChooser('Evening',1)">
 
                     <span>Evening 6:00 PM</span>
 
                   </button>
 
-                  <button mat-menu-item (click)="timeChooser('Night')">
+                  <button mat-menu-item (click)="timeChooser('Night',1)">
 
                     <span>Night 8:00 PM</span>
 
@@ -418,7 +418,7 @@
 
     <span class="others">PINNED</span>
 
-    <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
+    <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom :10%" >
 
       <mat-card [ngStyle]="{'background-color': n.color}" class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
         *ngFor="let n of pinnedlist" cdkDrag>
@@ -437,7 +437,7 @@
 
           </button>
 
-          <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: calc(100% + -1px);"
+          <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: calc(100% + 0px);"
             mat-card-image src="{{n.image}}">
 
         </div>
@@ -491,7 +491,7 @@
 
                 {{ n.labelname }}
 
-                <button mat-icon-button class="btnclose" (click)="closelabelforNotes(n.id,n.labelname)">
+                <button mat-icon-button class="btnclose" (click)="closelabelforNotes(n.id,n.labelId)">
 
                   <mat-icon class="icon">close</mat-icon>
 
@@ -542,6 +542,92 @@
               Next week Mon,8:00pm
 
             </button>
+
+            <button mat-menu-item [matMenuTriggerFor]="menu6">
+
+              <mat-icon>
+  
+                <img src="../../assets/img/fundoAssests/timer.svg " />
+  
+              </mat-icon>
+  
+              Pick date & time
+  
+            </button>
+  
+            <mat-menu #menu6="matMenu">
+  
+              <mat-nav-list>
+  
+                <mat-list role="List">
+  
+                  <div class="pickdate">
+  
+                    <mat-list-item id="pickAdjust">
+  
+                      <span>Pick date and Time </span>
+  
+                    </mat-list-item>
+  
+                  </div>
+  
+                  <mat-list-item>
+  
+                    <mat-form-field class="example-full-width">
+  
+                      <input matInput [matDatepicker]="picker" [formControl]="dateChooser" placeholder="Choose a date">
+  
+                      <mat-datepicker-toggle matSuffix [for]="picker">
+  
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+  
+                      </mat-datepicker-toggle>
+  
+                      <mat-datepicker #picker></mat-datepicker>
+  
+                    </mat-form-field>
+  
+                  </mat-list-item>
+  
+                  <button mat-menu-item [matMenuTriggerFor]="menu9">
+  
+                    Pick date and Time
+  
+                  </button>
+  
+                  <mat-menu #menu9="matMenu">
+  
+                    <button mat-menu-item (click)="timeChooser('Morning',n.id)">
+  
+                      <span>Morning 8:00 AM</span>
+  
+                    </button>
+  
+                    <button mat-menu-item (click)="timeChooser('Afternoon',n.id)">
+  
+                      <span>Afternoon 1:00 PM</span>
+  
+                    </button>
+  
+                    <button mat-menu-item (click)="timeChooser('Evening',n.id)">
+  
+                      <span>Evening 6:00 PM</span>
+  
+                    </button>
+  
+                    <button mat-menu-item (click)="timeChooser('Night',n.id)">
+  
+                      <span>Night 8:00 PM</span>
+  
+                    </button>
+  
+                  </mat-menu>
+  
+                </mat-list>
+  
+              </mat-nav-list>
+  
+            </mat-menu>
 
           </mat-menu>
 
@@ -636,7 +722,7 @@
 
           <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-            <button mat-menu-item (click)="notestools(n.id,1,'Delete') ;openSnackBar('note binned')">
+            <button mat-menu-item (click)="deleteNotes(n.id) ;openSnackBar('note binned')">
 
               Delete note
 
@@ -688,47 +774,47 @@
 
           <mat-menu [overlapTrigger]="false" #addlabel="matMenu">
 
-              <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
-              <span>Label note</span>
-    
-              <input matInput (click)="open()" class="labelname" appearance="null" type="text" placeholder="Enter new label"
-              [(ngModel)]="newLabel" />
-    
-              <button mat-menu-item *ngIf="createlab" class="btnclose"  (click)="close()">
-    
-                <div mat-menu-item>
-    
-                  <mat-icon class="icon" style="margin-bottom: 13px;">add</mat-icon>
-    
-                  <span>create</span>
-    
-                </div>
-    
-              </button>
-    
-              <div *ngIf="!createlab">
-    
-                <div *ngFor="let list of labels">
-    
-                  <button mat-menu-item>
-    
-                    <mat-checkbox (click)="labeldetails(list.labelname, list.id)">
-    
-                    </mat-checkbox>
-    
-                    <span>
-    
-                      {{list.labelname}}
-    
-                    </span>
-    
-                  </button>
-    
-                </div>
-    
+            <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
+            <span>Label note</span>
+
+            <input matInput (click)="open()" class="labelname" appearance="null" type="text" placeholder="Enter new label"
+              [(ngModel)]="mainlabel" />
+
+            <button mat-menu-item *ngIf="createlab" class="btnclose" (click)="closes()">
+
+              <div mat-menu-item>
+
+                <mat-icon class="icon" style="margin-bottom: 13px;">add</mat-icon>
+
+                <span>create</span>
+
               </div>
-    
-            </mat-menu>
+
+            </button>
+
+            <div *ngIf="!createlab">
+
+              <div *ngFor="let list of labels">
+
+                <button mat-menu-item>
+
+                  <mat-checkbox (click)="addlabelforNotes(n.id, list.id)">
+
+                  </mat-checkbox>
+
+                  <span>
+
+                    {{list.labelname}}
+
+                  </span>
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </mat-menu>
 
         </div>
 
@@ -740,8 +826,7 @@
   <div>
     <span class="others">OTHERS</span>
 
-    <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;flex-flow: row wrap; box-sizing: border-box; display: flex; place-content: center; align-items: center; width: 1000px;margin-left: 65px;">
-
+    <div cdkDropList (cdkDropListDropped)="drop($event)" fxLayout="{{layout}}" fxLayoutAlign="center center" style="padding-bottom: 10%;">
 
       <mat-card [ngStyle]="{'background-color': n.color}" button class="gridcard" [ngClass]="direction == 'row'  ? 'row': 'column' "
         *ngFor="let n of notelist" cdkDrag>
@@ -760,7 +845,7 @@
           </button>
 
           <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;border-top-left-radius: 10px;
-            border-top-right-radius: 10px;width: calc(100% + -1px);"
+            border-top-right-radius: 10px;width: calc(100% + 0px);"
             mat-card-image src="{{n.image}}">
 
 
@@ -867,6 +952,92 @@
 
             </button>
 
+            <button mat-menu-item [matMenuTriggerFor]="menu6">
+
+              <mat-icon>
+  
+                <img src="../../assets/img/fundoAssests/timer.svg " />
+  
+              </mat-icon>
+  
+              Pick date & time
+  
+            </button>
+  
+            <mat-menu #menu6="matMenu">
+  
+              <mat-nav-list>
+  
+                <mat-list role="List">
+  
+                  <div class="pickdate">
+  
+                    <mat-list-item id="pickAdjust">
+  
+                      <span>Pick date and Time </span>
+  
+                    </mat-list-item>
+  
+                  </div>
+  
+                  <mat-list-item>
+  
+                    <mat-form-field class="example-full-width">
+  
+                      <input matInput [matDatepicker]="picker" [formControl]="dateChooser" placeholder="Choose a date">
+  
+                      <mat-datepicker-toggle matSuffix [for]="picker">
+  
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+  
+                      </mat-datepicker-toggle>
+  
+                      <mat-datepicker #picker></mat-datepicker>
+  
+                    </mat-form-field>
+  
+                  </mat-list-item>
+  
+                  <button mat-menu-item [matMenuTriggerFor]="menu9">
+  
+                    Pick date and Time
+  
+                  </button>
+  
+                  <mat-menu #menu9="matMenu">
+  
+                    <button mat-menu-item (click)="timeChooser('Morning',1)">
+  
+                      <span>Morning 8:00 AM</span>
+  
+                    </button>
+  
+                    <button mat-menu-item (click)="timeChooser('Afternoon',1)">
+  
+                      <span>Afternoon 1:00 PM</span>
+  
+                    </button>
+  
+                    <button mat-menu-item (click)="timeChooser('Evening',1)">
+  
+                      <span>Evening 6:00 PM</span>
+  
+                    </button>
+  
+                    <button mat-menu-item (click)="timeChooser('Night',1)">
+  
+                      <span>Night 8:00 PM</span>
+  
+                    </button>
+  
+                  </mat-menu>
+  
+                </mat-list>
+  
+              </mat-nav-list>
+  
+            </mat-menu>
+
           </mat-menu>
 
           <button mat-icon-button class="cardmaticon" class="buttonDisplay">
@@ -960,7 +1131,7 @@
 
           <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-            <button mat-menu-item (click)="notestools(n.id,1,'Delete') ;openSnackBar('note binned')">
+            <button mat-menu-item (click)="deleteNotes(n.id) ;openSnackBar('note binned')">
 
               Delete note
 
@@ -1001,47 +1172,47 @@
 
           <mat-menu [overlapTrigger]="false" #addlabel="matMenu">
 
-              <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
-              <span>Label note</span>
-    
-              <input matInput (click)="open()" class="labelname" appearance="null" type="text" placeholder="Enter new label"
-              [(ngModel)]="newLabel" />
-    
-              <button mat-menu-item *ngIf="createlab" class="btnclose"  (click)="close()">
-    
-                <div mat-menu-item>
-    
-                  <mat-icon class="icon" style="margin-bottom: 13px;">add</mat-icon>
-    
-                  <span>create</span>
-    
-                </div>
-    
-              </button>
-    
-              <div *ngIf="!createlab">
-    
-                <div *ngFor="let list of labels">
-    
-                  <button mat-menu-item>
-    
-                    <mat-checkbox (click)="labeldetails(list.labelname, list.id)">
-    
-                    </mat-checkbox>
-    
-                    <span>
-    
-                      {{list.labelname}}
-    
-                    </span>
-    
-                  </button>
-    
-                </div>
-    
+            <!-- <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" /> -->
+            <span>Label note</span>
+
+            <input matInput (click)="open()" class="labelname" appearance="null" type="text" placeholder="Enter new label"
+              [(ngModel)]="mainlabel" />
+
+            <button mat-menu-item *ngIf="createlab" class="btnclose" (click)="closes()">
+
+              <div mat-menu-item>
+
+                <mat-icon class="icon" style="margin-bottom: 13px;">add</mat-icon>
+
+                <span>create</span>
+
               </div>
-    
-            </mat-menu>
+
+            </button>
+
+            <div *ngIf="!createlab">
+
+              <div *ngFor="let list of labels">
+
+                <button mat-menu-item>
+
+                  <mat-checkbox (click)="addlabelforNotes(n.id, list.id)">
+
+                  </mat-checkbox>
+
+                  <span>
+
+                    {{list.labelname}}
+
+                  </span>
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </mat-menu>
 
 
         </div>
