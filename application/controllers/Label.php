@@ -323,21 +323,7 @@ public function getAllLabeledNotes(){
 		// $group = new Entity\DocLabel;
         // $group->getUserId($labelname);
         
-        $query = $em->createQuery("SELECT u.id,u.userId,u.labelname FROM \Entity\DocLabel u WHERE u.userId = '$userId' and u.labelname = '$labelname' ");
-        $labelobj = $query->getResult();
-
-
-
-        $this->load->library('doctrine');
-		$em = $this->doctrine->em;
-
-		$user = new Entity\DocLabeledNotes;
-		$user->setTitle($title);
-		$user->setTakeANote($takeANote);
-        $user->setDateAndTime('undefined');
-
-
-
+      
 
         $group = new Entity\DocLabel;
 

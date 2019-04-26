@@ -36,6 +36,7 @@ export class LabelService {
     label.append("email",email);
     return this.http.post(this.serviceurl.host+this.serviceurl.fetchlabel,label);
   }
+  
   fetchLabeledNotes(email, labelname) {
 
     let userNotesdata = new FormData();

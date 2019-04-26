@@ -306,6 +306,9 @@ class DashboardService extends CI_Controller
 
                     print json_encode($arr);
 
+                    $client = ConnectingToRedis::redisConnection();
+                    $client->set("notes", $arr);
+
                 }
             } else {
                 $result = array(
