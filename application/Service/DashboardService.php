@@ -134,7 +134,7 @@ class DashboardService extends CI_Controller
         $channel = new ConnectingToRedis();
 
         $client = $channel->redisConnection();
-        
+
         $token = $client->get('token');
 
         $array = array(
@@ -146,7 +146,7 @@ class DashboardService extends CI_Controller
         $userId = $payload->userId;
 
         $index = "";
-        
+
         if ($token != null) {
 
             $jwt = new JWT();
@@ -168,7 +168,7 @@ class DashboardService extends CI_Controller
                     $res = $statement->execute();
 
                     if ($res) {
-                        
+
                         $result = array(
 
                             "message" => "200",
@@ -178,8 +178,7 @@ class DashboardService extends CI_Controller
                         print json_encode($result);
 
                         return "200";
-                    }
-                    else{
+                    } else {
 
                         // throw new Exception("Label cant be added to notes.....by chandu");
                         $result = array(
@@ -293,6 +292,12 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
+                $client = ConnectingToRedis::redisConnection();
+                $value = $client->get("notes"); 
+
+                if($value == null)
+                {
+
                 // $query = "SELECT * from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId = '$userId' and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
                 $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
 
@@ -304,12 +309,23 @@ class DashboardService extends CI_Controller
                 if ($statement->execute()) {
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-                    print json_encode($arr);
 
-                    $client = ConnectingToRedis::redisConnection();
-                    $client->set("notes", $arr);
+                $value = json_encode($arr);
+
+                $client = ConnectingToRedis::redisConnection();
+                $client->set("notes", $value);
+
 
                 }
+
+
+
+                
+
+                }
+
+                print json_encode($value);
+
             } else {
                 $result = array(
                     "message" => "500",
@@ -356,7 +372,7 @@ class DashboardService extends CI_Controller
                 $statement = $this->connect->prepare($query);
 
                 if ($statement->execute()) {
-                    
+
                     $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                     print json_encode($arr);
@@ -481,10 +497,9 @@ class DashboardService extends CI_Controller
                     print json_encode($firstname);
 
                 } else {
-                    
 
                     $result = array(
-                        
+
                         "message" => "500",
                     );
 
