@@ -84,6 +84,7 @@ export class NotesComponent implements OnInit {
       this.layout = this.direction + " " + this.wrap;
 
     }));
+    debugger
     this.fetchPinned();
     this.fetchLabel();
 
@@ -506,6 +507,8 @@ export class NotesComponent implements OnInit {
     dialogconfg.autoFocus = true;
 
     dialogconfg.width = "600px"
+
+    dialogconfg.height= "auto";
 
     dialogconfg.panelClass = 'custom-dialog-container'
 
