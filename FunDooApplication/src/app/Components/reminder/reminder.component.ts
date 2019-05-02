@@ -7,16 +7,18 @@ import { ListService } from 'src/app/Services/list.service';
 import { MoreoptionsService } from 'src/app/Services/moreoptions.service';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry, MatDialog, MatSnackBar, MatDialogConfig } from '@angular/material';
+import { MatIconRegistry, MatDialog, MatSnackBar, MatDialogConfig, MatSnackBarConfig } from '@angular/material';
 import { NotesModel } from 'src/app/Models/Notes.model';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { LabelService } from 'src/app/Services/label.service';
 @Component({
   selector: 'app-reminder',
   templateUrl: './reminder.component.html',
   styleUrls: ['./reminder.component.scss']
 })
 export class ReminderComponent implements OnInit {
+ 
   model: any = {};
   notesarray: NotesModel[] = [];
 
@@ -27,6 +29,7 @@ export class ReminderComponent implements OnInit {
   notes: any;
   backgroundColour: any;
   timer: any;
+  labelb: boolean = false;
   displayTitle: any;
   displayTakeANote: any;
   dateandtime: any;
@@ -50,7 +53,8 @@ export class ReminderComponent implements OnInit {
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private labelsev: LabelService, ) {
 
     this.listview.getView().subscribe((res => {
 
@@ -64,7 +68,33 @@ export class ReminderComponent implements OnInit {
 
     }));
   }
+  ngOnInit() {
 
+    this.notesDisplaying();
+
+    this.timer = false;
+
+    this.labelb = false;
+
+    this.listview.getView().subscribe((res => {
+
+      this.view = res;
+
+      this.direction = this.view.data;
+
+      this.layout = this.direction + " " + this.wrap;
+
+    }));
+    this.fetchPinned();
+    this.fetchLabel();
+
+    // setInterval(() => {
+
+    //   this.remaindme();
+
+    // }, 1000);
+
+  }
 
   fetchImage() {
 
@@ -100,15 +130,15 @@ export class ReminderComponent implements OnInit {
 
     var file = files[0];
 
-    if (files && file) {
+    // if (files && file) {
 
-      var reader = new FileReader();
+    var reader = new FileReader();
 
-      reader.onload = this._handleImageLoader.bind(this);
+    reader.onload = this._handleImageLoader.bind(this);
 
-      reader.readAsBinaryString(file);
+    reader.readAsBinaryString(file);
 
-    }
+    // }
   }
   imageBoolForMainCrd: boolean = false;
   imageBoolForNotesCrd: boolean = false;
@@ -139,58 +169,66 @@ export class ReminderComponent implements OnInit {
 
   }
 
-  ngOnInit() {
 
-    this.notesDisplaying();
 
-    this.timer = false;
-
-    this.listview.getView().subscribe((res => {
-
-      this.view = res;
-
-      this.direction = this.view.data;
-
-      this.layout = this.direction + " " + this.wrap;
-
-    }));
-    this.fetchPinned();
-
-    // setInterval(() => {
-
-    //   this.remaindme();
-
-    // }, 1000);
-
-  }
-
-  timeChooser(str) {
+  timeChooser(str, id) {
 
     debugger;
     var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
 
-    if (str == "Morning") {
+    if (id = 1) {
 
-      this.dateAndTime = chooser + " " + " 08:00 AM ";
+      if (str == "Morning") {
+
+        this.dateAndTime = chooser + " " + " 08:00 AM ";
+
+      }
+      else if (str == "Afternoon") {
+
+        this.dateAndTime = chooser + " " + " 1:00 PM ";
+
+      }
+      else if (str == "Evening") {
+
+        this.dateAndTime = chooser + " " + " 6:00 PM ";
+
+      }
+      else if (str == "Night") {
+
+        this.dateAndTime = chooser + " " + " 8:00 PM ";
+
+      }
+
+      this.timer = true;
+    }
+    else {
+
+      if (str == "Morning") {
+
+        this.dateAndTime = chooser + " " + " 08:00 AM ";
+
+      }
+      else if (str == "Afternoon") {
+
+        this.dateAndTime = chooser + " " + " 1:00 PM ";
+
+      }
+      else if (str == "Evening") {
+
+        this.dateAndTime = chooser + " " + " 6:00 PM ";
+
+      }
+      else if (str == "Night") {
+
+        this.dateAndTime = chooser + " " + " 8:00 PM ";
+
+      }
+
+      var flag = "reminderValue";
+      this.notestools(id, this.dateAndTime, flag);
 
     }
-    else if (str == "Afternoon") {
 
-      this.dateAndTime = chooser + " " + " 1:00 PM ";
-
-    }
-    else if (str == "Evening") {
-
-      this.dateAndTime = chooser + " " + " 6:00 PM ";
-
-    }
-    else if (str == "Night") {
-
-      this.dateAndTime = chooser + " " + " 8:00 PM ";
-
-    }
-
-    this.timer = true;
   }
 
   duplicate
@@ -228,6 +266,8 @@ export class ReminderComponent implements OnInit {
 
 
   today(id) {
+
+    console.log(id);
 
     var day = new Date();
 
@@ -294,6 +334,14 @@ export class ReminderComponent implements OnInit {
     this.dateAndTime = "undefined";
 
   }
+  closelabel() {
+
+    this.labelb = false;
+
+    this.notelabel = null;
+
+  }
+
   imagerOfNotes
   notesDisplaying() {
 
@@ -303,12 +351,15 @@ export class ReminderComponent implements OnInit {
 
     getnotes.subscribe((res: any) => {
 
-      console.log("res", res);
+      // console.log("res", res);
       debugger;
       this.notelist = res as string[];
+      console.log("taki taki", this.notelist);
 
     });
   }
+
+  
   colourSetter(color) {
 
     this.backgroundColour = color;
@@ -316,6 +367,7 @@ export class ReminderComponent implements OnInit {
   }
   str;
   coloring(id, value) {
+
 
     debugger;
 
@@ -327,7 +379,7 @@ export class ReminderComponent implements OnInit {
 
       this.notes = res;
 
-      this.notesDisplaying();
+      // this.notesDisplaying();
 
     });
 
@@ -336,7 +388,6 @@ export class ReminderComponent implements OnInit {
   reverseFlag() {
     this.flag = !this.flag;
   }
-
 
 
   stringvalue;
@@ -358,28 +409,99 @@ export class ReminderComponent implements OnInit {
 
     });
   }
+
+
+  closelabelforNotes(id, labelId) {
+
+    debugger;
+    this.timer = false;
+
+    this.notelabel = null;
+
+    this.stringvalue = "closelabel";
+
+    let colorObs = this.notesService.moreoptions(id, labelId, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+  addlabelforNotes(id, labelId) {
+
+
+    console.log("-------", id);
+    console.log("-------", labelId);
+    this.stringvalue = "addlabel";
+
+    let colorObs = this.notesService.moreoptions(id, labelId, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+
   pinnednotes: boolean = false;
   pinnedlist: any;
   fetchPinned() {
     debugger;
     const email = localStorage.getItem('email');
 
-    let getnotes = this.notesService.fetchPinnedNotes(email);
+    let getnotes = this.notesService.fetchPinnedReminder(email);
 
     getnotes.subscribe((res: any) => {
       debugger;
-      console.log("res", res);
+      console.log("pinned", res);
       if (res != 0) {
         this.pinnednotes = true;
         this.pinnedlist = res as string[];
       }
 
 
+    });
+  }
+  verticalPosition
+  horizontalPosition
+  setAutoHide
+  autoHide
+  actionButtonLabel
+  action
+  stat
+  deleteNotes(id) {
 
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
 
+    this.snackBar.open(this.stat, this.action ? this.actionButtonLabel : undefined, config);
+    debugger;
+    this.timer = false;
+
+    this.dateAndTime = "1";
+
+    this.stringvalue = "Delete";
+
+    console.log(id);
+
+    let colorObs = this.notesService.moreoptions(id, this.dateAndTime, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
 
     });
   }
+
   openDialog(n): void {
 
     const dialogconfg = new MatDialogConfig();
@@ -400,9 +522,10 @@ export class ReminderComponent implements OnInit {
 
   }
 
-  addNotes() {
+  addNotes(labelId) {
 
     debugger;
+
 
     if ((this.title.value == "" && this.takeANote.value == "") || (this.title.value == null && this.takeANote.value == null) && this.dateAndTime == undefined) {
 
@@ -428,7 +551,9 @@ export class ReminderComponent implements OnInit {
 
         "image": this.mainimage,
 
-        "pinned": this.pinnedvalue
+        "pinned": this.pinnedvalue,
+
+        "notelabelid": this.notelabelid,
 
       }
 
@@ -454,6 +579,17 @@ export class ReminderComponent implements OnInit {
     }
 
   }
+
+
+
+
+
+
+
+
+
+
+
   pinnedvalue;
   pinnedFunction(id, str) {
     if (id == '01') {
@@ -511,9 +647,62 @@ export class ReminderComponent implements OnInit {
     //   this.direct = "negative";
     // }
   }
+  labels
 
+  fetchLabel() {
+    debugger;
+    var email = localStorage.getItem("email");
+    debugger
+    let fetchobs = this.labelsev.fetchLabel(email);
 
+    fetchobs.subscribe((res: any) => {
+      debugger
+      this.labels = res;
+    })
+  }
 
+  notelabel: any;
+  notelabelid: any;
+  newLabel
+  labeldetails(labelname, id) {
+
+    this.notelabel = labelname;
+    this.notelabelid = id;
+    this.labelb = true;
+
+    if (this.newLabel != null) {
+
+    }
+    console.log("wowwwwwiiiii", id);
+
+    console.log("wowwwwwiiiii", labelname);
+  }
+
+  mainlabel
+
+  closes() {
+    debugger
+    console.log(this.mainlabel)
+    this.notelabel = this.mainlabel;
+    this.labelb = true;
+    var email = localStorage.getItem("email");
+    this.model = {
+      "labelname": this.mainlabel
+    }
+    debugger;
+    let labelobs = this.labelsev.setLabel(email, this.model);
+    labelobs.subscribe((res: any) => {
+
+    });
+    this.mainlabel = null;
+  }
+
+  createlab: boolean = false;
+  open() {
+
+    this.createlab = true;
+
+  }
 
 
 }

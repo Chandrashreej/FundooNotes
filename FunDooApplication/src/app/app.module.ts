@@ -32,7 +32,7 @@ import { ReminderComponent } from './Components/reminder/reminder.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { EditnotesComponent } from './Components/editnotes/editnotes.component';
 import { CollaborateComponent } from './Components/collaborate/collaborate.component';
-import { EditreminderComponent } from './Components/editreminder/editreminder.component';
+
 import { ArchiveComponent } from './Components/archive/archive.component';
 
 import { TrashComponent } from './Components/trash/trash.component';
@@ -58,7 +58,7 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 import { SearchfilterPipe } from './Services/dashboardService/searchfilter.pipe';
 import { EmptycontentComponent } from './Components/emptycontent/emptycontent.component';
 import { LabelednotesComponent } from './Components/labelednotes/labelednotes.component';
-import { ExampleComponent } from './Components/example/example.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,14 +73,14 @@ import { ExampleComponent } from './Components/example/example.component';
     ReminderComponent,
     EditnotesComponent,
     CollaborateComponent,
-    EditreminderComponent,
+
     ArchiveComponent,
     LabelComponent,
     TrashComponent,
     EmptycontentComponent,
     SearchfilterPipe,
     LabelednotesComponent,
-    ExampleComponent
+
   
     
   ],
@@ -120,6 +120,6 @@ import { ExampleComponent } from './Components/example/example.component';
 			useFactory: getAuthServiceConfigs
 		}],
   bootstrap: [AppComponent],
-  entryComponents:[EditnotesComponent, EditreminderComponent, LabelComponent]
+  entryComponents:[EditnotesComponent, LabelComponent]
 })
 export class AppModule { }

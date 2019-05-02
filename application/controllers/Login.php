@@ -52,6 +52,17 @@ class Login extends CI_Controller
         return $var;
     }
 
+    
+
+    public function logout()
+    {
+        $email = $_POST["email"];
+        $var = $this->logService->logoutService($email);
+        return $var;
+
+
+    }
+
     public function socialLogin(){
         $email = $_POST['email'];
         $name = $_POST['firstname'];

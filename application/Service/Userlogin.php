@@ -179,5 +179,10 @@ class Uselogin extends CI_Controller
             }
         }
     }
+    public function logoutService($email){
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->FLUSHALL();
+    }
 
 }

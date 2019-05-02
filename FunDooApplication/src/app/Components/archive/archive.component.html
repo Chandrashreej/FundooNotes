@@ -1,6 +1,13 @@
-<div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="center center" fxLayout="row wrap">
+<div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="center center" fxLayout="{{layout}}">
 
   <mat-card btnhover class="gridcard" *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}">
+
+    <div>
+
+      <img style="width: calc(100% + 0px);margin-top: 0px;margin-left: 0px;margin-right: 0px;"
+        mat-card-image src="{{item.image}}">
+
+    </div>
 
     <div class="cardtext">
 
@@ -61,7 +68,7 @@
       </button>
 
     </div>
-    
+
   </mat-card>
 
 </div>

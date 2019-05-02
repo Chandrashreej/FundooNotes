@@ -147,5 +147,10 @@ class DashBoard extends CI_Controller
         $email = $_POST["email"];
         return $this->NoteService->getAllPinnedNotesService($email);
     }
+    public function getAllPinnedReminder()
+    {
 
+        $email = $_POST["email"];
+        return $this->NoteService->getAllPinnedReminderService($email);
+    }
 }

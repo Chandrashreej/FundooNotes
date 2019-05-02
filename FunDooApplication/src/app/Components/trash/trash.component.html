@@ -1,16 +1,26 @@
 <div *ngIf="emptytrash == true" fxLayoutAlign="center center">
 
   <mat-icon class="icon">delete</mat-icon>
+
   <br>
+
   <span class="spantext">No notes in Recycle Bin</span>
 
 
 </div>
 
 
-<div class="flexcard" fxLayoutGap="50px" fxLayoutAlign="center center" fxLayout="row wrap" ng-reflect-fx-layout-gap="50px">
+<div class="flexcard" fxLayout="{{layout}}" fxLayoutGap="50px" fxLayoutAlign="center center" fxLayout="row wrap"
+  ng-reflect-fx-layout-gap="50px">
 
-  <mat-card btnhover class="gridcard" *ngFor="let item of notes" [ngStyle]="{'background-color': item.color}">
+  <mat-card class="gridcard" *ngFor="let item of notes" [ngClass]="direction == 'row'  ? 'row': 'column' " [ngStyle]="{'background-color': item.color}">
+
+    <div>
+
+      <img style="margin-right: 0px;margin-left: 1px;margin-top: 0px;width: calc(100% + 0px);border-top-left-radius: 10px;border-top-right-radius: 10px;"
+        mat-card-image src="{{item.image}}">
+
+    </div>
 
     <div class="cardtext">
 
@@ -26,7 +36,7 @@
 
             <mat-icon>
 
-              <img src="../../assets/img/fundoAssests/timer.svg " />
+              <img src="../../assets/img/fundoAssests/timer.svg " style="width:17px; height:17px;margin-bottom: 3px;" />
 
             </mat-icon>
 

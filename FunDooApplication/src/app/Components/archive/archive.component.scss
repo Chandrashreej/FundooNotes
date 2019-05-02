@@ -105,54 +105,55 @@ element.style {
 }
 .gridcard{
 
-  margin-right: 50px;
 
-  width: 230px;
+    margin-top: 50px;
     margin-bottom: 25px;
-
+    margin-left: 0px;
     padding-bottom: 33px;
     height: auto;
-    padding-left: 16px;
-    padding-top: 9px;
-    // color:rgb(37, 37, 37);
+
     font-family: 'Google Sans',Roboto,Arial,sans-serif;
     font-size: 17px;
-    // border-color: #7E858A;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 8px 5px rgba(0,0,0,.12);
+    cursor:  grab;
+    width: 230px;
+   
 }
 .row{
 
     margin-top: 50px;
     margin-bottom: 25px;
-    // display: inline-block;
     margin-left: 0px;
     margin-right: 30px;
-
     width: 230px;
-    padding-left: 16px;
-    padding-top: 9px;
-    padding-bottom: 5px;
+    padding-left: 1px;
+    padding-top: 1px;
+    padding-bottom: 3px;
+    padding-right: 1px;
     color:rgb(37, 37, 37);
     font-family: 'Google Sans',Roboto,Arial,sans-serif;
     font-size: 17px;
     border-color: #7E858A;
-}
-.column{
+    border-radius: 10px;
+    }
+    .column{
 
-    margin-top: 15px;
-    margin-bottom: 15px;
-    display: inline-block;
-
-    margin-left: 0px;
-    margin-right: 35px;
-    padding-bottom: 5px;
-    width: 550px;
-    padding-left: 16px;
-    padding-top: 9px;
-    color:rgb(37, 37, 37);
-    font-family: 'Google Sans',Roboto,Arial,sans-serif;
-    font-size: 17px;
-    border-color: #7E858A;
-}
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: inline-block;
+        margin-left: 0px;
+        margin-right: 35px;
+        padding-bottom: 5px;
+        width: 550px;
+        padding-left: 2px;
+        padding-top: 2px;
+        padding-right: 2px;
+        color:rgb(37, 37, 37);
+        font-family: 'Google Sans',Roboto,Arial,sans-serif;
+        font-size: 17px;
+        border-color: #7E858A;
+        border-radius: 10px;
+        }
 .morerow{
     margin-right: 0px;
     margin-bottom: 13px;
@@ -195,9 +196,19 @@ element.style {
     height: 3px;
 }
 .chips{
+    height: 13px;
+
     border-radius: 30px;
-    padding: 10px;
+
     background-color:  rgba(0,0,0,0.08);
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    font-size: .6900rem;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    // width: 180px;
+    padding-bottom: 0px;
 }
 .dateVisOn{
     visibility: none;
@@ -222,4 +233,17 @@ margin-bottom: 24px;
 }
 .para{
   word-break: break-all;
+  font-size: 14px;
+  padding-left: 5px;
+  margin-top: 0px;
+}
+.icon{
+    height: "500";
+    width: "500";
+    color: rgb(27, 27, 27);
+}
+
+.spantext{
+        font-size: 30px;
+        color: #7E858A;
 }

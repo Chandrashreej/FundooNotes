@@ -54,7 +54,7 @@ export class EditnotesComponent implements OnInit {
       this.isDate = false;
     }
   }
-  timeChooser(str) {
+  timeChooser( id, str) {
     debugger;
     var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
         if (str == "Morning") {
@@ -76,7 +76,61 @@ export class EditnotesComponent implements OnInit {
         }
         this.timer = true;
         this.isDate=false;
+        var flag = "reminderValue";
+        this.notestools(id, this.dateAndTime, flag);
+
       }
+      imageid
+      mainimage
+      selectedImage(event, id) {
+
+        debugger;
+    
+        this.imageid = id;
+    
+        var files = event.target.files;
+    
+        var file = files[0];
+    
+        // if (files && file) {
+    
+        var reader = new FileReader();
+    
+        reader.onload = this._handleImageLoader.bind(this);
+    
+        reader.readAsBinaryString(file);
+    
+        // }
+      }
+      imageBoolForMainCrd: boolean = false;
+      imageBoolForNotesCrd: boolean = false;
+      base64textString
+      imagepre
+      present
+      mainimagefornotes
+      _handleImageLoader(readerEvt) {
+    
+        debugger;
+    
+        var binarstring = readerEvt.target.result;
+    
+        this.base64textString = btoa(binarstring);
+    
+        if (this.imageid != "01") {
+    
+          this.mainimagefornotes = "data:image/jpeg;base64," + this.base64textString;
+    
+          var flag = "image";
+          this.notestools(this.imageid, this.mainimagefornotes, flag)
+    
+        }
+        else {
+          this.imageBoolForMainCrd = true;
+          this.mainimage = "data:image/jpeg;base64," + this.base64textString;
+        }
+    
+      }
+      notelabelid: any;
   close() {
 
     console.log(this.id);
@@ -102,6 +156,7 @@ export class EditnotesComponent implements OnInit {
       "takeANote": this.takeANote.value,
       "email": email,
       "color": this.color,
+      "notelabelid": this.notelabelid,
 
     }
     
@@ -115,13 +170,28 @@ export class EditnotesComponent implements OnInit {
     });
 
   }
+
+  notestools(id, colorid, flag) {
+
+    let colorObs = this.notesService.moreoptions(id, colorid, flag);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+
   colourSetter(color) {
     this.color = color;
   }
+  str;
   coloring(id, value) {
     debugger;
-
-    let obs = this.moreoptService.moreoptions(id, value);
+this.str ="color";
+    let obs = this.notesService.moreoptions(id, value,this.str);
     obs.subscribe((res: any) => {
       debugger;
       this.notes = res;
@@ -137,35 +207,140 @@ export class EditnotesComponent implements OnInit {
    * functin for set reminder for today button
    */
   today(id) {
+    console.log(id);
+
     var day = new Date();
+
     this.timer = true;
+
     this.fulldate = day.toDateString();
+
     var currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+
     this.dateAndTime = currentDate + " " + " 08:00 PM";
+
+    if (id != '01') {
+      var flag = "reminderValue";
+      this.notestools(id, this.dateAndTime, flag);
+
+    }
+
 this.isDate=false;
   }
 
 
   tomorrow(id) {
-    debugger;
     var day = new Date();
+
     day.setDate(day.getDate() + 1);
+
     this.fulldate = day.toDateString();
+
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+
     this.dateAndTime = currentDate + " " + " 08:00 AM";
+
+    if (id != '01') {
+      var flag = "reminderValue";
+      this.notestools(id, this.dateAndTime, flag);
+
+    }
     this.timer = true;
     this.isDate=false;
   }
 
   nextWeek(id) {
-    debugger;
     var day = new Date();
 
     this.fulldate = day.setDate(day.getDate() + ((1 + 7 - day.getDay()) % 7));
+
     let currentDate = moment(this.fulldate).format("DD/MM/YYYY");
+
     this.dateAndTime = currentDate + " " + " 08:00 AM";
+
+
+    if (id != '01') {
+      var flag = "reminderValue";
+      this.notestools(id, this.dateAndTime, flag);
+
+    }
     this.timer = true;
     this.isDate=false;
+  }
+  closedate() {
+
+    this.timer = false;
+
+    this.dateAndTime = "undefined";
+
+  }
+  labelb: boolean = false;
+  notelabel: any;
+  closelabel() {
+
+    this.labelb = false;
+
+    this.notelabel = null;
+
+  }
+  stringvalue
+  closedateforNotes(id) {
+
+    this.timer = false;
+
+    this.dateAndTime = "undefined";
+
+    this.stringvalue = "deleteDate";
+
+    let colorObs = this.notesService.moreoptions(id, this.dateAndTime, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+  addlabelforNotes(id, labelId) {
+
+
+    console.log("-------", id);
+    console.log("-------", labelId);
+    this.stringvalue = "addlabel";
+
+    let colorObs = this.notesService.moreoptions(id, labelId, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+  }
+
+
+  
+
+  closelabelforNotes(id, labelId) {
+
+    debugger;
+    this.timer = false;
+
+    this.notelabel = null;
+
+    this.stringvalue = "closelabel";
+
+    let colorObs = this.notesService.moreoptions(id, labelId, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
   }
 
 }

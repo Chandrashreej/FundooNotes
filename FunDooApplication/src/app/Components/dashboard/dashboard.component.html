@@ -1,4 +1,4 @@
-<div style="overflow:hidden;" fxFlex="100" fxFlex.sm="100" fxFlex.xs="10">
+<div style="overflow:hidden;" fxFlex="100" fxFlex.sm="100" fxFlex.xs="10" >
 
   <div >
 
@@ -22,16 +22,16 @@
 
       </div>
 
-      <button mat-icon-button matTooltip="Search" style="margin-left: 20px;" class="searchicon">
+      <button fxHide.md fxHide.xl mat-icon-button matTooltip="Search" style="margin-left: 20px;" class="searchicon">
 
         <mat-icon class="example-icon">search</mat-icon>
 
       </button>
 
-      <input class="searchbar" appearance="null" (keyup)="sendSearchData()" [routerLink]="['emptycontent']" type="text"
+      <input fxHide.md fxHide.xl  class="searchbar" appearance="null" (keyup)="sendSearchData()" [routerLink]="['emptycontent']" type="text"
         placeholder="Search" [(ngModel)]="serchingterm" />
 
-      <button mat-icon-button style="right: 60px;" [routerLink]="['notes']" (click)="closeSearch()">
+      <button fxHide.md fxHide.xl mat-icon-button style="right: 60px;" [routerLink]="['notes']" (click)="closeSearch()">
 
         <mat-icon style="width:1px; height:1px; margin-bottom: 20px;color: grey;margin-left: -89px;">close</mat-icon>
 

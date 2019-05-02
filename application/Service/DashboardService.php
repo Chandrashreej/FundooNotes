@@ -293,38 +293,32 @@ class DashboardService extends CI_Controller
             if ($jwt->verifyc($token, $sekretkey)) {
 
                 $client = ConnectingToRedis::redisConnection();
-                $value = $client->get("notes"); 
+                $value = $client->get("notes");
 
-                if($value == null)
-                {
+                if ($value == null) {
 
-                // $query = "SELECT * from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId = '$userId' and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+                    // $query = "SELECT * from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId = '$userId' and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
 
-                // SELECT * from userNotes n Left JOIn labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on
-                //         ln.labelId=l.id where n.userId = 36 and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC
-                // n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname
-                $statement = $this->connect->prepare($query);
+                    // SELECT * from userNotes n Left JOIn labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on
+                    //         ln.labelId=l.id where n.userId = 36 and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC
+                    // n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname
+                    $statement = $this->connect->prepare($query);
 
-                if ($statement->execute()) {
-                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    if ($statement->execute()) {
+                        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+                        $value = json_encode($arr);
 
-                $value = json_encode($arr);
+                        $client = ConnectingToRedis::redisConnection();
+                        $client->set("notes", $value);
 
-                $client = ConnectingToRedis::redisConnection();
-                $client->set("notes", $value);
+                        print($value);
+                    }
 
-
+                } else {
+                    print($value);
                 }
-
-
-
-                
-
-                }
-
-                print json_encode($value);
 
             } else {
                 $result = array(
@@ -349,9 +343,7 @@ class DashboardService extends CI_Controller
         $sekretkey = "chandu";
 
         $channel = new ConnectingToRedis();
-
         $client = $channel->redisConnection();
-
         $token = $client->get('token');
 
         $array = array(
@@ -364,43 +356,48 @@ class DashboardService extends CI_Controller
         if ($token != null) {
 
             $jwt = new JWT();
-
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT * FROM userNotes where userId = '$userId' and dateAndTime != 'undefined'";
+                $client = ConnectingToRedis::redisConnection();
+                $value = $client->get("reminderNotes");
 
-                $statement = $this->connect->prepare($query);
+                if ($value == null) {
 
-                if ($statement->execute()) {
+                    // $query = "SELECT * from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId = '$userId' and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 and n.dateAndTime !='undefined' ORDER BY n.id DESC";
 
-                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+                    // SELECT * from userNotes n Left JOIn labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on
+                    //         ln.labelId=l.id where n.userId = 36 and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC
+                    // n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname
+                    $statement = $this->connect->prepare($query);
 
-                    print json_encode($arr);
+                    if ($statement->execute()) {
+                        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+                        $value = json_encode($arr);
+
+                        $client = ConnectingToRedis::redisConnection();
+                        $client->set("reminderNotes", $value);
+
+                        print($value);
+                    }
+
+                } else {
+                    print($value);
                 }
+
             } else {
-
                 $result = array(
-
                     "message" => "500",
-
                 );
-
                 print json_encode($result);
-
                 return "500";
-
             }
         } else {
-
             $result = array(
-
                 "message" => "600",
-
             );
-
             print json_encode($result);
-
             return "600";
         }
     }
@@ -745,16 +742,97 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.id DESC";
+                $client = ConnectingToRedis::redisConnection();
+                $value = $client->get("pinned");
 
-                $statement = $this->db->conn_id->prepare($query);
+                if ($value == null) {
 
-                $res = $statement->execute();
-                if ($res) {
-                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    $array = array_reverse($arr);
-                    print json_encode($array);
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.id DESC";
 
+                    $statement = $this->db->conn_id->prepare($query);
+
+                    $res = $statement->execute();
+
+                    if ($res) {
+                        
+                        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                        $value = json_encode($arr);
+
+                        $client = ConnectingToRedis::redisConnection();
+                        $client->set("pinned", $value);
+
+                        print($value);
+                    }
+
+                } else {
+                    print($value);
+                }
+            } else {
+                $result = array(
+                    "message" => "500",
+                );
+                print json_encode($result);
+                return "500";
+            }
+        } else {
+            $result = array(
+                "message" => "600",
+            );
+            print json_encode($result);
+            return "600";
+
+        }
+    }
+
+    public function getAllPinnedReminderService($email)
+    {
+        $time = "";
+
+        $sekretkey = "chandu";
+
+        $channel = new ConnectingToRedis();
+        $client = $channel->redisConnection();
+        $token = $client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+        // $token = $headers['Authorization'];
+
+        if ($token != null) {
+
+            $jwt = new JWT();
+            if ($jwt->verifyc($token, $sekretkey)) {
+
+                $client = ConnectingToRedis::redisConnection();
+                $value = $client->get("reminderPinned");
+
+                if ($value == null) {
+
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 and n.dateAndTime !='undefined' ORDER BY n.id DESC";
+
+                    $statement = $this->db->conn_id->prepare($query);
+
+                    $res = $statement->execute();
+
+                    if ($res) {
+                        
+                        $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                        $value = json_encode($arr);
+
+                        $client = ConnectingToRedis::redisConnection();
+                        $client->set("reminderPinned", $value);
+
+                        print($value);
+                    }
+
+                } else {
+                    print($value);
                 }
             } else {
                 $result = array(
@@ -773,3 +851,4 @@ class DashboardService extends CI_Controller
         }
     }
 }
+

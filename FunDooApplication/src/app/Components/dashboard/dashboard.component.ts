@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { SearchService } from 'src/app/Services/search.service';
 import { NotesModel } from 'src/app/Models/Notes.model';
 import { LabelidService } from 'src/app/Services/labelid.service';
+import { LoginService } from 'src/app/Services/loginService/ServiceLogin';
 
 
 
@@ -28,23 +29,24 @@ export class DashboardComponent implements OnInit {
   refreshFlag: boolean = true;
   grid: boolean = false;
   list: boolean = true;
-email:string;
-name:string;
-labels: LabelsModel[]=[];
+  email: string;
+  name: string;
+  labels: LabelsModel[] = [];
   firstname: any;
-  image:string;
-  present:boolean = true;
+  image: string;
+  present: boolean = true;
   imagepre: boolean = false;
   notelist: NotesModel[];
   view: {};
   constructor(private route: Router, private listview: ListService,
-    private search:SearchService,
+    private search: SearchService,
     private dashService: DashboardService,
     private labelsev: LabelService,
     public dialog: MatDialog,
     iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,private cookieserv:CookieService,
-    private nameservice: LabelidService) {
+    sanitizer: DomSanitizer, private cookieserv: CookieService,
+    private nameservice: LabelidService,
+    private loginservice: LoginService) {
     this.changeView();
     this.image = this.cookieserv.get("image");
   }
@@ -57,15 +59,15 @@ labels: LabelsModel[]=[];
       debugger;
       this.firstname = res;
 
-      
+
     });
     this.fetchLabel();
     debugger;
-   this.image = this.cookieserv.get("image");
-   this.value = this.cookieserv.get("name") + " \n "+ this.cookieserv.get("email");
-  
-   this.notesDisplaying();
- this.fetchImage();
+    this.image = this.cookieserv.get("image");
+    this.value = this.cookieserv.get("name") + " \n " + this.cookieserv.get("email");
+
+    this.notesDisplaying();
+    this.fetchImage();
   }
 
   notesDisplaying() {
@@ -80,28 +82,40 @@ labels: LabelsModel[]=[];
 
       this.notelist = res;
 
-   
+
 
     });
   }
 
-  openLabel(){
+  openLabel() {
     const config = new MatDialogConfig();
-    config.width="600px";
-    config.height="250px";
+    config.width = "600px";
+    config.height = "250px";
     // config.data ={data:this.uid};
     // const label = this.dialog.open(LabelsComponent,config);
   }
   notes() {
     this.getToken = localStorage.getItem("token");
     return this.getToken;
-    
+
   }
+
+
+
   logout() {
     localStorage.removeItem("token");
     this.route.navigate(['/login']);
     this.cookieserv.deleteAll();
+
+    this.email = localStorage.getItem("email");
+
+    let log = this.loginservice.logout(this.email);
+    log.subscribe((res: any) => {
+      localStorage.removeItem("email");
+    })
   }
+
+
 
   refresh() {
     this.refreshFlag = !this.refreshFlag;
@@ -119,14 +133,14 @@ labels: LabelsModel[]=[];
 
     this.listview.gridview();
   }
-  label(){
+  label() {
     this.email = localStorage.getItem("email");
     console.log('hi');
     const config = new MatDialogConfig();
-    config.width="300px";
+    config.width = "300px";
     config.panelClass = 'label-dialog-container'
-    config.data ={data:this.email};
-    const label = this.dialog.open(LabelComponent,config);
+    config.data = { data: this.email };
+    const label = this.dialog.open(LabelComponent, config);
   }
 
 
@@ -134,58 +148,56 @@ labels: LabelsModel[]=[];
   fetchLabel() {
     this.email = localStorage.getItem("email");
     debugger
-     let fetchobs = this.labelsev.fetchLabel(this.email);
+    let fetchobs = this.labelsev.fetchLabel(this.email);
 
-     fetchobs.subscribe((res: any) => {
+    fetchobs.subscribe((res: any) => {
       debugger
       this.labels = res;
     })
   }
-  fetchImage(){
+  fetchImage() {
     debugger;
     this.email = localStorage.getItem("email");
     let fetchobs = this.dashService.fectImageService(this.email);
 
     fetchobs.subscribe((res: any) => {
-     debugger
-     this.mainimage = res;
+      debugger
+      this.mainimage = res;
 
-    //  this.mainimage = this.mainimage.replace("data:image/jpeg;base64,", "");
+      //  this.mainimage = this.mainimage.replace("data:image/jpeg;base64,", "");
 
-   })
+    })
   }
   serchingterm
-  sendSearchData(){
+  sendSearchData() {
     debugger;
-    if(this.serchingterm == undefined)
-    {
+    if (this.serchingterm == undefined) {
 
     }
-    else{
-         this.search.setSercher(this.serchingterm);
+    else {
+      this.search.setSercher(this.serchingterm);
     }
 
 
   }
 
 
-  closeSearch(){
+  closeSearch() {
     debugger;
-    this.serchingterm="";
+    this.serchingterm = "";
     // this.route.navigate(['/notes']);
   }
-mainimage;
-imageid;
+  mainimage;
+  imageid;
 
-  selectedImage(event, id){
+  selectedImage(event, id) {
     debugger;
     this.imageid = id;
     var files = event.target.files;
     var file = files[0];
-    if(files && file)
-    {
+    if (files && file) {
       var reader = new FileReader();
-      reader.onload =this._handleReaderLoaded.bind(this);
+      reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsBinaryString(file);
 
     }
@@ -193,48 +205,45 @@ imageid;
 
   base64textString
 
-  _handleReaderLoaded(readerEvt){
+  _handleReaderLoaded(readerEvt) {
 
     debugger;
 
     var binarstring = readerEvt.target.result;
 
     this.base64textString = btoa(binarstring);
-    this.notelist.forEach(element=>{
-      if(element.id == this.imageid )
-      {
+    this.notelist.forEach(element => {
+      if (element.id == this.imageid) {
         debugger
-        element.image = "data:image/jpeg;base64,"+this.base64textString;
+        element.image = "data:image/jpeg;base64," + this.base64textString;
       }
     });
 
-    if(this.imageid == "01")
-    {
+    if (this.imageid == "01") {
       this.present = false;
-      this.imagepre =true;
-      this.mainimage = "data:image/jpeg;base64,"+this.base64textString;
+      this.imagepre = true;
+      this.mainimage = "data:image/jpeg;base64," + this.base64textString;
 
       this.email = localStorage.getItem("email");
-    let setchobs = this.dashService.setImageService(this.email, this.mainimage);
-    setchobs.subscribe((res: any) => {
-      debugger
-      // this.labels = res;
-    });
+      let setchobs = this.dashService.setImageService(this.email, this.mainimage);
+      setchobs.subscribe((res: any) => {
+        debugger
+        // this.labels = res;
+      });
 
     }
-    else{
+    else {
 
     }
   }
 
 
-sendLabelId(labelname)
-{
+  sendLabelId(labelname) {
 
 
-       this.nameservice.setLabelName(labelname);
+    this.nameservice.setLabelName(labelname);
 
-}
+  }
 
 
 

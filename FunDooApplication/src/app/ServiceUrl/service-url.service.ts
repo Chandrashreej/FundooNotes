@@ -9,6 +9,8 @@ export class ServiceUrlService {
   constructor() { }
    public host = environment.baseUrl;
   public registerUrl= 'codeigniter/signup';
+  public logout= 'codeigniter/logout';
+
   public loginUrl='codeigniter/signin';
   public forgot ='codeigniter/forgotPassword';
   public reset ='codeigniter/resetPassword';
@@ -19,7 +21,10 @@ export class ServiceUrlService {
   public getAllLabeledPinnedNotes = 'codeigniter/getAllLabeledPinnedNotes';
 
   public getAllPinnedNotes = 'codeigniter/getAllPinnedNotes';
+  
+  public getAllPinnedReminder = 'codeigniter/getAllPinnedReminder';
 
+  
   public getNameValue = 'codeigniter/getNameValue';
    
   public setNotes = 'codeigniter/setNotes';

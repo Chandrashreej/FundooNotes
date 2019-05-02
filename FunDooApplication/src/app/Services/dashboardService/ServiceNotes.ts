@@ -85,6 +85,13 @@ export class DashboardService {
 
   }
 
+  fetchPinnedReminder(email) {
+    let userNotesdata = new FormData();
+    userNotesdata.append("email", email);
+    return this.http.post((this.sevriceurl.host + this.sevriceurl.getAllPinnedReminder), userNotesdata);
+
+  }
+
   fetchReminder(email){
     let userReminderdata = new FormData();
     userReminderdata.append("email",email);

@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['signup']='Register/signup';
 $route['signin']='Login/signin';
-$route['logoff']='Logout/logoff';
+$route['logout']='Login/logout';
 $route['forgotPassword'] ='ForgotPassword/forgotPasswordFunction';
 
 $route['getEmailId'] ='ForgotPassword/getEmailId';
@@ -87,7 +87,7 @@ $route['getAllNotes'] ='DashBoard/getAllNotes';
 
 $route['getAllPinnedNotes'] ='DashBoard/getAllPinnedNotes';
 
-// $route['getAllPinnedNotes'] ='Archive/getAllPinnedNotes';
+ $route['getAllPinnedReminder'] ='DashBoard/getAllPinnedReminder';
 
 $route['unTrash'] ='Trash/unTrash';  
 

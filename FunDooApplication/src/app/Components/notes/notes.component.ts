@@ -131,11 +131,11 @@ export class NotesComponent implements OnInit {
 
     // if (files && file) {
 
-      var reader = new FileReader();
+    var reader = new FileReader();
 
-      reader.onload = this._handleImageLoader.bind(this);
+    reader.onload = this._handleImageLoader.bind(this);
 
-      reader.readAsBinaryString(file);
+    reader.readAsBinaryString(file);
 
     // }
   }
@@ -200,7 +200,7 @@ export class NotesComponent implements OnInit {
 
       this.timer = true;
     }
-    else{
+    else {
 
       if (str == "Morning") {
 
@@ -350,7 +350,7 @@ export class NotesComponent implements OnInit {
 
     getnotes.subscribe((res: any) => {
 
-      console.log("res", res);
+      // console.log("res", res);
       debugger;
       this.notelist = res as string[];
       console.log("taki taki", this.notelist);
@@ -455,11 +455,12 @@ export class NotesComponent implements OnInit {
 
     getnotes.subscribe((res: any) => {
       debugger;
-      // console.log("res", res);
+      console.log("pinned", res);
       if (res != 0) {
         this.pinnednotes = true;
         this.pinnedlist = res as string[];
       }
+
 
     });
   }
@@ -471,7 +472,7 @@ export class NotesComponent implements OnInit {
   action
   stat
   deleteNotes(id) {
-    
+
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;

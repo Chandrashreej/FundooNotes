@@ -29,6 +29,15 @@ export class LoginService {
 		userLogindata.append("password", log.password);
 		return this.http.post((this.sevriceurl.host + this.sevriceurl.loginUrl), userLogindata);
 	}
+
+	logout(email) {
+		let userLogindata = new FormData();
+		userLogindata.append("email", email);
+		return this.http.post((this.sevriceurl.host + this.sevriceurl.logout), userLogindata);
+	}
+
+
+	
 	/**
 	 * @method userForgotPasswordData()
 	 * @return observable data
