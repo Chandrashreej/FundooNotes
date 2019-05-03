@@ -16,7 +16,6 @@ export class LoginService {
 		private sevriceurl: ServiceUrlService,
 		private route: ActivatedRoute) { }
 	//apiURL: string = 'http://localhost/codeigniter/signin';
-
 	/**
 	 * @method userLogin()
 	 * @return observable data

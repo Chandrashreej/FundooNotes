@@ -10,7 +10,7 @@
 
 /********************************************************************************************/
 
-//helps to get the access the access the files within framework
+//helps to get the access the                                                                                                                                                                          files within framework
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: Authorization");
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -49,7 +49,7 @@ class Register extends CI_Controller
         $phonenum = $_POST['phonenum'];
         $password = $_POST['password'];
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $var = $this->refService->insertDb($fname, $lname, $phonenum, $email, $password);
+        $var = $this->refService->registerUserService($fname, $lname, $phonenum, $email, $password);
         return $var;
     }
 

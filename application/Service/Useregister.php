@@ -35,7 +35,7 @@ class Useregister extends CI_Controller
      * @method registration() Adds data into the database
      * @return void
      */
-    public function insertDb($fname, $lname, $phonenum, $email, $password)
+    public function registerUserService($fname, $lname, $phonenum, $email, $password)
     {
         $flag = $this->isEmailPresent($email, $phonenum);
         if ($flag == 0) {
