@@ -9,11 +9,11 @@
  */
 
 /********************************************************************************************/
-include '/var/www/html/codeigniter/application/Service/JWT.php';
-require '/var/www/html/codeigniter/application/jwt/vendor/autoload.php';
-include '/var/www/html/codeigniter/application/Service/ConnectingToRedis.php';
-include '/var/www/html/codeigniter/application/static/LinkConstants.php';
-include '/var/www/html/codeigniter/application/Service/DatabaseConnection.php';
+include_once '/var/www/html/codeigniter/application/Service/JWT.php';
+include_once '/var/www/html/codeigniter/application/jwt/vendor/autoload.php';
+include_once '/var/www/html/codeigniter/application/Service/ConnectingToRedis.php';
+include_once '/var/www/html/codeigniter/application/static/LinkConstants.php';
+include_once '/var/www/html/codeigniter/application/Service/DatabaseConnection.php';
 /**
  * creation of Uselogin class that extends CI_Controller
  */
@@ -179,7 +179,7 @@ class Uselogin extends CI_Controller
             }
         }
     }
-    public function logoutService($email){
+    public function logoutService(){
         $channel = new ConnectingToRedis();
         $client = $channel->redisConnection();
         $token = $client->FLUSHALL();

@@ -57,7 +57,7 @@ class Login extends CI_Controller
     public function logout()
     {
         $email = $_POST["email"];
-        $var = $this->logService->logoutService($email);
+        $var = $this->logService->logoutService();
         return $var;
 
 

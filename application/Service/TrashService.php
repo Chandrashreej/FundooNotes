@@ -31,19 +31,21 @@ use \Firebase\JWT\JWT;
 
 class TrashService extends CI_Controller
 {
+    private $client;
 
     public function __construct()
     {
         parent::__construct();
+        $channel = new ConnectingToRedis();
+        $this->client = $channel->redisConnection();
     }
     public function trashednotesService($email)
     {
 
         $sekretkey = "chandu";
 
-        $channel = new ConnectingToRedis();
-        $client = $channel->redisConnection();
-        $token = $client->get('token');
+
+        $token = $this->client->get('token');
 
         $array = array(
             'HS256',
@@ -51,12 +53,40 @@ class TrashService extends CI_Controller
         $payload = JWT::decode($token, $sekretkey, $array);
 
         $userId = $payload->userId;
+        $key = "trash";
 
-        $query = "SELECT * from userNotes Where userId ='$userId' AND deleteNote = '1' ";
-        $stmt = $this->db->conn_id->prepare($query);
-        $res = $stmt->execute();
-        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        print json_encode($arr);
+        $value = $this->client->hvals($key);
+
+        if ($value == null) {
+
+            $query = "SELECT * from userNotes Where userId ='$userId' AND deleteNote = '1' ";
+            $stmt = $this->db->conn_id->prepare($query);
+            $res = $stmt->execute();
+            $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($arr as $rads) {
+                //  $value = $arr[$i];
+                $value = json_encode($rads);
+                $key1 = "trash";
+                $id_var = $rads['id'];
+
+                $num = $this->client->hset($key1, $id_var, $value);
+
+            }
+            //
+            $value = json_encode($arr);
+            print($value);
+
+        } else {
+            $str = [];
+            $var;
+            foreach ($value as $rads) {
+                $var = json_decode($rads);
+                array_push($str, $var);
+            }
+
+            print json_encode($str);
+        }
     }
     public function untrashService($uid, $flag)
     {
@@ -65,9 +95,30 @@ class TrashService extends CI_Controller
         $stmt = $this->db->conn_id->prepare($query);
         $res = $stmt->execute();
         if ($res) {
-            $data = array(
-                "status" => "200",
-            );
+            $query = "SELECT * from userNotes where id = '$uid'";
+
+            $statement = $this->db->conn_id->prepare($query);
+
+            $res = $statement->execute();
+
+            $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            $key1 = "trash";
+
+            $num = $this->client->hdel($key1, $uid);
+
+            if ($value['pin'] == 1) {
+
+                $key1 = "pinned";
+
+                $num = $this->client->hset($key1, $uid, json_encode($value));
+
+            } elseif ($value['pin'] == 0) {
+                $key1 = "notes";
+
+                $num = $this->client->hset($key1, $uid, json_encode($value));
+            }
+
             print json_encode($data);
         } else {
             $data = array(
@@ -77,52 +128,5 @@ class TrashService extends CI_Controller
             return "204";
         }
     }
-    public function fetching($uid)
-    {
-        $time = "";
 
-        $sekretkey = "chandu";
-
-        $channel = new ConnectingToRedis();
-        $client = $channel->redisConnection();
-        $token = $client->get('token');
-
-        $array = array(
-            'HS256',
-        );
-        $payload = JWT::decode($token, $sekretkey, $array);
-
-        $userId = $payload->userId;
-        // $token = $headers['Authorization'];
-
-        if ($token != null) {
-
-            $jwt = new JWT();
-            if ($jwt->verifyc($token, $sekretkey)) {
-
-                $query = "SELECT * FROM userNotes where userId = '$userId' and archive = 0";
-
-                $statement = $this->connect->prepare($query);
-
-                if ($statement->execute()) {
-                    $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-                    print json_encode($arr);
-
-                }
-            } else {
-                $result = array(
-                    "message" => "500",
-                );
-                print json_encode($result);
-                return "500";
-            }
-        } else {
-            $result = array(
-                "message" => "600",
-            );
-            print json_encode($result);
-            return "600";
-        }
-
-    }
 }

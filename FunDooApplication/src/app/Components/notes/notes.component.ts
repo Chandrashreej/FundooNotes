@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { DashboardService } from 'src/app/Services/dashboardService/ServiceNotes';
 import * as moment from 'moment';
 import { ListService } from 'src/app/Services/list.service';
-import { MatDialog, MatIconRegistry, MatSnackBar, MatDialogConfig, MatSnackBarConfig } from '@angular/material';
+import { MatDialog, MatIconRegistry, MatSnackBar, MatDialogConfig, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EditnotesComponent } from '../editnotes/editnotes.component';
 import { NotesModel } from 'src/app/Models/Notes.model';
@@ -465,21 +465,26 @@ export class NotesComponent implements OnInit {
 
     });
   }
-  verticalPosition
-  horizontalPosition
-  setAutoHide
-  autoHide
-  actionButtonLabel
-  action
-  stat
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  message: string = 'note binned';
+  actionButtonLabel: string = 'Retry';
+  action: boolean = true;
+  setAutoHide: boolean = true;
+  autoHide: number = 2000;
+  addExtraClass: boolean = true;
+
   deleteNotes(id) {
+
+    debugger;
 
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
     config.duration = this.setAutoHide ? this.autoHide : 0;
+    config.panelClass = ["font-family:'Open Sans', sans-serif;font-color: green;"];
 
-    this.snackBar.open(this.stat, this.action ? this.actionButtonLabel : undefined, config);
+    this.snackBar.open(this.message, this.action ? this.value(id) : undefined, config);
     debugger;
     this.timer = false;
 
@@ -500,6 +505,27 @@ export class NotesComponent implements OnInit {
     });
   }
 
+  value(id): string{
+    this.timer = false;
+
+    this.dateAndTime = "0";
+
+    this.stringvalue = "Delete";
+
+    console.log(id);
+
+    let colorObs = this.notesService.moreoptions(id, this.dateAndTime, this.stringvalue);
+
+    colorObs.subscribe((res: any) => {
+
+      if (res.status == "200") {
+
+      }
+
+    });
+    console.log("hey goli soda");
+    return "Undo";
+  }
   openDialog(n): void {
 
     const dialogconfg = new MatDialogConfig();
@@ -609,6 +635,7 @@ export class NotesComponent implements OnInit {
       this.notestools(id, colorid, flag);
     }
   }
+
   notestools(id, colorid, flag) {
 
     let colorObs = this.notesService.moreoptions(id, colorid, flag);
@@ -621,15 +648,15 @@ export class NotesComponent implements OnInit {
 
     });
   }
-  openSnackBar(message: string, action: string) {
+  // openSnackBar(message: string, action: string) {
 
-    this.snackBar.open(message, action, {
+  //   this.snackBar.open(message, action, {
 
-      duration: 2000,
+  //     duration: 2000,
 
-    });
+  //   });
 
-  }
+  // }
   direct;
   difference;
   drop(event: CdkDragDrop<NotesModel[]>) {
@@ -638,14 +665,14 @@ export class NotesComponent implements OnInit {
     console.log("prev", event.previousIndex);
     console.log("cure", event.currentIndex);
     console.log("id")
-    // if (event.previousIndex - event.currentIndex >= 2) {
-    //   this.difference = event.previousIndex - event.currentIndex;
-    //   this.direct = "positive";
-    // }
-    // else {
-    //   this.difference = (event.previousIndex - event.currentIndex) * -0;
-    //   this.direct = "negative";
-    // }
+    if (event.previousIndex - event.currentIndex >= 2) {
+      this.difference = event.previousIndex - event.currentIndex;
+      this.direct = "positive";
+    }
+    else {
+      this.difference = (event.previousIndex - event.currentIndex) * -0;
+      this.direct = "negative";
+    }
   }
   labels
 

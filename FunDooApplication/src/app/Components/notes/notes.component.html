@@ -722,7 +722,7 @@
 
           <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-            <button mat-menu-item (click)="deleteNotes(n.id) ;openSnackBar('note binned')">
+            <button mat-menu-item (click)="deleteNotes(n.id) ">
 
               Delete note
 
@@ -760,17 +760,6 @@
 
           </mat-menu>
 
-          <!-- <mat-menu [overlapTrigger]="true" #addlabel="matMenu">
-
-            <input matInput type="text" placeholder="Enter new label" [formControl]="newLabel" />
-
-            <mat-checkbox *ngFor="let list of labels" (click)="addlabelforNotes(n.id, list.id)">
-
-              {{list.labelname}}
-
-            </mat-checkbox>
-
-          </mat-menu> -->
 
           <mat-menu [overlapTrigger]="false" #addlabel="matMenu">
 
@@ -1130,7 +1119,7 @@
 
           <mat-menu [overlapTrigger]="false" #more="matMenu">
 
-            <button mat-menu-item (click)="deleteNotes(n.id) ;openSnackBar('note binned')">
+            <button mat-menu-item (click)="deleteNotes(n.id)">
 
               Delete note
 

@@ -27,6 +27,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 //
 use \Firebase\JWT\JWT;
+
 class MoreOptionsSevice extends CI_Controller
 {
     /**
@@ -37,6 +38,8 @@ class MoreOptionsSevice extends CI_Controller
     public $constants = "";
 
     public $token = "";
+
+    private $client;
     /**
      * constructor establish DB connection
      */
@@ -49,7 +52,10 @@ class MoreOptionsSevice extends CI_Controller
         $this->connect = $ref->Connection();
 
         $this->constants = new LinkConstants();
-        
+
+        $channel = new ConnectingToRedis();
+        $this->client = $channel->redisConnection();
+
     }
     public function moreOptionsService($id, $color, $flag)
     {
@@ -60,9 +66,7 @@ class MoreOptionsSevice extends CI_Controller
 
         $sekretkey = "chandu";
 
-        $channel = new ConnectingToRedis();
-        $client = $channel->redisConnection();
-        $token = $client->get('token');
+        $token = $this->client->get('token');
 
         $array = array(
             'HS256',
@@ -71,7 +75,7 @@ class MoreOptionsSevice extends CI_Controller
         $payload = JWT::decode($token, $sekretkey, $array);
 
         $userId = $payload->userId;
-        
+
         // // $token = $headers['Authorization'];
 
         // if ($token != null) {
@@ -87,10 +91,28 @@ class MoreOptionsSevice extends CI_Controller
             $statement = $this->connect->prepare($query);
 
             $res = $statement->execute();
-            
+
             if ($res) {
 
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($value['pin'] == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                } elseif ($value['pin'] == 0) {
+                    $key1 = "notes";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+                }
 
             } else {
 
@@ -112,10 +134,32 @@ class MoreOptionsSevice extends CI_Controller
             $statement = $this->connect->prepare($query);
 
             $res = $statement->execute();
-            
+
             if ($res) {
 
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                $key1 = "archieve";
+
+                $num = $this->client->hset($key1, $id, json_encode($value));
+
+                if ($value['pin'] == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hdel($key1, $id);
+
+                } elseif ($value['pin'] == 0) {
+                    $key1 = "notes";
+
+                    $num = $this->client->hdel($key1, $id);
+                }
 
             } else {
 
@@ -128,7 +172,7 @@ class MoreOptionsSevice extends CI_Controller
                 print json_encode($result);
 
                 return "204";
-                
+
             }
         } elseif ($flag == "Delete") {
 
@@ -140,17 +184,39 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-
                 $query = "UPDATE userNotes set pin = 0 WHERE  id = '$id'";
 
                 $statement = $this->connect->prepare($query);
-    
+
                 $res = $statement->execute();
-    
+
                 if ($res) {
 
-                }
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
+                    $statement = $this->db->conn_id->prepare($query);
+
+                    $res = $statement->execute();
+
+                    $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                    $key1 = "trash";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                    if ($value['pin'] == 1) {
+
+                        $key1 = "pinned";
+
+                        $num = $this->client->hdel($key1, $id);
+
+                    } elseif ($value['pin'] == 0) {
+                        $key1 = "notes";
+
+                        $num = $this->client->hdel($key1, $id);
+                    }
+
+                }
 
             } else {
 
@@ -164,8 +230,7 @@ class MoreOptionsSevice extends CI_Controller
                 return "204";
 
             }
-        }
-        elseif ($flag == "deleteDate") {
+        } elseif ($flag == "deleteDate") {
 
             $query = "UPDATE userNotes set dateAndTime = '$color' WHERE  id = '$id'";
 
@@ -175,6 +240,26 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($value['pin'] == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                } elseif ($value['pin'] == 0) {
+                    $key1 = "notes";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+                }
+
             } else {
 
                 $result = array(
@@ -186,31 +271,7 @@ class MoreOptionsSevice extends CI_Controller
 
                 return "204";
             }
-        }elseif ($flag == "Archive") {
 
-            $query = "UPDATE userNotes set archive = '$color' WHERE  id = '$id'";
-
-            $statement = $this->connect->prepare($query);
-
-            $res = $statement->execute();
-            
-            if ($res) {
-
-
-
-            } else {
-
-                $result = array(
-
-                    "message" => "204",
-
-                );
-
-                print json_encode($result);
-
-                return "204";
-                
-            }
         } elseif ($flag == "image") {
 
             $query = "UPDATE userNotes set image = '$color' WHERE  id = '$id'";
@@ -221,6 +282,25 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($value['pin'] == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                } elseif ($value['pin'] == 0) {
+                    $key1 = "notes";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+                }
 
             } else {
 
@@ -234,8 +314,7 @@ class MoreOptionsSevice extends CI_Controller
                 return "204";
 
             }
-        }
-        elseif ($flag == "reminderValue") {
+        } elseif ($flag == "reminderValue") {
 
             $query = "UPDATE userNotes set dateAndTime = '$color' WHERE  id = '$id'";
 
@@ -245,6 +324,25 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($value['pin'] == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                } elseif ($value['pin'] == 0) {
+                    $key1 = "notes";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+                }
 
             } else {
 
@@ -258,7 +356,7 @@ class MoreOptionsSevice extends CI_Controller
                 return "204";
 
             }
-        }elseif ($flag == "pinned") {
+        } elseif ($flag == "pinned") {
 
             $query = "UPDATE userNotes set pin = '$color' WHERE  id = '$id'";
 
@@ -268,7 +366,34 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($color == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                    $key1 = "notes";
+
+                    $num = $this->client->hdel($key1, $id);
+
+                } elseif ($color == 0) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hdel($key1, $id);
+
+                    $key1 = "notes";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+                }
 
             } else {
 
@@ -282,7 +407,8 @@ class MoreOptionsSevice extends CI_Controller
                 return "204";
 
             }
-        }elseif ($flag == "closelabel") {
+
+        } elseif ($flag == "closelabel") {
 
             $query = "DELETE FROM labelNoteMap WHERE noteId = '$id' and labelId = '$color'";
 
@@ -292,6 +418,25 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($value['pin'] == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                } elseif ($value['pin'] == 0) {
+                    $key1 = "notes";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+                }
 
             } else {
 
@@ -305,7 +450,7 @@ class MoreOptionsSevice extends CI_Controller
                 return "204";
 
             }
-        }elseif ($flag == "addlabel") {
+        } elseif ($flag == "addlabel") {
 
             $query = "INSERT into labelNoteMap (noteId, labelId) values ('$id', '$color')";
 
@@ -315,6 +460,25 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
+                $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($value['pin'] == 1) {
+
+                    $key1 = "pinned";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+
+                } elseif ($value['pin'] == 0) {
+                    $key1 = "notes";
+
+                    $num = $this->client->hset($key1, $id, json_encode($value));
+                }
 
             } else {
 
@@ -343,103 +507,4 @@ class MoreOptionsSevice extends CI_Controller
 
     }
 
-
-
-
-    public function coloringBackgroundFunctionServiceForReminder($id, $color)
-    {
-        if ($flag == "color") {
-
-            $query = "UPDATE userReminder set color = '$color' WHERE  id = '$id'";
-
-            $statement = $this->connect->prepare($query);
-
-            $res = $statement->execute();
-
-            if ($res) {
-
-                $result = array(
-
-                    "message" => "200",
-
-                );
-                print json_encode($result);
-
-                return "200";
-
-            } else {
-
-                $result = array(
-
-                    "message" => "204",
-
-                );
-                print json_encode($result);
-
-                return "204";
-            }
-
-        } elseif ($flag == "Archive") {
-
-            $query = "UPDATE userNotes set archive = '$color' WHERE  id = '$id'";
-
-            $statement = $this->connect->prepare($query);
-
-            $res = $statement->execute();
-
-            if ($res) {
-
-                $result = array(
-
-                    "message" => "200",
-
-                );
-                print json_encode($result);
-
-                return "200";
-
-            } else {
-
-                $result = array(
-
-                    "message" => "204",
-
-                );
-                print json_encode($result);
-
-                return "204";
-
-            }
-        } elseif ($flag == "Delete") {
-
-            $query = "UPDATE userNotes set deleteNote = '$color' WHERE  id = '$id'";
-
-            $statement = $this->connect->prepare($query);
-
-            $res = $statement->execute();
-
-            if ($res) {
-
-                $result = array(
-
-                    "message" => "200",
-
-                );
-                print json_encode($result);
-
-                return "200";
-
-            } else {
-
-                $result = array(
-
-                    "message" => "204",
-
-                );
-                print json_encode($result);
-                
-                return "204";
-            }
-        }
-    }
 }

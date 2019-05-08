@@ -58,6 +58,7 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 import { SearchfilterPipe } from './Services/dashboardService/searchfilter.pipe';
 import { EmptycontentComponent } from './Components/emptycontent/emptycontent.component';
 import { LabelednotesComponent } from './Components/labelednotes/labelednotes.component';
+import {MessagingService} from './Services/messaging.service';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,7 @@ import { LabelednotesComponent } from './Components/labelednotes/labelednotes.co
     MatNativeDateModule 
   ],
   providers: [RegisterService,ServiceUrlService,LoginService,CookieService, AuthService, SocialLoginModule,SocialUser, 
-    NgxTwitterTimelineModule,
+    NgxTwitterTimelineModule,MessagingService,
 		auth,
 		{
 			provide: AuthServiceConfig,
