@@ -23,7 +23,7 @@ export class NotesComponent implements OnInit {
 
   flag: boolean = true;
 
-  notelist: any;
+  notelist: NotesModel[] =[];
   classcard;
   notes: any;
   backgroundColour: any;
@@ -85,14 +85,17 @@ export class NotesComponent implements OnInit {
 
     }));
     debugger
+
     this.fetchPinned();
     this.fetchLabel();
 
-    // setInterval(() => {
+    setInterval(() => {
 
-    //   this.remaindme();
+      this.notesDisplaying();
 
-    // }, 1000);
+      this.fetchPinned();
+
+    }, 5000);
 
   }
 
@@ -112,7 +115,8 @@ export class NotesComponent implements OnInit {
       this.mainimage = res;
 
     })
-
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
 
@@ -160,12 +164,14 @@ export class NotesComponent implements OnInit {
 
       var flag = "image";
       this.notestools(this.imageid, this.mainimagefornotes, flag)
-
+      this.notesDisplaying();
+      this.fetchPinned();
     }
     else {
       this.imageBoolForMainCrd = true;
       this.mainimage = "data:image/jpeg;base64," + this.base64textString;
     }
+
 
   }
 
@@ -226,7 +232,8 @@ export class NotesComponent implements OnInit {
 
       var flag = "reminderValue";
       this.notestools(id, this.dateAndTime, flag);
-
+      this.notesDisplaying();
+      this.fetchPinned();
     }
 
   }
@@ -282,7 +289,8 @@ export class NotesComponent implements OnInit {
     if (id != '01') {
       var flag = "reminderValue";
       this.notestools(id, this.dateAndTime, flag);
-
+      this.notesDisplaying();
+      this.fetchPinned();
     }
 
   }
@@ -303,7 +311,8 @@ export class NotesComponent implements OnInit {
     if (id != '01') {
       var flag = "reminderValue";
       this.notestools(id, this.dateAndTime, flag);
-
+      this.notesDisplaying();
+      this.fetchPinned();
     }
   }
 
@@ -323,7 +332,8 @@ export class NotesComponent implements OnInit {
     if (id != '01') {
       var flag = "reminderValue";
       this.notestools(id, this.dateAndTime, flag);
-
+      this.notesDisplaying();
+      this.fetchPinned();
     }
 
   }
@@ -353,7 +363,7 @@ export class NotesComponent implements OnInit {
 
       // console.log("res", res);
       debugger;
-      this.notelist = res as string[];
+      this.notelist = res ;
       console.log("taki taki", this.notelist);
 
     });
@@ -377,9 +387,11 @@ export class NotesComponent implements OnInit {
 
       this.notes = res;
 
-      // this.notesDisplaying();
+      this.notesDisplaying();
+    this.fetchPinned();
 
     });
+
 
   }
 
@@ -406,6 +418,8 @@ export class NotesComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
 
@@ -427,6 +441,8 @@ export class NotesComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
   addlabelforNotes(id, labelId) {
 
@@ -444,6 +460,8 @@ export class NotesComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
   pinnednotes: boolean = false;
@@ -467,7 +485,7 @@ export class NotesComponent implements OnInit {
   }
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  message: string = 'note binned';
+
   actionButtonLabel: string = 'Retry';
   action: boolean = true;
   setAutoHide: boolean = true;
@@ -484,7 +502,7 @@ export class NotesComponent implements OnInit {
     config.duration = this.setAutoHide ? this.autoHide : 0;
     config.panelClass = ["font-family:'Open Sans', sans-serif;font-color: green;"];
 
-    this.snackBar.open(this.message, this.action ? this.value(id) : undefined, config);
+    this.snackBar.open('note binned', this.action ? this.value(id) : undefined, config);
     debugger;
     this.timer = false;
 
@@ -503,6 +521,8 @@ export class NotesComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
   value(id): string{
@@ -527,14 +547,18 @@ export class NotesComponent implements OnInit {
     return "Undo";
   }
   openDialog(n): void {
-
+debugger
     const dialogconfg = new MatDialogConfig();
 
     dialogconfg.autoFocus = true;
 
     dialogconfg.width = "600px"
 
-    dialogconfg.height= "auto";
+    // dialogconfg.position.bottom = ""
+    // dialogconfg.position.top = ""
+    // dialogconfg.position.left = ""
+    // dialogconfg.position.right = ""
+    // dialogconfg.height= "fit-content";
 
     dialogconfg.panelClass = 'custom-dialog-container'
 
@@ -545,6 +569,7 @@ export class NotesComponent implements OnInit {
     }
 
     const open = this.dialog.open(EditnotesComponent, dialogconfg);
+
 
   }
 
@@ -589,7 +614,8 @@ export class NotesComponent implements OnInit {
 
         if (res.message == "200") {
 
-          this.notesDisplaying();
+          this.notesDisplaying();  
+          this.fetchPinned();
 
           this.flag = true;
           this.title.setValue("");
@@ -638,6 +664,18 @@ export class NotesComponent implements OnInit {
 
   notestools(id, colorid, flag) {
 
+    if(flag == "Archive" )
+    {
+      let config = new MatSnackBarConfig();
+      config.verticalPosition = this.verticalPosition;
+      config.horizontalPosition = this.horizontalPosition;
+      config.duration = this.setAutoHide ? this.autoHide : 0;
+      config.panelClass = ["font-family:'Open Sans', sans-serif;font-color: green;"];
+  
+      this.snackBar.open('note archived ', this.action ? this.value(id) : undefined, config);
+      debugger;
+    }
+
     let colorObs = this.notesService.moreoptions(id, colorid, flag);
 
     colorObs.subscribe((res: any) => {
@@ -659,20 +697,36 @@ export class NotesComponent implements OnInit {
   // }
   direct;
   difference;
-  drop(event: CdkDragDrop<NotesModel[]>) {
+  iserror
+  errorMessage
+  drop(event: CdkDragDrop<NotesModel[]>,val) {
     debugger;
+    
+    const email = localStorage.getItem('email');
     moveItemInArray(this.notelist, event.previousIndex, event.currentIndex);
     console.log("prev", event.previousIndex);
     console.log("cure", event.currentIndex);
-    console.log("id")
-    if (event.previousIndex - event.currentIndex >= 2) {
+    if (event.previousIndex - event.currentIndex >= 0) {
       this.difference = event.previousIndex - event.currentIndex;
       this.direct = "positive";
     }
     else {
-      this.difference = (event.previousIndex - event.currentIndex) * -0;
+      this.difference = (event.previousIndex - event.currentIndex) * -1;
       this.direct = "negative";
     }
+
+		let obbs = this.notesService.dragAndDrop(this.difference,this.notelist[event.currentIndex].indexId,this.direct,email, val );
+      obbs.subscribe(
+        (res: any) => {
+          debugger;
+          //   obbs.unsubscribe();
+        },
+        error => {
+          this.iserror = true;
+          this.errorMessage = error.message;
+        }
+      );
+
   }
   labels
 

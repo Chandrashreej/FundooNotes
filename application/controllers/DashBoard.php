@@ -85,7 +85,17 @@ class DashBoard extends CI_Controller
         return $this->NoteService->isSetNotesService($email, $title, $takeANote, $dateAndTime, $color, $image, $pin, $notelabelid);
     }
 
+    public function dragAndDropData()
+    {
 
+        $diff      = $_POST["diff"];
+        $currId    = $_POST["currId"];
+        $direction = $_POST["direction"];
+        $email     = $_POST["email"];
+        $val       = $_POST["val"];
+        $this->NoteService->dragDropService($diff, $currId, $direction, $email,$val);
+
+     }
 
 
     public function getNameValue()
@@ -94,15 +104,6 @@ class DashBoard extends CI_Controller
         return $this->NoteService->getNameValueService($email);
     }
 
-    public function setReminderNotes()
-    {
-        $email =        $_POST["email"];
-        $takeANote =    $_POST["takeANote"];
-        $title =        $_POST["title"];
-        $dateAndTime =  $_POST["dateAndTime"];
-        $color =        $_POST["color"];
-        return $this->NoteService->setAllReminderService($email, $title, $takeANote, $dateAndTime, $color);
-    }
     public function getAllNotes()
     {
 

@@ -1,19 +1,21 @@
+<!-- <div class="cdk-global-overlay-wrapper" dir="ltr" style="justify-content: center;align-items: center;bottom: 140px;top: -100px;padding-bottom: 54px;margin-bottom: 79px;"> -->
 <div [ngStyle]="{'background-color': color}">
 
-    <mat-dialog-content fxLayoutAlign="center center" class="dialogcontent" style="place-content: center;">
+    <div *ngIf="image != null">
 
-        <div>
+        <img class="noteCardImage" style="margin-left: 0px;margin-top: 0px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: 580px;" src="{{image}}">
 
-            <img class="noteCardImage" style="margin-left: 0px;margin-top: -40px;    border-top-left-radius: 10px;border-top-right-radius: 10px;width: 530PX;"
-                mat-card-image src="{{image}}">
+    </div>
 
-        </div>
+    <div fxLayoutAlign="center center" class="dialogcontent" style="place-content: center;align-items: center;flex-direction: row;box-sizing: border-box;display: flex;padding-right: 0px;">
 
-        <div class="title" fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="row wrap">
 
-            <input matInput [formControl]="title" value="{{TiTlE}}">
 
-            <input matInput [formControl]="takeANote" value="{{description}}">
+        <mat-dialog-content class="title" fxLayoutGap="15px" fxLayout="column" fxLayoutAlign="row wrap" style="margin-top:50px;margin-left: 20px;width: 400px;">
+
+            <input matInput [formControl]="title" value="{{TiTlE}}"  style="width: 400px;">
+
+            <input matInput [formControl]="takeANote" value="{{description}}"  style="width: 400px;">
 
             <mat-chip-list *ngIf="isDate">
 
@@ -27,10 +29,10 @@
 
             </mat-chip-list>
 
-        </div>
+        </mat-dialog-content>
 
 
-    </mat-dialog-content>
+    </div>
 
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around end" style="flex-direction: row;box-sizing: border-box;display: flex;place-content: flex-end space-around;align-items: flex-end;width: 547px;height: 66px;margin-bottom: 0px;">
 
@@ -290,3 +292,4 @@
     </mat-dialog-actions>
 
 </div>
+<!-- </div> -->

@@ -52,12 +52,4 @@ class Trash extends CI_Controller
         $this->refService->untrashService($uid, $flag);
     }
 
-    public function doctrine()
-    {
-        $items = Doctrine_Query::create()
-            ->from('Example e')
-            ->leftJoin('e.Foobar')
-            ->where('e.id = ?', 20)
-            ->execute();
-    }
 }

@@ -39,7 +39,7 @@ class DashboardService extends CI_Controller
     private $connect;
     public $constants = "";
     public $token = "";
-    private $client ;
+    private $client;
     /**
      * constructor establish DB connection
      */
@@ -69,8 +69,7 @@ class DashboardService extends CI_Controller
 
         if ($res) {
 
-
-            $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+            $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.id ='$id'";
 
             $statement = $this->db->conn_id->prepare($query);
 
@@ -78,17 +77,17 @@ class DashboardService extends CI_Controller
 
             $value = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-            if($value['pin'] == 1){
+            if ($value[0]['pin'] == 1) {
 
                 $key1 = "pinned";
 
-                $num = $this->client->hset($key1, $uid, json_encode($value));
+                // $num = $this->client->hdel($key1, $uid);
+                $wdsf = $this->client->hset($key1, $id, json_encode($value[0]));
 
-            }elseif($value['pin'] == 0)
-            {
+            } elseif ($value[0]['pin'] == 0) {
                 $key1 = "notes";
-
-                $num = $this->client->hset($key1, $uid, json_encode($value));
+                $num = $this->client->hdel($key1, $id);
+                $num = $this->client->hset($key1, $id, json_encode($value[0]));
             }
 
             $result = array(
@@ -157,9 +156,21 @@ class DashboardService extends CI_Controller
 
                 $res = $stmt->execute();
 
+                $query = "INSERT into labelNoteMap (noteId, labelId) values (LAST_INSERT_ID(), '$notelabelid')";
+
+                $statement = $this->db->conn_id->prepare($query);
+
+                $res = $statement->execute();
+
                 if ($res) {
 
-                    $query = "SELECT * from userNotes where id = LAST_INSERT_ID()";
+                    $query = "UPDATE userNotes set indexId = LAST_INSERT_ID() where id = LAST_INSERT_ID()";
+
+                    $statement = $this->db->conn_id->prepare($query);
+
+                    $res = $statement->execute();
+
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where archive = 0 and deleteNote = 0 and pin = 0 and n.id = LAST_INSERT_ID()";
 
                     $statement = $this->db->conn_id->prepare($query);
 
@@ -167,27 +178,17 @@ class DashboardService extends CI_Controller
 
                     $value = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-                    if($pin == 0)
-                    {
+                    if ($pin == 0) {
                         $key1 = "notes";
-                        
 
-                        $this->client->hset($key1, $value['id'] , json_encode($value));                    
-                    }
-                    elseif($pin == 1)
-                    {
+                        $this->client->hset($key1, $value['id'], json_encode($value));
+                    } elseif ($pin == 1) {
                         $key1 = "pinned";
 
-                        $this->client->hset($key1, $value['id'] , json_encode($value)); 
+                        $this->client->hset($key1, $value['id'], json_encode($value));
                     }
 
 
-                    $query = "INSERT into labelNoteMap (noteId, labelId) values (LAST_INSERT_ID(), '$notelabelid')";
-
-                    $statement = $this->db->conn_id->prepare($query);
-
-                    $res = $statement->execute();
 
                     if ($res) {
 
@@ -234,7 +235,6 @@ class DashboardService extends CI_Controller
 
         $sekretkey = "chandu";
 
-
         $token = $this->client->get('token');
 
         $array = array(
@@ -253,20 +253,16 @@ class DashboardService extends CI_Controller
                 $stop = -1;
                 $key = "notes";
 
-
                 $value = $this->client->hvals($key);
                 // $value = $this->client->LRANGE($key, $start, $stop);
                 if ($value == null) {
 
-                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.id DESC";
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 ORDER BY n.indexId DESC";
 
                     $statement = $this->connect->prepare($query);
 
                     if ($statement->execute()) {
                         $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-
-
 
                         foreach ($arr as $rads) {
                             //  $value = $arr[$i];
@@ -298,12 +294,14 @@ class DashboardService extends CI_Controller
                     }
 
                 } else {
+
                     $str = [];
                     $var;
                     foreach ($value as $rads) {
                         $var = json_decode($rads);
                         array_push($str, $var);
                     }
+
                     // $this->client = ConnectingToRedis::redisConnection();
 
                     // $key1 = "notes";
@@ -358,7 +356,7 @@ class DashboardService extends CI_Controller
 
                 if ($value == null) {
 
-                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 and n.dateAndTime !='undefined' ORDER BY n.id DESC";
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 0 and n.dateAndTime !='undefined' ORDER BY n.id DESC";
 
                     $statement = $this->connect->prepare($query);
 
@@ -386,7 +384,6 @@ class DashboardService extends CI_Controller
                         array_push($str, $var);
                     }
 
-
                     print json_encode($str);
                 }
 
@@ -411,7 +408,6 @@ class DashboardService extends CI_Controller
 
         $sekretkey = "chandu";
 
-
         $token = $this->client->get('token');
 
         $array = array(
@@ -433,11 +429,13 @@ class DashboardService extends CI_Controller
 
                 if ($res) {
 
-                    $key1 ="notes";
-                    $key2 ="reminder";
+                    $key1 = "notes";
+                    $key2 = "reminder";
+                   
                     $var = $this->client->hdel($key1, $id);
                     $var = $this->client->hdel($key2, $id);
-
+                    $key2 = "trash";
+                    $var = $this->client->hdel($key2, $id);
                     $result = array(
                         "message" => "200",
                     );
@@ -544,7 +542,6 @@ class DashboardService extends CI_Controller
 
         $sekretkey = "chandu";
 
-
         $token = $this->client->get('token');
 
         $array = array(
@@ -644,13 +641,11 @@ class DashboardService extends CI_Controller
         }
     }
 
-
     public function getAllPinnedNotesService($email)
     {
         $time = "";
 
         $sekretkey = "chandu";
-
 
         $token = $this->client->get('token');
 
@@ -666,15 +661,13 @@ class DashboardService extends CI_Controller
             $jwt = new JWT();
             if ($jwt->verifyc($token, $sekretkey)) {
 
-
                 $key = "pinned";
-
 
                 $value = $this->client->hvals($key);
 
                 if ($value == null) {
 
-                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.id DESC";
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$userId'  and archive = 0 and deleteNote = 0 and pin = 1 ORDER BY n.indexId DESC";
 
                     $statement = $this->db->conn_id->prepare($query);
 
@@ -707,7 +700,6 @@ class DashboardService extends CI_Controller
                         $var = json_decode($rads);
                         array_push($str, $var);
                     }
-
 
                     print json_encode($str);
                 }
@@ -751,7 +743,6 @@ class DashboardService extends CI_Controller
 
                 $key = "reminderPinned";
 
-
                 $value = $this->client->hvals($key);
 
                 if ($value == null) {
@@ -790,7 +781,6 @@ class DashboardService extends CI_Controller
                         array_push($str, $var);
                     }
 
-
                     print json_encode($str);
                 }
             } else {
@@ -809,4 +799,89 @@ class DashboardService extends CI_Controller
 
         }
     }
+    public function dragDropService($diff, $currId, $direction, $email, $val)
+    {
+        $time = "";
+
+        $sekretkey = "chandu";
+
+        $token = $this->client->get('token');
+
+        $array = array(
+            'HS256',
+        );
+        $payload = JWT::decode($token, $sekretkey, $array);
+
+        $userId = $payload->userId;
+
+        $j = 14;
+
+        $count = $diff;
+        for ($i = 0; $i < $diff; $i++) {
+
+            if ($direction == "negative") {
+                /**
+                 * @var string $query has query to select the next max note id of the notes
+                 */
+                $query = "SELECT MAX(indexId) indexId FROM userNotes where indexId < '$currId' and userId='$userId'";
+
+            } else {
+                /**
+                 * @var string $query has query to select the next min note id of the notes
+                 */
+                $query = "SELECT MIN(indexId) indexId FROM userNotes where indexId > '$currId' and userId='$userId'";
+
+            }
+            $statement = $this->db->conn_id->prepare($query);
+
+            $res = $statement->execute();
+
+            $swapId = $statement->fetch(PDO::FETCH_ASSOC);
+            /**
+             * @var swapId to store the next id
+             */
+            $swapId = $swapId['indexId'];
+            /**
+             * @var string $query has query to swap the tow rows
+             */
+            $query = "UPDATE userNotes a INNER JOIN userNotes b on a.indexId <> b.indexId set a.indexId = b.indexId
+
+                WHERE a.indexId in ('$swapId','$currId') and b.indexId in ('$swapId','$currId')";
+
+            $statement = $this->connect->prepare($query);
+
+            $temp = $statement->execute();
+
+            /**
+             * storing in the next id
+             */
+            $currId = $swapId;
+            $count--;
+        }
+        if ($count == 0) {
+
+            if ($val == 1) {
+
+                $key2 = "pinned";
+
+                $var = $this->client->del($key2);
+
+            } elseif ($val == 0) {
+
+                $key1 = "notes";
+
+                $var = $this->client->del($key1);
+            }
+
+        }
+
+        $data = array(
+            "error" => "404",
+        );
+        /**
+         * returns json array response
+         */
+        print json_encode($data);
+    }
+
 }

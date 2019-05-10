@@ -94,7 +94,7 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.id ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
@@ -106,12 +106,12 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "pinned";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                 } elseif ($value['pin'] == 0) {
                     $key1 = "notes";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
                 }
 
             } else {
@@ -137,7 +137,7 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
@@ -147,7 +147,7 @@ class MoreOptionsSevice extends CI_Controller
 
                 $key1 = "archieve";
 
-                $num = $this->client->hset($key1, $id, json_encode($value));
+                $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                 if ($value['pin'] == 1) {
 
@@ -192,7 +192,7 @@ class MoreOptionsSevice extends CI_Controller
 
                 if ($res) {
 
-                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                    $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
                     $statement = $this->db->conn_id->prepare($query);
 
@@ -202,7 +202,7 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "trash";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                     if ($value['pin'] == 1) {
 
@@ -240,7 +240,7 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
@@ -252,12 +252,12 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "pinned";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                 } elseif ($value['pin'] == 0) {
                     $key1 = "notes";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
                 }
 
             } else {
@@ -282,7 +282,7 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
@@ -294,12 +294,12 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "pinned";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                 } elseif ($value['pin'] == 0) {
                     $key1 = "notes";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
                 }
 
             } else {
@@ -324,25 +324,27 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote,n.index from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.id ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
                 $res = $statement->execute();
 
                 $value = $statement->fetchAll(PDO::FETCH_ASSOC);
+                
+                    if ($value['pin'] == 1) {
 
-                if ($value['pin'] == 1) {
+                        $key1 = "pinned";
 
-                    $key1 = "pinned";
+                        $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    } elseif ($value['pin'] == 0) {
+                        $key1 = "notes";
 
-                } elseif ($value['pin'] == 0) {
-                    $key1 = "notes";
+                        $num = $this->client->hset($key1, $id, json_encode($value[0]));
+                    }
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
-                }
+                
 
             } else {
 
@@ -366,7 +368,7 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
@@ -378,7 +380,7 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "pinned";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                     $key1 = "notes";
 
@@ -392,7 +394,7 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "notes";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
                 }
 
             } else {
@@ -418,7 +420,7 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
@@ -430,12 +432,12 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "pinned";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                 } elseif ($value['pin'] == 0) {
                     $key1 = "notes";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
                 }
 
             } else {
@@ -460,7 +462,7 @@ class MoreOptionsSevice extends CI_Controller
 
             if ($res) {
 
-                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
+                $query = "SELECT n.title, n.id, n.takeANote, n.dateAndTime, n.color,n.image,l.labelname,ln.labelId,n.indexId,n.pin,n.archive,n.deleteNote from userNotes n Left JOIN labelNoteMap ln ON ln.noteId=n.id left JOIN doc_label l on ln.labelId=l.id where n.userId ='$id'";
 
                 $statement = $this->db->conn_id->prepare($query);
 
@@ -472,13 +474,21 @@ class MoreOptionsSevice extends CI_Controller
 
                     $key1 = "pinned";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
 
                 } elseif ($value['pin'] == 0) {
+
                     $key1 = "notes";
 
-                    $num = $this->client->hset($key1, $id, json_encode($value));
+                    $num = $this->client->hset($key1, $id, json_encode($value[0]));
                 }
+
+                $result = array(
+
+                    "message" => "204",
+
+                );
+                print json_encode($result);
 
             } else {
 
@@ -492,17 +502,6 @@ class MoreOptionsSevice extends CI_Controller
                 return "204";
 
             }
-        }
-        $query = "SELECT * FROM userNotes where userId = '$userId' and id = '$id'";
-
-        $statement = $this->connect->prepare($query);
-
-        if ($statement->execute()) {
-
-            $arr = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-            print json_encode($arr);
-
         }
 
     }

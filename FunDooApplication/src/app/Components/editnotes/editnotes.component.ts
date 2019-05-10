@@ -44,7 +44,7 @@ export class EditnotesComponent implements OnInit {
 
     this.dateAndTime = this.data.notesdata.dateAndTime;
   }
-  public dateAndTime: any;
+ dateAndTime: any;
 
   ngOnInit() {
     this.timer = false;
@@ -54,7 +54,7 @@ export class EditnotesComponent implements OnInit {
       this.isDate = false;
     }
   }
-  timeChooser( id, str) {
+  timeChooser( str) {
     debugger;
     var chooser = moment(this.dateChooser.value).format("DD/MM/YYYY");
         if (str == "Morning") {
@@ -77,7 +77,9 @@ export class EditnotesComponent implements OnInit {
         this.timer = true;
         this.isDate=false;
         var flag = "reminderValue";
+        var id = this.id
         this.notestools(id, this.dateAndTime, flag);
+
 
       }
       imageid
@@ -165,10 +167,10 @@ export class EditnotesComponent implements OnInit {
 
     obs.subscribe((res: any) => {
       if (res.message == "200") {
-        this.dialogRef.close();
+        
       }
     });
-
+    this.dialogRef.close();
   }
 
   notestools(id, colorid, flag) {

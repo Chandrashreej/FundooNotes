@@ -18,6 +18,8 @@ export class TrashService {
   }
 
   untrash(id,flag){
+    debugger
+
     let unTrs = new FormData();
     unTrs.append("uid",id);
     unTrs.append("flag",flag);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarVerticalPosition, MatSnackBarHorizontalPosition } from '@angular/material';
 import { ListService } from 'src/app/Services/list.service';
 import { TrashService } from 'src/app/Services/trash.service';
 import { NotesModel } from 'src/app/Models/Notes.model';
@@ -44,23 +44,27 @@ export class TrashComponent implements OnInit {
 
     this.fetchTrash();
   }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
-emptytrash;
+  actionButtonLabel: string = 'Undo';
+  action: boolean = true;
+  setAutoHide: boolean = true;
+  autoHide: number = 2000;
+  addExtraClass: boolean = true;
+  emptytrash;
+
   fetchTrash() {
-    debugger;
+
+
+
     const email = localStorage.getItem('email');
 
     let archiveobs = this.trashserv.fetchTrash(email);
     archiveobs.subscribe((res: any) => {
       debugger;
       this.notes = res;
-      if(res == 0)
-      {
+      if (res == 0) {
         this.emptytrash = true;
       }
     })
@@ -68,7 +72,17 @@ emptytrash;
 
 
   unTrash(id, flag) {
-    debugger
+
+
+
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
+
+
+    this.snackBar.open('note binned', this.action ? this.actionButtonLabel : undefined, config);
+
 
     let archive = this.trashserv.untrash(id, flag);
     archive.subscribe((res: any) => {

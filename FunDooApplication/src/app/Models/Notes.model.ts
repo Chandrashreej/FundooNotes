@@ -10,4 +10,7 @@ export class NotesModel {
     image;
     pinned;
     notelabelid;
+    labelname;
+    labelId;
+    indexId;
 }

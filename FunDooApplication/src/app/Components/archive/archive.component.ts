@@ -3,7 +3,7 @@ import { ArchiveService } from 'src/app/Services/archive.service';
 import { NotesModel } from 'src/app/Models/Notes.model';
 import * as jwt_decode from "jwt-decode";
 import { ListService } from 'src/app/Services/list.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBarConfig } from '@angular/material';
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
@@ -52,11 +52,11 @@ export class ArchiveComponent implements OnInit {
 		// }, 1000);
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
+  // openSnackBar(message: string, action: string) {
+  //   this.snackBar.open(message, action, {
+  //     duration: 2000,
+  //   });
+  // }
   
   fetchArchive(){
     debugger;
@@ -68,16 +68,33 @@ export class ArchiveComponent implements OnInit {
     }) 
   } 
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
+  actionButtonLabel: string = 'Undo';
+  action: boolean = true;
+  setAutoHide: boolean = true;
+  autoHide: number = 2000;
+  addExtraClass: boolean = true;
   unarchive(id,flag){
     debugger
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
+    config.panelClass = ["font-family:'Open Sans', sans-serif;font-color: green;"];
+
+    this.snackBar.open('note binned', this.action ? this.actionButtonLabel: undefined, config);
+    debugger;
+
+
 
     let archive = this.archserv.unarchived(id,flag);
     archive.subscribe((res:any)=>{
 
     });
 
-
+this.fetchArchive();
   }
 
 }

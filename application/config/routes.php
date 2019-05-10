@@ -76,7 +76,7 @@ $route['coloringBackgroundForReminder']= 'MoreOptions/coloringBackgroundForRemin
 $route['dragNDrop']= 'MoreOptions/dragNDrop';
 
 
-
+$route['dragAndDropData'] ='DashBoard/dragAndDropData';
 
 $route['unarchive'] ='Archive/unarchive';
 $route['fetcharchive'] ='Archive/fetcharchive';

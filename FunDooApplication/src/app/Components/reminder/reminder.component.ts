@@ -166,7 +166,8 @@ export class ReminderComponent implements OnInit {
       this.imageBoolForMainCrd = true;
       this.mainimage = "data:image/jpeg;base64," + this.base64textString;
     }
-
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
 
@@ -228,7 +229,8 @@ export class ReminderComponent implements OnInit {
       this.notestools(id, this.dateAndTime, flag);
 
     }
-
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
   duplicate
@@ -284,7 +286,8 @@ export class ReminderComponent implements OnInit {
       this.notestools(id, this.dateAndTime, flag);
 
     }
-
+    this.notesDisplaying();
+    this.fetchPinned();
   }
   tomorrow(id) {
 
@@ -305,6 +308,9 @@ export class ReminderComponent implements OnInit {
       this.notestools(id, this.dateAndTime, flag);
 
     }
+
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
 
@@ -325,7 +331,8 @@ export class ReminderComponent implements OnInit {
       this.notestools(id, this.dateAndTime, flag);
 
     }
-
+    this.notesDisplaying();
+    this.fetchPinned();
   }
   closedate() {
 
@@ -382,7 +389,8 @@ export class ReminderComponent implements OnInit {
       // this.notesDisplaying();
 
     });
-
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
   reverseFlag() {
@@ -408,6 +416,8 @@ export class ReminderComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
 
@@ -429,6 +439,8 @@ export class ReminderComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
   addlabelforNotes(id, labelId) {
 
@@ -446,6 +458,8 @@ export class ReminderComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
   pinnednotes: boolean = false;
@@ -500,6 +514,8 @@ export class ReminderComponent implements OnInit {
       }
 
     });
+    this.notesDisplaying();
+    this.fetchPinned();
   }
 
   openDialog(n): void {
@@ -564,6 +580,7 @@ export class ReminderComponent implements OnInit {
         if (res.message == "200") {
 
           this.notesDisplaying();
+          this.fetchPinned();
 
           this.flag = true;
           this.title.setValue("");

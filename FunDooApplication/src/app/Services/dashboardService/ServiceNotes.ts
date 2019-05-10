@@ -114,6 +114,17 @@ export class DashboardService {
     return this.http.post((this.sevriceurl.host + this.sevriceurl.moreoptions), id);
 
   }
+  dragAndDrop(diff, currId, direction, email,val) {
+    debugger;
+		let dragAndDropData = new FormData();
+		dragAndDropData.append("diff", diff);
+		dragAndDropData.append("currId", currId);
+		dragAndDropData.append("direction", direction);
+    dragAndDropData.append("email", email);
+    dragAndDropData.append("val",val);
+		return this.http.post((this.sevriceurl.host + this.sevriceurl.dragAndDropData),	dragAndDropData
+		);
+	}
 
 
   labeledNotes(note: NotesModel, currentDateAndTime, labelname) {
